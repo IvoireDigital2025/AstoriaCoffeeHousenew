@@ -274,7 +274,7 @@ export default function LoyaltyDashboard({ isOpen, onClose }: LoyaltyDashboardPr
                 <Button
                   onClick={handleSignup}
                   disabled={signupMutation.isPending}
-                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
+                  className="w-full bg-coffee-accent hover:bg-orange-600 text-white"
                 >
                   <Star className="w-4 h-4 mr-2" />
                   {signupMutation.isPending ? "Creating account..." : "Join Loyalty Program"}
