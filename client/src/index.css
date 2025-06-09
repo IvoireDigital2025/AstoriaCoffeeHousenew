@@ -24,13 +24,16 @@
   --ring: hsl(25, 42%, 11%);
   --radius: 0.5rem;
   
-  /* Coffee shop specific colors */
+  /* Coffee shop specific colors with Middle Eastern/North African influence */
   --coffee-primary: hsl(25, 62%, 27%);
   --coffee-secondary: hsl(48, 38%, 82%);
   --coffee-accent: hsl(25, 95%, 62%);
   --coffee-cream: hsl(48, 38%, 97%);
   --coffee-dark: hsl(25, 42%, 11%);
   --coffee-medium: hsl(25, 52%, 35%);
+  --coffee-gold: hsl(45, 85%, 55%);
+  --coffee-terracotta: hsl(15, 75%, 45%);
+  --coffee-sage: hsl(120, 25%, 55%);
 }
 
 .dark {

@@ -25,7 +25,7 @@ export default function Home() {
             Welcome to<br />Coffee Pro
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            Exceptional coffee crafted with precision and passion for over 32 years.
+            Authentic Moroccan and Saudi Arabian coffee traditions meet NYC energy - 32+ years of cultural heritage in every cup.
           </p>
           <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
             <MapPin className="w-5 h-5 mr-2" />
@@ -59,10 +59,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-              32+ Years of Coffee Excellence
+              Heritage Meets Innovation
             </h2>
             <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
-              From our headquarters in Astoria to locations across NYC, we've been perfecting the art of coffee with precision and passion since day one
+              Bringing authentic Moroccan and Saudi Arabian coffee traditions to New York City - where ancient hospitality meets modern excellence
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -80,10 +80,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Premium Quality Beans
+                  Arabian Heritage Blends
                 </h3>
                 <p className="text-coffee-medium">
-                  Hand-selected premium beans from the world's finest coffee regions. Each batch carefully roasted to bring out the perfect flavor profile.
+                  Traditional Arabic coffee beans and Moroccan spice blends, sourced from the highlands of Yemen and Morocco's Atlas Mountains.
                 </p>
               </CardContent>
             </Card>
@@ -102,10 +102,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Precision & Passion
+                  Traditional Hospitality
                 </h3>
                 <p className="text-coffee-medium">
-                  Each beverage crafted with meticulous attention to detail. Our AI assistant is here to help you discover your perfect cup.
+                  Honoring the generous hospitality traditions of Morocco and Saudi Arabia, where coffee is a sacred ritual of welcome and community.
                 </p>
               </CardContent>
             </Card>
@@ -124,10 +124,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  NYC Community Focus
+                  Cultural Bridge
                 </h3>
                 <p className="text-coffee-medium">
-                  Building lasting relationships across New York City. Join our loyalty program and become part of the Coffee Pro family.
+                  Connecting NYC's diverse communities through the universal language of coffee, celebrating both Middle Eastern heritage and American innovation.
                 </p>
               </CardContent>
             </Card>

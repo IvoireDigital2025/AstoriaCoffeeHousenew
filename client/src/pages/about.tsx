@@ -53,13 +53,13 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                We have more than 32 years of experience in the coffee industry. Our journey began with a passion for creating the perfect cup of coffee, and today we continue to serve exceptional beverages crafted with precision and dedication to quality.
+                We have more than 32 years of experience in the coffee industry, rooted in the rich coffee traditions of Morocco and Saudi Arabia. Our journey began with a passion for creating the perfect cup, blending ancient Middle Eastern and North African coffee heritage with modern NYC energy.
               </p>
               <p>
-                At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
+                At Coffee Pro, we honor the time-honored coffee rituals of the Arabian Peninsula and the Atlas Mountains, bringing authentic flavors and hospitality traditions to New York City. From traditional Arabic coffee preparations to Moroccan-inspired spice blends, our menu celebrates this rich cultural heritage.
               </p>
               <p>
-                Our commitment to excellence extends beyond just great coffee. We believe in building lasting relationships with our customers and creating spaces where communities can gather, connect, and enjoy the finest coffee experience.
+                Our commitment extends beyond exceptional coffee to creating gathering spaces that reflect the warmth and community spirit central to both Moroccan and Saudi Arabian cultures. Every cup we serve carries the essence of these ancient coffee traditions.
               </p>
             </div>
 
