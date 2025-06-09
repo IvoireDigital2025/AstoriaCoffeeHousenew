@@ -80,10 +80,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Three Decades of Expertise
+                  Premium Quality Beans
                 </h3>
                 <p className="text-coffee-medium">
-                  Over 32 years perfecting our craft, from bean selection to the perfect brew. Every cup reflects our commitment to excellence.
+                  Hand-selected premium beans from the world's finest coffee regions. Each batch carefully roasted to bring out the perfect flavor profile.
                 </p>
               </CardContent>
             </Card>
