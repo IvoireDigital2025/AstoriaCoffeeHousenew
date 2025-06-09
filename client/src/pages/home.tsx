@@ -14,40 +14,52 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-[10s] ease-out"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&h=1380')"
           }}
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40" />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            Welcome to<br />Coffee Pro
-          </h1>
-          <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
-          </p>
-          <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
-            <MapPin className="w-5 h-5 mr-2" />
-            <span>23-33 Astoria Blvd, Astoria, NY 11102</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/50" />
+        <div className="absolute inset-0 bg-coffee-dark/20" />
+        
+        <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4">
+          <div className="mb-8">
+            <div className="inline-block bg-gradient-to-r from-coffee-accent/20 to-orange-500/20 backdrop-blur-md border border-coffee-accent/40 rounded-full px-8 py-3 mb-6">
+              <span className="text-coffee-accent font-semibold text-lg tracking-wider uppercase">Est. 1992 • 32+ Years of Excellence</span>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          <h1 className="text-7xl md:text-9xl font-playfair font-bold mb-10 leading-tight tracking-tight">
+            Coffee <span className="text-transparent bg-gradient-to-r from-coffee-accent to-orange-500 bg-clip-text">Pro</span>
+          </h1>
+          
+          <p className="text-2xl md:text-3xl mb-8 text-gray-200 font-light leading-relaxed max-w-4xl mx-auto">
+            Crafting exceptional coffee experiences with precision and passion for over three decades
+          </p>
+          
+          <div className="flex items-center justify-center mb-10 text-xl text-gray-300 bg-black/30 backdrop-blur-sm rounded-full px-6 py-3 inline-flex">
+            <MapPin className="w-6 h-6 mr-3 text-coffee-accent" />
+            <span className="font-medium">23-33 Astoria Blvd, Astoria, NY 11102</span>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link href="/menu">
               <Button 
                 size="lg"
-                className="bg-coffee-accent text-white hover:bg-orange-600 px-8 py-4 text-lg font-semibold"
+                className="bg-gradient-to-r from-coffee-accent to-orange-500 text-white hover:from-orange-600 hover:to-orange-700 px-12 py-6 text-xl font-semibold rounded-full shadow-2xl border-2 border-transparent hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
               >
-                <Coffee className="w-5 h-5 mr-2" />
-                View Our Menu
+                <Coffee className="w-6 h-6 mr-3" />
+                Discover Our Menu
               </Button>
             </Link>
             <Link href="/loyalty">
               <Button 
+                variant="outline"
                 size="lg"
-                className="bg-coffee-accent text-white hover:bg-orange-600 px-8 py-4 text-lg font-semibold"
+                className="border-2 border-white/80 text-white hover:bg-white hover:text-coffee-dark px-12 py-6 text-xl font-semibold rounded-full backdrop-blur-md transition-all duration-300 hover:shadow-2xl"
               >
-                <Star className="w-5 h-5 mr-2" />
-                Join Loyalty Program
+                <Star className="w-6 h-6 mr-3" />
+                Join Elite Rewards
               </Button>
             </Link>
           </div>
