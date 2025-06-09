@@ -13,7 +13,9 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.instagram.com/coffeeprocorp/?hl=en" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 aria-label="Instagram"
               >

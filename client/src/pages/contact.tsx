@@ -96,7 +96,7 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/coffeeprocorp/?hl=en", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Twitter, href: "#", label: "Twitter" },
   ];
@@ -158,6 +158,8 @@ export default function Contact() {
                       <a
                         key={index}
                         href={social.href}
+                        target={social.href !== "#" ? "_blank" : undefined}
+                        rel={social.href !== "#" ? "noopener noreferrer" : undefined}
                         aria-label={social.label}
                         className="w-10 h-10 bg-coffee-accent rounded-full flex items-center justify-center text-white hover:bg-orange-600 transition-colors"
                       >
