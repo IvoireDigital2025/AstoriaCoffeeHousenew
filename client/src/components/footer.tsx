@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-playfair font-bold mb-4">Brew & Bean</h3>
+            <h3 className="text-2xl font-playfair font-bold mb-4">Coffee Pro</h3>
             <p className="text-coffee-secondary mb-4">
               Astoria's premier coffee destination, serving exceptional coffee and building community one cup at a time.
             </p>

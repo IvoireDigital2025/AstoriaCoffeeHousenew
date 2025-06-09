@@ -64,7 +64,7 @@ export class MemStorage implements IStorage {
         category: "coffee",
         description: "Rich, bold espresso with notes of chocolate and caramel",
         price: "$3.50",
-        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a",
+        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a" as string,
         available: true
       },
       {
@@ -205,7 +205,12 @@ export class MemStorage implements IStorage {
 
   async createMenuItem(insertItem: InsertMenuItem): Promise<MenuItem> {
     const id = this.currentMenuItemId++;
-    const item: MenuItem = { ...insertItem, id };
+    const item: MenuItem = { 
+      ...insertItem, 
+      id,
+      image: insertItem.image || null,
+      available: insertItem.available ?? true
+    };
     this.menuItems.set(id, item);
     return item;
   }

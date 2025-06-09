@@ -9,7 +9,7 @@ import { Star, Gift, User } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { insertUserSchema, type User } from "@shared/schema";
+import { insertUserSchema, type User as UserType } from "@shared/schema";
 import { z } from "zod";
 
 interface LoyaltyDashboardProps {
@@ -27,7 +27,7 @@ const signupSchema = insertUserSchema.extend({
 
 export default function LoyaltyDashboard({ isOpen, onClose }: LoyaltyDashboardProps) {
   const [isLogin, setIsLogin] = useState(true);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserType | null>(null);
   const [loginEmail, setLoginEmail] = useState("");
   const [signupData, setSignupData] = useState({
     name: "",
@@ -43,7 +43,7 @@ export default function LoyaltyDashboard({ isOpen, onClose }: LoyaltyDashboardPr
       const response = await apiRequest("GET", `/api/users/${encodeURIComponent(email)}`);
       return await response.json();
     },
-    onSuccess: (user: User) => {
+    onSuccess: (user: UserType) => {
       setCurrentUser(user);
       toast({
         title: "Welcome back!",
@@ -68,10 +68,10 @@ export default function LoyaltyDashboard({ isOpen, onClose }: LoyaltyDashboardPr
       });
       return await response.json();
     },
-    onSuccess: (user: User) => {
+    onSuccess: (user: UserType) => {
       setCurrentUser(user);
       toast({
-        title: "Welcome to Brew & Bean!",
+        title: "Welcome to Coffee Pro!",
         description: "Your loyalty account has been created successfully.",
       });
     },
@@ -136,7 +136,7 @@ export default function LoyaltyDashboard({ isOpen, onClose }: LoyaltyDashboardPr
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-playfair text-coffee-primary">
-            {currentUser ? "Your Loyalty Account" : "Bean There Loyalty Program"}
+            {currentUser ? "Your Loyalty Account" : "Coffee Pro Loyalty Program"}
           </DialogTitle>
         </DialogHeader>
 
