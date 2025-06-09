@@ -56,6 +56,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
+                  href="/locations" 
+                  className="text-coffee-secondary hover:text-coffee-accent transition-colors"
+                >
+                  Locations
+                </Link>
+              </li>
+              <li>
+                <Link 
                   href="/loyalty" 
                   className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 >
@@ -73,12 +81,12 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+            <h4 className="text-lg font-semibold mb-4">Corporate Info</h4>
             <div className="space-y-2 text-coffee-secondary">
-              <p>123 Broadway Avenue</p>
-              <p>Astoria, NY 11106</p>
-              <p>(718) 555-BREW</p>
-              <p>hello@coffeepro.com</p>
+              <p>Coffee Pro Corporation</p>
+              <p>Multiple NYC Locations</p>
+              <p>(212) 555-BREW</p>
+              <p>corporate@coffeepro.com</p>
             </div>
           </div>
         </div>

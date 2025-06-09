@@ -72,26 +72,26 @@ export default function Contact() {
   const contactInfo = [
     {
       icon: MapPin,
-      title: "Location",
-      details: ["123 Broadway Avenue", "Astoria, NY 11106"],
+      title: "Corporate Office",
+      details: ["Coffee Pro Corporation", "New York City"],
     },
     {
       icon: Clock,
-      title: "Hours",
+      title: "Customer Service",
       details: [
-        "Monday - Friday: 6:00 AM - 8:00 PM",
-        "Saturday - Sunday: 7:00 AM - 9:00 PM",
+        "Monday - Friday: 8:00 AM - 6:00 PM",
+        "Saturday - Sunday: 9:00 AM - 5:00 PM",
       ],
     },
     {
       icon: Phone,
       title: "Phone",
-      details: ["(718) 555-BREW", "Call for orders or inquiries"],
+      details: ["(212) 555-BREW", "Corporate & Customer Service"],
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["hello@coffeepro.com", "Email us anytime"],
+      details: ["corporate@coffeepro.com", "General inquiries & partnerships"],
     },
   ];
 
@@ -106,10 +106,10 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-            Visit Us Today
+            Contact Coffee Pro
           </h1>
           <p className="text-xl text-coffee-medium">
-            Find us in the heart of Astoria, Queens
+            Get in touch with our corporate team or visit any of our NYC locations
           </p>
         </div>
 
@@ -119,7 +119,7 @@ export default function Contact() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-6">
-                  Location & Hours
+                  Corporate Information
                 </h3>
                 <div className="space-y-6">
                   {contactInfo.map((info, index) => {
@@ -262,19 +262,22 @@ export default function Contact() {
             <Card className="h-96 overflow-hidden border-none shadow-lg">
               <CardContent className="p-0 h-full">
                 <img
-                  src="https://images.unsplash.com/photo-1600298881974-6be191ceeda1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-                  alt="Astoria neighborhood map view"
+                  src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+                  alt="Coffee Pro locations across NYC"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-                  <div className="bg-white rounded-lg p-4 shadow-lg text-center">
+                <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                  <div className="bg-white rounded-lg p-6 shadow-lg text-center">
                     <MapPin className="w-8 h-8 text-coffee-accent mx-auto mb-2" />
-                    <p className="text-coffee-dark font-semibold">
-                      123 Broadway Avenue
+                    <p className="text-coffee-dark font-semibold text-lg">
+                      12+ Locations
                     </p>
                     <p className="text-coffee-medium text-sm">
-                      Astoria, NY 11106
+                      Across New York City
                     </p>
+                    <a href="/locations" className="text-coffee-accent text-sm font-medium hover:underline block mt-2">
+                      View All Locations →
+                    </a>
                   </div>
                 </div>
               </CardContent>

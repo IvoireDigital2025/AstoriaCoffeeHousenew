@@ -14,6 +14,7 @@ export default function Navigation() {
     { path: "/", label: "Home" },
     { path: "/menu", label: "Menu" },
     { path: "/about", label: "About" },
+    { path: "/locations", label: "Locations" },
     { path: "/loyalty", label: "Loyalty" },
     { path: "/contact", label: "Contact" },
   ];
