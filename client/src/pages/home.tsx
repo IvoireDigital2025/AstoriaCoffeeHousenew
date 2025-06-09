@@ -69,8 +69,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-orange-600 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Premium coffee beans being roasted"
+                  src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Traditional Arabic coffee beans and cardamom spices"
                   className="w-full h-full object-cover mix-blend-overlay"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
@@ -91,8 +91,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Professional barista crafting coffee with precision"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Traditional Moroccan tea ceremony with hospitality"
                   className="w-full h-full object-cover mix-blend-overlay"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
@@ -113,8 +113,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="New York City coffee shop community gathering"
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Diverse NYC community enjoying coffee together"
                   className="w-full h-full object-cover mix-blend-overlay"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
