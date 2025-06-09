@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
+import additionalImage from "@assets/338b525f-7666-44a3-beae-b78b71fa427d_1749454633453.avif";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -51,6 +52,44 @@ export default function Home() {
                 Join Loyalty Program
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Heritage Showcase Section */}
+      <section className="py-16 bg-coffee-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-6">
+                Authentic Coffee Heritage
+              </h2>
+              <p className="text-xl text-coffee-medium mb-6">
+                Experience the rich traditions of Moroccan and Saudi Arabian coffee culture, 
+                brought to life in the heart of New York City. Every cup tells a story of 
+                generations-old brewing techniques and warm hospitality.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/menu">
+                  <Button className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3">
+                    Explore Our Heritage Menu
+                  </Button>
+                </Link>
+                <Link href="/about">
+                  <Button variant="outline" className="border-coffee-primary text-coffee-primary hover:bg-coffee-primary hover:text-white px-8 py-3">
+                    Learn Our Story
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src={additionalImage} 
+                alt="Coffee Pro heritage and atmosphere"
+                className="w-full h-80 object-cover rounded-lg shadow-xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
+            </div>
           </div>
         </div>
       </section>
