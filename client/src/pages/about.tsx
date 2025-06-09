@@ -3,9 +3,9 @@ import { Badge } from "@/components/ui/badge";
 
 export default function About() {
   const stats = [
-    { number: "5+", label: "Years Serving" },
-    { number: "10K+", label: "Happy Customers" },
-    { number: "15+", label: "Coffee Varieties" },
+    { number: "12+", label: "Locations" },
+    { number: "50K+", label: "Happy Customers" },
+    { number: "25+", label: "Coffee Varieties" },
   ];
 
   const images = [
@@ -41,7 +41,7 @@ export default function About() {
             About Coffee Pro
           </h1>
           <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
-            Your neighborhood coffee destination in the heart of Astoria, Queens
+            New York's premier coffee corporation with locations across the city
           </p>
         </div>
 
@@ -53,13 +53,13 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                Located in the heart of Astoria, Queens, Coffee Pro has been serving the community's finest coffee since 2018. Our passion for exceptional coffee drives everything we do, from sourcing the highest quality beans to perfecting every cup we serve.
+                Founded in 2018, Coffee Pro has grown from a single location in Astoria, Queens to become New York's premier coffee corporation. With multiple locations across the city, we bring exceptional coffee and community to neighborhoods throughout New York.
               </p>
               <p>
-                We believe that great coffee brings people together. Our welcoming atmosphere, combined with our commitment to quality and community, makes us more than just a coffee shop – we're your neighborhood gathering place.
+                We believe that great coffee brings people together. Our commitment to consistency, quality, and community makes each Coffee Pro location more than just a coffee shop – we're gathering places that connect communities across the city.
               </p>
               <p>
-                Every morning, our skilled baristas carefully craft each drink using beans sourced directly from sustainable farms around the world. We roast in small batches to ensure the freshest, most flavorful experience in every cup.
+                At every Coffee Pro location, our skilled baristas craft each drink using beans sourced directly from sustainable farms worldwide. We maintain our signature roasting standards across all locations to ensure the same exceptional experience wherever you visit.
               </p>
             </div>
 
@@ -120,7 +120,7 @@ export default function About() {
                   Community
                 </h3>
                 <p className="text-coffee-medium">
-                  We're committed to being a positive force in the Astoria community and supporting local initiatives.
+                  We're committed to being a positive force in every community we serve across New York City.
                 </p>
               </CardContent>
             </Card>

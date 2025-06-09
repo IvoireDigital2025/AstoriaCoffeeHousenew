@@ -22,10 +22,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            Premium Coffee<br />in the Heart of Astoria
+            Premium Coffee<br />Across New York
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            Experience the perfect blend of tradition and innovation at Queens' finest coffee destination
+            Experience exceptional coffee at Coffee Pro locations throughout the city - from Queens to Manhattan and beyond
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/menu">
@@ -59,7 +59,7 @@ export default function Home() {
               Why Choose Coffee Pro?
             </h2>
             <p className="text-xl text-coffee-medium">
-              Discover what makes us Astoria's favorite coffee destination
+              Discover what makes us New York's premier coffee corporation
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -112,10 +112,10 @@ export default function Home() {
       <section className="py-20 bg-coffee-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-playfair font-bold mb-6">
-            Ready to Experience the Best Coffee in Astoria?
+            Ready to Experience Premium Coffee Citywide?
           </h2>
           <p className="text-xl mb-8 text-coffee-cream">
-            Visit us today and discover your new favorite coffee destination
+            Visit any of our Coffee Pro locations and discover your new favorite coffee destination
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">

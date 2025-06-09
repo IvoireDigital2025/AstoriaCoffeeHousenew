@@ -9,6 +9,7 @@ import Chatbot from "@/components/chatbot";
 import Home from "@/pages/home";
 import Menu from "@/pages/menu";
 import About from "@/pages/about";
+import Locations from "@/pages/locations";
 import Contact from "@/pages/contact";
 import Loyalty from "@/pages/loyalty";
 import NotFound from "@/pages/not-found";
@@ -22,6 +23,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/menu" component={Menu} />
           <Route path="/about" component={About} />
+          <Route path="/locations" component={Locations} />
           <Route path="/contact" component={Contact} />
           <Route path="/loyalty" component={Loyalty} />
           <Route component={NotFound} />
