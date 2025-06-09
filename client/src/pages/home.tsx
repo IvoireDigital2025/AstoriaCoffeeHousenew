@@ -83,7 +83,7 @@ export default function Home() {
                   Arabian Heritage Blends
                 </h3>
                 <p className="text-coffee-medium">
-                  Traditional Arabic coffee beans and Moroccan spice blends, sourced from the highlands of Yemen and Morocco's Atlas Mountains.
+                  Traditional Arabic coffee and Moroccan spiced coffee, sourced from the highlands of Yemen and Morocco's Atlas Mountains.
                 </p>
               </CardContent>
             </Card>
