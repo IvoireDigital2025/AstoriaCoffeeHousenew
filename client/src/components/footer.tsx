@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h3 className="text-2xl font-playfair font-bold mb-4">Coffee Pro</h3>
             <p className="text-coffee-secondary mb-4">
-              With over 32 years of experience in the coffee industry, we specialize in exceptional coffee beverages crafted with precision and passion.
+              Astoria's premier coffee destination, serving exceptional coffee and building community one cup at a time.
             </p>
             <div className="flex space-x-4">
               <a 
