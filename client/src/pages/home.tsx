@@ -59,51 +59,75 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-              Why Choose Coffee Pro?
+              32+ Years of Coffee Excellence
             </h2>
-            <p className="text-xl text-coffee-medium">
-              Discover what makes us New York's premier coffee corporation
+            <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
+              From our headquarters in Astoria to locations across NYC, we've been perfecting the art of coffee with precision and passion since day one
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center p-8 bg-coffee-cream hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-coffee-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="h-48 bg-gradient-to-br from-coffee-accent to-orange-600 relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Premium coffee beans being roasted"
+                  className="w-full h-full object-cover mix-blend-overlay"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20" />
+                <div className="absolute bottom-4 left-4">
                   <Coffee className="text-white w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-4">
-                  Premium Beans
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
+                  Three Decades of Expertise
                 </h3>
                 <p className="text-coffee-medium">
-                  Sourced directly from sustainable farms, roasted in small batches for exceptional flavor
+                  Over 32 years perfecting our craft, from bean selection to the perfect brew. Every cup reflects our commitment to excellence.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center p-8 bg-coffee-cream hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-coffee-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Professional barista crafting coffee with precision"
+                  className="w-full h-full object-cover mix-blend-overlay"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20" />
+                <div className="absolute bottom-4 left-4">
                   <Bot className="text-white w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-4">
-                  AI-Powered Service
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
+                  Precision & Passion
                 </h3>
                 <p className="text-coffee-medium">
-                  Get instant answers to your questions with our intelligent chatbot assistant
+                  Each beverage crafted with meticulous attention to detail. Our AI assistant is here to help you discover your perfect cup.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center p-8 bg-coffee-cream hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-coffee-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="New York City coffee shop community gathering"
+                  className="w-full h-full object-cover mix-blend-overlay"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20" />
+                <div className="absolute bottom-4 left-4">
                   <Star className="text-white w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-4">
-                  Loyalty Rewards
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
+                  NYC Community Focus
                 </h3>
                 <p className="text-coffee-medium">
-                  Earn points with every purchase and unlock exclusive perks and discounts
+                  Building lasting relationships across New York City. Join our loyalty program and become part of the Coffee Pro family.
                 </p>
               </CardContent>
             </Card>
