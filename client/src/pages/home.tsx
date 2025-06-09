@@ -67,7 +67,8 @@ export default function Home() {
               <p className="text-xl text-coffee-medium mb-6">
                 Experience the rich traditions of Moroccan and Saudi Arabian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
-                generations-old brewing techniques and warm hospitality.
+                generations-old brewing techniques and warm hospitality. Complement your coffee 
+                with authentic Middle Eastern treats including Dubai chocolate, halva, Turkish delight, and more.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">

@@ -123,6 +123,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       - Heritage Blends: Traditional Arabic coffee beans and Moroccan spice blends sourced from Yemen highlands and Atlas Mountains
       - Cultural Bridge: Connecting NYC's diverse communities through coffee, celebrating Middle Eastern heritage and American innovation
       - Sacred Ritual: Coffee as a ritual of welcome and community, honoring ancient hospitality traditions
+      - Authentic Snacks: We offer premium Middle Eastern treats including Dubai chocolate, halva, Turkish delight, kunafa bites, nougat, premium nuts, za'atar crackers, and Arabian dates
       - Typical hours: Monday-Friday 6:00 AM - 8:00 PM, Saturday-Sunday 7:00 AM - 9:00 PM (varies by location)
       - Loyalty program available for customers to register and earn points
       - For specific inquiries, customers can contact us through our website contact form
