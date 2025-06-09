@@ -39,7 +39,7 @@ export default function Loyalty() {
       setNewUser(user);
       setIsSignedUp(true);
       toast({
-        title: "Welcome to Brew & Bean!",
+        title: "Welcome to Coffee Pro!",
         description: "Your loyalty account has been created successfully.",
       });
     },
@@ -121,7 +121,7 @@ export default function Loyalty() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-            Bean There Loyalty Program
+            Coffee Pro Loyalty Program
           </h1>
           <p className="text-xl text-coffee-medium">
             Earn points with every purchase and unlock exclusive rewards

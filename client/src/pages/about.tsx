@@ -38,7 +38,7 @@ export default function About() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-            About Brew & Bean
+            About Coffee Pro
           </h1>
           <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
             Your neighborhood coffee destination in the heart of Astoria, Queens
@@ -53,7 +53,7 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                Located in the heart of Astoria, Queens, Brew & Bean has been serving the community's finest coffee since 2018. Our passion for exceptional coffee drives everything we do, from sourcing the highest quality beans to perfecting every cup we serve.
+                Located in the heart of Astoria, Queens, Coffee Pro has been serving the community's finest coffee since 2018. Our passion for exceptional coffee drives everything we do, from sourcing the highest quality beans to perfecting every cup we serve.
               </p>
               <p>
                 We believe that great coffee brings people together. Our welcoming atmosphere, combined with our commitment to quality and community, makes us more than just a coffee shop – we're your neighborhood gathering place.

@@ -78,13 +78,13 @@ export default function Footer() {
               <p>123 Broadway Avenue</p>
               <p>Astoria, NY 11106</p>
               <p>(718) 555-BREW</p>
-              <p>hello@brewandbean.com</p>
+              <p>hello@coffeepro.com</p>
             </div>
           </div>
         </div>
         <div className="border-t border-coffee-medium mt-8 pt-8 text-center">
           <p className="text-coffee-secondary">
-            &copy; 2024 Brew & Bean. All rights reserved. | Privacy Policy | Terms of Service
+            &copy; 2024 Coffee Pro. All rights reserved. | Privacy Policy | Terms of Service
           </p>
         </div>
       </div>

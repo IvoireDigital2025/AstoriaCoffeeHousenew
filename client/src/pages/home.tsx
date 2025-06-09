@@ -56,7 +56,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-              Why Choose Brew & Bean?
+              Why Choose Coffee Pro?
             </h2>
             <p className="text-xl text-coffee-medium">
               Discover what makes us Astoria's favorite coffee destination

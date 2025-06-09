@@ -111,12 +111,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const chatHistory = await storage.getChatHistory(sessionId);
       
       // Prepare context for OpenAI
-      const systemPrompt = `You are a helpful AI assistant for Brew & Bean, a premium coffee shop in Astoria, NY. 
+      const systemPrompt = `You are a helpful AI assistant for Coffee Pro, a premium coffee shop in Astoria, NY. 
       
-      Key information about Brew & Bean:
+      Key information about Coffee Pro:
       - Location: 123 Broadway Avenue, Astoria, NY 11106
       - Phone: (718) 555-BREW
-      - Email: hello@brewandbean.com
+      - Email: hello@coffeepro.com
       - Hours: Monday-Friday 6:00 AM - 8:00 PM, Saturday-Sunday 7:00 AM - 9:00 PM
       - We serve premium coffee, tea, and food items
       - We have a loyalty program where customers earn 1 point per $1 spent, free drink at 100 points
