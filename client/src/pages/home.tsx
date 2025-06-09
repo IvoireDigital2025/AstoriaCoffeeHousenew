@@ -71,7 +71,7 @@ export default function Home() {
                 <img 
                   src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
                   alt="Traditional Arabic coffee beans and cardamom spices"
-                  className="w-full h-full object-cover mix-blend-overlay"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
                 <div className="absolute bottom-4 left-4">
@@ -93,7 +93,7 @@ export default function Home() {
                 <img 
                   src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
                   alt="Traditional Moroccan tea ceremony with hospitality"
-                  className="w-full h-full object-cover mix-blend-overlay"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
                 <div className="absolute bottom-4 left-4">
@@ -115,7 +115,7 @@ export default function Home() {
                 <img 
                   src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
                   alt="Diverse NYC community enjoying coffee together"
-                  className="w-full h-full object-cover mix-blend-overlay"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
                 <div className="absolute bottom-4 left-4">
