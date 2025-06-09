@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
+import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -69,7 +70,7 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-orange-600 relative">
                 <img 
-                  src="@assets/arabiccoffee_1024x1024@2x_1749454274939.webp" 
+                  src={arabicCoffeeImage} 
                   alt="Traditional Arabic coffee dallah pot with cardamom and saffron spices"
                   className="w-full h-full object-cover"
                 />
