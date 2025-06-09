@@ -15,43 +15,83 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')"
           }}
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40" />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            Welcome to<br />Coffee Pro
-          </h1>
-          <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            Authentic Moroccan and Saudi Arabian coffee traditions meet NYC energy - 32+ years of cultural heritage in every cup.
-          </p>
-          <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
-            <MapPin className="w-5 h-5 mr-2" />
-            <span>23-33 Astoria Blvd, Astoria, NY 11102</span>
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-coffee-dark/50 to-amber-900/40" />
+        
+        {/* Decorative Cultural Elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-coffee-gold rounded-full animate-pulse"></div>
+          <div className="absolute top-32 right-32 w-24 h-24 border border-coffee-gold transform rotate-45 animate-spin" style={{ animationDuration: '20s' }}></div>
+          <div className="absolute bottom-32 left-32 w-16 h-16 bg-coffee-gold rounded-full opacity-40 animate-bounce"></div>
+          <div className="absolute bottom-20 right-20 w-20 h-20 border-2 border-coffee-gold rounded-full"></div>
+        </div>
+        
+        <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+          {/* Heritage Badge */}
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 bg-coffee-accent/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-coffee-gold/40">
+              <Star className="w-5 h-5 text-coffee-gold animate-pulse" />
+              <span className="text-coffee-gold font-semibold tracking-wide">32+ Years of Authentic Heritage</span>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          {/* Main Title */}
+          <h1 className="text-6xl md:text-8xl font-playfair font-bold mb-8 leading-tight">
+            Welcome to<br />
+            <span className="bg-gradient-to-r from-coffee-gold via-yellow-400 to-amber-300 bg-clip-text text-transparent">
+              Coffee Pro
+            </span>
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-xl md:text-2xl mb-10 text-gray-100 max-w-4xl mx-auto leading-relaxed">
+            Where the sacred coffee rituals of <span className="text-coffee-gold font-bold">Morocco</span> and 
+            <span className="text-coffee-gold font-bold"> Saudi Arabia</span> meet the vibrant energy of New York City
+          </p>
+          
+          {/* Location Badge */}
+          <div className="flex items-center justify-center mb-12">
+            <div className="bg-white/15 backdrop-blur-md rounded-full px-8 py-4 border border-white/30 shadow-xl">
+              <MapPin className="w-5 h-5 mr-3 inline text-coffee-gold" />
+              <span className="text-white font-medium text-lg">23-33 Astoria Blvd, Astoria, NY 11102</span>
+            </div>
+          </div>
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
             <Link href="/menu">
               <Button 
                 size="lg"
-                className="bg-coffee-accent text-white hover:bg-orange-600 px-8 py-4 text-lg font-semibold"
+                className="bg-gradient-to-r from-coffee-accent to-orange-600 hover:from-orange-600 hover:to-red-600 text-white font-bold px-12 py-6 text-xl rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-coffee-gold/50"
               >
-                <Coffee className="w-5 h-5 mr-2" />
-                View Our Menu
+                <Coffee className="w-6 h-6 mr-3" />
+                Explore Heritage Menu
               </Button>
             </Link>
             <Link href="/loyalty">
               <Button 
                 size="lg"
-                className="bg-coffee-accent text-white hover:bg-orange-600 px-8 py-4 text-lg font-semibold"
+                className="bg-transparent border-3 border-coffee-gold text-coffee-gold hover:bg-coffee-gold hover:text-coffee-dark font-bold px-12 py-6 text-xl rounded-full transition-all duration-300 backdrop-blur-sm shadow-xl"
               >
-                <Star className="w-5 h-5 mr-2" />
+                <Star className="w-6 h-6 mr-3" />
                 Join Loyalty Program
               </Button>
             </Link>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-coffee-gold rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-coffee-gold rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
