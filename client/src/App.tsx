@@ -12,6 +12,7 @@ import About from "@/pages/about";
 import Locations from "@/pages/locations";
 import Contact from "@/pages/contact";
 import Loyalty from "@/pages/loyalty";
+import MoodSelectorPage from "@/pages/mood-selector";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -26,6 +27,7 @@ function Router() {
           <Route path="/locations" component={Locations} />
           <Route path="/contact" component={Contact} />
           <Route path="/loyalty" component={Loyalty} />
+          <Route path="/mood-selector" component={MoodSelectorPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
