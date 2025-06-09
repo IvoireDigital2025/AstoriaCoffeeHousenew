@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Coffee, Bot, Star, ArrowRight } from "lucide-react";
+import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -24,9 +24,13 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
             Welcome to<br />Coffee Pro
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">
+          <p className="text-xl md:text-2xl mb-6 text-gray-200">
             At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
           </p>
+          <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
+            <MapPin className="w-5 h-5 mr-2" />
+            <span>23-33 Astoria Blvd, Astoria, NY 11102</span>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/menu">
               <Button 
