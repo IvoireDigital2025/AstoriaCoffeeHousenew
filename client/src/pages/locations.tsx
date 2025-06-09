@@ -28,15 +28,15 @@ export default function Locations() {
   const locations: Location[] = [
     {
       id: 1,
-      name: "Coffee Pro Astoria",
-      address: "123 Broadway Avenue, Astoria, NY 11106",
+      name: "Coffee Pro Headquarters",
+      address: "23-33 Astoria Blvd, Astoria, NY 11102",
       neighborhood: "Astoria, Queens",
       phone: "(718) 555-BREW",
       hours: {
         weekdays: "6:00 AM - 8:00 PM",
         weekends: "7:00 AM - 9:00 PM"
       },
-      features: ["Drive-Thru", "Free WiFi", "Outdoor Seating", "Meeting Rooms"],
+      features: ["Corporate HQ", "Free WiFi", "Outdoor Seating", "Meeting Rooms"],
       image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       coordinates: { lat: 40.7648, lng: -73.9808 }
     },

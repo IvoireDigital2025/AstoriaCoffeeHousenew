@@ -292,7 +292,7 @@ export default function Loyalty() {
                   <Button
                     type="submit"
                     disabled={signupMutation.isPending}
-                    className="w-full bg-coffee-primary hover:bg-coffee-medium text-white font-semibold"
+                    className="w-full bg-coffee-accent hover:bg-orange-600 text-white font-semibold"
                   >
                     <Star className="w-4 h-4 mr-2" />
                     {signupMutation.isPending ? "Creating account..." : "Join Loyalty Program"}

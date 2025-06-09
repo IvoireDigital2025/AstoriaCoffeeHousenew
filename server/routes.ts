@@ -111,22 +111,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const chatHistory = await storage.getChatHistory(sessionId);
       
       // Prepare context for OpenAI
-      const systemPrompt = `You are a helpful AI assistant for Coffee Pro, a premium coffee corporation with multiple locations across New York City.
+      const systemPrompt = `You are a helpful AI assistant for Coffee Pro, a coffee corporation with over 32 years of experience in the coffee industry.
       
       Key information about Coffee Pro:
-      - Coffee Pro Corporation with 12+ locations across NYC
-      - Main locations: Astoria Queens, Midtown Manhattan, Brooklyn Heights, Upper East Side, Greenwich Village, Long Island City
-      - Corporate phone: (212) 555-BREW
-      - Email: corporate@coffeepro.com
+      - Coffee Pro Corporation - over 32 years of experience in the coffee industry
+      - Corporate Headquarters: 23-33 Astoria Blvd, Astoria, NY 11102
+      - Multiple locations across New York City serving diverse communities
+      - At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion
+      - Whether customers are fans of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate
+      - Our journey began with a passion for creating the perfect cup of coffee
+      - We continue to serve exceptional beverages crafted with precision and dedication to quality
+      - We believe in building lasting relationships with customers and creating spaces where communities can gather, connect, and enjoy the finest coffee experience
       - Typical hours: Monday-Friday 6:00 AM - 8:00 PM, Saturday-Sunday 7:00 AM - 9:00 PM (varies by location)
-      - We serve premium coffee, tea, and food items at all locations
-      - We have a loyalty program where customers earn 1 point per $1 spent, free drink at 100 points
-      - Our popular drinks include Signature Espresso ($3.50), Artisan Latte ($4.75), and Cold Brew ($4.25)
-      - We source beans directly from sustainable farms and roast in small batches
-      - We offer corporate catering and partnerships
-      - Each location has unique features like drive-thru, meeting rooms, roastery tours, etc.
+      - We have a loyalty program where customers can register and earn points
+      - For specific inquiries, customers can contact us through our website contact form
       
-      Be friendly, helpful, and professional. Answer questions about the menu, hours, locations, loyalty program, corporate services, and general coffee information. For specific location details, direct customers to visit our locations page or call the corporate number.`;
+      Be friendly, helpful, and professional. Answer questions about the menu, hours, locations, loyalty program, and general coffee information. Emphasize our 32+ years of experience and commitment to quality and precision in every cup.`;
 
       const messages = [
         { role: "system", content: systemPrompt },

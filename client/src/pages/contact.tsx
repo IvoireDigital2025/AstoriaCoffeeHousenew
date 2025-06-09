@@ -73,7 +73,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: "Corporate Office",
-      details: ["Coffee Pro Corporation", "New York City"],
+      details: ["23-33 Astoria Blvd", "Astoria, NY 11102"],
     },
     {
       icon: Clock,
@@ -270,10 +270,13 @@ export default function Contact() {
                   <div className="bg-white rounded-lg p-6 shadow-lg text-center">
                     <MapPin className="w-8 h-8 text-coffee-accent mx-auto mb-2" />
                     <p className="text-coffee-dark font-semibold text-lg">
-                      12+ Locations
+                      Coffee Pro HQ
                     </p>
                     <p className="text-coffee-medium text-sm">
-                      Across New York City
+                      23-33 Astoria Blvd
+                    </p>
+                    <p className="text-coffee-medium text-xs">
+                      Astoria, NY 11102
                     </p>
                     <a href="/locations" className="text-coffee-accent text-sm font-medium hover:underline block mt-2">
                       View All Locations →
