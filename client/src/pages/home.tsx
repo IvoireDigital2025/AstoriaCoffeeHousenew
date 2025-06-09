@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
+import { Coffee, Bot, Star, ArrowRight, MapPin, Heart, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import additionalImage from "@assets/338b525f-7666-44a3-beae-b78b71fa427d_1749454633453.avif";
@@ -97,56 +97,106 @@ export default function Home() {
       </section>
 
       {/* Heritage Showcase Section */}
-      <section className="py-16 bg-coffee-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-6">
-                Authentic Coffee Heritage
+      <section className="py-20 bg-gradient-to-br from-coffee-cream to-amber-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-coffee-gold rounded-full -translate-x-48 -translate-y-48"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-coffee-accent rounded-full translate-x-40 translate-y-40"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              {/* Section Badge */}
+              <div className="inline-flex items-center gap-2 bg-coffee-accent/10 rounded-full px-4 py-2 border border-coffee-accent/20">
+                <Heart className="w-4 h-4 text-coffee-accent" />
+                <span className="text-coffee-accent font-semibold text-sm uppercase tracking-wide">Cultural Heritage</span>
+              </div>
+              
+              <h2 className="text-5xl font-playfair font-bold text-coffee-dark leading-tight">
+                Authentic Coffee<br />
+                <span className="text-coffee-accent">Heritage</span>
               </h2>
-              <p className="text-xl text-coffee-medium mb-6">
-                Experience the rich traditions of Moroccan and Saudi Arabian coffee culture, 
-                brought to life in the heart of New York City. Every cup tells a story of 
-                generations-old brewing techniques and warm hospitality. Complement your coffee 
-                with authentic Middle Eastern treats including Dubai chocolate, halva, Turkish delight, and more.
-              </p>
+              
+              <div className="space-y-4 text-lg text-coffee-medium leading-relaxed">
+                <p>
+                  Experience the rich traditions of <span className="font-bold text-coffee-dark">Moroccan</span> and 
+                  <span className="font-bold text-coffee-dark"> Saudi Arabian</span> coffee culture, brought to life in the heart of New York City.
+                </p>
+                <p>
+                  Every cup tells a story of generations-old brewing techniques and warm hospitality. 
+                  Complement your coffee with authentic Middle Eastern treats including 
+                  <span className="font-semibold text-coffee-accent"> Dubai chocolate</span>, 
+                  <span className="font-semibold text-coffee-accent"> halva</span>, 
+                  <span className="font-semibold text-coffee-accent"> Turkish delight</span>, and more.
+                </p>
+              </div>
+              
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">
-                  <Button className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3">
-                    Explore Our Heritage Menu
+                  <Button size="lg" className="bg-coffee-primary hover:bg-coffee-medium text-white px-10 py-4 font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all">
+                    <Coffee className="w-5 h-5 mr-2" />
+                    Explore Heritage Menu
                   </Button>
                 </Link>
                 <Link href="/about">
-                  <Button variant="outline" className="border-coffee-primary text-coffee-primary hover:bg-coffee-primary hover:text-white px-8 py-3">
+                  <Button size="lg" variant="outline" className="border-2 border-coffee-primary text-coffee-primary hover:bg-coffee-primary hover:text-white px-10 py-4 font-semibold rounded-full transition-all">
+                    <Star className="w-5 h-5 mr-2" />
                     Learn Our Story
                   </Button>
                 </Link>
               </div>
             </div>
+            
             <div className="relative">
-              <img 
-                src={additionalImage} 
-                alt="Coffee Pro heritage and atmosphere"
-                className="w-full h-auto object-contain rounded-lg shadow-xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-coffee-accent to-orange-500 rounded-2xl blur-xl opacity-20"></div>
+              <div className="relative bg-white rounded-2xl p-6 shadow-2xl">
+                <img 
+                  src={additionalImage} 
+                  alt="Coffee Pro heritage and atmosphere"
+                  className="w-full h-auto object-contain rounded-xl"
+                />
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-6 -right-6 w-12 h-12 bg-coffee-gold rounded-full opacity-80 animate-pulse"></div>
+              <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-coffee-accent rounded-full opacity-60"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-              Heritage Meets Innovation
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="absolute top-10 left-10 w-32 h-32 text-coffee-accent" fill="currentColor" viewBox="0 0 100 100">
+            <polygon points="50,5 61,35 91,35 70,57 80,91 50,70 20,91 30,57 9,35 39,35" />
+          </svg>
+          <svg className="absolute bottom-20 right-20 w-24 h-24 text-coffee-gold" fill="currentColor" viewBox="0 0 100 100">
+            <polygon points="50,5 61,35 91,35 70,57 80,91 50,70 20,91 30,57 9,35 39,35" />
+          </svg>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 bg-coffee-gold/10 rounded-full px-6 py-2 mb-6 border border-coffee-gold/20">
+              <Sparkles className="w-4 h-4 text-coffee-gold" />
+              <span className="text-coffee-gold font-semibold text-sm uppercase tracking-wide">Why Choose Coffee Pro</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-playfair font-bold text-coffee-dark mb-6 leading-tight">
+              Heritage Meets<br />
+              <span className="text-coffee-accent">Innovation</span>
             </h2>
-            <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
-              Bringing authentic Moroccan and Saudi Arabian coffee traditions to New York City - where ancient hospitality meets modern excellence
+            
+            <p className="text-xl text-coffee-medium max-w-4xl mx-auto leading-relaxed">
+              Bringing authentic Moroccan and Saudi Arabian coffee traditions to New York City - 
+              where ancient hospitality meets modern excellence
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-orange-600 relative">
                 <img 
