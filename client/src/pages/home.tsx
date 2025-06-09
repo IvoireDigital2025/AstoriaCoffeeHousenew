@@ -86,7 +86,7 @@ export default function Home() {
               <img 
                 src={additionalImage} 
                 alt="Coffee Pro heritage and atmosphere"
-                className="w-full h-80 object-cover rounded-lg shadow-xl"
+                className="w-full h-auto object-contain rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
             </div>
