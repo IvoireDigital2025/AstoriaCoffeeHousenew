@@ -3,9 +3,9 @@ import { Badge } from "@/components/ui/badge";
 
 export default function About() {
   const stats = [
-    { number: "12+", label: "Locations" },
+    { number: "32+", label: "Years Experience" },
+    { number: "12+", label: "NYC Locations" },
     { number: "50K+", label: "Happy Customers" },
-    { number: "25+", label: "Coffee Varieties" },
   ];
 
   const images = [
@@ -53,13 +53,13 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                Founded in 2018, Coffee Pro has grown from a single location in Astoria, Queens to become New York's premier coffee corporation. With multiple locations across the city, we bring exceptional coffee and community to neighborhoods throughout New York.
+                We have more than 32 years of experience in the coffee industry. Our journey began with a passion for creating the perfect cup of coffee, and today we continue to serve exceptional beverages crafted with precision and dedication to quality.
               </p>
               <p>
-                We believe that great coffee brings people together. Our commitment to consistency, quality, and community makes each Coffee Pro location more than just a coffee shop – we're gathering places that connect communities across the city.
+                At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
               </p>
               <p>
-                At every Coffee Pro location, our skilled baristas craft each drink using beans sourced directly from sustainable farms worldwide. We maintain our signature roasting standards across all locations to ensure the same exceptional experience wherever you visit.
+                Our commitment to excellence extends beyond just great coffee. We believe in building lasting relationships with our customers and creating spaces where communities can gather, connect, and enjoy the finest coffee experience.
               </p>
             </div>
 

@@ -22,10 +22,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            Premium Coffee<br />Across New York
+            Welcome to<br />Coffee Pro
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            Experience exceptional coffee at Coffee Pro locations throughout the city - from Queens to Manhattan and beyond
+            At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/menu">
