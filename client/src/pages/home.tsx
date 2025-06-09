@@ -25,7 +25,7 @@ export default function Home() {
             Welcome to<br />Coffee Pro
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            At Coffee Pro, we pride ourselves on offering a diverse range of exceptional coffee beverages, each crafted with precision and passion. Whether you're a fan of rich, aromatic espressos or refreshing iced coffees, our menu has something to tantalize every palate.
+            Exceptional coffee crafted with precision and passion for over 32 years.
           </p>
           <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
             <MapPin className="w-5 h-5 mr-2" />
