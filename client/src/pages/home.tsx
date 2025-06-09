@@ -135,6 +135,70 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Image Gallery Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+              Experience Coffee Pro
+            </h2>
+            <p className="text-xl text-coffee-medium">
+              Discover the Coffee Pro difference at our NYC locations
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="relative overflow-hidden rounded-lg shadow-lg group">
+              <img 
+                src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                alt="Coffee Pro interior with warm lighting and comfortable seating"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="font-semibold text-lg">Welcoming Atmosphere</h3>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-lg shadow-lg group">
+              <img 
+                src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                alt="Perfect latte art created by Coffee Pro baristas"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="font-semibold text-lg">Artisan Craftsmanship</h3>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-lg shadow-lg group">
+              <img 
+                src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                alt="Fresh coffee beans ready for brewing at Coffee Pro"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="font-semibold text-lg">Premium Beans</h3>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-lg shadow-lg group">
+              <img 
+                src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                alt="Friends enjoying coffee together at Coffee Pro location"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="font-semibold text-lg">Community Hub</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
       <section className="py-20 bg-coffee-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
