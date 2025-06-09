@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(48, 38%, 97%);
+  --foreground: hsl(25, 42%, 11%);
+  --muted: hsl(48, 20%, 92%);
+  --muted-foreground: hsl(25, 15%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(25, 42%, 11%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(25, 42%, 11%);
+  --border: hsl(48, 15%, 85%);
+  --input: hsl(48, 15%, 85%);
+  --primary: hsl(25, 62%, 27%);
+  --primary-foreground: hsl(48, 38%, 97%);
+  --secondary: hsl(48, 38%, 82%);
+  --secondary-foreground: hsl(25, 42%, 11%);
+  --accent: hsl(25, 95%, 62%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(25, 42%, 11%);
+  --radius: 0.5rem;
+  
+  /* Coffee shop specific colors */
+  --coffee-primary: hsl(25, 62%, 27%);
+  --coffee-secondary: hsl(48, 38%, 82%);
+  --coffee-accent: hsl(25, 95%, 62%);
+  --coffee-cream: hsl(48, 38%, 97%);
+  --coffee-dark: hsl(25, 42%, 11%);
+  --coffee-medium: hsl(25, 52%, 35%);
+}
+
+.dark {
+  --background: hsl(25, 15%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(25, 15%, 15%);
+  --muted-foreground: hsl(25, 5%, 65%);
+  --popover: hsl(25, 15%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(25, 15%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(25, 15%, 15%);
+  --input: hsl(25, 15%, 15%);
+  --primary: hsl(25, 62%, 27%);
+  --primary-foreground: hsl(48, 38%, 97%);
+  --secondary: hsl(25, 15%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(25, 95%, 62%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(25, 5%, 84%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .bg-coffee-primary {
+    background-color: var(--coffee-primary);
+  }
+  
+  .bg-coffee-secondary {
+    background-color: var(--coffee-secondary);
+  }
+  
+  .bg-coffee-accent {
+    background-color: var(--coffee-accent);
+  }
+  
+  .bg-coffee-cream {
+    background-color: var(--coffee-cream);
+  }
+  
+  .bg-coffee-dark {
+    background-color: var(--coffee-dark);
+  }
+  
+  .bg-coffee-medium {
+    background-color: var(--coffee-medium);
+  }
+  
+  .text-coffee-primary {
+    color: var(--coffee-primary);
+  }
+  
+  .text-coffee-secondary {
+    color: var(--coffee-secondary);
+  }
+  
+  .text-coffee-accent {
+    color: var(--coffee-accent);
+  }
+  
+  .text-coffee-cream {
+    color: var(--coffee-cream);
+  }
+  
+  .text-coffee-dark {
+    color: var(--coffee-dark);
+  }
+  
+  .text-coffee-medium {
+    color: var(--coffee-medium);
+  }
+  
+  .border-coffee-primary {
+    border-color: var(--coffee-primary);
+  }
+  
+  .hover\:bg-coffee-medium:hover {
+    background-color: var(--coffee-medium);
+  }
+  
+  .hover\:bg-orange-600:hover {
+    background-color: rgb(234 88 12);
+  }
+  
+  .hover\:text-coffee-primary:hover {
+    color: var(--coffee-primary);
+  }
+  
+  .hover\:text-coffee-accent:hover {
+    color: var(--coffee-accent);
+  }
+}
