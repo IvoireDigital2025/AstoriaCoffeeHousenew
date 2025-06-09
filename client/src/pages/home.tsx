@@ -69,8 +69,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-orange-600 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Traditional Arabic coffee beans and cardamom spices"
+                  src="@assets/arabiccoffee_1024x1024@2x_1749454274939.webp" 
+                  alt="Traditional Arabic coffee dallah pot with cardamom and saffron spices"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
