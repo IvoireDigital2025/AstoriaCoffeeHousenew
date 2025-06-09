@@ -91,7 +91,7 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      details: ["hello@brewandbean.com", "Email us anytime"],
+      details: ["hello@coffeepro.com", "Email us anytime"],
     },
   ];
 
