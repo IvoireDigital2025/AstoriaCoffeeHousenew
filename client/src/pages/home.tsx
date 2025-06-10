@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
-import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749455407188.avif";
+import coffeeLatteArtImage from "@assets/maxresdefault_1749570208990.jpg";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -85,8 +85,8 @@ export default function Home() {
             </div>
             <div className="relative">
               <img 
-                src={heritageImage} 
-                alt="Coffee Pro heritage and atmosphere"
+                src={coffeeLatteArtImage} 
+                alt="Artisanal coffee with perfect latte art"
                 className="w-full h-auto object-contain rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
