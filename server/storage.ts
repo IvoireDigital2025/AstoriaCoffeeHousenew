@@ -495,6 +495,108 @@ export class MemStorage implements IStorage {
         price: "$8.49",
         image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
         available: true
+      },
+
+      // Additional Coffee Drinks from DoorDash
+      {
+        name: "Arabic Coffee (Qahwa)",
+        category: "coffee",
+        description: "Traditional Arabic coffee infused with cardamom and saffron, served in the authentic Middle Eastern style.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a",
+        available: true
+      },
+      {
+        name: "Moroccan Mint Tea (Atay)",
+        category: "tea",
+        description: "Authentic Moroccan green tea with fresh mint leaves, served sweet in traditional style.",
+        price: "$4.49",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Turkish Coffee",
+        category: "coffee",
+        description: "Finely ground coffee beans prepared in the traditional Turkish method, served with Turkish delight.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a",
+        available: true
+      },
+      {
+        name: "Sahlab",
+        category: "tea",
+        description: "Warm Middle Eastern milk drink made with orchid flour, topped with cinnamon and nuts.",
+        price: "$5.49",
+        image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed",
+        available: true
+      },
+
+      // Additional Pastries and Desserts
+      {
+        name: "Baklava",
+        category: "food",
+        description: "Layers of phyllo pastry filled with chopped nuts and sweetened with honey syrup.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Knafeh",
+        category: "food",
+        description: "Traditional Middle Eastern dessert made with crispy kadaif noodles and sweet cheese, soaked in sugar syrup.",
+        price: "$7.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Turkish Delight",
+        category: "food",
+        description: "Soft, gel-like confection dusted with powdered sugar, available in rose and lemon flavors.",
+        price: "$3.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Halva",
+        category: "food",
+        description: "Traditional Middle Eastern sweet confection made from tahini and honey.",
+        price: "$5.49",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Ma'amoul",
+        category: "food",
+        description: "Traditional shortbread cookies filled with dates, nuts, or figs, dusted with powdered sugar.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+
+      // Breakfast Items
+      {
+        name: "Shakshuka",
+        category: "food",
+        description: "Eggs poached in a sauce of tomatoes, olive oil, peppers, onion and garlic, commonly spiced with cumin, paprika and cayenne pepper.",
+        price: "$12.99",
+        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
+        available: true
+      },
+      {
+        name: "Manakish Za'atar",
+        category: "food",
+        description: "Traditional flatbread topped with za'atar spice blend and olive oil, baked to perfection.",
+        price: "$7.49",
+        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
+        available: true
+      },
+      {
+        name: "Labneh with Olive Oil",
+        category: "food",
+        description: "Thick, creamy Middle Eastern yogurt cheese drizzled with extra virgin olive oil and herbs.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
+        available: true
       }
     ];
 
