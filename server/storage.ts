@@ -61,100 +61,439 @@ export class MemStorage implements IStorage {
 
   private initializeMenuItems() {
     const menuData: Omit<MenuItem, 'id'>[] = [
+      // Hot Coffee Drinks
       {
-        name: "Signature Espresso",
+        name: "Mocha",
         category: "coffee",
-        description: "Rich, bold espresso with notes of chocolate and caramel",
-        price: "$3.50",
-        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a" as string,
+        description: "A rich blend of bold espresso, smooth steamed milk, and high-quality Belgian milk chocolate for a luxurious, velvety taste. Topped with fluffy whipped cream for the perfect finish.",
+        price: "$7.49",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96",
         available: true
       },
       {
-        name: "Artisan Latte",
+        name: "Classic Matcha Latte",
         category: "coffee",
-        description: "Smooth espresso with steamed milk and beautiful latte art",
-        price: "$4.75",
+        description: "At Coffee Pro, enjoy our Classic Matcha Latte, made with premium matcha powder, blended with steamed milk for a smooth, creamy, and earthy flavor that's both refreshing and energizing.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Latte",
+        category: "coffee",
+        description: "A smooth and creamy coffee made with rich espresso and steamed milk, creating a mellow and satisfying drink that's perfect for any time of day.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+        available: true
+      },
+      {
+        name: "Flat White",
+        category: "coffee",
+        description: "A smooth and velvety coffee made with rich espresso and steamed milk, offering a creamy texture without the foam of a cappuccino.",
+        price: "$4.49",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd",
+        available: true
+      },
+      {
+        name: "Cappuccino",
+        category: "coffee",
+        description: "A classic coffee drink made with equal parts rich espresso, steamed milk, and velvety foam. The perfect balance of strong coffee and creamy indulgence.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d",
+        available: true
+      },
+      {
+        name: "Hot V60",
+        category: "coffee",
+        description: "A meticulously brewed pour-over coffee, made with high-quality beans for a clean, smooth cup. The V60 method enhances the natural flavors and aromas of the coffee.",
+        price: "$7.49",
+        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+        available: true
+      },
+      {
+        name: "Cortado",
+        category: "coffee",
+        description: "A perfectly balanced coffee drink made with bold espresso and an equal amount of steamed milk, creating a smooth, rich texture with the perfect coffee-to-milk ratio.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a",
+        available: true
+      },
+      {
+        name: "Chai Latte",
+        category: "tea",
+        description: "A warm and aromatic blend of spiced black tea and steamed milk, infused with cinnamon, cardamom, ginger, and cloves. Creamy, comforting, and perfectly spiced.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f",
+        available: true
+      },
+      {
+        name: "Dirty Chai Latte",
+        category: "tea",
+        description: "A bold twist on the classic chai latte, combining spiced black tea, steamed milk, and a shot of rich espresso. Smooth, creamy, and energizing.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96",
+        available: true
+      },
+      {
+        name: "Tea",
+        category: "tea",
+        description: "Tea Selection: A carefully curated selection of premium teas, from bold and classic black teas to refreshing herbal and fruity blends.",
+        price: "$3.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Espresso",
+        category: "coffee",
+        description: "Espresso (Paris & Swiss Style) A rich, concentrated shot of espresso served in the classic Parisian and Swiss style, with bold, smooth, and aromatic coffee flavors.",
+        price: "$2.99",
+        image: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a",
+        available: true
+      },
+      {
+        name: "Drip Coffee",
+        category: "coffee",
+        description: "A classic, smooth coffee brewed to perfection with freshly ground beans, delivering a rich and flavorful cup. Clean and well-balanced.",
+        price: "$3.99",
+        image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c",
+        available: true
+      },
+      
+      // Iced Coffee Drinks
+      {
+        name: "Iced Maple Oat",
+        category: "coffee",
+        description: "A smooth and creamy blend of espresso, oat milk, and pure maple syrup, served over ice for a refreshing and indulgent treat.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c",
+        available: true
+      },
+      {
+        name: "Iced Latte",
+        category: "coffee",
+        description: "A chilled, creamy blend of espresso and cold milk, served over ice for a refreshing, smooth coffee experience.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+        available: true
+      },
+      {
+        name: "Iced V60",
+        category: "coffee",
+        description: "A meticulously brewed pour-over coffee, flash-chilled over ice to preserve its rich, concentrated flavor and natural sweetness.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+        available: true
+      },
+      {
+        name: "Peach Rosemary Iced",
+        category: "tea",
+        description: "A refreshing blend of sweet peach and aromatic rosemary, served chilled over ice for a unique and invigorating drink.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Iced Matcha",
+        category: "tea",
+        description: "A smooth and refreshing blend of high-quality matcha and creamy milk, served over ice for a cool, energizing treat.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Iced Americano",
+        category: "coffee",
+        description: "A bold and refreshing coffee made with rich espresso shots, poured over ice and topped with cold water.",
+        price: "$4.49",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd",
+        available: true
+      },
+      {
+        name: "Hibiscus Iced Tea",
+        category: "tea",
+        description: "A vibrant and refreshing herbal tea brewed from dried hibiscus flowers, served chilled over ice with a tart and floral flavor.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Iced Matcha Latte",
+        category: "tea",
+        description: "A refreshing blend of high-quality matcha and creamy milk, served over ice for a smooth, cool, and energizing experience.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Iced Cappuccino",
+        category: "coffee",
+        description: "A refreshing twist on the classic cappuccino, featuring bold espresso, cold milk, and a layer of foam, served over ice.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d",
+        available: true
+      },
+      {
+        name: "Iced Macchiato",
+        category: "coffee",
+        description: "A bold and smooth espresso layered over chilled milk and ice, creating a rich, balanced flavor with a hint of natural sweetness.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+        available: true
+      },
+      {
+        name: "Iced Chai Latte",
+        category: "tea",
+        description: "A refreshing blend of spiced chai tea and creamy milk, served over ice for a smooth, cool, and aromatic experience.",
+        price: "$5.49",
+        image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f",
+        available: true
+      },
+      {
+        name: "Ice Dirty Chai Latte",
+        category: "tea",
+        description: "A bold and refreshing blend of spiced chai tea, creamy milk, and a shot of espresso, served over ice for a cool, energizing treat.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96",
+        available: true
+      },
+      {
+        name: "Iced Mocha",
+        category: "coffee",
+        description: "A rich blend of bold espresso, creamy milk, and smooth chocolate, served over ice for a refreshing and indulgent treat. The perfect balance of coffee and chocolate.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96",
+        available: true
+      },
+      {
+        name: "Pro Frappe",
+        category: "coffee",
+        description: "A rich and creamy blended coffee drink with a smooth texture and bold flavor, perfect for a refreshing treat.",
+        price: "$7.99",
         image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
         available: true
       },
       {
         name: "Cold Brew",
         category: "coffee",
-        description: "Slow-steeped for 12 hours, smooth and refreshing",
-        price: "$4.25",
+        description: "A smooth, rich coffee brewed slowly over time to extract deep, bold flavors without bitterness, served chilled for a refreshing experience.",
+        price: "$5.49",
         image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c",
         available: true
       },
+
+      // Menu Pastry & Desserts
       {
-        name: "Cappuccino",
-        category: "coffee",
-        description: "Equal parts espresso, steamed milk, and milk foam",
-        price: "$4.50",
-        image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d",
-        available: true
-      },
-      {
-        name: "Americano",
-        category: "coffee",
-        description: "Rich espresso with hot water for a clean, bold taste",
-        price: "$3.75",
-        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd",
-        available: true
-      },
-      {
-        name: "Mocha",
-        category: "coffee",
-        description: "Espresso with chocolate syrup and steamed milk",
-        price: "$5.25",
-        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96",
-        available: true
-      },
-      {
-        name: "Green Tea Latte",
-        category: "tea",
-        description: "Premium matcha powder with steamed milk",
-        price: "$4.50",
-        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
-        available: true
-      },
-      {
-        name: "Chai Tea Latte",
-        category: "tea",
-        description: "Spiced black tea with steamed milk and honey",
-        price: "$4.25",
-        image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f",
-        available: true
-      },
-      {
-        name: "Hot Chocolate",
-        category: "tea",
-        description: "Rich Belgian chocolate with steamed milk and whipped cream",
-        price: "$3.75",
-        image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed",
-        available: true
-      },
-      {
-        name: "Croissant",
+        name: "Dubai Chocolate",
         category: "food",
-        description: "Buttery, flaky French pastry baked fresh daily",
-        price: "$3.25",
+        description: "A decadent single serving of Belgian chocolate, expertly crafted with a rich pistachio butter filling.",
+        price: "$7.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Dubai Chocolate Medium - Sweet Time",
+        category: "food",
+        description: "A luxurious treat crafted with a Belgian chocolate shell, filled with a rich blend of pistachio butter and premium nuts.",
+        price: "$17.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Dubai Chocolate Large - Sweet Time",
+        category: "food",
+        description: "A luxurious treat crafted with a Belgian chocolate shell, filled with a rich blend of pistachio butter and premium nuts.",
+        price: "$29.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Almond Croissant",
+        category: "food",
+        description: "A buttery, flaky pastry filled with almond cream and topped with sliced almonds for a delightful, nutty flavor.",
+        price: "$6.74",
         image: "https://images.unsplash.com/photo-1555507036-ab794f27e53e",
         available: true
       },
       {
-        name: "Avocado Toast",
+        name: "Chocolate Croissant",
         category: "food",
-        description: "Fresh avocado on artisan sourdough with sea salt",
-        price: "$8.50",
+        description: "A flaky, buttery pastry filled with rich, melty chocolate. Our Chocolate Croissant is perfectly balanced with a golden, crispy exterior.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1555507036-ab794f27e53e",
+        available: true
+      },
+      {
+        name: "Sacher Torte",
+        category: "food",
+        description: "Classic Austrian Chocolate Cake - Sachertorte At Coffee Pro, enjoy our classic Viennese dessert.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Chocolate Tiramisu",
+        category: "food",
+        description: "A luxurious twist on the classic Italian dessert, featuring layers of espresso-soaked ladyfingers and rich chocolate mascarpone cream.",
+        price: "$7.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Semifreddo Al Pistachio",
+        category: "food",
+        description: "A creamy and indulgent frozen dessert made with rich pistachio paste, whipped cream, and a touch of sweetness.",
+        price: "$8.99",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Cheddar Chive Scone",
+        category: "food",
+        description: "A savory delight, our Cheddar Chive Scone is packed with sharp cheddar cheese and fresh chives for a rich, flavorful treat.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1555507036-ab794f27e53e",
+        available: true
+      },
+      {
+        name: "Mohalabia pro",
+        category: "food",
+        description: "An Egyptian dessert made with rich heavy cream, whole milk, and vanilla, creating a smooth and creamy pudding topped with nuts.",
+        price: "$6.49",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Dubai Cheese Bomb",
+        category: "food",
+        description: "A decadent dessert featuring rich, creamy cheese filling wrapped in a delicate pastry shell.",
+        price: "$14.00",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "San Sebastian Cheesecake",
+        category: "food",
+        description: "A lighter, creamier cheesecake with a signature caramelized, burnt top for a unique and indulgent dessert experience.",
+        price: "$8.49",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "Mahalabia Mo Pro",
+        category: "food",
+        description: "An Egyptian dessert made with rich heavy cream, whole milk, and vanilla, indulgent and creamy.",
+        price: "$9.50",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+        available: true
+      },
+      {
+        name: "French Toast - Pro",
+        category: "food",
+        description: "Signature Coffee Pro French Toast - layered with creamy pistachio butter, Belgian milk chocolate, and a touch of sweetness.",
+        price: "$7.99",
         image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
         available: true
       },
       {
-        name: "Signature Coffee Dessert",
+        name: "Butter Croissant",
         category: "food",
-        description: "Artisanal coffee-infused dessert with perfect latte art presentation",
-        price: "$6.95",
-        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+        description: "Flaky, buttery, and irresistibly golden, our butter croissant is a classic French pastry made with premium butter for the perfect texture.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1555507036-ab794f27e53e",
+        available: true
+      },
+
+      // Muffins
+      {
+        name: "3 Muffin Combo",
+        category: "food",
+        description: "Combination of Blueberry, Milk Chocolate and Dubai Chocolate muffins. Made in-house with premium ingredients.",
+        price: "$15.00",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        available: true
+      },
+      {
+        name: "Milk Chocolate Muffin",
+        category: "food",
+        description: "A smooth and creamy treat, baked fresh at Coffee Pro 2333 Astoria BLVD. Infused with rich milk chocolate for pure indulgence.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        available: true
+      },
+      {
+        name: "Dark Chocolate Muffin",
+        category: "food",
+        description: "Indulge in deep chocolate flavor with this rich, decadent muffin from Coffee Pro 2333 Astoria BLVD. Made with premium dark cocoa and chocolate chips.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        available: true
+      },
+      {
+        name: "Dubai Muffin (Kunafa & Pistachios)",
+        category: "food",
+        description: "Experience Middle Eastern flavors in every bite with this specialty from Coffee Pro 2333 Astoria BLVD. Features traditional kunafa and pistachios.",
+        price: "$7.99",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        available: true
+      },
+      {
+        name: "Almond Muffin",
+        category: "food",
+        description: "A nutty delight, freshly made at Coffee Pro 2333 Astoria BLVD. This soft and moist muffin features toasted almond flakes.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        available: true
+      },
+
+      // Juices
+      {
+        name: "Brazilian Lemon",
+        category: "tea",
+        description: "A creamy and refreshing twist on classic lemonade, made with fresh limes, a touch of condensed milk for richness.",
+        price: "$6.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Strawberry Lemonade",
+        category: "tea",
+        description: "A refreshing blend of fresh strawberries and zesty lemons, perfectly balanced with just the right amount of sweetness.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Orange Juice",
+        category: "tea",
+        description: "Freshly squeezed from ripe, juicy oranges, our orange juice is pure, refreshing, and packed with natural vitamin C.",
+        price: "$5.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+      {
+        name: "Lemonade",
+        category: "tea",
+        description: "A refreshing blend of fresh lemons, pure water, and just the right amount of sweetness for the perfect balance.",
+        price: "$4.99",
+        image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+        available: true
+      },
+
+      // Sandwiches
+      {
+        name: "Japanese Mayo Egg",
+        category: "food",
+        description: "A delicate Japanese-inspired recipe made with perfectly boiled eggs, finely chopped and mixed with creamy Japanese mayo.",
+        price: "$8.49",
+        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
+        available: true
+      },
+      {
+        name: "Turkey & Cheddar",
+        category: "food",
+        description: "A classic combination of lean turkey and sharp cheddar cheese, served on fresh bread for a satisfying and flavorful meal.",
+        price: "$8.49",
+        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
         available: true
       }
     ];
