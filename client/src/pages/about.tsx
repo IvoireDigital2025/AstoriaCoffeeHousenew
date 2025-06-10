@@ -3,9 +3,9 @@ import { Badge } from "@/components/ui/badge";
 
 export default function About() {
   const stats = [
-    { number: "32+", label: "Years Experience" },
-    { number: "12+", label: "NYC Locations" },
-    { number: "50K+", label: "Happy Customers" },
+    { number: "5", label: "Months Established" },
+    { number: "1", label: "Astoria Location" },
+    { number: "Growing", label: "Happy Customers" },
   ];
 
   const images = [
@@ -41,7 +41,7 @@ export default function About() {
             About Coffee Pro
           </h1>
           <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
-            New York's premier coffee corporation with locations across the city
+            An oasis of warmth and flavor in the vibrant heart of Astoria Boulevard
           </p>
         </div>
 
@@ -53,13 +53,13 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                We have more than 32 years of experience in the coffee industry, rooted in the rich coffee traditions of Morocco and Saudi Arabia. Our journey began with a passion for creating the perfect cup, blending ancient Middle Eastern and North African coffee heritage with modern NYC energy.
+                Coffee Pro, an oasis of warmth and flavor in the vibrant heart of Astoria Boulevard in Long Island City, welcomes you with a unique blend of coffee artistry and Saudi Arabian heritage. Established just five months ago, this cozy coffee shop captivates visitors with its enchanting decor, inspired by the ancient beauty of AlUla.
               </p>
               <p>
-                At Coffee Pro, we honor the time-honored coffee rituals of the Arabian Peninsula and the Atlas Mountains, bringing authentic flavors and hospitality traditions to New York City. From traditional Arabic coffee preparations to Moroccan-inspired spice blends, our menu celebrates this rich cultural heritage.
+                Indulge in high-quality coffee, carefully crafted using the finest beans, reflecting the team's passion and unyielding commitment to excellence. From locally made pastries to authentic coffee experiences, Coffee Pro is a sanctuary where you can savor the distinctive taste of coffee and embark on a sensory journey that celebrates tradition and innovation.
               </p>
               <p>
-                Our commitment extends beyond exceptional coffee to creating gathering spaces that reflect the warmth and community spirit central to both Moroccan and Saudi Arabian cultures. Every cup we serve carries the essence of these ancient coffee traditions.
+                Our space serves as a bridge between the rich coffee heritage of Saudi Arabia and the dynamic energy of New York City, creating an atmosphere where every visit becomes a memorable experience rooted in authenticity and craftsmanship.
               </p>
             </div>
 
@@ -100,13 +100,13 @@ export default function About() {
             <Card className="text-center border-none shadow-none bg-transparent">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-coffee-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">🌱</span>
+                  <span className="text-white text-2xl">🏺</span>
                 </div>
                 <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Sustainability
+                  AlUla Heritage
                 </h3>
                 <p className="text-coffee-medium">
-                  We partner with farms that prioritize environmental responsibility and fair trade practices.
+                  Our decor and atmosphere are inspired by the ancient beauty of AlUla, connecting our space to Saudi Arabian cultural roots.
                 </p>
               </CardContent>
             </Card>
@@ -120,7 +120,7 @@ export default function About() {
                   Community
                 </h3>
                 <p className="text-coffee-medium">
-                  We're committed to being a positive force in every community we serve across New York City.
+                  We create a sanctuary in Astoria where locals and visitors can experience authentic Saudi Arabian hospitality.
                 </p>
               </CardContent>
             </Card>
@@ -134,7 +134,7 @@ export default function About() {
                   Excellence
                 </h3>
                 <p className="text-coffee-medium">
-                  From bean selection to brewing technique, we maintain the highest standards in everything we do.
+                  Our passion and unyielding commitment to excellence ensures every cup reflects the finest coffee artistry and craftsmanship.
                 </p>
               </CardContent>
             </Card>
