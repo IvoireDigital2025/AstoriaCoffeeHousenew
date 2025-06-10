@@ -4,7 +4,6 @@ import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749455407188.avif";
-import heroImage from "@assets/maxresdefault_1749569356043.jpg";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -19,7 +18,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${heroImage})`
+            backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')"
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
