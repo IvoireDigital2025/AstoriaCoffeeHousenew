@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import coffeeArtImage from "@assets/maxresdefault_1749569245558.jpg";
 
 export default function About() {
   const stats = [
@@ -11,8 +10,8 @@ export default function About() {
 
   const images = [
     {
-      src: coffeeArtImage,
-      alt: "Professional latte art creation at Coffee Pro",
+      src: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+      alt: "Friendly barista preparing coffee",
       className: ""
     },
     {
