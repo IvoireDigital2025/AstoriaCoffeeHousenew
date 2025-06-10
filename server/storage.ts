@@ -150,11 +150,11 @@ export class MemStorage implements IStorage {
         available: true
       },
       {
-        name: "Blueberry Muffin",
+        name: "Signature Coffee Dessert",
         category: "food",
-        description: "House-made muffin with fresh blueberries",
-        price: "$3.75",
-        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35",
+        description: "Artisanal coffee-infused dessert with perfect latte art presentation",
+        price: "$6.95",
+        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
         available: true
       }
     ];
