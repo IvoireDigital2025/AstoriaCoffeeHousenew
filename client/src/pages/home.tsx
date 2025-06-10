@@ -4,6 +4,7 @@ import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import coffeeLatteArtImage from "@assets/maxresdefault_1749570208990.jpg";
+import dessertImage from "@assets/21c491c8-1452-4705-93f3-d1340aab72de-retina-large_1749586388276.avif";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -132,7 +133,7 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  src={dessertImage} 
                   alt="Exquisite Middle Eastern desserts including baklava, halva, and Turkish delight"
                   className="w-full h-full object-cover"
                 />
