@@ -329,10 +329,7 @@ export default function MoodSelector() {
                         <p className="text-cyan-200/90 leading-relaxed italic">{rec.reason}</p>
                       </div>
                       
-                      <Button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white font-bold py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
-                        <Coffee className="w-5 h-5 mr-2" />
-                        Order Now
-                      </Button>
+
                     </CardContent>
                   </Card>
                 ))}

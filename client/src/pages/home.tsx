@@ -248,10 +248,10 @@ export default function Home() {
       <section className="py-20 bg-coffee-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-playfair font-bold mb-6">
-            Ready to Experience Premium Coffee Citywide?
+            Discover Coffee Pro Locations
           </h2>
           <p className="text-xl mb-8 text-coffee-cream">
-            Visit any of our Coffee Pro locations and discover your new favorite coffee destination
+            Explore our menu and visit our Coffee Pro location in Astoria Boulevard, Long Island City
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
@@ -269,7 +269,7 @@ export default function Home() {
                 size="lg"
                 className="bg-coffee-accent text-white hover:bg-orange-600 px-8 py-4 text-lg font-semibold"
               >
-                Order Now
+                View Menu
                 <Coffee className="w-5 h-5 ml-2" />
               </Button>
             </Link>
