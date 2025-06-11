@@ -1,29 +1,29 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Coffee, VolumeX } from "lucide-react";
 import audioFile from "@assets/arab-and-muslim-190765_1749669994292.mp3";
 
 export default function AmbientSoundtrack() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isStopped, setIsStopped] = useState(false);
+  const [musicEnabled, setMusicEnabled] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && musicEnabled) {
       audioRef.current.volume = 0.02;
     }
-  }, []);
+  }, [musicEnabled]);
 
   // Auto-start audio when component mounts
   useEffect(() => {
+    if (!musicEnabled) return;
+    
     const startAudio = () => {
-      if (audioRef.current && !isStopped) {
+      if (audioRef.current) {
         audioRef.current.play().then(() => {
           setIsPlaying(true);
         }).catch(() => {
-          // Autoplay blocked, user will need to click play
           setIsPlaying(false);
         });
       }
@@ -31,7 +31,7 @@ export default function AmbientSoundtrack() {
 
     const timer = setTimeout(startAudio, 2000);
     return () => clearTimeout(timer);
-  }, [isStopped]);
+  }, [musicEnabled]);
 
   // Hide welcome message after 6 seconds
   useEffect(() => {
@@ -41,25 +41,23 @@ export default function AmbientSoundtrack() {
     }
   }, [showWelcome]);
 
-
-
-
-
   const handleStopMusic = () => {
+    setMusicEnabled(false);
+    setIsPlaying(false);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-      audioRef.current.volume = 0;
-      audioRef.current.src = '';
-      setIsPlaying(false);
-      setIsStopped(true);
     }
   };
+
+  if (!musicEnabled) {
+    return null;
+  }
 
   return (
     <>
       {/* Stop Music Button */}
-      {isPlaying && !isStopped && (
+      {isPlaying && (
         <div className="fixed top-20 left-6 z-50">
           <Button
             onClick={handleStopMusic}
@@ -98,10 +96,6 @@ export default function AmbientSoundtrack() {
           </div>
         </div>
       )}
-
-
-
-
 
       {/* Audio Element */}
       <audio
