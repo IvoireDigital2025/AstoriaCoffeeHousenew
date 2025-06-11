@@ -118,12 +118,9 @@ export default function Chatbot() {
     <div className="fixed bottom-6 right-6 z-50">
       <Card className="w-80 h-96 flex flex-col shadow-2xl">
         <CardHeader className="bg-coffee-primary text-white p-4 rounded-t-lg flex flex-row items-center justify-between">
-          <div className="flex flex-col">
-            <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5" />
-              <span className="font-semibold">AI Coffee Assistant</span>
-            </div>
-            <span className="text-xs text-coffee-cream/80">Powered by Artificial Intelligence</span>
+          <div className="flex items-center space-x-2">
+            <Bot className="w-5 h-5" />
+            <span className="font-semibold">Coffee Assistant</span>
           </div>
           <Button
             variant="ghost"

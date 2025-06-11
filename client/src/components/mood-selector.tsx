@@ -258,7 +258,7 @@ export default function MoodSelector() {
             <Sparkles className="w-8 h-8 text-amber-500 animate-pulse" />
           </div>
           <p className="text-xl text-coffee-dark/80 font-light">
-            Our AI analyzes your mood to suggest the perfect Coffee Pro experience
+            Choose your mood to discover the perfect Coffee Pro experience
           </p>
           <div className="mt-4 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
         </CardHeader>
@@ -326,13 +326,7 @@ export default function MoodSelector() {
                       <p className="text-cyan-200/80 mb-6 leading-relaxed text-lg">{rec.description}</p>
                       
                       <div className="bg-slate-600/50 p-4 rounded-xl border border-purple-500/20">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="p-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full">
-                            <Coffee className="w-5 h-5 text-white" />
-                          </div>
-                          <span className="text-lg font-bold text-cyan-100">AI Analysis:</span>
-                        </div>
-                        <p className="text-cyan-200/90 leading-relaxed">{rec.reason}</p>
+                        <p className="text-cyan-200/90 leading-relaxed italic">{rec.reason}</p>
                       </div>
                       
                       <Button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white font-bold py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
