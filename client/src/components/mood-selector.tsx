@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Sparkles, RefreshCw, ArrowLeft, Heart, Zap, Brain } from "lucide-react";
+import { Coffee, ArrowLeft, RefreshCw, Sparkles, Heart, Brain, Zap, Smile } from "lucide-react";
 
 interface Mood {
   emoji: string;
@@ -18,211 +18,154 @@ interface Mood {
 
 const moods: Mood[] = [
   {
-    emoji: "😴",
-    name: "Sleepy",
-    description: "Need an energy boost",
+    emoji: "😊",
+    name: "Happy",
+    description: "Feeling cheerful and optimistic",
     recommendations: [
       {
-        name: "Arabic Coffee (Qahwa)",
-        description: "Traditional Saudi Arabian coffee with cardamom and saffron",
-        reason: "Strong caffeine with aromatic spices to awaken your senses",
-        price: "$4.25"
-      },
-      {
-        name: "Double Espresso",
-        description: "Rich, bold double shot of premium espresso",
-        reason: "Maximum caffeine for instant energy",
-        price: "$3.50"
-      }
-    ]
-  },
-  {
-    emoji: "😰",
-    name: "Stressed",
-    description: "Looking for comfort and calm",
-    recommendations: [
-      {
-        name: "Atay (Moroccan Mint Tea)",
-        description: "Traditional Moroccan green tea with fresh mint and sugar",
-        reason: "Mint naturally soothes stress and promotes relaxation",
-        price: "$3.50"
+        name: "Caramel Macchiato",
+        description: "Sweet and creamy coffee with caramel drizzle",
+        reason: "The sweetness complements your joyful mood perfectly",
+        price: "$5.50"
       },
       {
         name: "Vanilla Latte",
-        description: "Smooth espresso with steamed milk and vanilla",
-        reason: "Comforting vanilla helps reduce anxiety",
+        description: "Smooth espresso with steamed milk and vanilla syrup",
+        reason: "A comforting classic that enhances positive feelings",
         price: "$4.75"
       }
     ]
   },
   {
-    emoji: "🤗",
-    name: "Social",
-    description: "Ready to connect with others",
+    emoji: "😴",
+    name: "Tired",
+    description: "Need an energy boost",
     recommendations: [
       {
-        name: "Moroccan Spiced Coffee",
-        description: "Rich coffee blend with cinnamon, ginger, and Moroccan spices",
-        reason: "Perfect conversation starter with exotic flavors",
-        price: "$4.75"
-      },
-      {
-        name: "Cappuccino",
-        description: "Espresso with steamed milk foam art",
-        reason: "Classic social coffee perfect for sharing moments",
-        price: "$4.25"
-      }
-    ]
-  },
-  {
-    emoji: "🏃‍♂️",
-    name: "Active",
-    description: "Pre or post workout energy",
-    recommendations: [
-      {
-        name: "Cold Brew",
-        description: "Smooth, less acidic coffee brewed cold for 12 hours",
-        reason: "Easy on the stomach with sustained energy release",
-        price: "$3.75"
-      },
-      {
-        name: "Karak Tea",
-        description: "Saudi-style spiced tea with cardamom, cinnamon, and milk",
-        reason: "Energizing spices support active lifestyle",
-        price: "$3.75"
-      }
-    ]
-  },
-  {
-    emoji: "🧘‍♀️",
-    name: "Mindful",
-    description: "Seeking balance and focus",
-    recommendations: [
-      {
-        name: "Green Tea Latte",
-        description: "Matcha powder with steamed milk and honey",
-        reason: "L-theanine promotes calm focus and mental clarity",
-        price: "$4.50"
-      },
-      {
-        name: "Chamomile Tea",
-        description: "Soothing herbal tea with calming properties",
-        reason: "Natural relaxation without caffeine",
-        price: "$3.25"
-      }
-    ]
-  },
-  {
-    emoji: "🎉",
-    name: "Celebratory",
-    description: "Treating yourself to something special",
-    recommendations: [
-      {
-        name: "Mocha",
-        description: "Espresso with chocolate syrup and whipped cream",
-        reason: "Indulgent chocolate treats deserve celebration",
-        price: "$5.25"
-      },
-      {
-        name: "Dates & Coffee Pairing",
-        description: "Traditional Medjool dates served with Arabic coffee",
-        reason: "Authentic Middle Eastern luxury experience",
-        price: "$5.50"
-      }
-    ]
-  },
-  {
-    emoji: "🌅",
-    name: "Fresh Start",
-    description: "Beginning the day with optimism",
-    recommendations: [
-      {
-        name: "Americano",
-        description: "Espresso with hot water for a clean, bright taste",
-        reason: "Clean, pure coffee flavor to start fresh",
+        name: "Double Shot Espresso",
+        description: "Rich, bold espresso for maximum caffeine",
+        reason: "Strong caffeine content will give you the energy boost you need",
         price: "$3.25"
       },
       {
-        name: "Flat White",
-        description: "Double espresso with micro-foamed milk",
-        reason: "Smooth, balanced coffee for a perfect morning",
-        price: "$4.50"
-      }
-    ]
-  },
-  {
-    emoji: "🍂",
-    name: "Cozy",
-    description: "Wanting warmth and comfort",
-    recommendations: [
-      {
-        name: "Chai Latte",
-        description: "Spiced tea blend with steamed milk and honey",
-        reason: "Warming spices create ultimate comfort",
-        price: "$4.25"
-      },
-      {
-        name: "Hot Chocolate",
-        description: "Rich cocoa with steamed milk and marshmallows",
-        reason: "Pure comfort in a cup",
+        name: "Cold Brew Coffee",
+        description: "Smooth, concentrated cold coffee",
+        reason: "High caffeine content with a refreshing kick",
         price: "$4.00"
       }
     ]
   },
   {
-    emoji: "🔥",
-    name: "Intense",
-    description: "Need maximum energy and focus",
+    emoji: "😌",
+    name: "Relaxed",
+    description: "Calm and peaceful state",
     recommendations: [
       {
-        name: "Turkish Coffee",
-        description: "Ultra-strong traditional coffee with cardamom",
-        reason: "Highest caffeine concentration for peak performance",
-        price: "$3.75"
-      },
-      {
-        name: "Red Eye Coffee",
-        description: "Drip coffee with double espresso shot",
-        reason: "Triple caffeine boost for intense energy needs",
-        price: "$4.50"
-      }
-    ]
-  },
-  {
-    emoji: "🌙",
-    name: "Dreamy",
-    description: "Relaxed and contemplative mood",
-    recommendations: [
-      {
-        name: "Lavender Latte",
-        description: "Espresso with steamed milk and lavender syrup",
-        reason: "Lavender promotes calm and dreamy relaxation",
-        price: "$4.75"
-      },
-      {
-        name: "Golden Milk",
-        description: "Turmeric latte with warming spices and milk",
-        reason: "Anti-inflammatory spices for peaceful contemplation",
-        price: "$4.50"
-      }
-    ]
-  },
-  {
-    emoji: "⚡",
-    name: "Electric",
-    description: "Buzzing with creative energy",
-    recommendations: [
-      {
-        name: "Nitro Cold Brew",
-        description: "Nitrogen-infused cold brew with silky texture",
-        reason: "Smooth energy boost that matches your electric vibe",
+        name: "Chamomile Tea Latte",
+        description: "Soothing chamomile with steamed milk",
+        reason: "Chamomile naturally promotes relaxation and calm",
         price: "$4.25"
       },
       {
-        name: "Espresso Romano",
-        description: "Double espresso with lemon twist",
-        reason: "Citrus enhances creativity and mental sharpness",
+        name: "Lavender Honey Coffee",
+        description: "Mild coffee with lavender and honey",
+        reason: "Lavender has calming properties perfect for your peaceful mood",
+        price: "$5.00"
+      }
+    ]
+  },
+  {
+    emoji: "🤔",
+    name: "Focused",
+    description: "Ready to concentrate and work",
+    recommendations: [
+      {
+        name: "Green Tea Matcha Latte",
+        description: "Energizing matcha with sustained focus benefits",
+        reason: "L-theanine in matcha provides calm focus without jitters",
+        price: "$5.25"
+      },
+      {
+        name: "Americano",
+        description: "Clean, pure espresso taste",
+        reason: "Simple caffeine boost without distractions",
         price: "$3.75"
+      }
+    ]
+  },
+  {
+    emoji: "🥶",
+    name: "Cold",
+    description: "Need something warm and cozy",
+    recommendations: [
+      {
+        name: "Spiced Chai Latte",
+        description: "Warming spices with steamed milk",
+        reason: "Warming spices like cinnamon and ginger will heat you up",
+        price: "$4.50"
+      },
+      {
+        name: "Hot Chocolate Mocha",
+        description: "Rich chocolate and espresso combination",
+        reason: "Warm, comforting drink perfect for cold weather",
+        price: "$5.75"
+      }
+    ]
+  },
+  {
+    emoji: "🔥",
+    name: "Energetic",
+    description: "High energy and motivation",
+    recommendations: [
+      {
+        name: "Nitro Cold Brew",
+        description: "Nitrogen-infused cold brew with creamy texture",
+        reason: "Smooth energy boost that matches your high-energy vibe",
+        price: "$4.50"
+      },
+      {
+        name: "Peppermint Mocha",
+        description: "Chocolate coffee with refreshing peppermint",
+        reason: "Peppermint provides an invigorating sensation",
+        price: "$5.25"
+      }
+    ]
+  },
+  {
+    emoji: "💭",
+    name: "Contemplative",
+    description: "Deep in thought",
+    recommendations: [
+      {
+        name: "Turkish Coffee",
+        description: "Traditional slow-brewed coffee",
+        reason: "The ritual of drinking Turkish coffee encourages mindful reflection",
+        price: "$4.00"
+      },
+      {
+        name: "Earl Grey Tea Latte",
+        description: "Bergamot-infused black tea with milk",
+        reason: "Earl Grey naturally soothes stress and promotes relaxation",
+        price: "$4.25"
+      }
+    ]
+  },
+  {
+    emoji: "🌿",
+    name: "Natural",
+    description: "Seeking organic and wholesome",
+    recommendations: [
+      {
+        name: "Organic Pour Over",
+        description: "Single-origin organic coffee, carefully brewed",
+        reason: "Pure, natural coffee without additives",
+        price: "$4.75"
+      },
+      {
+        name: "Herbal Mint Tea",
+        description: "Fresh mint leaves steeped in hot water",
+        reason: "Mint naturally soothes stress and promotes relaxation",
+        price: "$3.50"
       }
     ]
   }
@@ -243,117 +186,125 @@ export default function MoodSelector() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 min-h-screen bg-gradient-to-br from-coffee-dark via-amber-900 to-coffee-dark relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-20 left-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-coffee-accent/10 rounded-full blur-3xl animate-pulse"></div>
+    <div className="min-h-screen bg-gradient-to-br from-coffee-cream via-amber-50 to-coffee-cream relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border-2 border-coffee-primary animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/4 w-24 h-24 rounded-full border-2 border-amber-600 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-40 h-40 rounded-full border border-coffee-accent animate-pulse"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-28 h-28 rounded-full border border-coffee-medium animate-pulse"></div>
+      </div>
       
-      <Card className="relative z-10 bg-coffee-cream/95 backdrop-blur-sm border-2 border-coffee-accent/30 shadow-2xl">
-        <CardHeader className="text-center pb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Coffee className="w-8 h-8 text-coffee-accent animate-pulse" />
-            <CardTitle className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-coffee-primary via-amber-600 to-coffee-accent bg-clip-text text-transparent">
-              Mood-Based Recommendations
-            </CardTitle>
-            <Sparkles className="w-8 h-8 text-amber-500 animate-pulse" />
-          </div>
-          <p className="text-xl text-coffee-dark/80 font-light">
-            Choose your mood to discover the perfect Coffee Pro experience
-          </p>
-          <div className="mt-4 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
-        </CardHeader>
-        
-        <CardContent>
-          {!showRecommendations ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {moods.map((mood) => (
-                <Button
-                  key={mood.name}
-                  variant="outline"
-                  className="group h-auto p-8 flex flex-col items-center gap-4 bg-coffee-cream/20 backdrop-blur-sm border-2 border-coffee-accent/30 hover:border-amber-500/60 hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 transform hover:scale-105 hover:bg-coffee-cream/30"
-                  onClick={() => handleMoodSelect(mood)}
-                >
-                  <div className="relative">
-                    <span className="text-6xl group-hover:scale-125 transition-transform duration-500 drop-shadow-2xl">
-                      {mood.emoji}
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-coffee-accent/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                  <div className="text-center space-y-2">
-                    <div className="font-bold text-xl text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
-                      {mood.name}
-                    </div>
-                    <div className="text-sm text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-relaxed">
-                      {mood.description}
-                    </div>
-                  </div>
-                  <div className="w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
-                </Button>
-              ))}
-            </div>
-          ) : selectedMood && (
-            <div className="space-y-8">
-              {/* Selected Mood Display */}
-              <div className="text-center relative">
-                <div className="relative inline-block">
-                  <div className="text-8xl mb-6 animate-bounce">{selectedMood.emoji}</div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-purple-500/30 rounded-full blur-2xl animate-pulse"></div>
-                </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
-                  Perfect for when you're feeling {selectedMood.name.toLowerCase()}
-                </h3>
-                <p className="text-xl text-cyan-100/80 max-w-2xl mx-auto">{selectedMood.description}</p>
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <Zap className="w-5 h-5 text-yellow-400" />
-                  <span className="text-cyan-200 font-medium">AI-Powered Recommendations</span>
-                  <Zap className="w-5 h-5 text-yellow-400" />
-                </div>
+      <div className="relative z-10 max-w-7xl mx-auto p-6">
+        <Card className="bg-white/95 backdrop-blur-sm border border-coffee-accent/20 shadow-xl rounded-2xl">
+          <CardHeader className="text-center pb-8 bg-gradient-to-r from-coffee-primary/5 to-amber-100/30 rounded-t-2xl">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="p-3 bg-coffee-primary/10 rounded-full">
+                <Coffee className="w-8 h-8 text-coffee-primary" />
               </div>
-
-              {/* Recommendations */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {selectedMood.recommendations.map((rec, index) => (
-                  <Card key={index} className="group bg-slate-700/70 backdrop-blur-sm border-2 border-purple-500/30 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105">
-                    <CardContent className="p-8">
-                      <div className="flex items-start justify-between mb-4">
-                        <h4 className="font-bold text-2xl text-cyan-100 group-hover:text-white transition-colors duration-300">
-                          {rec.name}
-                        </h4>
-                        <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold px-3 py-1 text-lg">
-                          {rec.price}
-                        </Badge>
-                      </div>
-                      <p className="text-cyan-200/80 mb-6 leading-relaxed text-lg">{rec.description}</p>
-                      
-                      <div className="bg-slate-600/50 p-4 rounded-xl border border-purple-500/20">
-                        <p className="text-cyan-200/90 leading-relaxed italic">{rec.reason}</p>
-                      </div>
-                      
-
-                    </CardContent>
-                  </Card>
+              <CardTitle className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-coffee-primary via-amber-700 to-coffee-accent bg-clip-text text-transparent">
+                Mood-Based Recommendations
+              </CardTitle>
+              <div className="p-3 bg-amber-100 rounded-full">
+                <Sparkles className="w-8 h-8 text-amber-600" />
+              </div>
+            </div>
+            <p className="text-xl text-coffee-dark/80 font-light max-w-2xl mx-auto">
+              Choose your current mood to discover the perfect Coffee Pro experience tailored just for you
+            </p>
+            <div className="mt-6 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
+          </CardHeader>
+          
+          <CardContent className="p-8">
+            {!showRecommendations ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {moods.map((mood) => (
+                  <Button
+                    key={mood.name}
+                    variant="outline"
+                    className="group h-auto p-6 flex flex-col items-center gap-4 bg-gradient-to-b from-white to-coffee-cream/30 border-2 border-coffee-accent/20 hover:border-coffee-primary/50 hover:shadow-xl hover:shadow-coffee-primary/10 transition-all duration-300 transform hover:scale-105 rounded-xl"
+                    onClick={() => handleMoodSelect(mood)}
+                  >
+                    <div className="relative">
+                      <span className="text-5xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
+                        {mood.emoji}
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-coffee-primary/20 to-amber-400/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="text-lg font-bold text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
+                        {mood.name}
+                      </h3>
+                      <p className="text-sm text-coffee-medium mt-1 group-hover:text-coffee-dark transition-colors duration-300">
+                        {mood.description}
+                      </p>
+                    </div>
+                  </Button>
                 ))}
               </div>
+            ) : (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <span className="text-4xl">{selectedMood?.emoji}</span>
+                    <h2 className="text-3xl font-bold text-coffee-dark">
+                      Perfect for when you're feeling {selectedMood?.name.toLowerCase()}
+                    </h2>
+                  </div>
+                  <p className="text-lg text-coffee-medium">
+                    {selectedMood?.description}
+                  </p>
+                </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <Button
-                  onClick={handleReset}
-                  className="group bg-slate-600/50 hover:bg-slate-500/50 text-cyan-100 border border-purple-500/30 hover:border-cyan-400/50 px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105"
-                >
-                  <ArrowLeft className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                  Try Another Mood
-                </Button>
-                
-                <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
-                  <RefreshCw className="w-5 h-5 mr-2" />
-                  Get New Recommendations
-                </Button>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {selectedMood?.recommendations.map((rec, index) => (
+                    <Card key={index} className="bg-gradient-to-br from-white to-coffee-cream/30 border border-coffee-accent/30 hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <h4 className="text-xl font-bold text-coffee-dark">
+                            {rec.name}
+                          </h4>
+                          <Badge className="bg-gradient-to-r from-coffee-primary to-amber-600 text-white font-bold px-3 py-1 text-lg rounded-full">
+                            {rec.price}
+                          </Badge>
+                        </div>
+                        <p className="text-coffee-medium mb-4 leading-relaxed">
+                          {rec.description}
+                        </p>
+                        
+                        <div className="bg-coffee-cream/50 p-4 rounded-lg border border-coffee-accent/20">
+                          <p className="text-coffee-dark/90 leading-relaxed italic text-sm">
+                            "{rec.reason}"
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="bg-white border-2 border-coffee-accent/30 text-coffee-dark hover:bg-coffee-cream/50 hover:border-coffee-primary/50 px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105"
+                  >
+                    <ArrowLeft className="w-5 h-5 mr-2" />
+                    Try Another Mood
+                  </Button>
+                  
+                  <Button 
+                    onClick={handleReset}
+                    className="bg-gradient-to-r from-coffee-primary to-amber-600 hover:from-coffee-dark hover:to-amber-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    <RefreshCw className="w-5 h-5 mr-2" />
+                    Get New Recommendations
+                  </Button>
+                </div>
               </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
