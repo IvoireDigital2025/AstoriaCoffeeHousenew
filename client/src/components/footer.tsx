@@ -7,7 +7,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-playfair font-bold mb-4">Coffee Pro</h3>
+            <div className="mb-4">
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-16 w-auto mb-3"
+              />
+            </div>
             <p className="text-coffee-secondary mb-4">
               Astoria's premier coffee destination, serving exceptional coffee and building community one cup at a time.
             </p>

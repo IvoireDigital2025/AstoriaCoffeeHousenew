@@ -27,9 +27,16 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            Welcome to<br />Coffee Pro
-          </h1>
+          <div className="mb-6">
+            <img 
+              src="/attached_assets/01_1749671523922.webp"
+              alt="Coffee Pro - Coffee & Bakery Logo"
+              className="h-24 md:h-32 w-auto mx-auto mb-4"
+            />
+            <h1 className="text-3xl md:text-5xl font-playfair font-bold">
+              Welcome to Coffee Pro
+            </h1>
+          </div>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
             Authentic Moroccan and Saudi Arabian coffee traditions meet NYC energy - 32+ years of cultural heritage in every cup.
           </p>

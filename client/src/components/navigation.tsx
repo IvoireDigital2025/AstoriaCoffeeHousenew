@@ -29,9 +29,11 @@ export default function Navigation() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0">
-                <h1 className="text-2xl font-playfair font-bold text-coffee-primary">
-                  Coffee Pro
-                </h1>
+                <img 
+                  src="/attached_assets/01_1749671523922.webp"
+                  alt="Coffee Pro - Coffee & Bakery Logo"
+                  className="h-12 w-auto"
+                />
               </Link>
             </div>
             
