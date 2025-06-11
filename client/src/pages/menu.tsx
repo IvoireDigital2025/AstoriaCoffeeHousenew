@@ -108,14 +108,14 @@ export default function Menu() {
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 6 }).map((_, index) => (
-              <Card key={index} className="overflow-hidden bg-coffee-dark/50 border border-coffee-primary/30">
-                <Skeleton className="w-full h-48 bg-coffee-medium" />
+              <Card key={index} className="overflow-hidden bg-amber-900/50 border border-amber-700/30">
+                <Skeleton className="w-full h-48 bg-amber-800" />
                 <CardContent className="p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2 bg-coffee-primary" />
-                  <Skeleton className="h-4 w-1/4 mb-4 bg-coffee-primary" />
-                  <Skeleton className="h-4 w-full mb-2 bg-coffee-primary" />
-                  <Skeleton className="h-4 w-3/4 mb-4 bg-coffee-primary" />
-                  <Skeleton className="h-10 w-full bg-coffee-primary" />
+                  <Skeleton className="h-6 w-3/4 mb-2 bg-amber-700" />
+                  <Skeleton className="h-4 w-1/4 mb-4 bg-amber-700" />
+                  <Skeleton className="h-4 w-full mb-2 bg-amber-700" />
+                  <Skeleton className="h-4 w-3/4 mb-4 bg-amber-700" />
+                  <Skeleton className="h-10 w-full bg-amber-700" />
                 </CardContent>
               </Card>
             ))
