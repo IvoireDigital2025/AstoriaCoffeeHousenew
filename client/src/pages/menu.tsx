@@ -122,7 +122,7 @@ export default function Menu() {
           ) : (
             menuItems?.map((item) => {
               return (
-                <Card key={item.id} className="group bg-amber-900/70 backdrop-blur-sm border-2 border-amber-700/30 overflow-hidden hover:border-amber-600/50 hover:shadow-2xl hover:shadow-amber-600/20 transition-all duration-500 transform hover:scale-105">
+                <Card key={item.id} className="group bg-amber-900/70 backdrop-blur-sm border-2 border-amber-700/30 overflow-hidden hover:border-amber-600/50 hover:shadow-2xl hover:shadow-amber-600/20 transition-all duration-500 transform hover:scale-105 h-full flex flex-col">
                   <div className="relative">
                     <img
                       src={item.image || "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a"}
@@ -136,16 +136,16 @@ export default function Menu() {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:from-slate-900/40 transition-all duration-500"></div>
                   </div>
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-amber-200 transition-colors duration-300">
+                  <CardContent className="p-6 flex-1 flex flex-col">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-xl font-bold text-white group-hover:text-amber-200 transition-colors duration-300 leading-tight">
                         {item.name}
                       </h3>
-                      <span className="text-2xl font-bold text-amber-400">
+                      <span className="text-xl font-bold text-amber-400 ml-2 flex-shrink-0">
                         ${item.price}
                       </span>
                     </div>
-                    <p className="text-stone-200 mb-6 leading-relaxed">
+                    <p className="text-stone-200 text-sm leading-snug line-clamp-3 flex-1">
                       {item.description}
                     </p>
                   </CardContent>
