@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
-import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749455407188.avif";
+import heritageImage from "@assets/2024-12-29_1749666894482.webp";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
 import alulaHeritagePhoto from "@assets/alula_heritage_photo.png";
 
@@ -90,7 +90,7 @@ export default function Home() {
             <div className="relative">
               <img 
                 src={heritageImage} 
-                alt="Coffee Pro heritage and atmosphere"
+                alt="Beautiful latte art showcasing Coffee Pro's artisan coffee craftsmanship"
                 className="w-full h-auto object-contain rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
