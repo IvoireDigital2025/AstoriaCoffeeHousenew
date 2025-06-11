@@ -132,8 +132,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Premium Middle Eastern desserts and gourmet treats"
+                  src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Traditional Arabic desserts and Middle Eastern sweets"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
