@@ -132,8 +132,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Traditional Moroccan tea ceremony with hospitality"
+                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Premium Middle Eastern desserts and gourmet treats"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
@@ -143,10 +143,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Traditional Hospitality
+                  Gourmet Snacks & Treats
                 </h3>
                 <p className="text-coffee-medium">
-                  Honoring the generous hospitality traditions of Morocco and Saudi Arabia, where coffee is a sacred ritual of welcome and community.
+                  Indulge in our curated selection of premium Middle Eastern treats including Dubai chocolate, kunafa delights, pistachio specialties, and artisan muffins crafted fresh daily.
                 </p>
               </CardContent>
             </Card>
