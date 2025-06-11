@@ -62,11 +62,13 @@ const soundtracks: Track[] = [
 ];
 
 export default function AmbientSoundtrack() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const [volume, setVolume] = useState(0.3);
+  const [volume, setVolume] = useState(0.2);
   const [isMuted, setIsMuted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -75,19 +77,50 @@ export default function AmbientSoundtrack() {
     }
   }, [volume, isMuted]);
 
-  const handlePlayPause = () => {
+  // Auto-start music when component mounts
+  useEffect(() => {
+    const startAmbientMusic = async () => {
+      if (audioRef.current && !hasStarted) {
+        try {
+          // Try to start playing automatically
+          await audioRef.current.play();
+          setHasStarted(true);
+        } catch (error) {
+          // If autoplay is blocked, wait for user interaction
+          setIsPlaying(false);
+          console.log("Autoplay blocked, waiting for user interaction");
+        }
+      }
+    };
+
+    // Small delay to ensure component is fully mounted
+    const timer = setTimeout(startAmbientMusic, 1000);
+    return () => clearTimeout(timer);
+  }, [hasStarted]);
+
+  // Hide welcome message after 8 seconds
+  useEffect(() => {
+    if (showWelcome) {
+      const timer = setTimeout(() => setShowWelcome(false), 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [showWelcome]);
+
+  const handlePlayPause = async () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        // In a real implementation, this would play actual audio files
-        // For demo purposes, we'll just update the state
-        audioRef.current.play().catch(() => {
-          // Handle audio play errors gracefully
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+          setHasStarted(true);
+        } catch (error) {
           console.log("Audio playback requires user interaction first");
-        });
+          setIsPlaying(false);
+        }
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -103,11 +136,39 @@ export default function AmbientSoundtrack() {
 
   return (
     <>
+      {/* Welcome Notification */}
+      {showWelcome && (
+        <div className="fixed top-20 right-6 z-50 max-w-sm">
+          <div className="bg-slate-800/95 backdrop-blur-sm border-2 border-purple-500/30 rounded-lg p-4 shadow-2xl">
+            <div className="flex items-center gap-3 mb-2">
+              <Music className="w-5 h-5 text-cyan-400" />
+              <h4 className="font-semibold text-cyan-100">Welcome to Coffee Pro</h4>
+            </div>
+            <p className="text-sm text-cyan-200/80 mb-3">
+              Enjoying our authentic Middle Eastern ambient soundtrack. Click the music button to control playback.
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-cyan-300/60">Now playing: {soundtracks[currentTrack].title}</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowWelcome(false)}
+                className="text-cyan-200/60 hover:text-white p-1"
+              >
+                ×
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Floating Music Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsVisible(!isVisible)}
-          className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white p-4 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-cyan-400/30"
+          className={`group relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white p-4 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-cyan-400/30 ${
+            showWelcome ? 'animate-bounce' : ''
+          }`}
         >
           <Music className="w-6 h-6 group-hover:animate-pulse" />
           {isPlaying && (
