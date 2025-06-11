@@ -65,7 +65,7 @@ export default function Menu() {
         <div className="text-center mb-20">
           <div className="relative">
             <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 tracking-tight">
-              QUANTUM MENU
+              QUANTUM MENU v2.0
             </h1>
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></div>
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
