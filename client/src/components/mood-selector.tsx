@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Sparkles } from "lucide-react";
+import { Coffee, Sparkles, RefreshCw, ArrowLeft, Heart, Zap, Brain } from "lucide-react";
 
 interface Mood {
   emoji: string;
@@ -168,6 +168,63 @@ const moods: Mood[] = [
         price: "$4.00"
       }
     ]
+  },
+  {
+    emoji: "🔥",
+    name: "Intense",
+    description: "Need maximum energy and focus",
+    recommendations: [
+      {
+        name: "Turkish Coffee",
+        description: "Ultra-strong traditional coffee with cardamom",
+        reason: "Highest caffeine concentration for peak performance",
+        price: "$3.75"
+      },
+      {
+        name: "Red Eye Coffee",
+        description: "Drip coffee with double espresso shot",
+        reason: "Triple caffeine boost for intense energy needs",
+        price: "$4.50"
+      }
+    ]
+  },
+  {
+    emoji: "🌙",
+    name: "Dreamy",
+    description: "Relaxed and contemplative mood",
+    recommendations: [
+      {
+        name: "Lavender Latte",
+        description: "Espresso with steamed milk and lavender syrup",
+        reason: "Lavender promotes calm and dreamy relaxation",
+        price: "$4.75"
+      },
+      {
+        name: "Golden Milk",
+        description: "Turmeric latte with warming spices and milk",
+        reason: "Anti-inflammatory spices for peaceful contemplation",
+        price: "$4.50"
+      }
+    ]
+  },
+  {
+    emoji: "⚡",
+    name: "Electric",
+    description: "Buzzing with creative energy",
+    recommendations: [
+      {
+        name: "Nitro Cold Brew",
+        description: "Nitrogen-infused cold brew with silky texture",
+        reason: "Smooth energy boost that matches your electric vibe",
+        price: "$4.25"
+      },
+      {
+        name: "Espresso Romano",
+        description: "Double espresso with lemon twist",
+        reason: "Citrus enhances creativity and mental sharpness",
+        price: "$3.75"
+      }
+    ]
   }
 ];
 
@@ -186,83 +243,120 @@ export default function MoodSelector() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
-      <Card className="bg-gradient-to-br from-coffee-cream to-white border-coffee-accent/20">
-        <CardHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Sparkles className="w-6 h-6 text-coffee-accent" />
-            <CardTitle className="text-3xl font-playfair text-coffee-dark">
-              How are you feeling today?
+    <div className="w-full max-w-6xl mx-auto p-6 min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+      
+      <Card className="relative z-10 bg-slate-800/90 backdrop-blur-sm border-2 border-purple-500/30 shadow-2xl">
+        <CardHeader className="text-center pb-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Brain className="w-8 h-8 text-cyan-400 animate-pulse" />
+            <CardTitle className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Mood-Based AI Recommendations
             </CardTitle>
-            <Sparkles className="w-6 h-6 text-coffee-accent" />
+            <Heart className="w-8 h-8 text-pink-400 animate-pulse" />
           </div>
-          <p className="text-coffee-medium text-lg">
-            Let us recommend the perfect Coffee Pro beverage for your mood
+          <p className="text-xl text-cyan-100/80 font-light">
+            Our AI analyzes your mood to suggest the perfect Coffee Pro experience
           </p>
+          <div className="mt-4 h-1 w-32 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mx-auto"></div>
         </CardHeader>
         
         <CardContent>
           {!showRecommendations ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {moods.map((mood) => (
                 <Button
                   key={mood.name}
                   variant="outline"
-                  className="h-auto p-6 flex flex-col items-center gap-3 hover:bg-coffee-cream hover:border-coffee-accent transition-all duration-300 group"
+                  className="group h-auto p-8 flex flex-col items-center gap-4 bg-slate-700/50 backdrop-blur-sm border-2 border-purple-500/30 hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105 hover:bg-slate-600/50"
                   onClick={() => handleMoodSelect(mood)}
                 >
-                  <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                    {mood.emoji}
-                  </span>
-                  <div className="text-center">
-                    <div className="font-semibold text-coffee-dark">{mood.name}</div>
-                    <div className="text-sm text-coffee-medium mt-1">{mood.description}</div>
+                  <div className="relative">
+                    <span className="text-6xl group-hover:scale-125 transition-transform duration-500 drop-shadow-2xl">
+                      {mood.emoji}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
+                  <div className="text-center space-y-2">
+                    <div className="font-bold text-xl text-cyan-100 group-hover:text-white transition-colors duration-300">
+                      {mood.name}
+                    </div>
+                    <div className="text-sm text-cyan-200/70 group-hover:text-cyan-100/90 transition-colors duration-300 leading-relaxed">
+                      {mood.description}
+                    </div>
+                  </div>
+                  <div className="w-full h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
                 </Button>
               ))}
             </div>
           ) : selectedMood && (
-            <div className="space-y-6">
-              <div className="text-center">
-                <div className="text-6xl mb-4">{selectedMood.emoji}</div>
-                <h3 className="text-2xl font-playfair text-coffee-dark mb-2">
+            <div className="space-y-8">
+              {/* Selected Mood Display */}
+              <div className="text-center relative">
+                <div className="relative inline-block">
+                  <div className="text-8xl mb-6 animate-bounce">{selectedMood.emoji}</div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-purple-500/30 rounded-full blur-2xl animate-pulse"></div>
+                </div>
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
                   Perfect for when you're feeling {selectedMood.name.toLowerCase()}
                 </h3>
-                <p className="text-coffee-medium">{selectedMood.description}</p>
+                <p className="text-xl text-cyan-100/80 max-w-2xl mx-auto">{selectedMood.description}</p>
+                <div className="mt-6 flex items-center justify-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-400" />
+                  <span className="text-cyan-200 font-medium">AI-Powered Recommendations</span>
+                  <Zap className="w-5 h-5 text-yellow-400" />
+                </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              {/* Recommendations */}
+              <div className="grid md:grid-cols-2 gap-6">
                 {selectedMood.recommendations.map((rec, index) => (
-                  <Card key={index} className="border-coffee-accent/30 hover:shadow-lg transition-shadow duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <h4 className="font-playfair font-semibold text-lg text-coffee-dark">
+                  <Card key={index} className="group bg-slate-700/70 backdrop-blur-sm border-2 border-purple-500/30 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105">
+                    <CardContent className="p-8">
+                      <div className="flex items-start justify-between mb-4">
+                        <h4 className="font-bold text-2xl text-cyan-100 group-hover:text-white transition-colors duration-300">
                           {rec.name}
                         </h4>
-                        <Badge variant="secondary" className="bg-coffee-accent text-white">
+                        <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold px-3 py-1 text-lg">
                           {rec.price}
                         </Badge>
                       </div>
-                      <p className="text-coffee-medium mb-3">{rec.description}</p>
-                      <div className="bg-coffee-cream/50 p-3 rounded-lg">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Coffee className="w-4 h-4 text-coffee-accent" />
-                          <span className="text-sm font-medium text-coffee-dark">Why this works:</span>
+                      <p className="text-cyan-200/80 mb-6 leading-relaxed text-lg">{rec.description}</p>
+                      
+                      <div className="bg-slate-600/50 p-4 rounded-xl border border-purple-500/20">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="p-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full">
+                            <Coffee className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-lg font-bold text-cyan-100">AI Analysis:</span>
                         </div>
-                        <p className="text-sm text-coffee-medium">{rec.reason}</p>
+                        <p className="text-cyan-200/90 leading-relaxed">{rec.reason}</p>
                       </div>
+                      
+                      <Button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white font-bold py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+                        <Coffee className="w-5 h-5 mr-2" />
+                        Order Now
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
-              <div className="text-center pt-4">
+              {/* Navigation Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                 <Button
                   onClick={handleReset}
-                  variant="outline"
-                  className="border-coffee-primary text-coffee-primary hover:bg-coffee-primary hover:text-white"
+                  className="group bg-slate-600/50 hover:bg-slate-500/50 text-cyan-100 border border-purple-500/30 hover:border-cyan-400/50 px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105"
                 >
+                  <ArrowLeft className="w-5 h-5 mr-2 group-hover:animate-pulse" />
                   Try Another Mood
+                </Button>
+                
+                <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <RefreshCw className="w-5 h-5 mr-2" />
+                  Get New Recommendations
                 </Button>
               </div>
             </div>
