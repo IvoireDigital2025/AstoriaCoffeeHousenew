@@ -71,10 +71,8 @@ export default function Menu() {
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
           </div>
           
-          <p className="text-2xl text-cyan-100 mb-8 font-light tracking-wide flex items-center justify-center">
-            <Sparkles className="w-6 h-6 mr-2 text-yellow-400" />
-            Experience Coffee Pro&apos;s Galactic Flavors
-            <Sparkles className="w-6 h-6 ml-2 text-yellow-400" />
+          <p className="text-2xl text-cyan-100 mb-8 font-light tracking-wide text-center">
+            Experience Coffee Pro&apos;s Authentic Middle Eastern Flavors
           </p>
           
           {/* Floating Action Buttons */}
@@ -203,12 +201,12 @@ export default function Menu() {
         {menuItems && menuItems.length === 0 && !isLoading && (
           <div className="text-center py-16">
             <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-12">
-              <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+              <Coffee className="w-16 h-16 text-amber-400 mx-auto mb-6" />
               <p className="text-2xl text-cyan-100 font-semibold">
                 No items available in this category at the moment.
               </p>
               <p className="text-cyan-200/60 mt-4">
-                Check back soon for new galactic treats!
+                Check back soon for new authentic treats!
               </p>
             </div>
           </div>
