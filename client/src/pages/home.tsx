@@ -91,7 +91,7 @@ export default function Home() {
               <img 
                 src={heritageImage} 
                 alt="Beautiful latte art showcasing Coffee Pro's artisan coffee craftsmanship"
-                className="w-full h-auto object-contain rounded-lg shadow-xl"
+                className="w-4/5 h-auto object-contain rounded-lg shadow-xl mx-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
             </div>
