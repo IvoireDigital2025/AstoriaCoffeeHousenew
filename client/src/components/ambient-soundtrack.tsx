@@ -10,7 +10,6 @@ export default function AmbientSoundtrack() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.02);
   const [isMuted, setIsMuted] = useState(false);
-  const [showExitModal, setShowExitModal] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -44,21 +43,6 @@ export default function AmbientSoundtrack() {
     }
   }, [showWelcome]);
 
-  // Add beforeunload listener to show stop music option when leaving
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (isPlaying) {
-        setShowExitModal(true);
-        event.preventDefault();
-        event.returnValue = 'Music is still playing. Would you like to stop it before leaving?';
-        return event.returnValue;
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [isPlaying]);
-
   const handlePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -83,7 +67,6 @@ export default function AmbientSoundtrack() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
       setIsPlaying(false);
-      setIsVisible(false); // Close the control panel after stopping
     }
   };
 
@@ -98,7 +81,7 @@ export default function AmbientSoundtrack() {
               <h4 className="font-semibold text-coffee-dark">Welcome to Coffee Pro</h4>
             </div>
             <p className="text-sm text-coffee-medium mb-3">
-              Enjoying our authentic Middle Eastern ambient music. Click the music button below to stop or control playback.
+              Enjoying our authentic Middle Eastern ambient music. Click the music button to control playback.
             </p>
             <div className="flex items-center justify-between">
               <span className="text-xs text-coffee-medium">Now playing: Arab & Muslim Ambience</span>
@@ -115,29 +98,19 @@ export default function AmbientSoundtrack() {
         </div>
       )}
 
-      {/* Floating Music Control Button */}
+      {/* Floating Ambience Indicator */}
       <div className="fixed bottom-6 left-6 z-50">
-        {!isVisible ? (
-          <Button
-            onClick={() => setIsVisible(!isVisible)}
-            className={`group relative overflow-hidden bg-gradient-to-r from-coffee-primary to-amber-600 hover:from-coffee-dark hover:to-amber-700 text-white p-4 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-amber-400/30 ${
-              showWelcome ? 'animate-bounce' : ''
-            }`}
-          >
-            <Music className="w-6 h-6 group-hover:animate-pulse" />
-            {isPlaying && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-ping rounded-full"></div>
-            )}
-          </Button>
-        ) : (
-          <Button
-            onClick={handleStop}
-            className="group relative overflow-hidden bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-red-400/30"
-          >
-            <Square className="w-5 h-5 mr-2" />
-            Stop Music
-          </Button>
-        )}
+        <Button
+          onClick={() => setIsVisible(!isVisible)}
+          className={`group relative overflow-hidden bg-gradient-to-r from-coffee-primary to-amber-600 hover:from-coffee-dark hover:to-amber-700 text-white p-4 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-amber-400/30 ${
+            showWelcome ? 'animate-bounce' : ''
+          }`}
+        >
+          <Music className="w-6 h-6 group-hover:animate-pulse" />
+          {isPlaying && (
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-ping rounded-full"></div>
+          )}
+        </Button>
       </div>
 
       {/* Ambience Info Panel */}
