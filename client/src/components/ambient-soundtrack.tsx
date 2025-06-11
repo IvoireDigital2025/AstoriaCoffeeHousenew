@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Coffee } from "lucide-react";
+import { Coffee, VolumeX } from "lucide-react";
 import audioFile from "@assets/arab-and-muslim-190765_1749669994292.mp3";
 
 export default function AmbientSoundtrack() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function AmbientSoundtrack() {
   // Auto-start audio when component mounts
   useEffect(() => {
     const startAudio = () => {
-      if (audioRef.current) {
+      if (audioRef.current && !isStopped) {
         audioRef.current.play().then(() => {
           setIsPlaying(true);
         }).catch(() => {
@@ -30,7 +31,7 @@ export default function AmbientSoundtrack() {
 
     const timer = setTimeout(startAudio, 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isStopped]);
 
   // Hide welcome message after 6 seconds
   useEffect(() => {
