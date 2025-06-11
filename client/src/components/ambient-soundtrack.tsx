@@ -3,37 +3,50 @@ import { Button } from "@/components/ui/button";
 import { Coffee, VolumeX } from "lucide-react";
 import audioFile from "@assets/arab-and-muslim-190765_1749669994292.mp3";
 
+let globalAudio: HTMLAudioElement | null = null;
+
 export default function AmbientSoundtrack() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(true);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isStopped, setIsStopped] = useState(false);
 
   useEffect(() => {
-    if (audioRef.current && musicEnabled) {
-      audioRef.current.volume = 0.02;
-    }
-  }, [musicEnabled]);
+    if (isStopped) return;
 
-  // Auto-start audio when component mounts
-  useEffect(() => {
-    if (!musicEnabled) return;
-    
-    const startAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {
-          setIsPlaying(false);
-        });
+    const initAudio = () => {
+      if (!globalAudio) {
+        globalAudio = new Audio(audioFile);
+        globalAudio.loop = true;
+        globalAudio.volume = 0.02;
+        globalAudio.preload = 'auto';
+        
+        globalAudio.addEventListener('play', () => setIsPlaying(true));
+        globalAudio.addEventListener('pause', () => setIsPlaying(false));
+        globalAudio.addEventListener('ended', () => setIsPlaying(false));
       }
+
+      setTimeout(() => {
+        if (globalAudio && !isStopped) {
+          globalAudio.play().catch(() => {
+            setIsPlaying(false);
+          });
+        }
+      }, 2000);
     };
 
-    const timer = setTimeout(startAudio, 2000);
-    return () => clearTimeout(timer);
-  }, [musicEnabled]);
+    initAudio();
 
-  // Hide welcome message after 6 seconds
+    return () => {
+      if (globalAudio && isStopped) {
+        globalAudio.pause();
+        globalAudio.currentTime = 0;
+        globalAudio.src = '';
+        globalAudio.load();
+        globalAudio = null;
+      }
+    };
+  }, [isStopped]);
+
   useEffect(() => {
     if (showWelcome) {
       const timer = setTimeout(() => setShowWelcome(false), 6000);
@@ -42,15 +55,21 @@ export default function AmbientSoundtrack() {
   }, [showWelcome]);
 
   const handleStopMusic = () => {
-    setMusicEnabled(false);
-    setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+    if (globalAudio) {
+      globalAudio.pause();
+      globalAudio.currentTime = 0;
+      globalAudio.volume = 0;
+      globalAudio.muted = true;
+      globalAudio.src = '';
+      globalAudio.load();
+      globalAudio.remove();
+      globalAudio = null;
     }
+    setIsStopped(true);
+    setIsPlaying(false);
   };
 
-  if (!musicEnabled) {
+  if (isStopped) {
     return null;
   }
 
@@ -96,19 +115,6 @@ export default function AmbientSoundtrack() {
           </div>
         </div>
       )}
-
-      {/* Audio Element */}
-      <audio
-        ref={audioRef}
-        loop
-        preload="auto"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
-        onError={() => setIsPlaying(false)}
-      >
-        <source src={audioFile} type="audio/mpeg" />
-      </audio>
     </>
   );
 }
