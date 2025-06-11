@@ -4,6 +4,8 @@ import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749455407188.avif";
+import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
+import alulaImage from "@assets/Screenshot 2025-06-10 at 3.39.42 PM (1)_1749666235971.png";
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -132,8 +134,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-primary to-coffee-dark relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Traditional Arabic desserts and Middle Eastern sweets"
+                  src={dubaiDessertImage}
+                  alt="Dubai Pistachio Cheese Bomb - signature dessert at Coffee Pro"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
@@ -155,7 +157,7 @@ export default function Home() {
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
                   src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Diverse NYC community enjoying coffee together"
+                  alt="AlUla heritage celebration connecting cultures"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
