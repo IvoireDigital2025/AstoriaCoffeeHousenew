@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Leaf, UtensilsCrossed, Plus, Check } from "lucide-react";
+import { Coffee, Leaf, UtensilsCrossed, Plus, Check, Download, Sparkles, ShoppingCart, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -10,7 +10,7 @@ import type { MenuItem } from "@shared/schema";
 import pdfMenuPath from "@assets/coffee-pro-Menu_1749665658431.pdf";
 
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState<string>("coffee");
+  const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const [addedItems, setAddedItems] = useState<Set<number>>(new Set());
   const { toast } = useToast();
 
@@ -54,36 +54,55 @@ export default function Menu() {
   };
 
   return (
-    <div className="min-h-screen bg-coffee-cream py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-            Our Menu
-          </h1>
-          <p className="text-xl text-coffee-medium">
-            Crafted with love, served with passion
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Futuristic Background Elements */}
+      <div className="absolute inset-0 opacity-30"></div>
+      <div className="absolute top-10 left-10 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Futuristic Header */}
+        <div className="text-center mb-20">
+          <div className="relative">
+            <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 tracking-tight">
+              QUANTUM MENU
+            </h1>
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></div>
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+          </div>
+          
+          <p className="text-2xl text-cyan-100 mb-8 font-light tracking-wide flex items-center justify-center">
+            <Sparkles className="w-6 h-6 mr-2 text-yellow-400" />
+            Experience Coffee Pro&apos;s Galactic Flavors
+            <Sparkles className="w-6 h-6 ml-2 text-yellow-400" />
           </p>
           
-          {/* PDF Menu Link */}
-          <div className="mt-8">
+          {/* Floating Action Buttons */}
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
             <Button 
               asChild
-              className="bg-coffee-primary hover:bg-coffee-medium text-white px-6 py-3"
+              className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border border-cyan-400/30"
             >
               <a 
                 href={pdfMenuPath} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center"
+                className="inline-flex items-center font-semibold"
               >
-                📄 View Complete PDF Menu
+                <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                Download Full Menu
               </a>
+            </Button>
+            
+            <Button className="group relative overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border border-emerald-400/30">
+              <Search className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+              AI Menu Assistant
             </Button>
           </div>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap justify-center mb-12 gap-4">
+        {/* Futuristic Category Filters */}
+        <div className="flex flex-wrap justify-center mb-16 gap-4">
           {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = activeCategory === category.id;
@@ -93,14 +112,17 @@ export default function Menu() {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 variant={isActive ? "default" : "outline"}
-                className={`px-6 py-3 font-medium ${
+                className={`group relative overflow-hidden px-8 py-4 font-bold text-lg rounded-full transition-all duration-300 transform hover:scale-105 ${
                   isActive
-                    ? "bg-coffee-primary text-white hover:bg-coffee-medium"
-                    : "bg-white text-coffee-primary border-2 border-coffee-primary hover:bg-coffee-primary hover:text-white"
+                    ? "bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-2xl border-2 border-cyan-400"
+                    : "bg-slate-800/50 text-cyan-100 border-2 border-purple-500/50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-cyan-400"
                 }`}
               >
-                <IconComponent className="w-5 h-5 mr-2" />
+                <IconComponent className="w-6 h-6 mr-3" />
                 {category.label}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                )}
               </Button>
             );
           })}
@@ -111,14 +133,14 @@ export default function Menu() {
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 6 }).map((_, index) => (
-              <Card key={index} className="overflow-hidden">
-                <Skeleton className="w-full h-48" />
+              <Card key={index} className="overflow-hidden bg-slate-800/50 border border-purple-500/30">
+                <Skeleton className="w-full h-48 bg-slate-700" />
                 <CardContent className="p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/4 mb-4" />
-                  <Skeleton className="h-4 w-full mb-2" />
-                  <Skeleton className="h-4 w-3/4 mb-4" />
-                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-6 w-3/4 mb-2 bg-slate-600" />
+                  <Skeleton className="h-4 w-1/4 mb-4 bg-slate-600" />
+                  <Skeleton className="h-4 w-full mb-2 bg-slate-600" />
+                  <Skeleton className="h-4 w-3/4 mb-4 bg-slate-600" />
+                  <Skeleton className="h-10 w-full bg-slate-600" />
                 </CardContent>
               </Card>
             ))
@@ -127,49 +149,50 @@ export default function Menu() {
               const isAdded = addedItems.has(item.id);
               
               return (
-                <Card key={item.id} className="bg-white shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <Card key={item.id} className="group bg-slate-800/70 backdrop-blur-sm border-2 border-purple-500/30 overflow-hidden hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105">
                   <div className="relative">
                     <img
                       src={item.image || "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a"}
                       alt={item.name}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     {item.available && (
-                      <Badge className="absolute top-2 right-2 bg-green-500 text-white">
+                      <Badge className="absolute top-3 right-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold px-3 py-1 rounded-full shadow-lg">
                         Available
                       </Badge>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:from-slate-900/40 transition-all duration-500"></div>
                   </div>
                   <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-playfair font-semibold text-coffee-dark">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-bold text-cyan-100 group-hover:text-white transition-colors duration-300">
                         {item.name}
                       </h3>
-                      <span className="text-coffee-accent font-bold text-lg">
+                      <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                         {item.price}
                       </span>
                     </div>
-                    <p className="text-coffee-medium mb-4 line-clamp-2">
+                    <p className="text-cyan-200/80 mb-6 leading-relaxed">
                       {item.description}
                     </p>
                     <Button
                       onClick={() => handleAddToCart(item.id, item.name)}
                       disabled={!item.available || isAdded}
-                      className={`w-full font-medium transition-colors ${
+                      className={`w-full font-bold text-lg py-3 rounded-full transition-all duration-300 transform hover:scale-105 ${
                         isAdded
-                          ? "bg-green-500 hover:bg-green-600 text-white"
-                          : "bg-coffee-accent hover:bg-orange-600 text-white"
+                          ? "bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-2xl"
+                          : "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-2xl hover:shadow-orange-500/30"
                       }`}
                     >
                       {isAdded ? (
                         <>
-                          <Check className="w-4 h-4 mr-2" />
-                          Added!
+                          <Check className="w-5 h-5 mr-2" />
+                          Added to Cart!
                         </>
                       ) : (
                         <>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Add to Order
+                          <ShoppingCart className="w-5 h-5 mr-2" />
+                          Add to Cart
                         </>
                       )}
                     </Button>
@@ -181,27 +204,37 @@ export default function Menu() {
         </div>
 
         {menuItems && menuItems.length === 0 && !isLoading && (
-          <div className="text-center py-12">
-            <p className="text-coffee-medium text-lg">
-              No items available in this category at the moment.
-            </p>
+          <div className="text-center py-16">
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-12">
+              <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+              <p className="text-2xl text-cyan-100 font-semibold">
+                No items available in this category at the moment.
+              </p>
+              <p className="text-cyan-200/60 mt-4">
+                Check back soon for new galactic treats!
+              </p>
+            </div>
           </div>
         )}
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-white rounded-lg p-8 shadow-lg">
-            <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-4">
-              Can't Find What You're Looking For?
-            </h3>
-            <p className="text-coffee-medium mb-6">
-              Our baristas are happy to create custom drinks or recommend something special just for you.
-            </p>
-            <Button 
-              className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3"
-            >
-              Ask Our AI Assistant
-            </Button>
+        {/* Futuristic Bottom CTA */}
+        <div className="text-center mt-20">
+          <div className="bg-gradient-to-r from-slate-800/80 via-purple-900/50 to-slate-800/80 backdrop-blur-sm border-2 border-purple-500/30 rounded-3xl p-12 shadow-2xl">
+            <div className="relative">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-6">
+                Need Personalized Recommendations?
+              </h3>
+              <p className="text-xl text-cyan-100/80 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Let our AI-powered assistant help you discover the perfect coffee and treats tailored to your taste preferences.
+              </p>
+              <Button 
+                className="group relative overflow-hidden bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600 text-white px-12 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 font-bold text-lg"
+              >
+                <Sparkles className="w-6 h-6 mr-3 group-hover:animate-spin" />
+                Ask Our AI Assistant
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
