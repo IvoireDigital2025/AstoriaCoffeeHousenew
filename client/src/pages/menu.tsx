@@ -54,24 +54,24 @@ export default function Menu() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coffee-dark via-coffee-medium to-coffee-dark relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-amber-900 via-amber-800 to-stone-900 relative overflow-hidden">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 opacity-30"></div>
-      <div className="absolute top-10 left-10 w-64 h-64 bg-coffee-accent/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-coffee-primary/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-10 left-10 w-64 h-64 bg-amber-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Futuristic Header */}
         <div className="text-center mb-20">
           <div className="relative">
-            <h1 className="text-6xl md:text-7xl font-playfair font-bold text-coffee-cream mb-6 tracking-tight">
+            <h1 className="text-6xl md:text-7xl font-playfair font-bold text-white mb-6 tracking-tight">
               Coffee Pro Menu
             </h1>
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-coffee-accent rounded-full"></div>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-coffee-primary rounded-full"></div>
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-amber-600 rounded-full"></div>
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-orange-600 rounded-full"></div>
           </div>
           
-          <p className="text-2xl text-coffee-cream mb-8 font-light tracking-wide text-center">
+          <p className="text-2xl text-stone-100 mb-8 font-light tracking-wide text-center">
             Experience Coffee Pro&apos;s Authentic Middle Eastern Flavors
           </p>
           
@@ -79,7 +79,7 @@ export default function Menu() {
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <Button 
               asChild
-              className="group relative overflow-hidden bg-coffee-accent hover:bg-coffee-primary text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="group relative overflow-hidden bg-amber-700 hover:bg-amber-800 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <a 
                 href={pdfMenuPath} 
