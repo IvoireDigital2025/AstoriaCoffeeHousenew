@@ -8,7 +8,7 @@ export default function AmbientSoundtrack() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.05);
+  const [volume, setVolume] = useState(0.02);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
