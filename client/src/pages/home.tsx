@@ -5,7 +5,7 @@ import { Link } from "wouter";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749455407188.avif";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
-import alulaImage from "@assets/Screenshot 2025-06-10 at 3.39.42 PM (1)_1749666235971.png";
+
 
 export default function Home() {
   const handleScrollToMenu = () => {
@@ -156,8 +156,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="AlUla heritage celebration connecting cultures"
+                  src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Cultural bridge connecting communities through coffee"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
