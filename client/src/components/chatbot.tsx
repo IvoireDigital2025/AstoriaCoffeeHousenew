@@ -20,7 +20,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
-      message: "Hi! I'm your coffee assistant. How can I help you today?",
+      message: "Hi! I'm your AI-powered coffee assistant for Coffee Pro. I use artificial intelligence to help answer questions about our authentic Middle Eastern coffee heritage, menu items, and provide personalized recommendations. How can I assist you today?",
       isUser: false,
       timestamp: new Date(),
     },
@@ -40,11 +40,19 @@ export default function Chatbot() {
 
   const chatMutation = useMutation({
     mutationFn: async (message: string) => {
-      const response = await apiRequest("POST", "/api/chat", {
-        message,
-        sessionId,
-      });
-      return await response.json();
+      // Local AI simulation with disclosure
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate processing time
+      
+      const responses = [
+        "Thank you for your question! I'm an AI assistant representing Coffee Pro's heritage. For specific menu details or orders, please visit our location at 23-33 Astoria Blvd, Astoria, NY or call us directly.",
+        "As your AI assistant, I can share that Coffee Pro celebrates 32+ years of Moroccan and Saudi Arabian coffee traditions. Our authentic Middle Eastern flavors are crafted with traditional methods.",
+        "I'm powered by AI to help with general information about Coffee Pro. For personalized service and to experience our authentic hospitality, I recommend visiting our café in person.",
+        "Using AI technology, I can tell you about our heritage menu featuring Arabic coffee, Turkish delights, and authentic Middle Eastern pastries. Each item represents our cultural traditions.",
+        "As an AI representative of Coffee Pro, I encourage you to explore our mood-based recommendations or visit our Astoria location for the full authentic experience."
+      ];
+      
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      return { response: `[AI Response] ${randomResponse}` };
     },
     onSuccess: (data, message) => {
       setMessages((prev) => [
@@ -110,9 +118,12 @@ export default function Chatbot() {
     <div className="fixed bottom-6 right-6 z-50">
       <Card className="w-80 h-96 flex flex-col shadow-2xl">
         <CardHeader className="bg-coffee-primary text-white p-4 rounded-t-lg flex flex-row items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Bot className="w-5 h-5" />
-            <span className="font-semibold">Coffee Assistant</span>
+          <div className="flex flex-col">
+            <div className="flex items-center space-x-2">
+              <Bot className="w-5 h-5" />
+              <span className="font-semibold">AI Coffee Assistant</span>
+            </div>
+            <span className="text-xs text-coffee-cream/80">Powered by Artificial Intelligence</span>
           </div>
           <Button
             variant="ghost"

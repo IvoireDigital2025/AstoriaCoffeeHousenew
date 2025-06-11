@@ -17,6 +17,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {/* AI Disclosure Banner */}
+      <div className="bg-amber-800/90 text-white py-3 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm">
+          <Bot className="w-4 h-4" />
+          <span>This website uses AI technology to enhance your Coffee Pro experience with personalized recommendations and assistance.</span>
+        </div>
+      </div>
+      
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
