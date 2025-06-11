@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Leaf, UtensilsCrossed, Plus, Check, Download, Sparkles, ShoppingCart, Search } from "lucide-react";
+import { Coffee, Leaf, UtensilsCrossed, Plus, Check, Eye, ShoppingCart } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -81,7 +81,7 @@ export default function Menu() {
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <Button 
               asChild
-              className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border border-cyan-400/30"
+              className="group relative overflow-hidden bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border border-amber-400/30"
             >
               <a 
                 href={pdfMenuPath} 
@@ -89,15 +89,12 @@ export default function Menu() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center font-semibold"
               >
-                <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                Download Full Menu
+                <Eye className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                View Full Menu
               </a>
             </Button>
             
-            <Button className="group relative overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border border-emerald-400/30">
-              <Search className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-              AI Menu Assistant
-            </Button>
+
           </div>
         </div>
 
@@ -217,26 +214,7 @@ export default function Menu() {
           </div>
         )}
 
-        {/* Futuristic Bottom CTA */}
-        <div className="text-center mt-20">
-          <div className="bg-gradient-to-r from-slate-800/80 via-purple-900/50 to-slate-800/80 backdrop-blur-sm border-2 border-purple-500/30 rounded-3xl p-12 shadow-2xl">
-            <div className="relative">
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-6">
-                Need Personalized Recommendations?
-              </h3>
-              <p className="text-xl text-cyan-100/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Let our AI-powered assistant help you discover the perfect coffee and treats tailored to your taste preferences.
-              </p>
-              <Button 
-                className="group relative overflow-hidden bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600 text-white px-12 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 font-bold text-lg"
-              >
-                <Sparkles className="w-6 h-6 mr-3 group-hover:animate-spin" />
-                Ask Our AI Assistant
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </Button>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   );
