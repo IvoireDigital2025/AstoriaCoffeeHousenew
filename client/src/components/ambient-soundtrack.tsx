@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Music, Coffee, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Music, Coffee, Play, Pause, Volume2, VolumeX, Square } from "lucide-react";
 import audioFile from "@assets/arab-and-muslim-190765_1749669994292.mp3";
 
 export default function AmbientSoundtrack() {
@@ -60,6 +60,14 @@ export default function AmbientSoundtrack() {
 
   const handleVolumeToggle = () => {
     setIsMuted(!isMuted);
+  };
+
+  const handleStop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
+    }
   };
 
   return (
@@ -140,6 +148,14 @@ export default function AmbientSoundtrack() {
                   className="bg-gradient-to-r from-coffee-primary to-amber-600 hover:from-coffee-dark hover:to-amber-700 text-white rounded-full p-3"
                 >
                   {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                </Button>
+
+                <Button
+                  onClick={handleStop}
+                  variant="outline"
+                  className="border-red-300 text-red-600 hover:bg-red-50 rounded-full p-3"
+                >
+                  <Square className="w-5 h-5" />
                 </Button>
 
                 <Button
