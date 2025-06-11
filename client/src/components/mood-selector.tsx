@@ -243,24 +243,24 @@ export default function MoodSelector() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="w-full max-w-6xl mx-auto p-6 min-h-screen bg-gradient-to-br from-coffee-dark via-amber-900 to-coffee-dark relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-20 left-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-coffee-accent/10 rounded-full blur-3xl animate-pulse"></div>
       
-      <Card className="relative z-10 bg-slate-800/90 backdrop-blur-sm border-2 border-purple-500/30 shadow-2xl">
+      <Card className="relative z-10 bg-coffee-cream/95 backdrop-blur-sm border-2 border-coffee-accent/30 shadow-2xl">
         <CardHeader className="text-center pb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Brain className="w-8 h-8 text-cyan-400 animate-pulse" />
-            <CardTitle className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <Coffee className="w-8 h-8 text-coffee-accent animate-pulse" />
+            <CardTitle className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-coffee-primary via-amber-600 to-coffee-accent bg-clip-text text-transparent">
               Mood-Based Recommendations
             </CardTitle>
-            <Heart className="w-8 h-8 text-pink-400 animate-pulse" />
+            <Sparkles className="w-8 h-8 text-amber-500 animate-pulse" />
           </div>
-          <p className="text-xl text-cyan-100/80 font-light">
+          <p className="text-xl text-coffee-dark/80 font-light">
             Our AI analyzes your mood to suggest the perfect Coffee Pro experience
           </p>
-          <div className="mt-4 h-1 w-32 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full mx-auto"></div>
+          <div className="mt-4 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
         </CardHeader>
         
         <CardContent>
@@ -270,24 +270,24 @@ export default function MoodSelector() {
                 <Button
                   key={mood.name}
                   variant="outline"
-                  className="group h-auto p-8 flex flex-col items-center gap-4 bg-slate-700/50 backdrop-blur-sm border-2 border-purple-500/30 hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105 hover:bg-slate-600/50"
+                  className="group h-auto p-8 flex flex-col items-center gap-4 bg-coffee-cream/20 backdrop-blur-sm border-2 border-coffee-accent/30 hover:border-amber-500/60 hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 transform hover:scale-105 hover:bg-coffee-cream/30"
                   onClick={() => handleMoodSelect(mood)}
                 >
                   <div className="relative">
                     <span className="text-6xl group-hover:scale-125 transition-transform duration-500 drop-shadow-2xl">
                       {mood.emoji}
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-coffee-accent/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                   <div className="text-center space-y-2">
-                    <div className="font-bold text-xl text-cyan-100 group-hover:text-white transition-colors duration-300">
+                    <div className="font-bold text-xl text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
                       {mood.name}
                     </div>
-                    <div className="text-sm text-cyan-200/70 group-hover:text-cyan-100/90 transition-colors duration-300 leading-relaxed">
+                    <div className="text-sm text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-relaxed">
                       {mood.description}
                     </div>
                   </div>
-                  <div className="w-full h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                  <div className="w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
                 </Button>
               ))}
             </div>
