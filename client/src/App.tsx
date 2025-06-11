@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
+import AmbientSoundtrack from "@/components/ambient-soundtrack";
 import Home from "@/pages/home";
 import Menu from "@/pages/menu";
 import About from "@/pages/about";
@@ -33,6 +34,7 @@ function Router() {
       </main>
       <Footer />
       <Chatbot />
+      <AmbientSoundtrack />
     </>
   );
 }
