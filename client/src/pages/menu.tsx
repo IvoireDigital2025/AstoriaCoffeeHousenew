@@ -54,11 +54,11 @@ export default function Menu() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900 to-slate-900 relative overflow-hidden">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 opacity-30"></div>
-      <div className="absolute top-10 left-10 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-10 left-10 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Futuristic Header */}
@@ -71,7 +71,7 @@ export default function Menu() {
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
           </div>
           
-          <p className="text-2xl text-cyan-100 mb-8 font-light tracking-wide text-center">
+          <p className="text-2xl text-amber-100 mb-8 font-light tracking-wide text-center">
             Experience Coffee Pro&apos;s Authentic Middle Eastern Flavors
           </p>
           
@@ -109,8 +109,8 @@ export default function Menu() {
                 variant={isActive ? "default" : "outline"}
                 className={`group relative overflow-hidden px-8 py-4 font-bold text-lg rounded-full transition-all duration-300 transform hover:scale-105 ${
                   isActive
-                    ? "bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-2xl border-2 border-cyan-400"
-                    : "bg-slate-800/50 text-cyan-100 border-2 border-purple-500/50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-cyan-400"
+                    ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-2xl border-2 border-amber-400"
+                    : "bg-slate-800/50 text-amber-100 border-2 border-amber-500/50 hover:bg-gradient-to-r hover:from-amber-600 hover:to-orange-600 hover:text-white hover:border-amber-400"
                 }`}
               >
                 <IconComponent className="w-6 h-6 mr-3" />
@@ -128,7 +128,7 @@ export default function Menu() {
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 6 }).map((_, index) => (
-              <Card key={index} className="overflow-hidden bg-slate-800/50 border border-purple-500/30">
+              <Card key={index} className="overflow-hidden bg-slate-800/50 border border-amber-500/30">
                 <Skeleton className="w-full h-48 bg-slate-700" />
                 <CardContent className="p-6">
                   <Skeleton className="h-6 w-3/4 mb-2 bg-slate-600" />
@@ -144,7 +144,7 @@ export default function Menu() {
               const isAdded = addedItems.has(item.id);
               
               return (
-                <Card key={item.id} className="group bg-slate-800/70 backdrop-blur-sm border-2 border-purple-500/30 overflow-hidden hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105">
+                <Card key={item.id} className="group bg-slate-800/70 backdrop-blur-sm border-2 border-amber-500/30 overflow-hidden hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 transform hover:scale-105">
                   <div className="relative">
                     <img
                       src={item.image || "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a"}
@@ -160,14 +160,14 @@ export default function Menu() {
                   </div>
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-bold text-cyan-100 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-2xl font-bold text-amber-100 group-hover:text-white transition-colors duration-300">
                         {item.name}
                       </h3>
                       <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                        {item.price}
+                        ${item.price}
                       </span>
                     </div>
-                    <p className="text-cyan-200/80 mb-6 leading-relaxed">
+                    <p className="text-amber-200/80 mb-6 leading-relaxed">
                       {item.description}
                     </p>
                     <Button
@@ -200,12 +200,12 @@ export default function Menu() {
 
         {menuItems && menuItems.length === 0 && !isLoading && (
           <div className="text-center py-16">
-            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-12">
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-amber-500/30 rounded-2xl p-12">
               <Coffee className="w-16 h-16 text-amber-400 mx-auto mb-6" />
-              <p className="text-2xl text-cyan-100 font-semibold">
+              <p className="text-2xl text-amber-100 font-semibold">
                 No items available in this category at the moment.
               </p>
-              <p className="text-cyan-200/60 mt-4">
+              <p className="text-amber-200/60 mt-4">
                 Check back soon for new authentic treats!
               </p>
             </div>
