@@ -45,8 +45,32 @@ export default function AmbientSoundtrack() {
 
 
 
+  const handleStopMusic = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
+      setIsStopped(true);
+    }
+  };
+
   return (
     <>
+      {/* Stop Music Button */}
+      {isPlaying && !isStopped && (
+        <div className="fixed top-20 left-6 z-50">
+          <Button
+            onClick={handleStopMusic}
+            variant="outline"
+            size="sm"
+            className="bg-white/90 backdrop-blur-sm border-red-300 text-red-600 hover:bg-red-50 shadow-lg"
+          >
+            <VolumeX className="w-4 h-4 mr-2" />
+            Stop Music
+          </Button>
+        </div>
+      )}
+
       {/* Welcome Notification */}
       {showWelcome && (
         <div className="fixed top-20 right-6 z-50 max-w-sm">
