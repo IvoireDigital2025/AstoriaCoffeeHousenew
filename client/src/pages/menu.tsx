@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import type { MenuItem } from "@shared/schema";
+import pdfMenuPath from "@assets/coffee-pro-Menu_1749665658431.pdf";
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<string>("coffee");
@@ -27,11 +28,16 @@ export default function Menu() {
   const categories = [
     { id: "coffee", label: "Coffee", icon: Coffee },
     { id: "tea", label: "Tea & Other", icon: Leaf },
+    { id: "pastry", label: "Pastries", icon: UtensilsCrossed },
     { id: "food", label: "Food", icon: UtensilsCrossed },
   ];
 
   const handleAddToCart = (itemId: number, itemName: string) => {
-    setAddedItems(prev => new Set([...prev, itemId]));
+    setAddedItems(prev => {
+      const newSet = new Set(prev);
+      newSet.add(itemId);
+      return newSet;
+    });
     toast({
       title: "Added to order!",
       description: `${itemName} has been added to your order.`,
@@ -57,6 +63,23 @@ export default function Menu() {
           <p className="text-xl text-coffee-medium">
             Crafted with love, served with passion
           </p>
+          
+          {/* PDF Menu Link */}
+          <div className="mt-8">
+            <Button 
+              asChild
+              className="bg-coffee-primary hover:bg-coffee-medium text-white px-6 py-3"
+            >
+              <a 
+                href={pdfMenuPath} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center"
+              >
+                📄 View Complete PDF Menu
+              </a>
+            </Button>
+          </div>
         </div>
 
         {/* Category Filters */}
