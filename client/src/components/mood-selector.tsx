@@ -253,7 +253,7 @@ export default function MoodSelector() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Brain className="w-8 h-8 text-cyan-400 animate-pulse" />
             <CardTitle className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Mood-Based AI Recommendations
+              Mood-Based Recommendations
             </CardTitle>
             <Heart className="w-8 h-8 text-pink-400 animate-pulse" />
           </div>
