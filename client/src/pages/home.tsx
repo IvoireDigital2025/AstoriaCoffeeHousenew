@@ -7,6 +7,7 @@ import heritageImage from "@assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-l
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
 
 
+
 export default function Home() {
   const handleScrollToMenu = () => {
     // Since this is a single-page approach, we'll navigate to menu page
@@ -156,8 +157,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                  alt="Cultural bridge connecting communities through coffee"
+                  src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Diverse community gathering celebrating cultural bridge at Coffee Pro"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
