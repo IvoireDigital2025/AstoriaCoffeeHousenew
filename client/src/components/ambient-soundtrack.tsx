@@ -46,18 +46,13 @@ export default function AmbientSoundtrack() {
 
 
   const handleStopMusic = () => {
-    console.log('Stop button clicked');
     if (audioRef.current) {
-      console.log('Audio element found, stopping music');
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
       audioRef.current.volume = 0;
       audioRef.current.src = '';
       setIsPlaying(false);
       setIsStopped(true);
-      console.log('Music stopped, isPlaying:', false, 'isStopped:', true);
-    } else {
-      console.log('No audio element found');
     }
   };
 
