@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Volume2, VolumeX, Play, Pause, SkipForward, Music } from "lucide-react";
@@ -62,41 +62,79 @@ const soundtracks: Track[] = [
 ];
 
 export default function AmbientSoundtrack() {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const [volume, setVolume] = useState(0.2);
+  const [volume, setVolume] = useState(0.15);
   const [isMuted, setIsMuted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const oscillatorRef = useRef<OscillatorNode | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : volume;
+    if (gainNodeRef.current) {
+      gainNodeRef.current.gain.value = isMuted ? 0 : volume;
     }
   }, [volume, isMuted]);
+
+  // Initialize Web Audio API
+  const initializeAudio = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      gainNodeRef.current = audioContextRef.current.createGain();
+      gainNodeRef.current.connect(audioContextRef.current.destination);
+      gainNodeRef.current.gain.value = volume;
+    }
+  }, [volume]);
+
+  // Create ambient sound using Web Audio API
+  const createAmbientSound = useCallback(() => {
+    if (!audioContextRef.current || !gainNodeRef.current) return;
+
+    // Stop previous oscillator
+    if (oscillatorRef.current) {
+      oscillatorRef.current.stop();
+    }
+
+    // Create a low-frequency ambient tone
+    const oscillator = audioContextRef.current.createOscillator();
+    const filter = audioContextRef.current.createBiquadFilter();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(60 + currentTrack * 10, audioContextRef.current.currentTime); // Different frequencies for different "tracks"
+    
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(200, audioContextRef.current.currentTime);
+    
+    oscillator.connect(filter);
+    filter.connect(gainNodeRef.current);
+    
+    oscillator.start();
+    oscillatorRef.current = oscillator;
+  }, [currentTrack]);
 
   // Auto-start music when component mounts
   useEffect(() => {
     const startAmbientMusic = async () => {
-      if (audioRef.current && !hasStarted) {
+      if (!hasStarted) {
         try {
-          // Try to start playing automatically
-          await audioRef.current.play();
+          initializeAudio();
+          createAmbientSound();
+          setIsPlaying(true);
           setHasStarted(true);
         } catch (error) {
-          // If autoplay is blocked, wait for user interaction
-          setIsPlaying(false);
           console.log("Autoplay blocked, waiting for user interaction");
+          setIsPlaying(false);
         }
       }
     };
 
     // Small delay to ensure component is fully mounted
-    const timer = setTimeout(startAmbientMusic, 1000);
+    const timer = setTimeout(startAmbientMusic, 2000);
     return () => clearTimeout(timer);
-  }, [hasStarted]);
+  }, [hasStarted, initializeAudio, createAmbientSound]);
 
   // Hide welcome message after 8 seconds
   useEffect(() => {
@@ -107,30 +145,50 @@ export default function AmbientSoundtrack() {
   }, [showWelcome]);
 
   const handlePlayPause = async () => {
-    if (audioRef.current) {
+    try {
       if (isPlaying) {
-        audioRef.current.pause();
+        if (oscillatorRef.current) {
+          oscillatorRef.current.stop();
+          oscillatorRef.current = null;
+        }
         setIsPlaying(false);
       } else {
-        try {
-          await audioRef.current.play();
-          setIsPlaying(true);
-          setHasStarted(true);
-        } catch (error) {
-          console.log("Audio playback requires user interaction first");
-          setIsPlaying(false);
+        if (!audioContextRef.current) {
+          initializeAudio();
         }
+        createAmbientSound();
+        setIsPlaying(true);
+        setHasStarted(true);
       }
+    } catch (error) {
+      console.log("Audio playback requires user interaction first");
+      setIsPlaying(false);
     }
   };
 
   const handleNextTrack = () => {
-    setCurrentTrack((prev) => (prev + 1) % soundtracks.length);
+    const newTrack = (currentTrack + 1) % soundtracks.length;
+    setCurrentTrack(newTrack);
+    if (isPlaying) {
+      if (oscillatorRef.current) {
+        oscillatorRef.current.stop();
+      }
+      createAmbientSound();
+    }
   };
 
   const handleVolumeToggle = () => {
     setIsMuted(!isMuted);
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (oscillatorRef.current) {
+        oscillatorRef.current.stop();
+      }
+    };
+  }, []);
 
   const track = soundtracks[currentTrack];
 
@@ -163,7 +221,7 @@ export default function AmbientSoundtrack() {
       )}
 
       {/* Floating Music Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 left-6 z-50">
         <Button
           onClick={() => setIsVisible(!isVisible)}
           className={`group relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white p-4 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-cyan-400/30 ${
@@ -179,7 +237,7 @@ export default function AmbientSoundtrack() {
 
       {/* Soundtrack Player Panel */}
       {isVisible && (
-        <div className="fixed bottom-24 right-6 z-40">
+        <div className="fixed bottom-24 left-6 z-40">
           <Card className="w-80 bg-slate-800/95 backdrop-blur-sm border-2 border-purple-500/30 shadow-2xl">
             <div className="p-6">
               {/* Header */}
@@ -292,17 +350,7 @@ export default function AmbientSoundtrack() {
         </div>
       )}
 
-      {/* Hidden Audio Element */}
-      <audio
-        ref={audioRef}
-        loop
-        preload="none"
-        onEnded={() => setIsPlaying(false)}
-        onError={() => setIsPlaying(false)}
-      >
-        {/* In a real implementation, this would reference actual audio files */}
-        <source src={track.audioUrl} type="audio/mpeg" />
-      </audio>
+
     </>
   );
 }
