@@ -3,46 +3,50 @@ import { Button } from "@/components/ui/button";
 import { Coffee, VolumeX } from "lucide-react";
 import audioFile from "@assets/arab-and-muslim-190765_1749669994292.mp3";
 
-let globalAudio: HTMLAudioElement | null = null;
-
 export default function AmbientSoundtrack() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (isStopped) return;
 
-    const initAudio = () => {
-      if (!globalAudio) {
-        globalAudio = new Audio(audioFile);
-        globalAudio.loop = true;
-        globalAudio.volume = 0.02;
-        globalAudio.preload = 'auto';
-        
-        globalAudio.addEventListener('play', () => setIsPlaying(true));
-        globalAudio.addEventListener('pause', () => setIsPlaying(false));
-        globalAudio.addEventListener('ended', () => setIsPlaying(false));
+    // Create audio element
+    const audio = new Audio(audioFile);
+    audio.loop = true;
+    audio.volume = 0.02;
+    audio.preload = 'auto';
+    audioRef.current = audio;
+
+    // Add event listeners
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => setIsPlaying(false);
+
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    audio.addEventListener('ended', handleEnded);
+
+    // Start playing after delay
+    const playTimer = setTimeout(() => {
+      if (!isStopped && audioRef.current) {
+        audioRef.current.play().catch(() => {
+          setIsPlaying(false);
+        });
       }
+    }, 2000);
 
-      setTimeout(() => {
-        if (globalAudio && !isStopped) {
-          globalAudio.play().catch(() => {
-            setIsPlaying(false);
-          });
-        }
-      }, 2000);
-    };
-
-    initAudio();
-
+    // Cleanup function
     return () => {
-      if (globalAudio && isStopped) {
-        globalAudio.pause();
-        globalAudio.currentTime = 0;
-        globalAudio.src = '';
-        globalAudio.load();
-        globalAudio = null;
+      clearTimeout(playTimer);
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('play', handlePlay);
+        audioRef.current.removeEventListener('pause', handlePause);
+        audioRef.current.removeEventListener('ended', handleEnded);
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
       }
     };
   }, [isStopped]);
@@ -55,40 +59,36 @@ export default function AmbientSoundtrack() {
   }, [showWelcome]);
 
   const handleStopMusic = () => {
-    if (globalAudio) {
-      globalAudio.pause();
-      globalAudio.currentTime = 0;
-      globalAudio.volume = 0;
-      globalAudio.muted = true;
-      globalAudio.src = '';
-      globalAudio.load();
-      globalAudio.remove();
-      globalAudio = null;
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.src = '';
+      audioRef.current.load();
+      audioRef.current = null;
     }
     setIsStopped(true);
     setIsPlaying(false);
   };
 
+  // Don't render anything if music is stopped
   if (isStopped) {
     return null;
   }
 
   return (
     <>
-      {/* Stop Music Button */}
-      {isPlaying && (
-        <div className="fixed top-20 left-6 z-50">
-          <Button
-            onClick={handleStopMusic}
-            variant="outline"
-            size="sm"
-            className="bg-white/90 backdrop-blur-sm border-red-300 text-red-600 hover:bg-red-50 shadow-lg"
-          >
-            <VolumeX className="w-4 h-4 mr-2" />
-            Stop Music
-          </Button>
-        </div>
-      )}
+      {/* Stop Music Button - Always visible when component is active */}
+      <div className="fixed top-20 left-6 z-50">
+        <Button
+          onClick={handleStopMusic}
+          variant="outline"
+          size="sm"
+          className="bg-white/90 backdrop-blur-sm border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 shadow-lg transition-all duration-200"
+        >
+          <VolumeX className="w-4 h-4 mr-2" />
+          Stop Music
+        </Button>
+      </div>
 
       {/* Welcome Notification */}
       {showWelcome && (
