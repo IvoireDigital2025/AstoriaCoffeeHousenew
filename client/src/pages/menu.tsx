@@ -64,11 +64,11 @@ export default function Menu() {
         {/* Futuristic Header */}
         <div className="text-center mb-20">
           <div className="relative">
-            <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 tracking-tight">
-              QUANTUM MENU v2.0
+            <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 tracking-tight">
+              Coffee Pro Menu
             </h1>
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></div>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full"></div>
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
           </div>
           
           <p className="text-2xl text-cyan-100 mb-8 font-light tracking-wide text-center">
