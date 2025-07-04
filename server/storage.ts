@@ -27,7 +27,10 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   updateUserPoints(id: number, points: number): Promise<User | undefined>;
   
-  // Menu operations (removed - using PDF menu instead)
+  // Menu operations
+  getMenuItems(): Promise<MenuItem[]>;
+  getMenuItemsByCategory(category: string): Promise<MenuItem[]>;
+  createMenuItem(item: InsertMenuItem): Promise<MenuItem>;
   
   // Contact operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
@@ -43,7 +46,11 @@ export interface IStorage {
   updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined>;
   getAllMarketingContacts(): Promise<MarketingContact[]>;
 
-  // Video operations (removed - feature no longer needed)
+  // Video operations
+  createVideo(video: InsertVideo): Promise<Video>;
+  getVideo(id: number): Promise<Video | undefined>;
+  getAllVideos(): Promise<Video[]>;
+  deleteVideo(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -52,11 +59,13 @@ export class MemStorage implements IStorage {
   private contactMessages: Map<number, ContactMessage>;
   private chatMessages: Map<number, ChatMessage>;
   private marketingContacts: Map<number, MarketingContact>;
+  private videos: Map<number, Video>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
   private currentChatMessageId: number;
   private currentMarketingContactId: number;
+  private currentVideoId: number;
 
   constructor() {
     this.users = new Map();
@@ -75,8 +84,140 @@ export class MemStorage implements IStorage {
   }
 
   private initializeMenuItems() {
-    // Menu items removed - will be displayed via PDF upload
-    this.currentMenuItemId = 1;
+    // Authentic Coffee Pro menu items with your provided images
+    const menuItems = [
+      // Pastries
+      {
+        name: "Dubai Pistachio Cheese Bomb",
+        description: "Authentic Dubai-style pastry filled with rich pistachio cream and creamy cheese",
+        price: "8.99",
+        category: "pastries",
+        image: "/attached_assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg",
+        available: true
+      },
+      {
+        name: "Moroccan Almond Croissant",
+        description: "Buttery croissant filled with traditional Moroccan almond paste",
+        price: "6.50",
+        category: "pastries",
+        image: "/attached_assets/2f5fbd41-2bde-4b4b-9c47-a1f9de7cd926-retina-large_1749664661327.avif",
+        available: true
+      },
+      {
+        name: "Saudi Date Ma'amoul",
+        description: "Traditional filled cookies with premium Medjool dates",
+        price: "5.25",
+        category: "pastries",
+        image: "/attached_assets/484d55b5-8264-425c-86e7-ec72eaa275c5-retina-large_1749664749758.avif",
+        available: true
+      },
+      {
+        name: "Arabian Honey Baklava",
+        description: "Layers of phyllo pastry with nuts and authentic Middle Eastern honey",
+        price: "7.75",
+        category: "pastries",
+        image: "/attached_assets/54cb12d2-9003-4e79-a2c6-cf3e966a32b7-retina-large_1749664885230.avif",
+        available: true
+      },
+      {
+        name: "Lebanese Knafeh Slice",
+        description: "Traditional cheese pastry with crispy kadaif and orange blossom syrup",
+        price: "9.25",
+        category: "pastries",
+        image: "/attached_assets/5b4e4eba-a580-4436-9649-e2f90018f25a-retina-large_1749664710545.avif",
+        available: true
+      },
+      {
+        name: "Turkish Delight Muffin",
+        description: "Soft muffin infused with rose water and Turkish delight pieces",
+        price: "4.95",
+        category: "pastries",
+        image: "/attached_assets/21c491c8-1452-4705-93f3-d1340aab72de-retina-large_1749664924466.avif",
+        available: true
+      },
+      
+      // Coffee & Beverages
+      {
+        name: "Arabic Coffee (Qahwa)",
+        description: "Traditional Saudi Arabian coffee with cardamom and saffron",
+        price: "4.25",
+        category: "coffee",
+        image: "/attached_assets/arabiccoffee_1024x1024@2x_1749453882291.webp",
+        available: true
+      },
+      {
+        name: "Moroccan Mint Tea",
+        description: "Traditional Atay with fresh mint leaves and sugar",
+        price: "3.50",
+        category: "coffee",
+        image: "/attached_assets/3173d643-68f8-428a-8cf6-ba9eb2098628-retina-large_1749665320869.webp",
+        available: true
+      },
+      {
+        name: "Turkish Coffee",
+        description: "Finely ground coffee beans prepared in traditional Turkish style",
+        price: "5.75",
+        category: "coffee",
+        image: "/attached_assets/55896839-1d86-4ab0-987e-03085b591be0-retina-large_1749665465918.webp",
+        available: true
+      },
+      {
+        name: "Cardamom Latte",
+        description: "Espresso with steamed milk and aromatic cardamom spice",
+        price: "6.25",
+        category: "coffee",
+        image: "/attached_assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749665500203.avif",
+        available: true
+      },
+      {
+        name: "Rose Water Cappuccino",
+        description: "Classic cappuccino enhanced with delicate rose water",
+        price: "5.95",
+        category: "coffee",
+        image: "/attached_assets/254fed10-e992-46b5-b626-e407e069fd21-retina-large_1749665560880.avif",
+        available: true
+      },
+      {
+        name: "Saffron Cold Brew",
+        description: "Cold brew coffee infused with precious saffron threads",
+        price: "7.50",
+        category: "coffee",
+        image: "/attached_assets/82aab21c-4d05-4855-ac3c-7f0774b45d92-retina-large_1749665749407.avif",
+        available: true
+      },
+      {
+        name: "Pistachio Iced Latte",
+        description: "Iced latte with authentic Middle Eastern pistachio syrup",
+        price: "6.75",
+        category: "coffee",
+        image: "/attached_assets/0fef52d0-27f5-4802-807b-d706022974f5-retina-large_1749665863728.avif",
+        available: true
+      },
+      {
+        name: "Date Syrup Macchiato",
+        description: "Espresso macchiato sweetened with natural date syrup",
+        price: "5.50",
+        category: "coffee",
+        image: "/attached_assets/4ee5ac97-394f-47b3-87b3-72ca0da58a23-retina-large_1749665903021.webp",
+        available: true
+      },
+      {
+        name: "Orange Blossom Americano",
+        description: "Classic Americano with a hint of orange blossom water",
+        price: "4.95",
+        category: "coffee",
+        image: "/attached_assets/db65d635-7a2f-42df-84be-e9b1a3181eb8-retina-large_1749665943655.webp",
+        available: true
+      }
+    ];
+
+    menuItems.forEach(item => {
+      const menuItem: MenuItem = {
+        id: this.currentMenuItemId++,
+        ...item
+      };
+      this.menuItems.set(menuItem.id, menuItem);
+    });
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -109,7 +250,27 @@ export class MemStorage implements IStorage {
     return undefined;
   }
 
-  // Menu methods removed - using PDF menu instead
+  async getMenuItems(): Promise<MenuItem[]> {
+    return Array.from(this.menuItems.values()).filter(item => item.available);
+  }
+
+  async getMenuItemsByCategory(category: string): Promise<MenuItem[]> {
+    return Array.from(this.menuItems.values()).filter(
+      item => item.category === category && item.available
+    );
+  }
+
+  async createMenuItem(insertItem: InsertMenuItem): Promise<MenuItem> {
+    const id = this.currentMenuItemId++;
+    const item: MenuItem = { 
+      ...insertItem, 
+      id,
+      image: insertItem.image || null,
+      available: insertItem.available ?? true
+    };
+    this.menuItems.set(id, item);
+    return item;
+  }
 
   async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
     const id = this.currentContactMessageId++;

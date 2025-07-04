@@ -275,8 +275,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Menu routes removed - using PDF menu instead
-
 
 
   const httpServer = createServer(app);
