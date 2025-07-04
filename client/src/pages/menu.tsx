@@ -129,24 +129,31 @@ export default function Menu() {
             menuItems?.map((item) => {
               return (
                 <Card key={item.id} className="group bg-amber-900/70 backdrop-blur-sm border-2 border-amber-700/30 overflow-hidden hover:border-amber-600/50 hover:shadow-2xl hover:shadow-amber-600/20 transition-all duration-500 transform hover:scale-105 h-full flex flex-col">
-                  <div className="relative">
-                    <img
-                      src={item.image || "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a"}
-                      alt={item.name}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    {item.available && (
-                      <Badge className="absolute top-3 right-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold px-3 py-1 rounded-full shadow-lg">
-                        Available
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:from-slate-900/40 transition-all duration-500"></div>
-                  </div>
+                  {item.image && (
+                    <div className="relative">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      {item.available && (
+                        <Badge className="absolute top-3 right-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold px-3 py-1 rounded-full shadow-lg">
+                          Available
+                        </Badge>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:from-slate-900/40 transition-all duration-500"></div>
+                    </div>
+                  )}
                   <CardContent className="p-6 flex-1 flex flex-col">
-                    <div className="mb-3">
+                    <div className="flex justify-between items-start mb-3">
                       <h3 className="text-xl font-bold text-white group-hover:text-amber-200 transition-colors duration-300 leading-tight">
                         {item.name}
                       </h3>
+                      {!item.image && item.available && (
+                        <Badge className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold px-3 py-1 rounded-full shadow-lg">
+                          Available
+                        </Badge>
+                      )}
                     </div>
                     <p className="text-stone-200 text-sm leading-snug line-clamp-3 flex-1">
                       {item.description}

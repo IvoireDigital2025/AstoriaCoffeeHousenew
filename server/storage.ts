@@ -92,7 +92,7 @@ export class MemStorage implements IStorage {
         description: "Authentic Dubai-style pastry filled with rich pistachio cream and creamy cheese",
         price: "",
         category: "pastries",
-        image: "/attached_assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg",
+        image: "",
         available: true
       },
       {
@@ -100,7 +100,7 @@ export class MemStorage implements IStorage {
         description: "Buttery croissant filled with traditional Moroccan almond paste",
         price: "",
         category: "pastries",
-        image: "/attached_assets/2f5fbd41-2bde-4b4b-9c47-a1f9de7cd926-retina-large_1749664661327.avif",
+        image: "",
         available: true
       },
       {
@@ -108,7 +108,7 @@ export class MemStorage implements IStorage {
         description: "Traditional filled cookies with premium Medjool dates",
         price: "",
         category: "pastries",
-        image: "/attached_assets/484d55b5-8264-425c-86e7-ec72eaa275c5-retina-large_1749664749758.avif",
+        image: "",
         available: true
       },
       {
@@ -116,7 +116,7 @@ export class MemStorage implements IStorage {
         description: "Layers of phyllo pastry with nuts and authentic Middle Eastern honey",
         price: "",
         category: "pastries",
-        image: "/attached_assets/54cb12d2-9003-4e79-a2c6-cf3e966a32b7-retina-large_1749664885230.avif",
+        image: "",
         available: true
       },
       {
@@ -124,7 +124,7 @@ export class MemStorage implements IStorage {
         description: "Traditional cheese pastry with crispy kadaif and orange blossom syrup",
         price: "",
         category: "pastries",
-        image: "/attached_assets/5b4e4eba-a580-4436-9649-e2f90018f25a-retina-large_1749664710545.avif",
+        image: "",
         available: true
       },
       {
@@ -132,7 +132,7 @@ export class MemStorage implements IStorage {
         description: "Soft muffin infused with rose water and Turkish delight pieces",
         price: "",
         category: "pastries",
-        image: "/attached_assets/21c491c8-1452-4705-93f3-d1340aab72de-retina-large_1749664924466.avif",
+        image: "",
         available: true
       },
       
