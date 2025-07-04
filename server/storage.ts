@@ -90,7 +90,7 @@ export class MemStorage implements IStorage {
       {
         name: "Dubai Pistachio Cheese Bomb",
         description: "Authentic Dubai-style pastry filled with rich pistachio cream and creamy cheese",
-        price: "8.99",
+        price: "",
         category: "pastries",
         image: "/attached_assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg",
         available: true
@@ -98,7 +98,7 @@ export class MemStorage implements IStorage {
       {
         name: "Moroccan Almond Croissant",
         description: "Buttery croissant filled with traditional Moroccan almond paste",
-        price: "6.50",
+        price: "",
         category: "pastries",
         image: "/attached_assets/2f5fbd41-2bde-4b4b-9c47-a1f9de7cd926-retina-large_1749664661327.avif",
         available: true
@@ -106,7 +106,7 @@ export class MemStorage implements IStorage {
       {
         name: "Saudi Date Ma'amoul",
         description: "Traditional filled cookies with premium Medjool dates",
-        price: "5.25",
+        price: "",
         category: "pastries",
         image: "/attached_assets/484d55b5-8264-425c-86e7-ec72eaa275c5-retina-large_1749664749758.avif",
         available: true
@@ -114,7 +114,7 @@ export class MemStorage implements IStorage {
       {
         name: "Arabian Honey Baklava",
         description: "Layers of phyllo pastry with nuts and authentic Middle Eastern honey",
-        price: "7.75",
+        price: "",
         category: "pastries",
         image: "/attached_assets/54cb12d2-9003-4e79-a2c6-cf3e966a32b7-retina-large_1749664885230.avif",
         available: true
@@ -122,7 +122,7 @@ export class MemStorage implements IStorage {
       {
         name: "Lebanese Knafeh Slice",
         description: "Traditional cheese pastry with crispy kadaif and orange blossom syrup",
-        price: "9.25",
+        price: "",
         category: "pastries",
         image: "/attached_assets/5b4e4eba-a580-4436-9649-e2f90018f25a-retina-large_1749664710545.avif",
         available: true
@@ -130,7 +130,7 @@ export class MemStorage implements IStorage {
       {
         name: "Turkish Delight Muffin",
         description: "Soft muffin infused with rose water and Turkish delight pieces",
-        price: "4.95",
+        price: "",
         category: "pastries",
         image: "/attached_assets/21c491c8-1452-4705-93f3-d1340aab72de-retina-large_1749664924466.avif",
         available: true
@@ -140,7 +140,7 @@ export class MemStorage implements IStorage {
       {
         name: "Arabic Coffee (Qahwa)",
         description: "Traditional Saudi Arabian coffee with cardamom and saffron",
-        price: "4.25",
+        price: "",
         category: "coffee",
         image: "/attached_assets/arabiccoffee_1024x1024@2x_1749453882291.webp",
         available: true
@@ -148,7 +148,7 @@ export class MemStorage implements IStorage {
       {
         name: "Moroccan Mint Tea",
         description: "Traditional Atay with fresh mint leaves and sugar",
-        price: "3.50",
+        price: "",
         category: "coffee",
         image: "/attached_assets/3173d643-68f8-428a-8cf6-ba9eb2098628-retina-large_1749665320869.webp",
         available: true
@@ -156,7 +156,7 @@ export class MemStorage implements IStorage {
       {
         name: "Turkish Coffee",
         description: "Finely ground coffee beans prepared in traditional Turkish style",
-        price: "5.75",
+        price: "",
         category: "coffee",
         image: "/attached_assets/55896839-1d86-4ab0-987e-03085b591be0-retina-large_1749665465918.webp",
         available: true
@@ -164,7 +164,7 @@ export class MemStorage implements IStorage {
       {
         name: "Cardamom Latte",
         description: "Espresso with steamed milk and aromatic cardamom spice",
-        price: "6.25",
+        price: "",
         category: "coffee",
         image: "/attached_assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749665500203.avif",
         available: true
@@ -172,7 +172,7 @@ export class MemStorage implements IStorage {
       {
         name: "Rose Water Cappuccino",
         description: "Classic cappuccino enhanced with delicate rose water",
-        price: "5.95",
+        price: "",
         category: "coffee",
         image: "/attached_assets/254fed10-e992-46b5-b626-e407e069fd21-retina-large_1749665560880.avif",
         available: true
@@ -180,7 +180,7 @@ export class MemStorage implements IStorage {
       {
         name: "Saffron Cold Brew",
         description: "Cold brew coffee infused with precious saffron threads",
-        price: "7.50",
+        price: "",
         category: "coffee",
         image: "/attached_assets/82aab21c-4d05-4855-ac3c-7f0774b45d92-retina-large_1749665749407.avif",
         available: true
@@ -188,7 +188,7 @@ export class MemStorage implements IStorage {
       {
         name: "Pistachio Iced Latte",
         description: "Iced latte with authentic Middle Eastern pistachio syrup",
-        price: "6.75",
+        price: "",
         category: "coffee",
         image: "/attached_assets/0fef52d0-27f5-4802-807b-d706022974f5-retina-large_1749665863728.avif",
         available: true
@@ -196,7 +196,7 @@ export class MemStorage implements IStorage {
       {
         name: "Date Syrup Macchiato",
         description: "Espresso macchiato sweetened with natural date syrup",
-        price: "5.50",
+        price: "",
         category: "coffee",
         image: "/attached_assets/4ee5ac97-394f-47b3-87b3-72ca0da58a23-retina-large_1749665903021.webp",
         available: true
@@ -204,7 +204,7 @@ export class MemStorage implements IStorage {
       {
         name: "Orange Blossom Americano",
         description: "Classic Americano with a hint of orange blossom water",
-        price: "4.95",
+        price: "",
         category: "coffee",
         image: "/attached_assets/db65d635-7a2f-42df-84be-e9b1a3181eb8-retina-large_1749665943655.webp",
         available: true

@@ -134,13 +134,10 @@ export default function Menu() {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:from-slate-900/40 transition-all duration-500"></div>
                   </div>
                   <CardContent className="p-6 flex-1 flex flex-col">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="mb-3">
                       <h3 className="text-xl font-bold text-white group-hover:text-amber-200 transition-colors duration-300 leading-tight">
                         {item.name}
                       </h3>
-                      <span className="text-xl font-bold text-amber-400 ml-2 flex-shrink-0">
-                        ${item.price}
-                      </span>
                     </div>
                     <p className="text-stone-200 text-sm leading-snug line-clamp-3 flex-1">
                       {item.description}
