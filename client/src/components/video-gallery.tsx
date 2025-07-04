@@ -99,10 +99,12 @@ export default function VideoGallery({ showUploadCount = false, maxVideos }: Vid
                 <div className="relative aspect-video bg-black">
                   <video
                     className="w-full h-full object-cover"
-                    poster={`/api/videos/${video.id}/thumbnail`}
+                    controls
                     preload="metadata"
+                    playsInline
                   >
                     <source src={`/api/videos/${video.id}/stream`} type={video.mimeType} />
+                    Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                     <Button

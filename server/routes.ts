@@ -291,9 +291,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/videos/:id/stream", (req, res) => {
     const { id } = req.params;
     if (id === "1") {
-      // Return the actual uploaded video file path
-      const videoPath = "/attached_assets/Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable.#CoffeeProAstoria #AstoriaEats #MoroccanSweets #NYCFoodie #HoneyDrizzle #TreatYourself #CoffeeTime #SweetEscape_1751613021125.mp4";
-      res.redirect(videoPath);
+      // Redirect to the direct static asset URL
+      const videoUrl = `/attached_assets/Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable.#CoffeeProAstoria #AstoriaEats #MoroccanSweets #NYCFoodie #HoneyDrizzle #TreatYourself #CoffeeTime #SweetEscape_1751613021125.mp4`;
+      res.redirect(videoUrl);
     } else {
       res.status(404).json({ message: "Video not found" });
     }
