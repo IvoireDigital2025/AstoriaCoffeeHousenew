@@ -46,6 +46,8 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Contact form submissions stored in database and accessible via admin dashboard
 - ✓ Removed Coffee, Tea & Other, and Food category buttons from menu (pastries only)
 - ✓ Removed all pricing information from menu items (informational display only)
+- ✓ Added "Drinks" button alongside "Pastries" button in menu
+- ✓ Added messaging indicating displayed items are samples, not complete inventory
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)

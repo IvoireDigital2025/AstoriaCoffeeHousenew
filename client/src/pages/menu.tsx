@@ -26,6 +26,7 @@ export default function Menu() {
 
   const categories = [
     { id: "pastry", label: "Pastries", icon: UtensilsCrossed },
+    { id: "coffee", label: "Drinks", icon: Coffee },
   ];
 
 
@@ -98,6 +99,14 @@ export default function Menu() {
               </Button>
             );
           })}
+        </div>
+
+        {/* Menu Description */}
+        <div className="text-center mb-12">
+          <p className="text-lg text-stone-200/80 max-w-3xl mx-auto leading-relaxed">
+            Here are some of the delicious {activeCategory === "pastry" ? "pastries" : "drinks"} our shop offers. 
+            Not all items are listed - visit us to discover our full selection of authentic Middle Eastern treats!
+          </p>
         </div>
 
         {/* Menu Items Grid */}
