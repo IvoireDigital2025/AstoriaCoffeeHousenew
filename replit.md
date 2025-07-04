@@ -44,6 +44,9 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Added customer contact messages tab to admin dashboard
 - ✓ Admin can now view both marketing contacts and customer form submissions
 - ✓ Contact form submissions stored in database and accessible via admin dashboard
+- ✓ Removed hardcoded menu items (coffee, tea, pastries, food sections)
+- ✓ Created PDF menu page with download functionality
+- ✓ Cleaned up unused menu API endpoints and storage methods
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)
