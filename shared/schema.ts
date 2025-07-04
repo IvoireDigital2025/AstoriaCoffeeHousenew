@@ -49,6 +49,17 @@ export const marketingContacts = pgTable("marketing_contacts", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const videos = pgTable("videos", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  filename: text("filename").notNull().unique(),
+  originalName: text("original_name").notNull(),
+  mimeType: text("mime_type").notNull(),
+  size: integer("size").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   points: true,
@@ -79,6 +90,11 @@ export const insertMarketingContactSchema = createInsertSchema(marketingContacts
   source: z.enum(["newsletter", "community", "loyalty", "contact"]),
 });
 
+export const insertVideoSchema = createInsertSchema(videos).omit({
+  id: true,
+  createdAt: true,
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type MenuItem = typeof menuItems.$inferSelect;
@@ -89,3 +105,5 @@ export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
 export type MarketingContact = typeof marketingContacts.$inferSelect;
 export type InsertMarketingContact = z.infer<typeof insertMarketingContactSchema>;
+export type Video = typeof videos.$inferSelect;
+export type InsertVideo = z.infer<typeof insertVideoSchema>;

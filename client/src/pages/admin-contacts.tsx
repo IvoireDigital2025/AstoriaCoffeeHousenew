@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, Video } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 
@@ -149,14 +149,24 @@ export default function AdminContacts() {
             <h1 className="text-3xl font-bold text-coffee-dark mb-2">Marketing Contacts</h1>
             <p className="text-coffee-medium">Manage and view all customer contact information collected for marketing purposes</p>
           </div>
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white"
-          >
-            <LogOut className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => setLocation('/admin/videos')}
+              variant="outline"
+              className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white"
+            >
+              <Video className="w-4 h-4 mr-2" />
+              Manage Videos
+            </Button>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}

@@ -17,6 +17,7 @@ import Community from "@/pages/community";
 import MoodSelectorPage from "@/pages/mood-selector";
 import AdminContacts from "@/pages/admin-contacts";
 import AdminLogin from "@/pages/admin-login";
+import VideoManager from "@/pages/video-manager";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
           <Route path="/mood-selector" component={MoodSelectorPage} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin/contacts" component={AdminContacts} />
+          <Route path="/admin/videos" component={VideoManager} />
           <Route component={NotFound} />
         </Switch>
       </main>

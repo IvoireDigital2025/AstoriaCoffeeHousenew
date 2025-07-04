@@ -13,7 +13,9 @@ import {
   type ChatMessage,
   type InsertChatMessage,
   type MarketingContact,
-  type InsertMarketingContact
+  type InsertMarketingContact,
+  type Video,
+  type InsertVideo
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, asc, desc } from "drizzle-orm";
@@ -42,6 +44,12 @@ export interface IStorage {
   getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined>;
   updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined>;
   getAllMarketingContacts(): Promise<MarketingContact[]>;
+
+  // Video operations
+  createVideo(video: InsertVideo): Promise<Video>;
+  getVideo(id: number): Promise<Video | undefined>;
+  getAllVideos(): Promise<Video[]>;
+  deleteVideo(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -50,11 +58,13 @@ export class MemStorage implements IStorage {
   private contactMessages: Map<number, ContactMessage>;
   private chatMessages: Map<number, ChatMessage>;
   private marketingContacts: Map<number, MarketingContact>;
+  private videos: Map<number, Video>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
   private currentChatMessageId: number;
   private currentMarketingContactId: number;
+  private currentVideoId: number;
 
   constructor() {
     this.users = new Map();

@@ -30,6 +30,10 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Database schema includes email, phone, name collection with source tracking
 - ✓ API endpoints for newsletter subscription and contact management
 - ✓ Removed locations navigation link (single location: 23-33 Astoria Blvd, Astoria, NY 11102)
+- ✓ Created video upload and management system for coffee shop videos
+- ✓ Added video upload component with file validation and preview
+- ✓ Created video gallery component for displaying uploaded videos
+- ✓ Added video management admin page accessible at /admin/videos
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)
