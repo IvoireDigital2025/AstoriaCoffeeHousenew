@@ -51,6 +51,7 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Removed all pictures from pastries menu items (text-only display)
 - ✓ Fixed database storage - removed all images and prices from pastries in database
 - ✓ Cleared all pastry items from database - ready for new uploads
+- ✓ Changed "Drinks" button to "Hot Drink" in menu navigation
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)
