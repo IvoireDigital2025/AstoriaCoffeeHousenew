@@ -25,10 +25,7 @@ export default function Menu() {
   });
 
   const categories = [
-    { id: "coffee", label: "Coffee", icon: Coffee },
-    { id: "tea", label: "Tea & Other", icon: Leaf },
     { id: "pastry", label: "Pastries", icon: UtensilsCrossed },
-    { id: "food", label: "Food", icon: UtensilsCrossed },
   ];
 
 
