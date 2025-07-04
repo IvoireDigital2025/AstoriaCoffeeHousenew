@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Leaf, UtensilsCrossed, Eye, Snowflake } from "lucide-react";
+import { Coffee, Leaf, UtensilsCrossed, Eye, Snowflake, Sandwich, GlassWater } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -26,8 +26,10 @@ export default function Menu() {
 
   const categories = [
     { id: "pastry", label: "Pastries", icon: UtensilsCrossed },
+    { id: "sandwich", label: "Sandwiches", icon: Sandwich },
     { id: "coffee", label: "Hot Drinks", icon: Coffee },
     { id: "cold", label: "Cold Drinks", icon: Snowflake },
+    { id: "juice", label: "Juices", icon: GlassWater },
   ];
 
 
@@ -107,8 +109,10 @@ export default function Menu() {
           <p className="text-lg text-stone-200/80 max-w-3xl mx-auto leading-relaxed">
             Here are some of the delicious {
               activeCategory === "pastry" ? "pastries" : 
+              activeCategory === "sandwich" ? "sandwiches" :
               activeCategory === "coffee" ? "hot drinks" : 
-              "cold drinks"
+              activeCategory === "cold" ? "cold drinks" :
+              "juices"
             } our shop offers. 
             Not all items are listed - visit us to discover our full selection of authentic Middle Eastern treats!
           </p>

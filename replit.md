@@ -54,6 +54,8 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Changed "Drinks" button to "Hot Drink" in menu navigation
 - ✓ Corrected "Hot Drink" to "Hot Drinks" and added "Cold Drinks" button
 - ✓ Updated dynamic messaging to handle three menu categories
+- ✓ Added "Sandwiches" category next to "Pastries" in menu navigation
+- ✓ Added "Juices" category next to "Cold Drinks" in menu navigation
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)
