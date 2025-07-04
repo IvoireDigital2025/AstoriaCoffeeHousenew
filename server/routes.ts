@@ -231,14 +231,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Admin login endpoint
   app.post("/api/admin/login", (req: any, res) => {
-    const { password } = req.body;
-    const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
-    
-    if (password === adminPassword) {
-      req.session.adminAuthenticated = true;
-      res.json({ message: "Login successful" });
-    } else {
-      res.status(401).json({ message: "Invalid password" });
+    try {
+      const { password } = req.body;
+      const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
+      
+      if (password === adminPassword) {
+        if (!req.session) {
+          return res.status(500).json({ message: "Session not available" });
+        }
+        req.session.adminAuthenticated = true;
+        res.json({ message: "Login successful" });
+      } else {
+        res.status(401).json({ message: "Invalid password" });
+      }
+    } catch (error: any) {
+      res.status(500).json({ message: "Server error during login" });
     }
   });
 
@@ -256,6 +263,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
+  });
+
+  // Video API endpoints (simplified for now)
+  app.get("/api/videos", (req, res) => {
+    // Sample video representing your Moroccan sweets video
+    const sampleVideos = [
+      {
+        id: 1,
+        title: "Honey Moroccan Sweets - Coffee Pro Style",
+        description: "Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable. Experience authentic Middle Eastern flavors at Coffee Pro Astoria.",
+        filename: "moroccan-sweets-honey.mp4",
+        originalName: "Honey Moroccan Sweets Video.mp4",
+        mimeType: "video/mp4",
+        size: 25600000, // ~25MB
+        createdAt: new Date().toISOString(),
+      }
+    ];
+    res.json(sampleVideos);
+  });
+
+  app.post("/api/videos/upload", requireAdminAuth, (req, res) => {
+    // Placeholder for video upload - will be implemented with proper file handling
+    res.status(501).json({ message: "Video upload feature coming soon" });
+  });
+
+  app.get("/api/videos/:id/stream", (req, res) => {
+    const { id } = req.params;
+    if (id === "1") {
+      // Return the actual uploaded video file path
+      const videoPath = "/attached_assets/Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable.#CoffeeProAstoria #AstoriaEats #MoroccanSweets #NYCFoodie #HoneyDrizzle #TreatYourself #CoffeeTime #SweetEscape_1751613021125.mp4";
+      res.redirect(videoPath);
+    } else {
+      res.status(404).json({ message: "Video not found" });
+    }
+  });
+
+  app.get("/api/videos/:id/thumbnail", (req, res) => {
+    // Generate a thumbnail from the video or use a placeholder
+    res.status(404).json({ message: "Thumbnail generation not implemented" });
   });
 
   const httpServer = createServer(app);
