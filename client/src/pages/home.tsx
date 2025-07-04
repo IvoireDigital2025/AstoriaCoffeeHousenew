@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
+import VideoGallery from "@/components/video-gallery";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/2024-12-29_1749666894482.webp";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -281,6 +282,44 @@ export default function Home() {
                 <Coffee className="w-5 h-5 ml-2" />
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Video Showcase Section */}
+      <section className="py-16 px-4 bg-gradient-to-r from-coffee-dark/5 to-amber-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-playfair font-bold text-coffee-dark mb-4">
+              Experience Coffee Pro
+            </h2>
+            <p className="text-xl text-coffee-medium leading-relaxed max-w-3xl mx-auto">
+              Watch our story unfold through authentic moments, delicious creations, and the warm hospitality 
+              that makes Coffee Pro your home away from home in Astoria.
+            </p>
+          </div>
+          
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-coffee-accent/20 shadow-lg">
+            <VideoGallery maxVideos={3} />
+            
+            <div className="text-center mt-8">
+              <p className="text-coffee-medium mb-4">
+                Discover more about our Moroccan and Saudi Arabian coffee traditions, our AlUla-inspired atmosphere, 
+                and the authentic flavors that make every visit special.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link href="/about">
+                  <Button variant="outline" className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white">
+                    Our Story
+                  </Button>
+                </Link>
+                <Link href="/community">
+                  <Button variant="outline" className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white">
+                    Community Gallery
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
