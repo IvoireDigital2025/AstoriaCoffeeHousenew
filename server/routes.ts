@@ -232,7 +232,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin login endpoint
   app.post("/api/admin/login", (req: any, res) => {
     const { password } = req.body;
-    const adminPassword = process.env.ADMIN_PASSWORD || "coffeepro2024";
+    const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
     
     if (password === adminPassword) {
       req.session.adminAuthenticated = true;
