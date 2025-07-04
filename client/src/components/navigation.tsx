@@ -16,6 +16,7 @@ export default function Navigation() {
     { path: "/mood-selector", label: "Mood Selector" },
     { path: "/about", label: "About" },
     { path: "/locations", label: "Locations" },
+    { path: "/community", label: "Community" },
     { path: "/loyalty", label: "Loyalty" },
     { path: "/contact", label: "Contact" },
   ];
