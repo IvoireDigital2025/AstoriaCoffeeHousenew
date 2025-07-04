@@ -34,6 +34,7 @@ export interface IStorage {
   
   // Contact operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
+  getAllContactMessages(): Promise<ContactMessage[]>;
   
   // Chat operations
   createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
@@ -282,6 +283,12 @@ export class MemStorage implements IStorage {
     return message;
   }
 
+  async getAllContactMessages(): Promise<ContactMessage[]> {
+    return Array.from(this.contactMessages.values()).sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
   async createChatMessage(insertMessage: InsertChatMessage): Promise<ChatMessage> {
     const id = this.currentChatMessageId++;
     const message: ChatMessage = { 
@@ -385,6 +392,13 @@ export class DatabaseStorage implements IStorage {
       .values(insertMessage)
       .returning();
     return message;
+  }
+
+  async getAllContactMessages(): Promise<ContactMessage[]> {
+    return await db
+      .select()
+      .from(contactMessages)
+      .orderBy(desc(contactMessages.createdAt));
   }
 
   async createChatMessage(insertMessage: InsertChatMessage): Promise<ChatMessage> {

@@ -265,6 +265,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Protected admin route to get all contact messages
+  app.get("/api/contact/messages", requireAdminAuth, async (req, res) => {
+    try {
+      const messages = await storage.getAllContactMessages();
+      res.json(messages);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
 
 
   const httpServer = createServer(app);
