@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Coffee, Users, Heart, Star, MessageCircle } from "lucide-react";
+import NewsletterSignup from "@/components/newsletter-signup";
 
 // Community photos imports
 import communityPhoto1 from "@assets/IMG_4125_1751590186680.jpg";

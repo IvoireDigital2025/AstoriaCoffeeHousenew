@@ -4,7 +4,8 @@ import { storage } from "./storage";
 import { 
   insertUserSchema, 
   insertContactMessageSchema,
-  insertChatMessageSchema 
+  insertChatMessageSchema,
+  insertMarketingContactSchema
 } from "@shared/schema";
 import OpenAI from "openai";
 
@@ -162,6 +163,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "I'm experiencing technical difficulties. Please try again later or contact us directly.",
         error: error.message 
       });
+    }
+  });
+
+  // Marketing Contact routes
+  app.post("/api/marketing/newsletter", async (req, res) => {
+    try {
+      const contactData = insertMarketingContactSchema.parse({
+        ...req.body,
+        source: "newsletter"
+      });
+      
+      // Check if email already exists
+      const existingContact = await storage.getMarketingContactByEmail(contactData.email);
+      if (existingContact) {
+        if (!existingContact.subscribed) {
+          // Resubscribe existing contact
+          const updatedContact = await storage.updateMarketingContactSubscription(contactData.email, true);
+          return res.json({ 
+            message: "Successfully resubscribed to our newsletter!",
+            contact: updatedContact
+          });
+        }
+        return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
+      }
+      
+      const contact = await storage.createMarketingContact(contactData);
+      res.json({ 
+        message: "Successfully subscribed to our newsletter!",
+        contact: contact
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.post("/api/marketing/unsubscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+      }
+      
+      const contact = await storage.updateMarketingContactSubscription(email, false);
+      if (!contact) {
+        return res.status(404).json({ message: "Email not found in our system" });
+      }
+      
+      res.json({ 
+        message: "Successfully unsubscribed from our newsletter",
+        contact: contact
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   });
 

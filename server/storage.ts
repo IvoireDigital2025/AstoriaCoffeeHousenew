@@ -3,6 +3,7 @@ import {
   menuItems,
   contactMessages,
   chatMessages,
+  marketingContacts,
   type User, 
   type InsertUser,
   type MenuItem,
@@ -10,7 +11,9 @@ import {
   type ContactMessage,
   type InsertContactMessage,
   type ChatMessage,
-  type InsertChatMessage
+  type InsertChatMessage,
+  type MarketingContact,
+  type InsertMarketingContact
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, asc } from "drizzle-orm";
@@ -33,6 +36,11 @@ export interface IStorage {
   // Chat operations
   createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
   getChatHistory(sessionId: string): Promise<ChatMessage[]>;
+  
+  // Marketing operations
+  createMarketingContact(contact: InsertMarketingContact): Promise<MarketingContact>;
+  getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined>;
+  updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -40,20 +48,24 @@ export class MemStorage implements IStorage {
   private menuItems: Map<number, MenuItem>;
   private contactMessages: Map<number, ContactMessage>;
   private chatMessages: Map<number, ChatMessage>;
+  private marketingContacts: Map<number, MarketingContact>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
   private currentChatMessageId: number;
+  private currentMarketingContactId: number;
 
   constructor() {
     this.users = new Map();
     this.menuItems = new Map();
     this.contactMessages = new Map();
     this.chatMessages = new Map();
+    this.marketingContacts = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
     this.currentContactMessageId = 1;
     this.currentChatMessageId = 1;
+    this.currentMarketingContactId = 1;
     
     // Initialize with sample menu items
     this.initializeMenuItems();
@@ -275,6 +287,36 @@ export class MemStorage implements IStorage {
       .filter(message => message.sessionId === sessionId)
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
+
+  async createMarketingContact(insertContact: InsertMarketingContact): Promise<MarketingContact> {
+    const id = this.currentMarketingContactId++;
+    const contact: MarketingContact = { 
+      ...insertContact,
+      name: insertContact.name ?? null,
+      phone: insertContact.phone ?? null,
+      preferences: insertContact.preferences ?? null,
+      id,
+      subscribed: insertContact.subscribed ?? true,
+      createdAt: new Date()
+    };
+    this.marketingContacts.set(id, contact);
+    return contact;
+  }
+
+  async getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined> {
+    return Array.from(this.marketingContacts.values())
+      .find(contact => contact.email === email);
+  }
+
+  async updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined> {
+    const contact = await this.getMarketingContactByEmail(email);
+    if (contact) {
+      contact.subscribed = subscribed;
+      this.marketingContacts.set(contact.id, contact);
+      return contact;
+    }
+    return undefined;
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -343,6 +385,31 @@ export class DatabaseStorage implements IStorage {
       .from(chatMessages)
       .where(eq(chatMessages.sessionId, sessionId))
       .orderBy(asc(chatMessages.createdAt));
+  }
+
+  async createMarketingContact(insertContact: InsertMarketingContact): Promise<MarketingContact> {
+    const [contact] = await db
+      .insert(marketingContacts)
+      .values(insertContact)
+      .returning();
+    return contact;
+  }
+
+  async getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined> {
+    const [contact] = await db
+      .select()
+      .from(marketingContacts)
+      .where(eq(marketingContacts.email, email));
+    return contact || undefined;
+  }
+
+  async updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined> {
+    const [contact] = await db
+      .update(marketingContacts)
+      .set({ subscribed: subscribed })
+      .where(eq(marketingContacts.email, email))
+      .returning();
+    return contact || undefined;
   }
 }
 

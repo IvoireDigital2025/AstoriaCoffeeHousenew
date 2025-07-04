@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
+import NewsletterSignup from "@/components/newsletter-signup";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/2024-12-29_1749666894482.webp";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -281,6 +282,13 @@ export default function Home() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="py-16 px-4 bg-gradient-to-r from-coffee-primary/5 to-amber-100/30">
+        <div className="max-w-4xl mx-auto">
+          <NewsletterSignup />
         </div>
       </section>
     </div>

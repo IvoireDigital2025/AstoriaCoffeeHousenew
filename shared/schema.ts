@@ -38,6 +38,17 @@ export const chatMessages = pgTable("chat_messages", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const marketingContacts = pgTable("marketing_contacts", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  phone: text("phone"),
+  name: text("name"),
+  source: text("source").notNull(), // 'newsletter', 'community', 'loyalty', 'contact'
+  preferences: text("preferences"), // JSON string for marketing preferences
+  subscribed: boolean("subscribed").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   points: true,
@@ -58,6 +69,16 @@ export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
   createdAt: true,
 });
 
+export const insertMarketingContactSchema = createInsertSchema(marketingContacts).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().optional(),
+  name: z.string().optional(),
+  source: z.enum(["newsletter", "community", "loyalty", "contact"]),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type MenuItem = typeof menuItems.$inferSelect;
@@ -66,3 +87,5 @@ export type ContactMessage = typeof contactMessages.$inferSelect;
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+export type MarketingContact = typeof marketingContacts.$inferSelect;
+export type InsertMarketingContact = z.infer<typeof insertMarketingContactSchema>;
