@@ -2,6 +2,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Coffee, Users, Heart, Star, MessageCircle } from "lucide-react";
 
+// Community photos imports
+import communityPhoto1 from "@assets/IMG_4125_1751590186680.jpg";
+import communityPhoto2 from "@assets/IMG_4126_1751590186681.jpg";
+import communityPhoto3 from "@assets/IMG_4127_1751590186681.jpg";
+import communityPhoto4 from "@assets/IMG_4128_1751590186681.jpg";
+import communityPhoto5 from "@assets/IMG_4129_1751590186681.jpg";
+import communityPhoto6 from "@assets/IMG_4124_1751590186681.jpg";
+import communityPhoto7 from "@assets/IMG_4123_1751590186682.jpg";
+import communityPhoto8 from "@assets/IMG_4130_1751590186682.jpg";
+import communityPhoto9 from "@assets/IMG_4132_1751590186682.jpg";
+import communityPhoto10 from "@assets/IMG_4133_1751590186682.jpg";
+import communityPhoto11 from "@assets/IMG_4134_1751590186682.jpg";
+
 export default function Community() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-coffee-cream via-amber-50 to-coffee-cream">
@@ -37,48 +50,187 @@ export default function Community() {
                 <h2 className="text-2xl font-bold text-coffee-dark">Community Gallery</h2>
               </div>
               <p className="text-coffee-medium mb-8">
-                This is where we'll showcase the amazing people who make our coffee shop special. 
-                Please upload your community photos to see them featured here!
+                Meet the wonderful people who make Coffee Pro a vibrant community hub. These authentic moments 
+                capture the warmth, cultural connection, and genuine friendships that flourish in our space.
               </p>
               
-              {/* Instructions for uploading community photos */}
-              <div className="bg-gradient-to-br from-coffee-primary/10 to-amber-100/30 rounded-xl p-8 mb-8">
-                <h3 className="text-xl font-bold text-coffee-dark mb-4">How to Add Community Photos</h3>
-                <div className="text-coffee-medium space-y-3">
-                  <p>1. Save your community photos to the <code className="bg-coffee-cream/50 px-2 py-1 rounded text-sm">attached_assets</code> folder</p>
-                  <p>2. Let me know the photo filenames and I'll integrate them into this gallery</p>
-                  <p>3. I can add captions, names, and organize them by categories (staff, customers, events, etc.)</p>
-                </div>
-              </div>
-
-              {/* Placeholder gallery - will be populated with actual photos */}
+              {/* Community Photo Gallery */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* These will be replaced with actual community photos */}
-                {[
-                  { title: "Staff Members", description: "Meet our amazing team" },
-                  { title: "Regular Customers", description: "Our coffee family" },
-                  { title: "Community Events", description: "Special moments together" },
-                  { title: "Cultural Celebrations", description: "Heritage in action" },
-                  { title: "Behind the Scenes", description: "Coffee making process" },
-                  { title: "Grand Opening", description: "Our journey begins" }
-                ].map((photo, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square bg-gradient-to-br from-coffee-cream/30 to-amber-100/30 rounded-xl border-2 border-dashed border-coffee-accent/30 flex items-center justify-center group hover:border-coffee-primary/50 transition-all duration-300"
-                  >
-                    <div className="text-center p-4">
-                      <div className="w-16 h-16 bg-coffee-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-coffee-primary/20 transition-colors duration-300">
-                        <Users className="w-8 h-8 text-coffee-primary" />
-                      </div>
-                      <p className="text-coffee-dark font-semibold text-sm mb-1">
-                        {photo.title}
-                      </p>
-                      <p className="text-coffee-medium text-xs">
-                        {photo.description}
-                      </p>
+                {/* Row 1 */}
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto1} 
+                      alt="Happy family with Coffee Pro name cards"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Coffee Family Time</h4>
+                    <p className="text-coffee-medium text-sm">A beautiful family moment with Arabic name cards, showing how Coffee Pro brings generations together.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto2} 
+                      alt="Friends at the AlUla photo spot"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">AlUla Heritage Corner</h4>
+                    <p className="text-coffee-medium text-sm">Friends celebrating at our signature AlUla-inspired photo spot with Arabic name cards.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto3} 
+                      alt="Customer enjoying coffee and holding Arabic name card"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Cultural Connection</h4>
+                    <p className="text-coffee-medium text-sm">A loyal customer proudly displaying her Arabic name card, connecting with Middle Eastern culture.</p>
+                  </CardContent>
+                </Card>
+
+                {/* Row 2 */}
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto4} 
+                      alt="Two friends sharing coffee and conversation"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Friendship & Coffee</h4>
+                    <p className="text-coffee-medium text-sm">Friends bonding over authentic Middle Eastern coffee with their personalized Arabic name cards.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto5} 
+                      alt="Customers enjoying the traditional atmosphere"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Traditional Atmosphere</h4>
+                    <p className="text-coffee-medium text-sm">Customers relaxing in our authentic Middle Eastern atmosphere with geometric patterns and warm lighting.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto6} 
+                      alt="Couple at AlUla heritage spot"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Heritage Celebration</h4>
+                    <p className="text-coffee-medium text-sm">A couple celebrating their visit with Arabic name cards at our AlUla-inspired heritage corner.</p>
+                  </CardContent>
+                </Card>
+
+                {/* Row 3 */}
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto7} 
+                      alt="Young family with baby at Coffee Pro"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">New Generation</h4>
+                    <p className="text-coffee-medium text-sm">A young family introducing the next generation to Middle Eastern coffee culture and hospitality.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto8} 
+                      alt="Student studying with coffee"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Study & Focus</h4>
+                    <p className="text-coffee-medium text-sm">A dedicated student finding the perfect study atmosphere among our traditional geometric patterns.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto9} 
+                      alt="International visitors at AlUla spot"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Global Community</h4>
+                    <p className="text-coffee-medium text-sm">International visitors experiencing authentic Saudi Arabian culture at our AlUla heritage corner.</p>
+                  </CardContent>
+                </Card>
+
+                {/* Row 4 */}
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto10} 
+                      alt="Regular customers at heritage corner"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Cultural Exchange</h4>
+                    <p className="text-coffee-medium text-sm">Regular customers from different backgrounds coming together to appreciate Middle Eastern heritage.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={communityPhoto11} 
+                      alt="Business professionals networking"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Professional Networking</h4>
+                    <p className="text-coffee-medium text-sm">Business professionals building connections in our warm, culturally rich environment.</p>
+                  </CardContent>
+                </Card>
+
+                {/* Featured Social Media Post */}
+                <Card className="overflow-hidden group hover:shadow-xl transition-shadow duration-300 rounded-xl md:col-span-2 lg:col-span-1">
+                  <div className="aspect-square overflow-hidden relative">
+                    <img 
+                      src={communityPhoto1} 
+                      alt="Coffee Pro Instagram post"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-coffee-primary to-amber-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      Featured
                     </div>
                   </div>
-                ))}
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-coffee-dark mb-2">Social Media Love</h4>
+                    <p className="text-coffee-medium text-sm">Our community sharing their Coffee Pro experiences on social media with #coffeepro #alula #queenscoffee.</p>
+                  </CardContent>
+                </Card>
               </div>
             </CardContent>
           </Card>
