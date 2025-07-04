@@ -220,8 +220,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all marketing contacts for admin dashboard
-  app.get("/api/marketing/contacts", async (req, res) => {
+  // Admin authentication middleware
+  const requireAdminAuth = (req: any, res: any, next: any) => {
+    const isAuthenticated = req.session?.adminAuthenticated;
+    if (!isAuthenticated) {
+      return res.status(401).json({ message: "Admin authentication required" });
+    }
+    next();
+  };
+
+  // Admin login endpoint
+  app.post("/api/admin/login", (req: any, res) => {
+    const { password } = req.body;
+    const adminPassword = process.env.ADMIN_PASSWORD || "coffeepro2024";
+    
+    if (password === adminPassword) {
+      req.session.adminAuthenticated = true;
+      res.json({ message: "Login successful" });
+    } else {
+      res.status(401).json({ message: "Invalid password" });
+    }
+  });
+
+  // Admin logout endpoint
+  app.post("/api/admin/logout", (req: any, res) => {
+    req.session.adminAuthenticated = false;
+    res.json({ message: "Logged out successfully" });
+  });
+
+  // Protected admin route to get all marketing contacts
+  app.get("/api/marketing/contacts", requireAdminAuth, async (req, res) => {
     try {
       const contacts = await storage.getAllMarketingContacts();
       res.json(contacts);

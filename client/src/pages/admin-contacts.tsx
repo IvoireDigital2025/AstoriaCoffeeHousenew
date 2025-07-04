@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Download, Search, Mail, Phone, User, Calendar, Filter } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut } from "lucide-react";
 import { format } from "date-fns";
+import { useToast } from "@/hooks/use-toast";
 
 interface MarketingContact {
   id: number;
@@ -19,6 +21,8 @@ interface MarketingContact {
 }
 
 export default function AdminContacts() {
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("all");
 
@@ -26,12 +30,30 @@ export default function AdminContacts() {
     queryKey: ['/api/marketing/contacts'],
     queryFn: async () => {
       const response = await fetch('/api/marketing/contacts');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
       if (!response.ok) {
         throw new Error('Failed to fetch contacts');
       }
       return response.json();
     }
   });
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      toast({
+        title: "Logged Out",
+        description: "You have been logged out successfully",
+      });
+      setLocation('/admin/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      setLocation('/admin/login');
+    }
+  };
 
   const filteredContacts = contacts?.filter((contact: MarketingContact) => {
     const matchesSearch = !searchTerm || 
@@ -122,9 +144,19 @@ export default function AdminContacts() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-coffee-dark mb-2">Marketing Contacts</h1>
-          <p className="text-coffee-medium">Manage and view all customer contact information collected for marketing purposes</p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-coffee-dark mb-2">Marketing Contacts</h1>
+            <p className="text-coffee-medium">Manage and view all customer contact information collected for marketing purposes</p>
+          </div>
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="border-coffee-accent text-coffee-primary hover:bg-coffee-primary hover:text-white"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
         </div>
 
         {/* Stats Cards */}

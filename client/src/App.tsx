@@ -16,6 +16,7 @@ import Loyalty from "@/pages/loyalty";
 import Community from "@/pages/community";
 import MoodSelectorPage from "@/pages/mood-selector";
 import AdminContacts from "@/pages/admin-contacts";
+import AdminLogin from "@/pages/admin-login";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
           <Route path="/loyalty" component={Loyalty} />
           <Route path="/community" component={Community} />
           <Route path="/mood-selector" component={MoodSelectorPage} />
+          <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin/contacts" component={AdminContacts} />
           <Route component={NotFound} />
         </Switch>

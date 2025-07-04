@@ -92,7 +92,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Corporate Info</h4>
             <div className="space-y-2 text-coffee-secondary">
               <p>Coffee Pro Corporation</p>
-              <p>Multiple NYC Locations</p>
+              <p>23-33 Astoria Blvd, Astoria, NY 11102</p>
               <p>(212) 555-BREW</p>
               <p>corporate@coffeepro.com</p>
             </div>
