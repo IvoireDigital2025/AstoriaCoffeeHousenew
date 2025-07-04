@@ -269,23 +269,6 @@ export default function Contact() {
                   alt="Coffee Pro locations across NYC"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                  <div className="bg-white rounded-lg p-6 shadow-lg text-center">
-                    <MapPin className="w-8 h-8 text-coffee-accent mx-auto mb-2" />
-                    <p className="text-coffee-dark font-semibold text-lg">
-                      Coffee Pro HQ
-                    </p>
-                    <p className="text-coffee-medium text-sm">
-                      23-33 Astoria Blvd
-                    </p>
-                    <p className="text-coffee-medium text-xs">
-                      Astoria, NY 11102
-                    </p>
-                    <a href="/locations" className="text-coffee-accent text-sm font-medium hover:underline block mt-2">
-                      View All Locations →
-                    </a>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </div>

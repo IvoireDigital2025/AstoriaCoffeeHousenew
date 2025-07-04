@@ -265,44 +265,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Video API endpoints (simplified for now)
-  app.get("/api/videos", (req, res) => {
-    // Sample video representing your Moroccan sweets video
-    const sampleVideos = [
-      {
-        id: 1,
-        title: "Honey Moroccan Sweets - Coffee Pro Style",
-        description: "Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable. Experience authentic Middle Eastern flavors at Coffee Pro Astoria.",
-        filename: "moroccan-sweets-honey.mp4",
-        originalName: "Honey Moroccan Sweets Video.mp4",
-        mimeType: "video/mp4",
-        size: 25600000, // ~25MB
-        createdAt: new Date().toISOString(),
-      }
-    ];
-    res.json(sampleVideos);
-  });
 
-  app.post("/api/videos/upload", requireAdminAuth, (req, res) => {
-    // Placeholder for video upload - will be implemented with proper file handling
-    res.status(501).json({ message: "Video upload feature coming soon" });
-  });
-
-  app.get("/api/videos/:id/stream", (req, res) => {
-    const { id } = req.params;
-    if (id === "1") {
-      // Redirect to the direct static asset URL
-      const videoUrl = `/attached_assets/Honey, you deserve this 🍯 Moroccan sweets done the Pro way—drizzled, dreamy, and unforgettable.#CoffeeProAstoria #AstoriaEats #MoroccanSweets #NYCFoodie #HoneyDrizzle #TreatYourself #CoffeeTime #SweetEscape_1751613021125.mp4`;
-      res.redirect(videoUrl);
-    } else {
-      res.status(404).json({ message: "Video not found" });
-    }
-  });
-
-  app.get("/api/videos/:id/thumbnail", (req, res) => {
-    // Generate a thumbnail from the video or use a placeholder
-    res.status(404).json({ message: "Thumbnail generation not implemented" });
-  });
 
   const httpServer = createServer(app);
   return httpServer;
