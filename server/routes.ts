@@ -220,6 +220,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get all marketing contacts for admin dashboard
+  app.get("/api/marketing/contacts", async (req, res) => {
+    try {
+      const contacts = await storage.getAllMarketingContacts();
+      res.json(contacts);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

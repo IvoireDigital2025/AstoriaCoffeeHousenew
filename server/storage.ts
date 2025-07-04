@@ -16,7 +16,7 @@ import {
   type InsertMarketingContact
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, asc } from "drizzle-orm";
+import { eq, asc, desc } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -41,6 +41,7 @@ export interface IStorage {
   createMarketingContact(contact: InsertMarketingContact): Promise<MarketingContact>;
   getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined>;
   updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined>;
+  getAllMarketingContacts(): Promise<MarketingContact[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -317,6 +318,11 @@ export class MemStorage implements IStorage {
     }
     return undefined;
   }
+
+  async getAllMarketingContacts(): Promise<MarketingContact[]> {
+    return Array.from(this.marketingContacts.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -410,6 +416,13 @@ export class DatabaseStorage implements IStorage {
       .where(eq(marketingContacts.email, email))
       .returning();
     return contact || undefined;
+  }
+
+  async getAllMarketingContacts(): Promise<MarketingContact[]> {
+    return await db
+      .select()
+      .from(marketingContacts)
+      .orderBy(desc(marketingContacts.createdAt));
   }
 }
 

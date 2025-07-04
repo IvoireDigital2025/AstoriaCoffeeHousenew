@@ -11,6 +11,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { insertContactMessageSchema } from "@shared/schema";
 import { z } from "zod";
+import NewsletterSignup from "@/components/newsletter-signup";
 
 const contactFormSchema = insertContactMessageSchema;
 
@@ -288,6 +289,11 @@ export default function Contact() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Newsletter Signup Section */}
+        <div className="mt-16">
+          <NewsletterSignup />
         </div>
       </div>
     </div>

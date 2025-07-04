@@ -24,6 +24,11 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Integrated 11 authentic community photos showing customers with Arabic name cards
 - ✓ Created beautiful photo gallery with captions highlighting cultural connections
 - ✓ Featured AlUla heritage corner, family moments, and diverse community interactions
+- ✓ Implemented comprehensive marketing contact collection system
+- ✓ Added newsletter signup forms throughout the website (home, community, contact, loyalty)
+- ✓ Created admin dashboard for viewing and managing marketing contacts
+- ✓ Database schema includes email, phone, name collection with source tracking
+- ✓ API endpoints for newsletter subscription and contact management
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)

@@ -387,6 +387,13 @@ export default function Community() {
           </Card>
         </div>
       </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="py-12 px-6 bg-gradient-to-r from-coffee-primary/5 to-amber-100/20">
+        <div className="max-w-2xl mx-auto">
+          <NewsletterSignup variant="compact" />
+        </div>
+      </section>
     </div>
   );
 }
