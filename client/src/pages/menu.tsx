@@ -35,11 +35,11 @@ export default function Menu() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-900 via-amber-800 to-stone-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-stone-900 relative overflow-hidden">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 opacity-30"></div>
-      <div className="absolute top-10 left-10 w-64 h-64 bg-amber-600/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Futuristic Header */}
@@ -48,8 +48,8 @@ export default function Menu() {
             <h1 className="text-6xl md:text-7xl font-playfair font-bold text-white mb-6 tracking-tight">
               Coffee Pro Menu
             </h1>
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-amber-600 rounded-full"></div>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-orange-600 rounded-full"></div>
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary rounded-full"></div>
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-secondary rounded-full"></div>
           </div>
           
           <p className="text-2xl text-stone-100 mb-8 font-light tracking-wide text-center">
@@ -60,7 +60,7 @@ export default function Menu() {
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <Button 
               asChild
-              className="group relative overflow-hidden bg-amber-700 hover:bg-amber-800 text-white px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <a 
                 href={pdfMenuPath} 
@@ -90,8 +90,8 @@ export default function Menu() {
                 variant={isActive ? "default" : "outline"}
                 className={`group relative overflow-hidden px-8 py-4 font-bold text-lg rounded-full transition-all duration-300 transform hover:scale-105 ${
                   isActive
-                    ? "bg-amber-700 text-white shadow-2xl border-2 border-amber-600"
-                    : "bg-amber-900/50 text-white border-2 border-amber-700/50 hover:bg-amber-700 hover:text-white hover:border-amber-600"
+                    ? "bg-primary text-primary-foreground shadow-2xl border-2 border-primary/80"
+                    : "bg-secondary/50 text-white border-2 border-secondary/50 hover:bg-primary hover:text-primary-foreground hover:border-primary/80"
                 }`}
               >
                 <IconComponent className="w-6 h-6 mr-3" />
