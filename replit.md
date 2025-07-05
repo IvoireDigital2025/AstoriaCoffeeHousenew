@@ -56,6 +56,7 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Updated dynamic messaging to handle three menu categories
 - ✓ Added "Sandwiches" category next to "Pastries" in menu navigation
 - ✓ Added "Juices" category next to "Cold Drinks" in menu navigation
+- ✓ Updated website color scheme to match Coffee Pro logo (orange/coral and blue)
 
 ## User Preferences
 - Website should be purely informational (no ordering functionality)

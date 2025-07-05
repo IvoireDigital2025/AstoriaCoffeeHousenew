@@ -13,27 +13,28 @@
   --card-foreground: hsl(25, 42%, 11%);
   --border: hsl(48, 15%, 85%);
   --input: hsl(48, 15%, 85%);
-  --primary: hsl(25, 62%, 27%);
-  --primary-foreground: hsl(48, 38%, 97%);
-  --secondary: hsl(48, 38%, 82%);
-  --secondary-foreground: hsl(25, 42%, 11%);
-  --accent: hsl(25, 95%, 62%);
+  --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(60, 9%, 98%);
   --ring: hsl(25, 42%, 11%);
   --radius: 0.5rem;
   
-  /* Coffee shop specific colors with Middle Eastern/North African influence */
-  --coffee-primary: hsl(25, 62%, 27%);
-  --coffee-secondary: hsl(48, 38%, 82%);
-  --coffee-accent: hsl(25, 95%, 62%);
+  /* Coffee Pro logo-inspired colors */
+  --coffee-primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --coffee-secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --coffee-accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --coffee-cream: hsl(48, 38%, 97%);
   --coffee-dark: hsl(25, 42%, 11%);
   --coffee-medium: hsl(25, 52%, 35%);
   --coffee-gold: hsl(45, 85%, 55%);
   --coffee-terracotta: hsl(15, 75%, 45%);
   --coffee-sage: hsl(120, 25%, 55%);
+  --coffee-blue: hsl(205, 70%, 50%); /* Logo blue variation */
 }
 
 .dark {
@@ -47,11 +48,11 @@
   --card-foreground: hsl(0, 0%, 98%);
   --border: hsl(25, 15%, 15%);
   --input: hsl(25, 15%, 15%);
-  --primary: hsl(25, 62%, 27%);
-  --primary-foreground: hsl(48, 38%, 97%);
-  --secondary: hsl(25, 15%, 15%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(25, 95%, 62%);
+  --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 63%, 31%);
   --destructive-foreground: hsl(0, 0%, 98%);
