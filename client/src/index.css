@@ -15,7 +15,7 @@
   --input: hsl(48, 15%, 85%);
   --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --secondary: hsl(195, 75%, 45%); /* Logo steel blue */
   --secondary-foreground: hsl(0, 0%, 100%);
   --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --accent-foreground: hsl(0, 0%, 100%);
@@ -26,7 +26,7 @@
   
   /* Coffee Pro logo-inspired colors */
   --coffee-primary: hsl(15, 80%, 60%); /* Logo orange/coral */
-  --coffee-secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --coffee-secondary: hsl(195, 75%, 45%); /* Logo steel blue */
   --coffee-accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --coffee-cream: hsl(48, 38%, 97%);
   --coffee-dark: hsl(25, 42%, 11%);
@@ -34,7 +34,7 @@
   --coffee-gold: hsl(45, 85%, 55%);
   --coffee-terracotta: hsl(15, 75%, 45%);
   --coffee-sage: hsl(120, 25%, 55%);
-  --coffee-blue: hsl(205, 70%, 50%); /* Logo blue variation */
+  --coffee-blue: hsl(195, 75%, 45%); /* Logo steel blue exact match */
 }
 
 .dark {
@@ -50,7 +50,7 @@
   --input: hsl(25, 15%, 15%);
   --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(205, 65%, 55%); /* Logo blue */
+  --secondary: hsl(195, 75%, 45%); /* Logo steel blue */
   --secondary-foreground: hsl(0, 0%, 100%);
   --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --accent-foreground: hsl(0, 0%, 100%);
