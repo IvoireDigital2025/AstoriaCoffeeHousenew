@@ -7,6 +7,7 @@ import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.w
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
 import coffeeBeansImage from "@assets/ChatGPT Image Jul 6, 2025, 05_10_05 PM_1751839908170.png";
+import communityImage from "@assets/IMG_4357_1751842608848.jpg";
 
 
 
@@ -246,8 +247,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
-                  src={heritageImage}
-                  alt="Golden coffee cup representing our premium quality"
+                  src={communityImage}
+                  alt="Customers with Arabic name cards at Coffee Pro community corner"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
