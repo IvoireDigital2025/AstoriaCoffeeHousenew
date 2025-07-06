@@ -81,8 +81,8 @@ export default function Contact() {
       icon: Clock,
       title: "Hours",
       details: [
-        "Monday - Friday: 8:00 AM - 6:00 PM",
-        "Saturday - Sunday: 9:00 AM - 5:00 PM",
+        "Sunday - Thursday: 7:00 AM - 7:30 PM",
+        "Friday - Saturday: 7:00 AM - 8:30 PM",
       ],
     },
     {

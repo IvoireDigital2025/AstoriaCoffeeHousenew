@@ -94,6 +94,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Changed contact page references from "corporate team" to "our team" and "NYC locations" to "Astoria location"
 - ✓ Updated contact information titles: "Corporate Office" to "Location", "Customer Service" to "Hours"
 - ✓ Changed email addresses from "corporate@coffeepro.com" to "info@coffeepro.com"
+- ✓ Updated operating hours throughout website to match actual Coffee Pro schedule
+- ✓ Changed hours to Sunday-Thursday: 7:00 AM - 7:30 PM, Friday-Saturday: 7:00 AM - 8:30 PM
 
 
 ## User Preferences
