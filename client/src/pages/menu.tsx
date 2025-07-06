@@ -9,6 +9,12 @@ import { useToast } from "@/hooks/use-toast";
 import type { MenuItem } from "@shared/schema";
 import pdfMenuPath from "@assets/coffee-pro-Menu_1749665658431.pdf";
 
+// Hot Drinks Menu Images
+import hotDrinksImg1 from "@assets/IMG_4338_1751830973848.jpg";
+import hotDrinksImg2 from "@assets/IMG_4339_1751830973848.jpg";
+import hotDrinksImg3 from "@assets/IMG_4340_1751830973848.jpg";
+import hotDrinksImg4 from "@assets/IMG_4341_1751830973848.jpg";
+
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const { toast } = useToast();
@@ -117,6 +123,33 @@ export default function Menu() {
             Not all items are listed - visit us to discover our full selection of authentic Middle Eastern treats!
           </p>
         </div>
+
+        {/* Hot Drinks Menu Images */}
+        {activeCategory === "coffee" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Our Hot Drinks Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Discover our authentic Egyptian coffee heritage and specialty hot beverages
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[hotDrinksImg1, hotDrinksImg2, hotDrinksImg3, hotDrinksImg4].map((img, index) => (
+                <div key={index} className="group relative overflow-hidden rounded-2xl bg-amber-900/20 backdrop-blur-sm border border-amber-700/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-900/30">
+                  <img 
+                    src={img} 
+                    alt={`Hot Drinks Menu ${index + 1}`}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-amber-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Menu Items Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
