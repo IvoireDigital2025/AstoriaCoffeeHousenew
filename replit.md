@@ -1,7 +1,7 @@
 # Coffee Pro - Digital Platform
 
 ## Project Overview
-A comprehensive digital platform celebrating Middle Eastern coffee culture through innovative, interactive technologies. The website offers an immersive user experience that bridges traditional culinary heritage with modern digital engagement.
+A comprehensive digital platform celebrating Egyptian coffee culture through innovative, interactive technologies. The website offers an immersive user experience that bridges traditional Egyptian culinary heritage with modern digital engagement.
 
 ## Key Features
 - React.js frontend with advanced interactive design
@@ -60,6 +60,8 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Added "New Signature Drinks" showcase section on home page featuring Tiramisu Pro Frappe and Strawfee Clouds with actual photos
 - ✓ Removed AI chatbot component completely from the website
 - ✓ Changed primary button colors from orange to blue throughout the website
+- ✓ Corrected nationality from Moroccan/Saudi Arabian to Egyptian throughout the website
+- ✓ Updated timeline from "32+ years" to reflect 1-year establishment
 
 
 ## User Preferences
@@ -67,7 +69,7 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - Professional, modern design maintaining coffee shop color themes
 - No background music or audio components
 - Clean, accessible UI with smooth animations
-- Focus on showcasing Saudi Arabian heritage and AlUla inspiration
+- Focus on showcasing Egyptian heritage and authentic coffee culture
 
 ## Project Architecture
 - Frontend: React.js with Wouter routing
@@ -79,6 +81,6 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 
 ## Technical Notes
 - Located at Astoria Boulevard, Long Island City
-- 5-month-old establishment
-- 32+ years of cultural heritage
+- 1-year-old establishment
+- 1 year of bringing Egyptian coffee culture to NYC
 - DoorDash integration mentioned but not implemented (informational only)

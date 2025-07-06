@@ -92,8 +92,8 @@ export class MemStorage implements IStorage {
         available: true
       },
       {
-        name: "Moroccan Almond Croissant",
-        description: "Buttery croissant filled with traditional Moroccan almond paste",
+        name: "Egyptian Almond Croissant",
+        description: "Buttery croissant filled with traditional Egyptian almond paste",
         price: "",
         category: "pastries",
         image: "",
@@ -142,7 +142,7 @@ export class MemStorage implements IStorage {
         available: true
       },
       {
-        name: "Moroccan Mint Tea",
+        name: "Egyptian Mint Tea",
         description: "Traditional Atay with fresh mint leaves and sugar",
         price: "",
         category: "coffee",

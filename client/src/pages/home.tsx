@@ -39,7 +39,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            Authentic Moroccan and Saudi Arabian coffee traditions meet NYC energy - 32+ years of cultural heritage in every cup.
+            Authentic Egyptian coffee traditions meet NYC energy - bringing you the finest coffee culture from the heart of Egypt.
           </p>
           <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
             <MapPin className="w-5 h-5 mr-2" />
@@ -77,9 +77,9 @@ export default function Home() {
                 Authentic Coffee Heritage
               </h2>
               <p className="text-xl text-coffee-medium mb-6">
-                Experience the rich traditions of Moroccan and Saudi Arabian coffee culture, 
+                Experience the rich traditions of Egyptian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
-                generations-old brewing techniques and warm hospitality. Complement your coffee 
+                authentic brewing techniques and warm hospitality. Complement your coffee 
                 with authentic Middle Eastern treats including Dubai chocolate, halva, Turkish delight, and more.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -192,7 +192,7 @@ export default function Home() {
               Heritage Meets Innovation
             </h2>
             <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
-              Bringing authentic Moroccan and Saudi Arabian coffee traditions to New York City - where ancient hospitality meets modern excellence
+              Bringing authentic Egyptian coffee traditions to New York City - where traditional hospitality meets modern excellence
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -213,7 +213,7 @@ export default function Home() {
                   Arabian Heritage Blends
                 </h3>
                 <p className="text-coffee-medium">
-                  Traditional Arabic coffee and Moroccan spiced coffee, sourced from the highlands of Yemen and Morocco's Atlas Mountains.
+                  Traditional Egyptian coffee and authentic Middle Eastern blends, bringing the finest coffee culture from Egypt to NYC.
                 </p>
               </CardContent>
             </Card>

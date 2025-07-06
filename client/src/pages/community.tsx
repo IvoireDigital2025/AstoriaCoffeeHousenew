@@ -182,7 +182,7 @@ export default function Community() {
                   </div>
                   <CardContent className="p-4">
                     <h4 className="font-bold text-coffee-dark mb-2">Global Community</h4>
-                    <p className="text-coffee-medium text-sm">International visitors experiencing authentic Saudi Arabian culture at our AlUla heritage corner.</p>
+                    <p className="text-coffee-medium text-sm">International visitors experiencing authentic Egyptian culture at our heritage corner.</p>
                   </CardContent>
                 </Card>
 
@@ -259,7 +259,7 @@ export default function Community() {
                 </div>
                 <h3 className="text-xl font-bold text-coffee-dark mb-4">Cultural Heritage</h3>
                 <p className="text-coffee-medium leading-relaxed">
-                  We celebrate 32+ years of Moroccan and Saudi Arabian coffee traditions, 
+                  We celebrate authentic Egyptian coffee traditions, 
                   bringing authentic flavors and hospitality to New York City.
                 </p>
                 <Badge className="mt-4 bg-gradient-to-r from-coffee-primary to-amber-600 text-white">
@@ -381,7 +381,7 @@ export default function Community() {
               <div className="text-lg text-coffee-dark">
                 <p className="mb-2">📍 23-33 Astoria Blvd, Astoria, NY 11102</p>
                 <p className="mb-2">☕ Open Daily - Bringing authentic Middle Eastern hospitality to NYC</p>
-                <p>🏛️ Inspired by the ancient beauty of AlUla, Saudi Arabia</p>
+                <p>🏛️ Inspired by the ancient beauty of Egyptian heritage</p>
               </div>
             </CardContent>
           </Card>
