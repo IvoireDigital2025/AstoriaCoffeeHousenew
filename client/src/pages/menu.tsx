@@ -10,7 +10,7 @@ import type { MenuItem } from "@shared/schema";
 import pdfMenuPath from "@assets/coffee-pro-Menu_1749665658431.pdf";
 
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState<string>("hot-drinks");
+  const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const { toast } = useToast();
 
   const { data: menuItems, isLoading } = useQuery<MenuItem[]>({
@@ -25,11 +25,11 @@ export default function Menu() {
   });
 
   const categories = [
-    { id: "pastries", label: "Pastries", icon: UtensilsCrossed },
-    { id: "sandwiches", label: "Sandwiches", icon: Sandwich },
-    { id: "hot-drinks", label: "Hot Drinks", icon: Coffee },
-    { id: "cold-drinks", label: "Cold Drinks", icon: Snowflake },
-    { id: "juices", label: "Juices", icon: GlassWater },
+    { id: "pastry", label: "Pastries", icon: UtensilsCrossed },
+    { id: "sandwich", label: "Sandwiches", icon: Sandwich },
+    { id: "coffee", label: "Hot Drinks", icon: Coffee },
+    { id: "cold", label: "Cold Drinks", icon: Snowflake },
+    { id: "juice", label: "Juices", icon: GlassWater },
   ];
 
 

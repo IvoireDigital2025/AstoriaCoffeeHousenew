@@ -70,8 +70,6 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Removed login button from header navigation (kept delivery button only)
 - ✓ Connected DoorDash link to all delivery buttons throughout website
 - ✓ Removed "Meet Our Team" section from about page
-- ✓ Added complete hot drinks menu from Coffee Pro menu images (20 items with authentic prices)
-- ✓ Fixed storage configuration to use MemStorage for menu functionality
 
 
 ## User Preferences
