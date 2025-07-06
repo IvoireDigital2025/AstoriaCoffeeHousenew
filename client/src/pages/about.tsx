@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import coffeeArtImage from "@assets/maxresdefault_1749569245558.jpg";
+import astoriaStreetImage from "@assets/Astoria-Street_1751841999745.jpg";
 
 export default function About() {
   const stats = [
@@ -11,8 +11,8 @@ export default function About() {
 
   const images = [
     {
-      src: coffeeArtImage,
-      alt: "Professional latte art creation at Coffee Pro",
+      src: astoriaStreetImage,
+      alt: "Vibrant Astoria community street scene with local residents",
       className: ""
     },
     {
