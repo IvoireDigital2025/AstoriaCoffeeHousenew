@@ -249,7 +249,7 @@ export default function Home() {
                 <img 
                   src={communityImage}
                   alt="Customers with Arabic name cards at Coffee Pro community corner"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
                 <div className="absolute bottom-4 left-4">
