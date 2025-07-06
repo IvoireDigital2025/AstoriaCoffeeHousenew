@@ -10,8 +10,8 @@ export default function About() {
 
   const images = [
     {
-      src: "/attached_assets/unnamed (2)_1751845610782.webp",
-      alt: "Coffee Pro interior with AlUla heritage corner featuring traditional Middle Eastern design",
+      src: "/attached_assets/unnamed (7)_1751846156927.webp",
+      alt: "Coffee Pro interior showing professional coffee equipment and elegant lighting",
       className: ""
     },
     {
