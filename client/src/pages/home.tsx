@@ -305,13 +305,13 @@ export default function Home() {
             
             <div className="relative overflow-hidden rounded-lg shadow-lg group">
               <img 
-                src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
-                alt="Fresh coffee beans ready for brewing at Coffee Pro"
+                src="/attached_assets/unnamed (4)_1751844297728.webp" 
+                alt="Authentic Egyptian pastries with pistachio and chocolate at Coffee Pro"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="font-semibold text-lg">Premium Beans</h3>
+                <h3 className="font-semibold text-lg">Authentic Pastries</h3>
               </div>
             </div>
             

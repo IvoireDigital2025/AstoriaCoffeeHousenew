@@ -99,6 +99,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Updated phone number throughout website to actual Coffee Pro store number: (347) 329-6816
 - ✓ Replaced "Welcoming Atmosphere" section image with authentic Coffee Pro interior photo showing actual location
 - ✓ Replaced "Community Hub" section image with authentic Coffee Pro storefront photo showing Astoria location exterior
+- ✓ Replaced "Premium Beans" section with "Authentic Pastries" section using authentic Egyptian pastry photo
 
 
 ## User Preferences
