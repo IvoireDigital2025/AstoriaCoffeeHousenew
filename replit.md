@@ -76,6 +76,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Added 1 sandwich menu card image to Sandwiches section in menu page
 - ✓ Added 2 juice menu card images to Juices section in menu page
 - ✓ Removed "View Full Menu" button from menu page (clean interface, menu cards show all options)
+- ✓ Removed "Order Delivery" button from Heritage Showcase section (streamlined heritage focus)
 
 
 ## User Preferences

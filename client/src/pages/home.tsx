@@ -88,11 +88,7 @@ export default function Home() {
                     Explore Our Heritage Menu
                   </Button>
                 </Link>
-                <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3">
-                    Order Delivery
-                  </Button>
-                </a>
+
                 <Link href="/about">
                   <Button variant="outline" className="border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-8 py-3">
                     Learn Our Story
