@@ -142,41 +142,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Team Section */}
-        <div className="text-center">
-          <h2 className="text-3xl font-playfair font-bold text-coffee-dark mb-8">
-            Meet Our Team
-          </h2>
-          <p className="text-lg text-coffee-medium mb-12 max-w-3xl mx-auto">
-            Our passionate team of coffee enthusiasts is dedicated to providing you with an exceptional experience every time you visit.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { name: "Sarah Chen", role: "Head Barista", image: "https://images.unsplash.com/photo-1494790108755-2616b612b1e5?w=300&h=300&fit=crop&crop=face" },
-              { name: "Marcus Rodriguez", role: "Coffee Roaster", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" },
-              { name: "Emily Thompson", role: "Store Manager", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" }
-            ].map((member, index) => (
-              <Card key={index} className="overflow-hidden">
-                <CardContent className="p-0">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="p-6">
-                    <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-2">
-                      {member.name}
-                    </h3>
-                    <Badge variant="secondary" className="bg-coffee-secondary text-coffee-dark">
-                      {member.role}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+
       </div>
     </div>
   );

@@ -68,6 +68,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Added TikTok icon to Follow Us section using react-icons
 - ✓ Added "Order Delivery" buttons to home page and navigation (awaiting DoorDash link)
 - ✓ Removed login button from header navigation (kept delivery button only)
+- ✓ Connected DoorDash link to all delivery buttons throughout website
+- ✓ Removed "Meet Our Team" section from about page
 
 
 ## User Preferences
