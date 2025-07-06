@@ -350,7 +350,7 @@ export default function Home() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <Link href="/menu">
+            <Link href="/menu#menu-top">
               <Button 
                 size="lg"
                 className="bg-coffee-secondary text-white hover:bg-blue-600 px-8 py-4 text-lg font-semibold"

@@ -60,7 +60,7 @@ export default function Menu() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-stone-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-stone-900 relative overflow-hidden" id="menu-top">
       {/* Futuristic Background Elements */}
       <div className="absolute inset-0 opacity-30"></div>
       <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>

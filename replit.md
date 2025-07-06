@@ -88,6 +88,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Updated "Discover Coffee Pro Locations" to "Discover Coffee Pro" to reflect single location
 - ✓ Removed clickable link from "Visit Coffee Pro to Try These New Drinks" text (now plain text)
 - ✓ Updated "Find Us" button to link to top of contact page instead of bottom
+- ✓ Updated "View Menu" button to link to top of menu page instead of bottom
 
 
 ## User Preferences
