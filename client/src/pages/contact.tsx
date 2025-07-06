@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Clock, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { MapPin, Clock, Phone, Mail, Instagram, Facebook } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -97,9 +97,8 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/coffeeprocorp/?hl=en", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/coffeeprocorp/tagged/?hl=en", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
   ];
 
   return (
