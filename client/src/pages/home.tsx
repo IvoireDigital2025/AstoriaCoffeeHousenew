@@ -343,7 +343,7 @@ export default function Home() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-coffee-secondary px-8 py-4 text-lg font-semibold"
+                className="border-2 border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-8 py-4 text-lg font-semibold"
               >
                 Find Us
                 <ArrowRight className="w-5 h-5 ml-2" />
