@@ -75,6 +75,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Added 4 pastry menu card images to Pastries section in menu page
 - ✓ Added 1 sandwich menu card image to Sandwiches section in menu page
 - ✓ Added 2 juice menu card images to Juices section in menu page
+- ✓ Removed "View Full Menu" button from menu page (clean interface, menu cards show all options)
 
 
 ## User Preferences

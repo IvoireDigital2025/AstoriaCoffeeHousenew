@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Leaf, UtensilsCrossed, Eye, Snowflake, Sandwich, GlassWater } from "lucide-react";
+import { Coffee, Leaf, UtensilsCrossed, Snowflake, Sandwich, GlassWater } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import type { MenuItem } from "@shared/schema";
-import pdfMenuPath from "@assets/coffee-pro-Menu_1749665658431.pdf";
+
 
 // Hot Drinks Menu Images
 import hotDrinksImg1 from "@assets/IMG_4338_1751830973848.jpg";
@@ -80,25 +80,7 @@ export default function Menu() {
             Experience Coffee Pro&apos;s Authentic Middle Eastern Flavors
           </p>
           
-          {/* Floating Action Buttons */}
-          <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <Button 
-              asChild
-              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
-              <a 
-                href={pdfMenuPath} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center font-semibold"
-              >
-                <Eye className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                View Full Menu
-              </a>
-            </Button>
-            
 
-          </div>
         </div>
 
         {/* Futuristic Category Filters */}
