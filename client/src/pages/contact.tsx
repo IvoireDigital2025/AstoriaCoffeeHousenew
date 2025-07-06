@@ -74,12 +74,12 @@ export default function Contact() {
   const contactInfo = [
     {
       icon: MapPin,
-      title: "Corporate Office",
+      title: "Location",
       details: ["23-33 Astoria Blvd", "Astoria, NY 11102"],
     },
     {
       icon: Clock,
-      title: "Customer Service",
+      title: "Hours",
       details: [
         "Monday - Friday: 8:00 AM - 6:00 PM",
         "Saturday - Sunday: 9:00 AM - 5:00 PM",
@@ -88,12 +88,12 @@ export default function Contact() {
     {
       icon: Phone,
       title: "Phone",
-      details: ["(212) 555-BREW", "Corporate & Customer Service"],
+      details: ["(212) 555-BREW", "General inquiries & orders"],
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["corporate@coffeepro.com", "General inquiries & partnerships"],
+      details: ["info@coffeepro.com", "General inquiries & catering"],
     },
   ];
 
@@ -111,7 +111,7 @@ export default function Contact() {
             Contact Coffee Pro
           </h1>
           <p className="text-xl text-coffee-medium">
-            Get in touch with our corporate team or visit any of our NYC locations
+            Get in touch with our team or visit our Astoria location
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function Contact() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-6">
-                  Corporate Information
+                  Contact Information
                 </h3>
                 <div className="space-y-6">
                   {contactInfo.map((info, index) => {

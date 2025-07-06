@@ -89,6 +89,11 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Removed clickable link from "Visit Coffee Pro to Try These New Drinks" text (now plain text)
 - ✓ Updated "Find Us" button to link to top of contact page instead of bottom
 - ✓ Updated "View Menu" button to link to top of menu page instead of bottom
+- ✓ Removed all corporate language throughout website to reflect single location coffee shop
+- ✓ Updated footer "Corporate Info" to "Contact Info" and removed "Corporation" from business name
+- ✓ Changed contact page references from "corporate team" to "our team" and "NYC locations" to "Astoria location"
+- ✓ Updated contact information titles: "Corporate Office" to "Location", "Customer Service" to "Hours"
+- ✓ Changed email addresses from "corporate@coffeepro.com" to "info@coffeepro.com"
 
 
 ## User Preferences

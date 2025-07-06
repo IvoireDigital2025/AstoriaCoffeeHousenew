@@ -89,12 +89,12 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Corporate Info</h4>
+            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <div className="space-y-2 text-coffee-secondary">
-              <p>Coffee Pro Corporation</p>
+              <p>Coffee Pro</p>
               <p>23-33 Astoria Blvd, Astoria, NY 11102</p>
               <p>(212) 555-BREW</p>
-              <p>corporate@coffeepro.com</p>
+              <p>info@coffeepro.com</p>
             </div>
           </div>
         </div>
