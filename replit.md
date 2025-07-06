@@ -66,6 +66,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Updated "Arabian Heritage Blends" to "Egyptian Coffee Heritage" for cultural accuracy
 - ✓ Removed Twitter icon from Follow Us section and updated Instagram link
 - ✓ Added TikTok icon to Follow Us section using react-icons
+- ✓ Added "Order Delivery" buttons to home page and navigation (awaiting DoorDash link)
 
 
 ## User Preferences

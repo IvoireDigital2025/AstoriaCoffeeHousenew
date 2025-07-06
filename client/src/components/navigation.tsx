@@ -53,6 +53,14 @@ export default function Navigation() {
                     {item.label}
                   </Link>
                 ))}
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    className="bg-orange-600 hover:bg-orange-700 text-white mr-3"
+                    size="sm"
+                  >
+                    Order Delivery
+                  </Button>
+                </a>
                 <Button
                   onClick={() => setIsLoyaltyOpen(true)}
                   className="bg-coffee-secondary text-white hover:bg-blue-600"
@@ -88,6 +96,14 @@ export default function Navigation() {
                         {item.label}
                       </Link>
                     ))}
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="bg-orange-600 hover:bg-orange-700 text-white w-full mb-3"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Order Delivery
+                      </Button>
+                    </a>
                     <Button
                       onClick={() => {
                         setIsMobileMenuOpen(false);
