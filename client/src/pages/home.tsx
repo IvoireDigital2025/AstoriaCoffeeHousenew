@@ -107,6 +107,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* New Drinks Spotlight Section */}
+      <section className="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+              New Signature Drinks
+            </h2>
+            <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
+              Discover our latest creations - innovative drinks that blend traditional coffee craftsmanship with exciting new flavors
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            {/* Tiramisu Pro Frappe */}
+            <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative">
+                <div className="h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                  <div className="text-center text-coffee-dark">
+                    <Coffee className="w-16 h-16 mx-auto mb-4 text-primary" />
+                    <p className="text-sm text-coffee-medium">Image: IMG_3190_1751759779090.HEIC</p>
+                    <p className="text-xs text-coffee-medium mt-1">(Convert to JPG/PNG to display)</p>
+                  </div>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">NEW</span>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-playfair font-bold text-coffee-dark mb-3">
+                  Tiramisu Pro Frappe
+                </h3>
+                <p className="text-coffee-medium mb-4">
+                  A luxurious coffee frappe inspired by the classic Italian dessert, blending rich espresso with creamy mascarpone flavors
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-primary font-medium">Cold Specialty Drink</span>
+                  <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Strawfee Clouds */}
+            <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative">
+                <div className="h-64 bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center">
+                  <div className="text-center text-coffee-dark">
+                    <Coffee className="w-16 h-16 mx-auto mb-4 text-secondary" />
+                    <p className="text-sm text-coffee-medium">Image: IMG_3227_1751759797613.HEIC</p>
+                    <p className="text-xs text-coffee-medium mt-1">(Convert to JPG/PNG to display)</p>
+                  </div>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">NEW</span>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-playfair font-bold text-coffee-dark mb-3">
+                  Strawfee Clouds
+                </h3>
+                <p className="text-coffee-medium mb-4">
+                  A dreamy strawberry and coffee fusion drink with a cloud-like texture, perfectly balancing fruity sweetness with bold coffee notes
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-secondary font-medium">Signature Creation</span>
+                  <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link href="/menu">
+              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg">
+                Visit Coffee Pro to Try These New Drinks
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
