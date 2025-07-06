@@ -82,7 +82,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Removed "No items available" message from menu sections for cleaner interface
 - ✓ Updated Egyptian Coffee Heritage section to mention Colombian, Ethiopian, and Italian bean blend
 - ✓ Replaced SVG coffee beans pattern with authentic coffee beans photograph for heritage section
-- ✓ Removed all AlUla Heritage references throughout the website
+- ✓ Removed all AlUla Heritage references throughout the website including "Our Story" section
 - ✓ Updated "5 Months Established" to "12 Months Established" on about page
 
 
