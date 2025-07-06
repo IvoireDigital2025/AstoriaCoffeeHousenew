@@ -36,11 +36,11 @@ export default function Home() {
               className="h-24 md:h-32 w-auto mx-auto mb-4"
             />
             <h1 className="text-3xl md:text-5xl font-playfair font-bold">
-              Welcome to Coffee Pro
+              Coffee Pro - Best Coffee Shop in Astoria, Queens NY
             </h1>
           </div>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
-            Authentic Egyptian coffee traditions meet NYC energy - bringing you the finest coffee culture from the heart of Egypt.
+            Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
           </p>
           <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
             <MapPin className="w-5 h-5 mr-2" />
@@ -271,10 +271,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
-              Experience Coffee Pro
+              Why Coffee Pro is Astoria's Favorite Coffee Shop
             </h2>
             <p className="text-xl text-coffee-medium">
-              Discover the Coffee Pro difference at our NYC locations
+              Discover authentic Egyptian coffee culture, premium specialty drinks, and freshly baked pastries at Queens' most charming local coffee shop
             </p>
           </div>
           
