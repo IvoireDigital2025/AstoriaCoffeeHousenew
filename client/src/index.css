@@ -13,11 +13,11 @@
   --card-foreground: hsl(25, 42%, 11%);
   --border: hsl(48, 15%, 85%);
   --input: hsl(48, 15%, 85%);
-  --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --primary: hsl(195, 75%, 45%); /* Logo steel blue */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(195, 75%, 45%); /* Logo steel blue */
+  --secondary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
+  --accent: hsl(195, 80%, 50%); /* Lighter blue accent */
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(60, 9%, 98%);
@@ -48,11 +48,11 @@
   --card-foreground: hsl(0, 0%, 98%);
   --border: hsl(25, 15%, 15%);
   --input: hsl(25, 15%, 15%);
-  --primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --primary: hsl(195, 75%, 45%); /* Logo steel blue */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(195, 75%, 45%); /* Logo steel blue */
+  --secondary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(15, 85%, 65%); /* Lighter orange accent */
+  --accent: hsl(195, 80%, 50%); /* Lighter blue accent */
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 63%, 31%);
   --destructive-foreground: hsl(0, 0%, 98%);
@@ -131,8 +131,8 @@
     background-color: var(--coffee-medium);
   }
   
-  .hover\:bg-orange-600:hover {
-    background-color: rgb(234 88 12);
+  .hover\:bg-blue-600:hover {
+    background-color: rgb(37 99 235);
   }
   
   .hover\:text-coffee-primary:hover {

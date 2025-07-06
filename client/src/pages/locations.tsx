@@ -238,7 +238,7 @@ export default function Locations() {
               Looking to bring Coffee Pro to your office or event? We offer corporate partnerships, 
               bulk catering services, and custom coffee solutions for businesses across New York City.
             </p>
-            <Button className="bg-coffee-accent hover:bg-orange-600 text-white px-8 py-3">
+            <Button className="bg-coffee-secondary hover:bg-blue-600 text-white px-8 py-3">
               Contact Corporate Sales
             </Button>
           </div>

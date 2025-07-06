@@ -10,7 +10,7 @@ export default function FloatingMenu() {
     { href: "/menu", icon: Coffee, label: "Menu", color: "bg-coffee-primary hover:bg-coffee-medium" },
     { href: "/locations", icon: MapPin, label: "Locations", color: "bg-blue-600 hover:bg-blue-700" },
     { href: "/contact", icon: Phone, label: "Contact", color: "bg-green-600 hover:bg-green-700" },
-    { href: "/loyalty", icon: Heart, label: "Loyalty", color: "bg-coffee-accent hover:bg-orange-600" },
+    { href: "/loyalty", icon: Heart, label: "Loyalty", color: "bg-coffee-secondary hover:bg-blue-600" },
   ];
 
   return (

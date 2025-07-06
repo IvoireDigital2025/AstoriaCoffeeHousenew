@@ -293,7 +293,7 @@ export default function Loyalty() {
                   <Button
                     type="submit"
                     disabled={signupMutation.isPending}
-                    className="w-full bg-coffee-accent hover:bg-orange-600 text-white font-semibold"
+                    className="w-full bg-coffee-secondary hover:bg-blue-600 text-white font-semibold"
                   >
                     <Star className="w-4 h-4 mr-2" />
                     {signupMutation.isPending ? "Creating account..." : "Join Loyalty Program"}
@@ -309,7 +309,7 @@ export default function Loyalty() {
                   </p>
                   <Button
                     onClick={() => window.location.href = "/menu"}
-                    className="bg-coffee-accent hover:bg-orange-600 text-white"
+                    className="bg-coffee-secondary hover:bg-blue-600 text-white"
                   >
                     Browse Menu
                   </Button>
