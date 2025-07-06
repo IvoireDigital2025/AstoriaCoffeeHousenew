@@ -93,7 +93,7 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      details: ["info@coffeepro.com", "General inquiries & catering"],
+      details: ["Coffeepro23@gmail.com", "General inquiries & catering"],
     },
   ];
 

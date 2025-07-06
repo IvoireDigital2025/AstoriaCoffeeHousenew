@@ -94,7 +94,7 @@ export default function Footer() {
               <p>Coffee Pro</p>
               <p>23-33 Astoria Blvd, Astoria, NY 11102</p>
               <p>(347) 329-6816</p>
-              <p>info@coffeepro.com</p>
+              <p>Coffeepro23@gmail.com</p>
             </div>
           </div>
         </div>
