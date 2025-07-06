@@ -317,8 +317,8 @@ export default function Home() {
             
             <div className="relative overflow-hidden rounded-lg shadow-lg group">
               <img 
-                src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
-                alt="Friends enjoying coffee together at Coffee Pro location"
+                src="/attached_assets/unnamed (1)_1751844049412.webp" 
+                alt="Coffee Pro storefront with outdoor seating in Astoria"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
