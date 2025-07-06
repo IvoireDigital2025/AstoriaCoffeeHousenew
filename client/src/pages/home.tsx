@@ -36,7 +36,7 @@ export default function Home() {
               className="h-24 md:h-32 w-auto mx-auto mb-4"
             />
             <h1 className="text-3xl md:text-5xl font-playfair font-bold">
-              Coffee Pro - Best Coffee Shop in Astoria, Queens NY
+              Welcome to Coffee Pro
             </h1>
           </div>
           <p className="text-xl md:text-2xl mb-6 text-gray-200">
