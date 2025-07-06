@@ -281,7 +281,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="relative overflow-hidden rounded-lg shadow-lg group">
               <img 
-                src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                src="/attached_assets/2024-12-14_1751843932493.webp" 
                 alt="Coffee Pro interior with warm lighting and comfortable seating"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               />
