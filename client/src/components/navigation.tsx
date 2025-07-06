@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, User, Star } from "lucide-react";
+import { Menu, Star } from "lucide-react";
 import LoyaltyDashboard from "./loyalty-dashboard";
 
 export default function Navigation() {
@@ -55,20 +55,12 @@ export default function Navigation() {
                 ))}
                 <a href="#" target="_blank" rel="noopener noreferrer">
                   <Button
-                    className="bg-orange-600 hover:bg-orange-700 text-white mr-3"
+                    className="bg-orange-600 hover:bg-orange-700 text-white"
                     size="sm"
                   >
                     Order Delivery
                   </Button>
                 </a>
-                <Button
-                  onClick={() => setIsLoyaltyOpen(true)}
-                  className="bg-coffee-secondary text-white hover:bg-blue-600"
-                  size="sm"
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  Login
-                </Button>
               </div>
             </div>
             
@@ -98,22 +90,12 @@ export default function Navigation() {
                     ))}
                     <a href="#" target="_blank" rel="noopener noreferrer">
                       <Button
-                        className="bg-orange-600 hover:bg-orange-700 text-white w-full mb-3"
+                        className="bg-orange-600 hover:bg-orange-700 text-white w-full"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         Order Delivery
                       </Button>
                     </a>
-                    <Button
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        setIsLoyaltyOpen(true);
-                      }}
-                      className="bg-coffee-secondary text-white hover:bg-blue-600 mt-4"
-                    >
-                      <User className="w-4 h-4 mr-2" />
-                      Login
-                    </Button>
                   </div>
                 </SheetContent>
               </Sheet>
