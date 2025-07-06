@@ -65,6 +65,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Changed treats description to "Dubai chocolate, Kunafa, and more" instead of "halva, Turkish delight"
 - ✓ Updated "Arabian Heritage Blends" to "Egyptian Coffee Heritage" for cultural accuracy
 - ✓ Removed Twitter icon from Follow Us section and updated Instagram link
+- ✓ Added TikTok icon to Follow Us section using react-icons
 
 
 ## User Preferences
