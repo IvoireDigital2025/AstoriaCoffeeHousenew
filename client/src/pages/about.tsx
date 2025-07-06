@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import coffeeArtImage from "@assets/maxresdefault_1749569245558.jpg";
 
 export default function About() {
   const stats = [
@@ -11,23 +10,23 @@ export default function About() {
 
   const images = [
     {
-      src: coffeeArtImage,
-      alt: "Professional latte art creation at Coffee Pro",
+      src: "/attached_assets/unnamed (2)_1751845610782.webp",
+      alt: "Coffee Pro interior with AlUla heritage corner featuring traditional Middle Eastern design",
       className: ""
     },
     {
-      src: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-      alt: "Astoria neighborhood street view",
+      src: "/attached_assets/ChatGPT Image Jul 6, 2025, 05_10_05 PM_1751845854267.png",
+      alt: "Premium coffee beans used at Coffee Pro",
       className: "mt-8"
     },
     {
-      src: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-      alt: "Coffee beans and vintage grinder",
+      src: "/attached_assets/unnamed (3)_1751845854268.webp",
+      alt: "Authentic Middle Eastern pastry with pistachio filling at Coffee Pro",
       className: "-mt-8"
     },
     {
-      src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-      alt: "Cozy coffee shop interior",
+      src: "/attached_assets/unnamed_1751845854269.webp",
+      alt: "Coffee Pro heritage corner with traditional Middle Eastern ambiance",
       className: ""
     }
   ];
