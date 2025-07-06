@@ -132,77 +132,165 @@ export class MemStorage implements IStorage {
         available: true
       },
       
-      // Coffee & Beverages
+      // Hot Drinks Menu from Coffee Pro
       {
-        name: "Arabic Coffee (Qahwa)",
-        description: "Traditional Saudi Arabian coffee with cardamom and saffron",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/arabiccoffee_1024x1024@2x_1749453882291.webp",
+        name: "Hot Coffee",
+        description: "Classic hot brewed coffee",
+        price: "$4.00",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Egyptian Mint Tea",
-        description: "Traditional Atay with fresh mint leaves and sugar",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/3173d643-68f8-428a-8cf6-ba9eb2098628-retina-large_1749665320869.webp",
+        name: "Espresso",
+        description: "Rich and concentrated coffee shot",
+        price: "$3.00",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Turkish Coffee",
-        description: "Finely ground coffee beans prepared in traditional Turkish style",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/55896839-1d86-4ab0-987e-03085b591be0-retina-large_1749665465918.webp",
+        name: "Hot Flat White",
+        description: "Espresso with steamed milk and microfoam",
+        price: "$4.50",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Cardamom Latte",
-        description: "Espresso with steamed milk and aromatic cardamom spice",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/d03601e7-1d58-4fab-a9f8-b9053c3e2530-retina-large_1749665500203.avif",
+        name: "Hot Gold Capuccino",
+        description: "Premium cappuccino with golden foam art",
+        price: "$19.00",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Rose Water Cappuccino",
-        description: "Classic cappuccino enhanced with delicate rose water",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/254fed10-e992-46b5-b626-e407e069fd21-retina-large_1749665560880.avif",
+        name: "Hot Capuccino",
+        description: "Classic cappuccino with steamed milk foam",
+        price: "$5.50",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Saffron Cold Brew",
-        description: "Cold brew coffee infused with precious saffron threads",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/82aab21c-4d05-4855-ac3c-7f0774b45d92-retina-large_1749665749407.avif",
+        name: "Hot Latte",
+        description: "Espresso with steamed milk and light foam",
+        price: "$6.00",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Pistachio Iced Latte",
-        description: "Iced latte with authentic Middle Eastern pistachio syrup",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/0fef52d0-27f5-4802-807b-d706022974f5-retina-large_1749665863728.avif",
+        name: "Hot Moccha",
+        description: "Espresso with chocolate and steamed milk",
+        price: "$7.99",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Date Syrup Macchiato",
-        description: "Espresso macchiato sweetened with natural date syrup",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/4ee5ac97-394f-47b3-87b3-72ca0da58a23-retina-large_1749665903021.webp",
+        name: "Hot Matcha",
+        description: "Japanese green tea matcha latte",
+        price: "$5.50",
+        category: "hot-drinks",
+        image: "",
         available: true
       },
       {
-        name: "Orange Blossom Americano",
-        description: "Classic Americano with a hint of orange blossom water",
-        price: "",
-        category: "coffee",
-        image: "/attached_assets/db65d635-7a2f-42df-84be-e9b1a3181eb8-retina-large_1749665943655.webp",
+        name: "Hot V60",
+        description: "Pour-over coffee with V60 brewing method",
+        price: "$7.00",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Cortado",
+        description: "Equal parts espresso and warm milk",
+        price: "$5.00",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Chai Latte",
+        description: "Spiced tea latte with steamed milk",
+        price: "$5.00",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Dirty Chai Latte",
+        description: "Chai latte with espresso shot",
+        price: "$6.00",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Tea",
+        description: "Traditional hot tea",
+        price: "$3.75",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Red Eye",
+        description: "Coffee with espresso shot",
+        price: "$5.50",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Chocolate",
+        description: "Rich and creamy hot chocolate",
+        price: "$5.50",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Americano",
+        description: "Espresso with hot water",
+        price: "$4.50",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Doppio Espresso - Italian",
+        description: "Double shot of Italian espresso",
+        price: "$4.67",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "French Toast Pro Latte",
+        description: "Specialty latte with French toast flavors",
+        price: "$7.00",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "London Fog",
+        description: "Earl Grey tea with steamed milk and vanilla",
+        price: "$4.50",
+        category: "hot-drinks",
+        image: "",
+        available: true
+      },
+      {
+        name: "Hot Macchiato",
+        description: "Espresso with a dollop of foamed milk",
+        price: "$5.00",
+        category: "hot-drinks",
+        image: "",
         available: true
       }
     ];
