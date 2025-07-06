@@ -88,7 +88,7 @@ export default function Contact() {
     {
       icon: Phone,
       title: "Phone",
-      details: ["(212) 555-BREW", "General inquiries & orders"],
+      details: ["(347) 329-6816", "General inquiries & orders"],
     },
     {
       icon: Mail,

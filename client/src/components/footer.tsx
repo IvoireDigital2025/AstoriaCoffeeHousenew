@@ -93,7 +93,7 @@ export default function Footer() {
             <div className="space-y-2 text-coffee-secondary">
               <p>Coffee Pro</p>
               <p>23-33 Astoria Blvd, Astoria, NY 11102</p>
-              <p>(212) 555-BREW</p>
+              <p>(347) 329-6816</p>
               <p>info@coffeepro.com</p>
             </div>
           </div>
