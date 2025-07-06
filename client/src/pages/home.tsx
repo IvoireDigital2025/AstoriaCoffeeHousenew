@@ -84,12 +84,12 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">
-                  <Button className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3">
+                  <Button className="bg-coffee-secondary hover:bg-blue-600 text-white px-8 py-3">
                     Explore Our Heritage Menu
                   </Button>
                 </Link>
                 <Link href="/about">
-                  <Button variant="outline" className="border-coffee-primary text-coffee-primary hover:bg-coffee-primary hover:text-white px-8 py-3">
+                  <Button variant="outline" className="border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-8 py-3">
                     Learn Our Story
                   </Button>
                 </Link>
@@ -124,7 +124,7 @@ export default function Home() {
             <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <div className="relative">
                 <img 
-                  src="/attached_assets/IMG_3190_1751760266088.jpg"
+                  src="/attached_assets/IMG_3206_1751827043234.jpg"
                   alt="Tiramisu Pro Frappe - a luxurious coffee frappe with mascarpone flavors and chocolate garnish"
                   className="w-full h-64 object-cover"
                 />
@@ -343,7 +343,7 @@ export default function Home() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-coffee-primary px-8 py-4 text-lg font-semibold"
+                className="border-2 border-white text-white hover:bg-white hover:text-coffee-secondary px-8 py-4 text-lg font-semibold"
               >
                 Find Us
                 <ArrowRight className="w-5 h-5 ml-2" />

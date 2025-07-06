@@ -55,7 +55,7 @@ export default function Navigation() {
                 ))}
                 <Button
                   onClick={() => setIsLoyaltyOpen(true)}
-                  className="bg-coffee-primary text-white hover:bg-coffee-medium"
+                  className="bg-coffee-secondary text-white hover:bg-blue-600"
                   size="sm"
                 >
                   <User className="w-4 h-4 mr-2" />
@@ -93,7 +93,7 @@ export default function Navigation() {
                         setIsMobileMenuOpen(false);
                         setIsLoyaltyOpen(true);
                       }}
-                      className="bg-coffee-primary text-white hover:bg-coffee-medium mt-4"
+                      className="bg-coffee-secondary text-white hover:bg-blue-600 mt-4"
                     >
                       <User className="w-4 h-4 mr-2" />
                       Login
