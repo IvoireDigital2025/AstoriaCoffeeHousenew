@@ -20,6 +20,19 @@ import coldDrinksImg1 from "@assets/IMG_4342_1751831168012.jpg";
 import coldDrinksImg2 from "@assets/IMG_4343_1751831168013.jpg";
 import coldDrinksImg3 from "@assets/IMG_4344_1751831168013.jpg";
 
+// Pastry Menu Images
+import pastryImg1 from "@assets/IMG_4345_1751831882198.jpg";
+import pastryImg2 from "@assets/IMG_4346_1751831882199.jpg";
+import pastryImg3 from "@assets/IMG_4348_1751831882199.jpg";
+import pastryImg4 from "@assets/IMG_4349_1751831882199.jpg";
+
+// Sandwich Menu Images
+import sandwichImg1 from "@assets/IMG_4350_1751831944576.jpg";
+
+// Juice Menu Images
+import juiceImg1 from "@assets/IMG_4351_1751831967750.jpg";
+import juiceImg2 from "@assets/IMG_4352_1751831967751.jpg";
+
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const { toast } = useToast();
@@ -177,6 +190,85 @@ export default function Menu() {
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Pastry Menu Images */}
+        {activeCategory === "pastry" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Our Pastry Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Authentic Middle Eastern pastries and European-inspired treats crafted daily
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[pastryImg1, pastryImg2, pastryImg3, pastryImg4].map((img, index) => (
+                <div key={index} className="group relative overflow-hidden rounded-2xl bg-amber-900/20 backdrop-blur-sm border border-amber-700/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-900/30">
+                  <img 
+                    src={img} 
+                    alt={`Pastry Menu ${index + 1}`}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-amber-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Sandwich Menu Images */}
+        {activeCategory === "sandwich" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Our Sandwich Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Fresh, hearty sandwiches made with premium ingredients and artisanal bread
+              </p>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className="group relative overflow-hidden rounded-2xl bg-green-900/20 backdrop-blur-sm border border-green-700/30 hover:border-green-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-green-900/30 max-w-2xl">
+                <img 
+                  src={sandwichImg1} 
+                  alt="Sandwich Menu"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Juice Menu Images */}
+        {activeCategory === "juice" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Our Juice Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Fresh, natural juices and refreshing beverages made with premium fruits
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[juiceImg1, juiceImg2].map((img, index) => (
+                <div key={index} className="group relative overflow-hidden rounded-2xl bg-cyan-900/20 backdrop-blur-sm border border-cyan-700/30 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-900/30">
+                  <img 
+                    src={img} 
+                    alt={`Juice Menu ${index + 1}`}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               ))}
             </div>

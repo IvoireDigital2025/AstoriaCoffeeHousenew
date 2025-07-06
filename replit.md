@@ -72,6 +72,9 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Removed "Meet Our Team" section from about page
 - ✓ Added 4 hot drinks menu card images to Hot Drinks section in menu page
 - ✓ Added 3 cold drinks menu card images to Cold Drinks section in menu page
+- ✓ Added 4 pastry menu card images to Pastries section in menu page
+- ✓ Added 1 sandwich menu card image to Sandwiches section in menu page
+- ✓ Added 2 juice menu card images to Juices section in menu page
 
 
 ## User Preferences
