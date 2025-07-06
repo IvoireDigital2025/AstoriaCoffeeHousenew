@@ -86,6 +86,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Updated "5 Months Established" to "12 Months Established" on about page
 - ✓ Replaced Community Connection section image with authentic customer photo showing Arabic name cards
 - ✓ Updated "Discover Coffee Pro Locations" to "Discover Coffee Pro" to reflect single location
+- ✓ Removed clickable link from "Visit Coffee Pro to Try These New Drinks" text (now plain text)
 
 
 ## User Preferences

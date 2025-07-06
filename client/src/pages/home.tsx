@@ -178,12 +178,9 @@ export default function Home() {
           </div>
           
           <div className="text-center mt-12">
-            <Link href="/menu">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg">
-                Visit Coffee Pro to Try These New Drinks
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+            <p className="text-xl text-coffee-dark font-semibold">
+              Visit Coffee Pro to Try These New Drinks
+            </p>
           </div>
         </div>
       </section>
