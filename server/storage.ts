@@ -2,16 +2,14 @@ import {
   users, 
   menuItems,
   contactMessages,
-  chatMessages,
   marketingContacts,
+  videos,
   type User, 
   type InsertUser,
   type MenuItem,
   type InsertMenuItem,
   type ContactMessage,
   type InsertContactMessage,
-  type ChatMessage,
-  type InsertChatMessage,
   type MarketingContact,
   type InsertMarketingContact,
   type Video,
@@ -36,9 +34,7 @@ export interface IStorage {
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   getAllContactMessages(): Promise<ContactMessage[]>;
   
-  // Chat operations
-  createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
-  getChatHistory(sessionId: string): Promise<ChatMessage[]>;
+
   
   // Marketing operations
   createMarketingContact(contact: InsertMarketingContact): Promise<MarketingContact>;
@@ -57,13 +53,13 @@ export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private menuItems: Map<number, MenuItem>;
   private contactMessages: Map<number, ContactMessage>;
-  private chatMessages: Map<number, ChatMessage>;
+
   private marketingContacts: Map<number, MarketingContact>;
   private videos: Map<number, Video>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
-  private currentChatMessageId: number;
+
   private currentMarketingContactId: number;
   private currentVideoId: number;
 
@@ -71,13 +67,13 @@ export class MemStorage implements IStorage {
     this.users = new Map();
     this.menuItems = new Map();
     this.contactMessages = new Map();
-    this.chatMessages = new Map();
     this.marketingContacts = new Map();
+    this.videos = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
     this.currentContactMessageId = 1;
-    this.currentChatMessageId = 1;
     this.currentMarketingContactId = 1;
+    this.currentVideoId = 1;
     
     // Initialize with sample menu items
     this.initializeMenuItems();
@@ -289,22 +285,7 @@ export class MemStorage implements IStorage {
     );
   }
 
-  async createChatMessage(insertMessage: InsertChatMessage): Promise<ChatMessage> {
-    const id = this.currentChatMessageId++;
-    const message: ChatMessage = { 
-      ...insertMessage, 
-      id,
-      createdAt: new Date()
-    };
-    this.chatMessages.set(id, message);
-    return message;
-  }
 
-  async getChatHistory(sessionId: string): Promise<ChatMessage[]> {
-    return Array.from(this.chatMessages.values())
-      .filter(message => message.sessionId === sessionId)
-      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-  }
 
   async createMarketingContact(insertContact: InsertMarketingContact): Promise<MarketingContact> {
     const id = this.currentMarketingContactId++;
@@ -339,6 +320,33 @@ export class MemStorage implements IStorage {
   async getAllMarketingContacts(): Promise<MarketingContact[]> {
     return Array.from(this.marketingContacts.values())
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  // Video operations
+  async createVideo(insertVideo: InsertVideo): Promise<Video> {
+    const id = this.currentVideoId++;
+    const video: Video = { 
+      ...insertVideo, 
+      id,
+      description: insertVideo.description || null,
+      createdAt: new Date()
+    };
+    this.videos.set(id, video);
+    return video;
+  }
+
+  async getVideo(id: number): Promise<Video | undefined> {
+    return this.videos.get(id);
+  }
+
+  async getAllVideos(): Promise<Video[]> {
+    return Array.from(this.videos.values()).sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async deleteVideo(id: number): Promise<void> {
+    this.videos.delete(id);
   }
 }
 
@@ -401,21 +409,7 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(contactMessages.createdAt));
   }
 
-  async createChatMessage(insertMessage: InsertChatMessage): Promise<ChatMessage> {
-    const [message] = await db
-      .insert(chatMessages)
-      .values(insertMessage)
-      .returning();
-    return message;
-  }
 
-  async getChatHistory(sessionId: string): Promise<ChatMessage[]> {
-    return await db
-      .select()
-      .from(chatMessages)
-      .where(eq(chatMessages.sessionId, sessionId))
-      .orderBy(asc(chatMessages.createdAt));
-  }
 
   async createMarketingContact(insertContact: InsertMarketingContact): Promise<MarketingContact> {
     const [contact] = await db
@@ -447,6 +441,31 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(marketingContacts)
       .orderBy(desc(marketingContacts.createdAt));
+  }
+
+  // Video operations
+  async createVideo(insertVideo: InsertVideo): Promise<Video> {
+    const [video] = await db
+      .insert(videos)
+      .values(insertVideo)
+      .returning();
+    return video;
+  }
+
+  async getVideo(id: number): Promise<Video | undefined> {
+    const [video] = await db.select().from(videos).where(eq(videos.id, id));
+    return video || undefined;
+  }
+
+  async getAllVideos(): Promise<Video[]> {
+    return await db
+      .select()
+      .from(videos)
+      .orderBy(desc(videos.createdAt));
+  }
+
+  async deleteVideo(id: number): Promise<void> {
+    await db.delete(videos).where(eq(videos.id, id));
   }
 }
 

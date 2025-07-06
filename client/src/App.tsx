@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import Chatbot from "@/components/chatbot";
+
 
 import Home from "@/pages/home";
 import Menu from "@/pages/menu";
@@ -39,7 +39,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
-      <Chatbot />
+
     </>
   );
 }

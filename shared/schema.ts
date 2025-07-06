@@ -30,13 +30,7 @@ export const contactMessages = pgTable("contact_messages", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const chatMessages = pgTable("chat_messages", {
-  id: serial("id").primaryKey(),
-  sessionId: text("session_id").notNull(),
-  message: text("message").notNull(),
-  response: text("response").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+
 
 export const marketingContacts = pgTable("marketing_contacts", {
   id: serial("id").primaryKey(),
@@ -75,10 +69,7 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages).om
   createdAt: true,
 });
 
-export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
-  id: true,
-  createdAt: true,
-});
+
 
 export const insertMarketingContactSchema = createInsertSchema(marketingContacts).omit({
   id: true,
@@ -101,8 +92,7 @@ export type MenuItem = typeof menuItems.$inferSelect;
 export type InsertMenuItem = z.infer<typeof insertMenuItemSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
-export type ChatMessage = typeof chatMessages.$inferSelect;
-export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+
 export type MarketingContact = typeof marketingContacts.$inferSelect;
 export type InsertMarketingContact = z.infer<typeof insertMarketingContactSchema>;
 export type Video = typeof videos.$inferSelect;

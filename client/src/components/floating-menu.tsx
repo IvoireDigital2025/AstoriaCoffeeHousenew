@@ -36,21 +36,8 @@ export default function FloatingMenu() {
         </div>
       )}
 
-      {/* Chat Button */}
+      {/* Main Menu Button */}
       <div className="flex flex-col gap-3">
-        <Button
-          className="w-14 h-14 rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg transition-all duration-300"
-          onClick={() => {
-            // Toggle chatbot (you can integrate with your existing chatbot component)
-            const chatbot = document.querySelector('[data-chatbot]');
-            if (chatbot) {
-              chatbot.click();
-            }
-          }}
-        >
-          <MessageCircle className="w-6 h-6" />
-          <span className="sr-only">Chat</span>
-        </Button>
 
         {/* Main Toggle Button */}
         <Button
