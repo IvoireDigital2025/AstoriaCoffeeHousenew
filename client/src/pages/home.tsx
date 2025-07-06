@@ -337,7 +337,7 @@ export default function Home() {
       <section className="py-20 bg-coffee-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-playfair font-bold mb-6">
-            Discover Coffee Pro Locations
+            Discover Coffee Pro
           </h2>
           <p className="text-xl mb-8 text-coffee-cream">
             Explore our menu and visit our Coffee Pro location in Astoria Boulevard, Long Island City
