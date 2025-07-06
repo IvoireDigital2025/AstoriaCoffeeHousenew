@@ -123,13 +123,11 @@ export default function Home() {
             {/* Tiramisu Pro Frappe */}
             <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <div className="relative">
-                <div className="h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                  <div className="text-center text-coffee-dark">
-                    <Coffee className="w-16 h-16 mx-auto mb-4 text-primary" />
-                    <p className="text-sm text-coffee-medium">Image: IMG_3190_1751759779090.HEIC</p>
-                    <p className="text-xs text-coffee-medium mt-1">(Convert to JPG/PNG to display)</p>
-                  </div>
-                </div>
+                <img 
+                  src="/attached_assets/IMG_3190_1751760266088.jpg"
+                  alt="Tiramisu Pro Frappe - a luxurious coffee frappe with mascarpone flavors and chocolate garnish"
+                  className="w-full h-64 object-cover"
+                />
                 <div className="absolute top-4 right-4">
                   <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">NEW</span>
                 </div>
@@ -151,13 +149,11 @@ export default function Home() {
             {/* Strawfee Clouds */}
             <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <div className="relative">
-                <div className="h-64 bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center">
-                  <div className="text-center text-coffee-dark">
-                    <Coffee className="w-16 h-16 mx-auto mb-4 text-secondary" />
-                    <p className="text-sm text-coffee-medium">Image: IMG_3227_1751759797613.HEIC</p>
-                    <p className="text-xs text-coffee-medium mt-1">(Convert to JPG/PNG to display)</p>
-                  </div>
-                </div>
+                <img 
+                  src="/attached_assets/IMG_3227_1751760271057.jpg"
+                  alt="Strawfee Clouds - a dreamy strawberry and coffee fusion drink with cloud-like whipped cream and strawberry drizzle"
+                  className="w-full h-64 object-cover"
+                />
                 <div className="absolute top-4 right-4">
                   <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">NEW</span>
                 </div>

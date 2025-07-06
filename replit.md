@@ -57,6 +57,7 @@ A comprehensive digital platform celebrating Middle Eastern coffee culture throu
 - ✓ Added "Sandwiches" category next to "Pastries" in menu navigation
 - ✓ Added "Juices" category next to "Cold Drinks" in menu navigation
 - ✓ Updated website color scheme to match Coffee Pro logo (orange/coral and blue)
+- ✓ Added "New Signature Drinks" showcase section on home page featuring Tiramisu Pro Frappe and Strawfee Clouds
 
 
 ## User Preferences
