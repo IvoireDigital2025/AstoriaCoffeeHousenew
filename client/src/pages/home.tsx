@@ -96,13 +96,15 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="relative">
-              <img 
-                src={heritageImage} 
-                alt="Elegant golden coffee cup with luxurious design showcasing Coffee Pro's premium coffee heritage"
-                className="w-4/5 h-auto object-contain rounded-lg shadow-xl mx-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
+            <div className="relative flex justify-center">
+              <div className="w-full max-w-md aspect-square overflow-hidden rounded-lg shadow-xl">
+                <img 
+                  src={heritageImage} 
+                  alt="Elegant golden coffee cup with luxurious design showcasing Coffee Pro's premium coffee heritage"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent rounded-lg pointer-events-none" />
             </div>
           </div>
         </div>
