@@ -63,6 +63,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Corrected nationality from Moroccan/Saudi Arabian to Egyptian throughout the website
 - ✓ Updated timeline from "32+ years" to reflect 1-year establishment
 - ✓ Changed treats description to "Dubai chocolate, Kunafa, and more" instead of "halva, Turkish delight"
+- ✓ Updated "Arabian Heritage Blends" to "Egyptian Coffee Heritage" for cultural accuracy
 
 
 ## User Preferences

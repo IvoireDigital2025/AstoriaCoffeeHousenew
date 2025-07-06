@@ -210,7 +210,7 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Arabian Heritage Blends
+                  Egyptian Coffee Heritage
                 </h3>
                 <p className="text-coffee-medium">
                   Traditional Egyptian coffee and authentic Middle Eastern blends, bringing the finest coffee culture from Egypt to NYC.
