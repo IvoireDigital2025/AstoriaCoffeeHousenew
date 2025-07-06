@@ -7,6 +7,7 @@ import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.w
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
 import alulaHeritagePhoto from "@assets/alula_heritage_photo.png";
+import coffeeBeansImage from "@assets/ChatGPT Image Jul 6, 2025, 05_10_05 PM_1751839908170.png";
 
 
 
@@ -201,20 +202,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-amber-800 to-orange-600 relative overflow-hidden">
-                {/* Coffee beans pattern background */}
-                <div className="absolute inset-0 opacity-20">
-                  <svg width="100%" height="100%" viewBox="0 0 400 200" className="w-full h-full">
-                    <defs>
-                      <pattern id="coffeeBeans" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <ellipse cx="20" cy="15" rx="6" ry="10" fill="#8B4513" transform="rotate(20 20 15)"/>
-                        <ellipse cx="20" cy="25" rx="6" ry="10" fill="#A0522D" transform="rotate(-15 20 25)"/>
-                        <ellipse cx="10" cy="30" rx="5" ry="8" fill="#654321" transform="rotate(45 10 30)"/>
-                        <ellipse cx="30" cy="10" rx="5" ry="8" fill="#8B4513" transform="rotate(-30 30 10)"/>
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#coffeeBeans)"/>
-                  </svg>
-                </div>
+                <img 
+                  src={coffeeBeansImage} 
+                  alt="Premium coffee beans blend - Colombian, Ethiopian, and Italian"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <Coffee className="text-white w-8 h-8" />
