@@ -101,6 +101,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Replaced "Community Hub" section image with authentic Coffee Pro storefront photo showing Astoria location exterior
 - ✓ Replaced "Premium Beans" section with "Authentic Pastries" section using authentic Egyptian pastry photo
 - ✓ Updated email address throughout website to actual Coffee Pro email: Coffeepro23@gmail.com
+- ✓ Replaced contact page map section image with authentic Coffee Pro storefront photo
 
 
 ## User Preferences
