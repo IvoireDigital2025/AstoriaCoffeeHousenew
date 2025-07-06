@@ -80,7 +80,7 @@ export default function Home() {
                 Experience the rich traditions of Egyptian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
                 authentic brewing techniques and warm hospitality. Complement your coffee 
-                with authentic Middle Eastern treats including Dubai chocolate, halva, Turkish delight, and more.
+                with authentic Middle Eastern treats including Dubai chocolate, Kunafa, and more.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">
