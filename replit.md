@@ -78,6 +78,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Removed "View Full Menu" button from menu page (clean interface, menu cards show all options)
 - ✓ Removed "Order Delivery" button from Heritage Showcase section (streamlined heritage focus)
 - ✓ Updated Heritage Showcase section image to elegant golden coffee cup with luxurious design
+- ✓ Added "Pro Special" button to menu navigation with three specialty categories
+- ✓ Removed "No items available" message from menu sections for cleaner interface
 
 
 ## User Preferences

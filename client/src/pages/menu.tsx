@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Leaf, UtensilsCrossed, Snowflake, Sandwich, GlassWater } from "lucide-react";
+import { Coffee, Leaf, UtensilsCrossed, Snowflake, Sandwich, GlassWater, Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
@@ -54,6 +54,7 @@ export default function Menu() {
     { id: "coffee", label: "Hot Drinks", icon: Coffee },
     { id: "cold", label: "Cold Drinks", icon: Snowflake },
     { id: "juice", label: "Juices", icon: GlassWater },
+    { id: "pro-special", label: "Pro Special", icon: Star },
   ];
 
 
@@ -257,6 +258,70 @@ export default function Menu() {
           </div>
         )}
 
+        {/* Pro Special Menu */}
+        {activeCategory === "pro-special" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Pro Special Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Our signature creations and exclusive specialty items crafted by our master baristas
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-900/20 to-gold-900/20 backdrop-blur-sm border border-purple-700/30 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-900/30">
+                <div className="p-8 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Star className="w-10 h-10 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-playfair font-bold text-white mb-4">
+                    Signature Blends
+                  </h4>
+                  <p className="text-stone-200/80 leading-relaxed">
+                    Exclusive coffee blends featuring rare beans from Egypt and premium ingredients, 
+                    crafted to perfection by our expert baristas.
+                  </p>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gold-900/20 to-amber-900/20 backdrop-blur-sm border border-gold-700/30 hover:border-gold-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-gold-900/30">
+                <div className="p-8 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-gold-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Star className="w-10 h-10 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-playfair font-bold text-white mb-4">
+                    Premium Desserts
+                  </h4>
+                  <p className="text-stone-200/80 leading-relaxed">
+                    Handcrafted desserts featuring 24k gold leaf, premium chocolate, 
+                    and authentic Middle Eastern delicacies.
+                  </p>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-gold-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-rose-900/20 to-pink-900/20 backdrop-blur-sm border border-rose-700/30 hover:border-rose-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-rose-900/30">
+                <div className="p-8 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-rose-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Star className="w-10 h-10 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-playfair font-bold text-white mb-4">
+                    Limited Editions
+                  </h4>
+                  <p className="text-stone-200/80 leading-relaxed">
+                    Seasonal specialties and limited-time offerings featuring unique flavor profiles 
+                    and artisanal presentation.
+                  </p>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-rose-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Menu Items Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading ? (
@@ -313,19 +378,7 @@ export default function Menu() {
           )}
         </div>
 
-        {menuItems && menuItems.length === 0 && !isLoading && (
-          <div className="text-center py-16">
-            <div className="bg-amber-900/50 backdrop-blur-sm border border-amber-700/30 rounded-2xl p-12">
-              <Coffee className="w-16 h-16 text-amber-400 mx-auto mb-6" />
-              <p className="text-2xl text-white font-semibold">
-                No items available in this category at the moment.
-              </p>
-              <p className="text-stone-200/60 mt-4">
-                Check back soon for new authentic treats!
-              </p>
-            </div>
-          </div>
-        )}
+
 
 
       </div>
