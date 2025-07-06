@@ -4,7 +4,7 @@ import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
-import heritageImage from "@assets/2024-12-29_1749666894482.webp";
+import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
 import alulaHeritagePhoto from "@assets/alula_heritage_photo.png";
 
@@ -99,7 +99,7 @@ export default function Home() {
             <div className="relative">
               <img 
                 src={heritageImage} 
-                alt="Beautiful latte art showcasing Coffee Pro's artisan coffee craftsmanship"
+                alt="Elegant golden coffee cup with luxurious design showcasing Coffee Pro's premium coffee heritage"
                 className="w-4/5 h-auto object-contain rounded-lg shadow-xl mx-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />

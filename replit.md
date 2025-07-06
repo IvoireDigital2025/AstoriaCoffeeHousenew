@@ -77,6 +77,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Added 2 juice menu card images to Juices section in menu page
 - ✓ Removed "View Full Menu" button from menu page (clean interface, menu cards show all options)
 - ✓ Removed "Order Delivery" button from Heritage Showcase section (streamlined heritage focus)
+- ✓ Updated Heritage Showcase section image to elegant golden coffee cup with luxurious design
 
 
 ## User Preferences
