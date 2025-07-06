@@ -84,7 +84,6 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Replaced SVG coffee beans pattern with authentic coffee beans photograph for heritage section
 - ✓ Removed all AlUla Heritage references throughout the website including "Our Story" section
 - ✓ Updated "5 Months Established" to "12 Months Established" on about page
-- ✓ Replaced first image in About section with Astoria community street scene
 
 
 ## User Preferences
