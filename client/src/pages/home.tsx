@@ -340,7 +340,7 @@ export default function Home() {
             Explore our menu and visit our Coffee Pro location in Astoria Boulevard, Long Island City
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
+            <Link href="/contact#contact-top">
               <Button 
                 size="lg"
                 variant="outline"
