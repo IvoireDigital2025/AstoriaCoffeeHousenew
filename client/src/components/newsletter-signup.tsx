@@ -89,7 +89,7 @@ export default function NewsletterSignup({ variant = "default", className = "" }
             </div>
           </div>
           <p className="text-coffee-dark/80">
-            Get ready for exclusive offers, cultural insights, and updates from our AlUla-inspired coffee shop!
+            Get ready for exclusive offers, cultural insights, and updates from our authentic Egyptian coffee shop!
           </p>
         </CardContent>
       </Card>

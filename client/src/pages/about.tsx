@@ -4,7 +4,7 @@ import coffeeArtImage from "@assets/maxresdefault_1749569245558.jpg";
 
 export default function About() {
   const stats = [
-    { number: "5", label: "Months Established" },
+    { number: "12", label: "Months Established" },
     { number: "1", label: "Astoria Location" },
     { number: "Growing", label: "Happy Customers" },
   ];
@@ -101,13 +101,13 @@ export default function About() {
             <Card className="text-center border-none shadow-none bg-transparent">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-coffee-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">🏺</span>
+                  <span className="text-white text-2xl">🌟</span>
                 </div>
                 <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-3">
-                  AlUla Heritage
+                  Quality Excellence
                 </h3>
                 <p className="text-coffee-medium">
-                  Our decor and atmosphere are inspired by the ancient beauty of AlUla, connecting our space to Saudi Arabian cultural roots.
+                  We source premium beans from around the world and craft each cup with traditional Egyptian techniques and modern expertise.
                 </p>
               </CardContent>
             </Card>

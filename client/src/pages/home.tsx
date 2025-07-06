@@ -6,7 +6,6 @@ import NewsletterSignup from "@/components/newsletter-signup";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
-import alulaHeritagePhoto from "@assets/alula_heritage_photo.png";
 import coffeeBeansImage from "@assets/ChatGPT Image Jul 6, 2025, 05_10_05 PM_1751839908170.png";
 
 
@@ -247,8 +246,8 @@ export default function Home() {
             <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-48 bg-gradient-to-br from-coffee-accent to-yellow-500 relative">
                 <img 
-                  src={alulaHeritagePhoto}
-                  alt="AlUla heritage celebration with community at Coffee Pro"
+                  src={heritageImage}
+                  alt="Golden coffee cup representing our premium quality"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20" />
@@ -258,10 +257,10 @@ export default function Home() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-2xl font-playfair font-semibold text-coffee-dark mb-3">
-                  Cultural Bridge
+                  Community Connection
                 </h3>
                 <p className="text-coffee-medium">
-                  Connecting NYC's diverse communities through the universal language of coffee, celebrating both Middle Eastern heritage and American innovation.
+                  Bringing people together through exceptional coffee experiences, creating lasting friendships and memorable moments in our welcoming space.
                 </p>
               </CardContent>
             </Card>

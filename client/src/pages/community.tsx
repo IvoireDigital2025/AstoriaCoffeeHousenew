@@ -76,13 +76,13 @@ export default function Community() {
                   <div className="aspect-square overflow-hidden">
                     <img 
                       src={communityPhoto2} 
-                      alt="Friends at the AlUla photo spot"
+                      alt="Friends at the coffee shop"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <CardContent className="p-4">
-                    <h4 className="font-bold text-coffee-dark mb-2">AlUla Heritage Corner</h4>
-                    <p className="text-coffee-medium text-sm">Friends celebrating at our signature AlUla-inspired photo spot with Arabic name cards.</p>
+                    <h4 className="font-bold text-coffee-dark mb-2">Coffee Friendship Corner</h4>
+                    <p className="text-coffee-medium text-sm">Friends celebrating at our cozy coffee spot with Arabic name cards and warm hospitality.</p>
                   </CardContent>
                 </Card>
 
@@ -133,13 +133,13 @@ export default function Community() {
                   <div className="aspect-square overflow-hidden">
                     <img 
                       src={communityPhoto6} 
-                      alt="Couple at AlUla heritage spot"
+                      alt="Couple at Coffee Pro"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <CardContent className="p-4">
-                    <h4 className="font-bold text-coffee-dark mb-2">Heritage Celebration</h4>
-                    <p className="text-coffee-medium text-sm">A couple celebrating their visit with Arabic name cards at our AlUla-inspired heritage corner.</p>
+                    <h4 className="font-bold text-coffee-dark mb-2">Special Moments</h4>
+                    <p className="text-coffee-medium text-sm">A couple celebrating their visit with Arabic name cards at our warm and welcoming coffee shop.</p>
                   </CardContent>
                 </Card>
 
@@ -176,7 +176,7 @@ export default function Community() {
                   <div className="aspect-square overflow-hidden">
                     <img 
                       src={communityPhoto9} 
-                      alt="International visitors at AlUla spot"
+                      alt="International visitors at Coffee Pro"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
@@ -229,7 +229,7 @@ export default function Community() {
                   </div>
                   <CardContent className="p-4">
                     <h4 className="font-bold text-coffee-dark mb-2">Social Media Love</h4>
-                    <p className="text-coffee-medium text-sm">Our community sharing their Coffee Pro experiences on social media with #coffeepro #alula #queenscoffee.</p>
+                    <p className="text-coffee-medium text-sm">Our community sharing their Coffee Pro experiences on social media with #coffeepro #egyptian #queenscoffee.</p>
                   </CardContent>
                 </Card>
               </div>
