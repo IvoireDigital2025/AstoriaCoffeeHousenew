@@ -266,8 +266,8 @@ export default function Contact() {
             <Card className="h-96 overflow-hidden border-none shadow-lg">
               <CardContent className="p-0 h-full">
                 <img
-                  src="/attached_assets/unnamed (5)_1751844717461.webp"
-                  alt="Coffee Pro storefront in Astoria, NY"
+                  src="/attached_assets/unnamed (7)_1751846288527.webp"
+                  alt="Coffee Pro interior showing professional coffee equipment and elegant lighting"
                   className="w-full h-full object-cover object-top"
                 />
               </CardContent>
