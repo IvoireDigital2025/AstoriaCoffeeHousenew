@@ -71,6 +71,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Connected DoorDash link to all delivery buttons throughout website
 - ✓ Removed "Meet Our Team" section from about page
 - ✓ Added 4 hot drinks menu card images to Hot Drinks section in menu page
+- ✓ Added 3 cold drinks menu card images to Cold Drinks section in menu page
 
 
 ## User Preferences

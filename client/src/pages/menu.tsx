@@ -15,6 +15,11 @@ import hotDrinksImg2 from "@assets/IMG_4339_1751830973848.jpg";
 import hotDrinksImg3 from "@assets/IMG_4340_1751830973848.jpg";
 import hotDrinksImg4 from "@assets/IMG_4341_1751830973848.jpg";
 
+// Cold Drinks Menu Images
+import coldDrinksImg1 from "@assets/IMG_4342_1751831168012.jpg";
+import coldDrinksImg2 from "@assets/IMG_4343_1751831168013.jpg";
+import coldDrinksImg3 from "@assets/IMG_4344_1751831168013.jpg";
+
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const { toast } = useToast();
@@ -145,6 +150,33 @@ export default function Menu() {
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-amber-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Cold Drinks Menu Images */}
+        {activeCategory === "cold" && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-playfair font-bold text-white mb-4">
+                Our Cold Drinks Menu
+              </h3>
+              <p className="text-stone-200/80 max-w-2xl mx-auto">
+                Refreshing iced beverages and specialty cold drinks crafted with care
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[coldDrinksImg1, coldDrinksImg2, coldDrinksImg3].map((img, index) => (
+                <div key={index} className="group relative overflow-hidden rounded-2xl bg-blue-900/20 backdrop-blur-sm border border-blue-700/30 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/30">
+                  <img 
+                    src={img} 
+                    alt={`Cold Drinks Menu ${index + 1}`}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               ))}
             </div>
