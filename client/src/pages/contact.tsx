@@ -268,7 +268,7 @@ export default function Contact() {
                 <img
                   src="/attached_assets/unnamed (5)_1751844717461.webp"
                   alt="Coffee Pro storefront in Astoria, NY"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </CardContent>
             </Card>
