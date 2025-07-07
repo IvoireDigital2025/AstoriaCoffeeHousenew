@@ -235,7 +235,7 @@ export default function MoodSelector() {
                       <h3 className="text-sm sm:text-base font-playfair font-bold text-coffee-dark group-hover:text-coffee-secondary transition-colors duration-300 mb-1">
                         {mood.name}
                       </h3>
-                      <p className="text-xs text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-tight px-1 overflow-hidden text-ellipsis">
+                      <p className="text-xs text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-tight px-1 text-center max-h-8 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                         {mood.description}
                       </p>
                     </div>
