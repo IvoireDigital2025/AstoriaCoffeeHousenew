@@ -84,8 +84,8 @@ export default function Menu() {
 
         </div>
 
-        {/* Futuristic Category Filters */}
-        <div className="flex flex-wrap justify-center mb-16 gap-4">
+        {/* Category Filters */}
+        <div className="flex flex-wrap justify-center mb-16 gap-3 sm:gap-4 px-4">
           {categories.map((category) => {
             const IconComponent = category.icon;
             const isActive = activeCategory === category.id;
@@ -95,14 +95,14 @@ export default function Menu() {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 variant={isActive ? "default" : "outline"}
-                className={`group relative overflow-hidden px-8 py-4 font-bold text-lg rounded-full transition-all duration-300 transform hover:scale-105 ${
+                className={`group relative overflow-hidden px-4 sm:px-6 md:px-8 py-3 sm:py-4 font-bold text-sm sm:text-base md:text-lg rounded-full transition-all duration-300 transform hover:scale-105 min-h-[48px] ${
                   isActive
                     ? "bg-primary text-primary-foreground shadow-2xl border-2 border-primary/80"
                     : "bg-secondary/50 text-white border-2 border-secondary/50 hover:bg-primary hover:text-primary-foreground hover:border-primary/80"
                 }`}
               >
-                <IconComponent className="w-6 h-6 mr-3" />
-                {category.label}
+                <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 sm:mr-3" />
+                <span className="whitespace-nowrap">{category.label}</span>
                 {isActive && (
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
                 )}
@@ -137,7 +137,7 @@ export default function Menu() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto px-4">
               {[hotDrinksImg1, hotDrinksImg2, hotDrinksImg3, hotDrinksImg4].map((img, index) => (
                 <div key={index} className="group relative overflow-hidden rounded-2xl bg-amber-900/20 backdrop-blur-sm border border-amber-700/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-900/30">
                   <img 

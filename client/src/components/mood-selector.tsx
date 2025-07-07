@@ -217,25 +217,25 @@ export default function MoodSelector() {
           
           <CardContent className="p-8">
             {!showRecommendations ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {moods.map((mood) => (
                   <Button
                     key={mood.name}
                     variant="outline"
-                    className="group h-auto p-6 flex flex-col items-center gap-4 bg-gradient-to-b from-white to-coffee-cream/30 border-2 border-coffee-accent/20 hover:border-coffee-primary/50 hover:shadow-xl hover:shadow-coffee-primary/10 transition-all duration-300 transform hover:scale-105 rounded-xl"
+                    className="group h-auto p-4 sm:p-6 flex flex-col items-center gap-3 sm:gap-4 bg-gradient-to-b from-white to-coffee-cream/30 border-2 border-coffee-accent/20 hover:border-coffee-primary/50 hover:shadow-xl hover:shadow-coffee-primary/10 transition-all duration-300 transform hover:scale-105 rounded-xl min-h-[120px] sm:min-h-[140px] touch-manipulation"
                     onClick={() => handleMoodSelect(mood)}
                   >
                     <div className="relative">
-                      <span className="text-5xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
+                      <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
                         {mood.emoji}
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-coffee-primary/20 to-amber-400/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="text-center">
-                      <h3 className="text-lg font-bold text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
+                      <h3 className="text-base sm:text-lg font-bold text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
                         {mood.name}
                       </h3>
-                      <p className="text-sm text-coffee-medium mt-1 group-hover:text-coffee-dark transition-colors duration-300">
+                      <p className="text-xs sm:text-sm text-coffee-medium mt-1 group-hover:text-coffee-dark transition-colors duration-300 leading-tight">
                         {mood.description}
                       </p>
                     </div>

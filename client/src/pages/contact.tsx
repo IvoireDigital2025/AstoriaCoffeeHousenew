@@ -153,7 +153,7 @@ export default function Contact() {
                 <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-4">
                   Follow Us
                 </h3>
-                <div className="flex space-x-4">
+                <div className="flex space-x-3 sm:space-x-4">
                   {socialLinks.map((social, index) => {
                     const IconComponent = social.icon;
                     return (
@@ -163,9 +163,9 @@ export default function Contact() {
                         target={social.href !== "#" ? "_blank" : undefined}
                         rel={social.href !== "#" ? "noopener noreferrer" : undefined}
                         aria-label={social.label}
-                        className="w-10 h-10 bg-coffee-secondary rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
+                        className="w-12 h-12 sm:w-10 sm:h-10 bg-coffee-secondary rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors touch-manipulation"
                       >
-                        <IconComponent className="w-4 h-4" />
+                        <IconComponent className="w-5 h-5 sm:w-4 sm:h-4" />
                       </a>
                     );
                   })}
@@ -185,7 +185,7 @@ export default function Contact() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label htmlFor="name" className="text-coffee-dark font-medium">
+                    <Label htmlFor="name" className="text-coffee-dark font-medium text-sm sm:text-base">
                       Name
                     </Label>
                     <Input
@@ -193,13 +193,13 @@ export default function Contact() {
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Your name"
-                      className="focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="mt-1 h-11 sm:h-12 focus:border-coffee-primary focus:ring-coffee-primary text-base"
                       required
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="email" className="text-coffee-dark font-medium">
+                    <Label htmlFor="email" className="text-coffee-dark font-medium text-sm sm:text-base">
                       Email
                     </Label>
                     <Input
@@ -208,7 +208,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="Your email"
-                      className="focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="mt-1 h-11 sm:h-12 focus:border-coffee-primary focus:ring-coffee-primary text-base"
                       required
                     />
                   </div>

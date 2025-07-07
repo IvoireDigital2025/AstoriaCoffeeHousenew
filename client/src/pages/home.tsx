@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -28,40 +28,40 @@ export default function Home() {
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 py-20 sm:py-16">
           <div className="mb-6">
             <img 
               src="/attached_assets/01_1749671523922.webp"
               alt="Coffee Pro - Coffee & Bakery Logo"
-              className="h-24 md:h-32 w-auto mx-auto mb-4"
+              className="h-20 sm:h-24 md:h-32 w-auto mx-auto mb-4"
             />
-            <h1 className="text-3xl md:text-5xl font-playfair font-bold">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
               Welcome to Coffee Pro
             </h1>
           </div>
-          <p className="text-xl md:text-2xl mb-6 text-gray-200">
+          <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-200 leading-relaxed px-2">
             Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
           </p>
-          <div className="flex items-center justify-center mb-8 text-lg text-gray-300">
-            <MapPin className="w-5 h-5 mr-2" />
-            <span>23-33 Astoria Blvd, Astoria, NY 11102</span>
+          <div className="flex items-center justify-center mb-8 text-base sm:text-lg text-gray-300 px-2">
+            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
+            <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/menu">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            <Link href="/menu" className="w-full sm:w-auto">
               <Button 
                 size="lg"
-                className="bg-coffee-secondary text-white hover:bg-blue-600 px-8 py-4 text-lg font-semibold"
+                className="w-full sm:w-auto bg-coffee-secondary text-white hover:bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold"
               >
-                <Coffee className="w-5 h-5 mr-2" />
+                <Coffee className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 View Our Menu
               </Button>
             </Link>
-            <Link href="/loyalty">
+            <Link href="/loyalty" className="w-full sm:w-auto">
               <Button 
                 size="lg"
-                className="bg-coffee-secondary text-white hover:bg-blue-600 px-8 py-4 text-lg font-semibold"
+                className="w-full sm:w-auto bg-coffee-secondary text-white hover:bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold"
               >
-                <Star className="w-5 h-5 mr-2" />
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Join Loyalty Program
               </Button>
             </Link>

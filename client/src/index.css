@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile Optimization */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Improved touch targets for mobile */
+  button, a, input, select, textarea {
+    touch-action: manipulation;
+  }
+  
+  /* Better text rendering on mobile */
+  h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Prevent zoom on input focus for iOS */
+  input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    /* Larger touch targets on mobile */
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Better spacing for mobile */
+    .mobile-padding {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+}
+
 :root {
   --background: hsl(48, 38%, 97%);
   --foreground: hsl(25, 42%, 11%);

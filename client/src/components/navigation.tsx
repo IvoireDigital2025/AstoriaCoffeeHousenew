@@ -68,34 +68,57 @@ export default function Navigation() {
             <div className="md:hidden">
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="p-2">
                     <Menu className="w-6 h-6 text-coffee-dark" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-80">
-                  <div className="flex flex-col space-y-4 mt-8">
-                    {navItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        href={item.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`block px-3 py-2 text-base font-medium transition-colors ${
-                          isActive(item.path)
-                            ? "text-coffee-primary"
-                            : "text-coffee-dark hover:text-coffee-primary"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                    <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
+                <SheetContent side="right" className="w-80 p-0">
+                  <div className="flex flex-col h-full">
+                    <div className="p-6 border-b border-coffee-cream">
+                      <img 
+                        src="/attached_assets/01_1749671523922.webp"
+                        alt="Coffee Pro - Coffee & Bakery Logo"
+                        className="h-10 w-auto"
+                      />
+                    </div>
+                    <div className="flex-1 overflow-y-auto">
+                      <div className="px-6 py-4 space-y-2">
+                        {navItems.map((item) => (
+                          <Link
+                            key={item.path}
+                            href={item.path}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`block px-4 py-3 text-base font-medium transition-colors rounded-lg ${
+                              isActive(item.path)
+                                ? "text-coffee-primary bg-coffee-cream"
+                                : "text-coffee-dark hover:text-coffee-primary hover:bg-coffee-cream"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="p-6 space-y-3 border-t border-coffee-cream">
                       <Button
-                        className="bg-orange-600 hover:bg-orange-700 text-white w-full"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={() => {
+                          setIsLoyaltyOpen(true);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full bg-coffee-primary hover:bg-coffee-primary/90 text-white py-3"
                       >
-                        Order Delivery
+                        <Star className="h-4 w-4 mr-2" />
+                        Loyalty Program
                       </Button>
-                    </a>
+                      <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
+                        <Button
+                          className="w-full bg-coffee-blue hover:bg-coffee-blue/90 text-white py-3"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Order Delivery
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>
