@@ -20,7 +20,7 @@ const moods: Mood[] = [
   {
     emoji: "😊",
     name: "Happy",
-    description: "Feeling cheerful and optimistic",
+    description: "Cheerful and optimistic",
     recommendations: [
       {
         name: "Caramel Macchiato",
@@ -77,7 +77,7 @@ const moods: Mood[] = [
   {
     emoji: "🤔",
     name: "Focused",
-    description: "Ready to concentrate and work",
+    description: "Ready to concentrate",
     recommendations: [
       {
         name: "Green Tea Matcha Latte",
@@ -96,7 +96,7 @@ const moods: Mood[] = [
   {
     emoji: "🥶",
     name: "Cold",
-    description: "Need something warm and cozy",
+    description: "Want something warm",
     recommendations: [
       {
         name: "Spiced Chai Latte",
@@ -115,7 +115,7 @@ const moods: Mood[] = [
   {
     emoji: "🔥",
     name: "Energetic",
-    description: "High energy and motivation",
+    description: "High energy boost",
     recommendations: [
       {
         name: "Nitro Cold Brew",
@@ -153,7 +153,7 @@ const moods: Mood[] = [
   {
     emoji: "🌿",
     name: "Natural",
-    description: "Seeking organic and wholesome",
+    description: "Organic and wholesome",
     recommendations: [
       {
         name: "Organic Pour Over",
