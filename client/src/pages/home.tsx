@@ -19,22 +19,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Logo and Welcome Section */}
-      <section className="bg-white py-8 border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <img 
-            src="/attached_assets/01_1749671523922.webp"
-            alt="Coffee Pro - Coffee & Bakery Logo"
-            className="h-20 sm:h-24 md:h-28 w-auto mx-auto mb-4"
-          />
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-coffee-dark">
-            Welcome to Coffee Pro
-          </h1>
-        </div>
-      </section>
-
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -43,6 +29,16 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 py-12 sm:py-8">
+          <div className="mb-8">
+            <img 
+              src="/attached_assets/01_1749671523922.webp"
+              alt="Coffee Pro - Coffee & Bakery Logo"
+              className="h-24 sm:h-28 md:h-36 w-auto mx-auto mb-6"
+            />
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
+              Welcome to Coffee Pro
+            </h1>
+          </div>
           <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-200 leading-relaxed px-2">
             Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
           </p>
