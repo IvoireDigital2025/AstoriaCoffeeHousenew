@@ -62,14 +62,7 @@ export default function Footer() {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link 
-                  href="/locations" 
-                  className="text-coffee-secondary hover:text-coffee-accent transition-colors"
-                >
-                  Locations
-                </Link>
-              </li>
+
               <li>
                 <Link 
                   href="/loyalty" 
