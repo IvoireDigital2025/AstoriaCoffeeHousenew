@@ -42,18 +42,20 @@ export default function Home() {
                 Welcome to Coffee Pro
               </h1>
             </div>
-            <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-200 leading-relaxed px-2">
+          </div>
+        </div>
+        
+        {/* Description and Buttons at Bottom */}
+        <div className="relative z-10 pb-8 sm:pb-12">
+          <div className="text-center text-white max-w-4xl mx-auto px-4 mb-6">
+            <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed px-2">
               Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
             </p>
-            <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2">
+            <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2 mb-6">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
               <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
             </div>
           </div>
-        </div>
-        
-        {/* Buttons at Bottom */}
-        <div className="relative z-10 pb-8 sm:pb-12">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 max-w-lg mx-auto">
             <Link href="/menu" className="w-full sm:w-auto">
               <Button 
