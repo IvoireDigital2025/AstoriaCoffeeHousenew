@@ -21,153 +21,49 @@ const moods: Mood[] = [
     emoji: "😊",
     name: "Happy",
     description: "Cheerful and optimistic",
-    recommendations: [
-      {
-        name: "Caramel Macchiato",
-        description: "Sweet and creamy coffee with caramel drizzle",
-        reason: "The sweetness complements your joyful mood perfectly",
-        price: "$5.50"
-      },
-      {
-        name: "Vanilla Latte",
-        description: "Smooth espresso with steamed milk and vanilla syrup",
-        reason: "A comforting classic that enhances positive feelings",
-        price: "$4.75"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "😴",
     name: "Tired",
     description: "Need an energy boost",
-    recommendations: [
-      {
-        name: "Double Shot Espresso",
-        description: "Rich, bold espresso for maximum caffeine",
-        reason: "Strong caffeine content will give you the energy boost you need",
-        price: "$3.25"
-      },
-      {
-        name: "Cold Brew Coffee",
-        description: "Smooth, concentrated cold coffee",
-        reason: "High caffeine content with a refreshing kick",
-        price: "$4.00"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "😌",
     name: "Relaxed",
     description: "Calm and peaceful state",
-    recommendations: [
-      {
-        name: "Chamomile Tea Latte",
-        description: "Soothing chamomile with steamed milk",
-        reason: "Chamomile naturally promotes relaxation and calm",
-        price: "$4.25"
-      },
-      {
-        name: "Lavender Honey Coffee",
-        description: "Mild coffee with lavender and honey",
-        reason: "Lavender has calming properties perfect for your peaceful mood",
-        price: "$5.00"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "🤔",
     name: "Focused",
     description: "Ready to concentrate",
-    recommendations: [
-      {
-        name: "Green Tea Matcha Latte",
-        description: "Energizing matcha with sustained focus benefits",
-        reason: "L-theanine in matcha provides calm focus without jitters",
-        price: "$5.25"
-      },
-      {
-        name: "Americano",
-        description: "Clean, pure espresso taste",
-        reason: "Simple caffeine boost without distractions",
-        price: "$3.75"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "🥶",
     name: "Cold",
     description: "Want something warm",
-    recommendations: [
-      {
-        name: "Spiced Chai Latte",
-        description: "Warming spices with steamed milk",
-        reason: "Warming spices like cinnamon and ginger will heat you up",
-        price: "$4.50"
-      },
-      {
-        name: "Hot Chocolate Mocha",
-        description: "Rich chocolate and espresso combination",
-        reason: "Warm, comforting drink perfect for cold weather",
-        price: "$5.75"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "🔥",
     name: "Energetic",
     description: "High energy boost",
-    recommendations: [
-      {
-        name: "Nitro Cold Brew",
-        description: "Nitrogen-infused cold brew with creamy texture",
-        reason: "Smooth energy boost that matches your high-energy vibe",
-        price: "$4.50"
-      },
-      {
-        name: "Peppermint Mocha",
-        description: "Chocolate coffee with refreshing peppermint",
-        reason: "Peppermint provides an invigorating sensation",
-        price: "$5.25"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "💭",
     name: "Contemplative",
     description: "Deep in thought",
-    recommendations: [
-      {
-        name: "Turkish Coffee",
-        description: "Traditional slow-brewed coffee",
-        reason: "The ritual of drinking Turkish coffee encourages mindful reflection",
-        price: "$4.00"
-      },
-      {
-        name: "Earl Grey Tea Latte",
-        description: "Bergamot-infused black tea with milk",
-        reason: "Earl Grey naturally soothes stress and promotes relaxation",
-        price: "$4.25"
-      }
-    ]
+    recommendations: []
   },
   {
     emoji: "🌿",
     name: "Natural",
     description: "Organic and wholesome",
-    recommendations: [
-      {
-        name: "Organic Pour Over",
-        description: "Single-origin organic coffee, carefully brewed",
-        reason: "Pure, natural coffee without additives",
-        price: "$4.75"
-      },
-      {
-        name: "Herbal Mint Tea",
-        description: "Fresh mint leaves steeped in hot water",
-        reason: "Mint naturally soothes stress and promotes relaxation",
-        price: "$3.50"
-      }
-    ]
+    recommendations: []
   }
 ];
 
