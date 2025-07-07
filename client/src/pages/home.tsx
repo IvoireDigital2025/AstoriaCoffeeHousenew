@@ -32,15 +32,15 @@ export default function Home() {
         {/* Main Content - Centered */}
         <div className="relative z-10 flex-1 flex items-center justify-center">
           <div className="text-center text-white max-w-4xl mx-auto px-4">
-            <div className="mb-8">
+            <div className="mb-8 flex items-center justify-center gap-6 sm:gap-8 md:gap-12">
+              <h1 className="text-xl sm:text-2xl md:text-4xl font-playfair font-bold leading-tight">
+                Welcome to
+              </h1>
               <img 
                 src="/attached_assets/01_1749671523922.webp"
                 alt="Coffee Pro - Coffee & Bakery Logo"
-                className="h-24 sm:h-28 md:h-36 w-auto mx-auto mb-6"
+                className="h-20 sm:h-24 md:h-32 w-auto"
               />
-              <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
-                Welcome to Coffee Pro
-              </h1>
             </div>
           </div>
         </div>
