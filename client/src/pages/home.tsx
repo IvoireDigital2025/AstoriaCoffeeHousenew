@@ -37,7 +37,7 @@ export default function Home() {
               <img 
                 src="/attached_assets/01_1749671523922.webp"
                 alt="Coffee Pro - Coffee & Bakery Logo"
-                className="h-20 w-auto"
+                className="h-16 w-auto"
               />
               <h1 className="text-xl font-playfair font-bold leading-tight">
                 Welcome to
@@ -52,7 +52,7 @@ export default function Home() {
               <img 
                 src="/attached_assets/01_1749671523922.webp"
                 alt="Coffee Pro - Coffee & Bakery Logo"
-                className="h-24 md:h-32 w-auto"
+                className="h-20 md:h-24 w-auto"
               />
             </div>
           </div>
