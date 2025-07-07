@@ -48,7 +48,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link 
-                  href="/menu" 
+                  to="/menu" 
                   className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 >
                   Menu
@@ -56,7 +56,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="/about" 
+                  to="/about" 
                   className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 >
                   About Us
@@ -65,7 +65,7 @@ export default function Footer() {
 
               <li>
                 <Link 
-                  href="/loyalty" 
+                  to="/loyalty" 
                   className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 >
                   Loyalty Program
@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="/contact" 
+                  to="/contact" 
                   className="text-coffee-secondary hover:text-coffee-accent transition-colors"
                 >
                   Contact
