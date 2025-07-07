@@ -53,18 +53,7 @@ const moods: Mood[] = [
     description: "High energy boost",
     recommendations: []
   },
-  {
-    emoji: "💭",
-    name: "Contemplative",
-    description: "Deep in thought",
-    recommendations: []
-  },
-  {
-    emoji: "🌿",
-    name: "Natural",
-    description: "Organic and wholesome",
-    recommendations: []
-  }
+
 ];
 
 export default function MoodSelector() {
