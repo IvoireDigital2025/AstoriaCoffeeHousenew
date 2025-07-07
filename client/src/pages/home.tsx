@@ -293,7 +293,7 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+            <h2 className="text-2xl sm:text-3xl font-playfair font-bold text-coffee-dark mb-4">
               Why Coffee Pro is Astoria's Favorite Coffee Shop
             </h2>
             <p className="text-xl text-coffee-medium">
