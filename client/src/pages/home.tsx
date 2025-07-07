@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -93,9 +93,9 @@ export default function Home() {
       </section>
 
       {/* Heritage Showcase Section */}
-      <section className="py-16 bg-coffee-cream">
+      <section className="py-12 sm:py-14 bg-coffee-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-6">
                 Authentic Coffee Heritage
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* New Drinks Spotlight Section */}
-      <section className="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-12 sm:py-14 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
@@ -209,9 +209,9 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
               Heritage Meets Innovation
             </h2>
@@ -290,9 +290,9 @@ export default function Home() {
       </section>
 
       {/* Image Gallery Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-14 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-playfair font-bold text-coffee-dark mb-4">
               Why Coffee Pro is Astoria's Favorite Coffee Shop
             </h2>
