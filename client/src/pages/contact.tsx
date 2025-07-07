@@ -229,6 +229,7 @@ export default function Contact() {
                         <SelectItem value="catering">Catering Services</SelectItem>
                         <SelectItem value="feedback">Feedback</SelectItem>
                         <SelectItem value="partnership">Partnership Opportunity</SelectItem>
+                        <SelectItem value="employment">Employment Inquiry</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
