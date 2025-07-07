@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -28,25 +28,33 @@ export default function Home() {
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 py-12 sm:py-8">
-          <div className="mb-8">
-            <img 
-              src="/attached_assets/01_1749671523922.webp"
-              alt="Coffee Pro - Coffee & Bakery Logo"
-              className="h-24 sm:h-28 md:h-36 w-auto mx-auto mb-6"
-            />
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
-              Welcome to Coffee Pro
-            </h1>
+        
+        {/* Main Content - Centered */}
+        <div className="relative z-10 flex-1 flex items-center justify-center">
+          <div className="text-center text-white max-w-4xl mx-auto px-4">
+            <div className="mb-8">
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-24 sm:h-28 md:h-36 w-auto mx-auto mb-6"
+              />
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
+                Welcome to Coffee Pro
+              </h1>
+            </div>
+            <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-200 leading-relaxed px-2">
+              Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
+            </p>
+            <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
+              <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
+            </div>
           </div>
-          <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-200 leading-relaxed px-2">
-            Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
-          </p>
-          <div className="flex items-center justify-center mb-8 text-base sm:text-lg text-gray-300 px-2">
-            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-            <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+        </div>
+        
+        {/* Buttons at Bottom */}
+        <div className="relative z-10 pb-8 sm:pb-12">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 max-w-lg mx-auto">
             <Link href="/menu" className="w-full sm:w-auto">
               <Button 
                 size="lg"
