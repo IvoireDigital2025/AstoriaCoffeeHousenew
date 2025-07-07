@@ -217,25 +217,25 @@ export default function MoodSelector() {
           
           <CardContent className="p-8">
             {!showRecommendations ? (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 {moods.map((mood) => (
                   <Button
                     key={mood.name}
                     variant="outline"
-                    className="group h-auto p-4 sm:p-6 flex flex-col items-center gap-3 sm:gap-4 bg-gradient-to-b from-white to-coffee-cream/30 border-2 border-coffee-accent/20 hover:border-coffee-primary/50 hover:shadow-xl hover:shadow-coffee-primary/10 transition-all duration-300 transform hover:scale-105 rounded-xl min-h-[120px] sm:min-h-[140px] touch-manipulation"
+                    className="group h-auto p-6 sm:p-8 flex flex-col items-center gap-4 sm:gap-6 bg-gradient-to-b from-white via-coffee-cream/20 to-coffee-cream/40 border-2 border-coffee-accent/30 hover:border-coffee-secondary/60 hover:shadow-2xl hover:shadow-coffee-secondary/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 rounded-2xl min-h-[140px] sm:min-h-[160px] touch-manipulation"
                     onClick={() => handleMoodSelect(mood)}
                   >
                     <div className="relative">
-                      <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
+                      <span className="text-5xl sm:text-6xl group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg">
                         {mood.emoji}
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-coffee-primary/20 to-amber-400/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-coffee-secondary/30 to-amber-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="text-center">
-                      <h3 className="text-base sm:text-lg font-bold text-coffee-dark group-hover:text-coffee-primary transition-colors duration-300">
+                      <h3 className="text-lg sm:text-xl font-playfair font-bold text-coffee-dark group-hover:text-coffee-secondary transition-colors duration-300">
                         {mood.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-coffee-medium mt-1 group-hover:text-coffee-dark transition-colors duration-300 leading-tight">
+                      <p className="text-sm sm:text-base text-coffee-medium mt-2 group-hover:text-coffee-dark transition-colors duration-300 leading-relaxed">
                         {mood.description}
                       </p>
                     </div>
@@ -256,26 +256,29 @@ export default function MoodSelector() {
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-8">
                   {selectedMood?.recommendations.map((rec, index) => (
-                    <Card key={index} className="bg-gradient-to-br from-white to-coffee-cream/30 border border-coffee-accent/30 hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <h4 className="text-xl font-bold text-coffee-dark">
+                    <Card key={index} className="bg-gradient-to-br from-white via-coffee-cream/20 to-coffee-cream/40 border-2 border-coffee-accent/30 hover:border-coffee-secondary/50 hover:shadow-2xl hover:shadow-coffee-secondary/20 transition-all duration-300 rounded-2xl overflow-hidden transform hover:scale-105 hover:-translate-y-1">
+                      <CardContent className="p-8">
+                        <div className="flex items-start justify-between mb-6">
+                          <h4 className="text-2xl font-playfair font-bold text-coffee-dark">
                             {rec.name}
                           </h4>
-                          <Badge className="bg-gradient-to-r from-coffee-primary to-amber-600 text-white font-bold px-3 py-1 text-lg rounded-full">
+                          <Badge className="bg-gradient-to-r from-coffee-secondary to-blue-600 text-white font-bold px-4 py-2 text-lg rounded-full shadow-lg">
                             {rec.price}
                           </Badge>
                         </div>
-                        <p className="text-coffee-medium mb-4 leading-relaxed">
+                        <p className="text-coffee-medium mb-6 leading-relaxed text-lg">
                           {rec.description}
                         </p>
                         
-                        <div className="bg-coffee-cream/50 p-4 rounded-lg border border-coffee-accent/20">
-                          <p className="text-coffee-dark/90 leading-relaxed italic text-sm">
-                            "{rec.reason}"
-                          </p>
+                        <div className="bg-gradient-to-r from-coffee-cream/60 to-coffee-cream/40 p-5 rounded-xl border border-coffee-accent/30">
+                          <div className="flex items-start gap-3">
+                            <Heart className="w-5 h-5 text-coffee-secondary mt-1 flex-shrink-0" />
+                            <p className="text-coffee-dark leading-relaxed italic">
+                              "{rec.reason}"
+                            </p>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
