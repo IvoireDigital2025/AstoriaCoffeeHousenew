@@ -22,9 +22,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('/attached_assets/IMG_2512_1751862851891.jpg')"
+            backgroundImage: "url('/attached_assets/IMG_2512_1751862851891.jpg')",
+            backgroundPosition: "center 70%"
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
