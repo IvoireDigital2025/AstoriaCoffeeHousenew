@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex flex-col overflow-hidden">
+      <section className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -29,40 +29,36 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         
-        {/* Main Content - Centered */}
-        <div className="relative z-10 flex-1 flex items-center justify-center">
-          <div className="text-center text-white max-w-4xl mx-auto px-4">
-            <div className="mb-8">
-              {/* Mobile Layout - Stacked */}
-              <div className="flex flex-col items-center justify-center gap-4 sm:hidden">
-                <img 
-                  src="/attached_assets/01_1749671523922.webp"
-                  alt="Coffee Pro - Coffee & Bakery Logo"
-                  className="h-20 w-auto"
-                />
-                <h1 className="text-xl font-playfair font-bold leading-tight">
-                  Welcome to
-                </h1>
-              </div>
-              
-              {/* Desktop Layout - Side by Side */}
-              <div className="hidden sm:flex items-center justify-center gap-8 md:gap-12">
-                <h1 className="text-2xl md:text-4xl font-playfair font-bold leading-tight">
-                  Welcome to
-                </h1>
-                <img 
-                  src="/attached_assets/01_1749671523922.webp"
-                  alt="Coffee Pro - Coffee & Bakery Logo"
-                  className="h-24 md:h-32 w-auto"
-                />
-              </div>
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+          {/* Logo and Welcome Section */}
+          <div className="mb-8">
+            {/* Mobile Layout - Stacked */}
+            <div className="flex flex-col items-center justify-center gap-4 sm:hidden">
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-20 w-auto"
+              />
+              <h1 className="text-xl font-playfair font-bold leading-tight">
+                Welcome to
+              </h1>
+            </div>
+            
+            {/* Desktop Layout - Side by Side */}
+            <div className="hidden sm:flex items-center justify-center gap-8 md:gap-12">
+              <h1 className="text-2xl md:text-4xl font-playfair font-bold leading-tight">
+                Welcome to
+              </h1>
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-24 md:h-32 w-auto"
+              />
             </div>
           </div>
-        </div>
-        
-        {/* Description and Buttons at Bottom */}
-        <div className="relative z-10 pb-8 sm:pb-12">
-          <div className="text-center text-white max-w-4xl mx-auto px-4 mb-6">
+          
+          {/* Description */}
+          <div className="mb-6">
             <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed px-2">
               Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
             </p>
@@ -71,7 +67,9 @@ export default function Home() {
               <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 max-w-lg mx-auto">
+          
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg mx-auto">
             <Link href="/menu" className="w-full sm:w-auto">
               <Button 
                 size="lg"
