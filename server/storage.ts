@@ -100,7 +100,7 @@ export class MemStorage implements IStorage {
         available: true
       },
       {
-        name: "Saudi Date Ma'amoul",
+        name: "Egyptian Date Ma'amoul",
         description: "Traditional filled cookies with premium Medjool dates",
         price: "",
         category: "pastries",
@@ -135,7 +135,7 @@ export class MemStorage implements IStorage {
       // Coffee & Beverages
       {
         name: "Arabic Coffee (Qahwa)",
-        description: "Traditional Saudi Arabian coffee with cardamom and saffron",
+        description: "Traditional Egyptian coffee with cardamom and saffron",
         price: "",
         category: "coffee",
         image: "/attached_assets/arabiccoffee_1024x1024@2x_1749453882291.webp",

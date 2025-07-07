@@ -59,7 +59,7 @@ export default function About() {
                 Indulge in high-quality coffee, carefully crafted using the finest beans, reflecting the team's passion and unyielding commitment to excellence. From locally made pastries to authentic coffee experiences, Coffee Pro is a sanctuary where you can savor the distinctive taste of coffee and embark on a sensory journey that celebrates tradition and innovation.
               </p>
               <p>
-                Our space serves as a bridge between the rich coffee heritage of Saudi Arabia and the dynamic energy of New York City, creating an atmosphere where every visit becomes a memorable experience rooted in authenticity and craftsmanship.
+                Our space serves as a bridge between the rich coffee heritage of Egypt and the dynamic energy of New York City, creating an atmosphere where every visit becomes a memorable experience rooted in authenticity and craftsmanship.
               </p>
             </div>
 
