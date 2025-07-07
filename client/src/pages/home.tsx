@@ -22,10 +22,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/attached_assets/IMG_2512_1751862851891.jpg')",
-            backgroundPosition: "center 70%"
+            backgroundImage: "url('/attached_assets/IMG_2512_1751862851891.jpg')"
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
@@ -41,14 +40,14 @@ export default function Home() {
                   alt="Coffee Pro - Coffee & Bakery Logo"
                   className="h-20 w-auto"
                 />
-                <h1 className="text-2xl font-playfair font-extrabold leading-tight tracking-wide text-shadow-lg">
+                <h1 className="text-xl font-playfair font-bold leading-tight">
                   Welcome to
                 </h1>
               </div>
               
               {/* Desktop Layout - Side by Side */}
               <div className="hidden sm:flex items-center justify-center gap-8 md:gap-12">
-                <h1 className="text-3xl md:text-5xl font-playfair font-extrabold leading-tight tracking-wide text-shadow-lg">
+                <h1 className="text-2xl md:text-4xl font-playfair font-bold leading-tight">
                   Welcome to
                 </h1>
                 <img 
