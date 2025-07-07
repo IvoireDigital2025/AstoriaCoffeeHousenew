@@ -114,6 +114,9 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Optimized responsive design for menu, contact, and mood selector components
 - ✓ Added mobile-specific CSS rules for better touch interaction and performance
 - ✓ Improved typography scaling and spacing for mobile devices
+- ✓ Replaced hero section background with authentic Coffee Pro interior photo
+- ✓ Repositioned hero content to avoid overlapping with background logo sign
+- ✓ Added "Employment Inquiry" option to contact form subject dropdown
 
 
 ## User Preferences

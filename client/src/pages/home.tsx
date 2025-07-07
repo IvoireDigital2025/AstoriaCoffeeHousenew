@@ -28,14 +28,9 @@ export default function Home() {
           }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40" />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 py-20 sm:py-16">
-          <div className="mb-6">
-            <img 
-              src="/attached_assets/01_1749671523922.webp"
-              alt="Coffee Pro - Coffee & Bakery Logo"
-              className="h-20 sm:h-24 md:h-32 w-auto mx-auto mb-4"
-            />
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 py-20 sm:py-16 flex flex-col justify-end min-h-screen">
+          <div className="mb-6 mt-auto">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-playfair font-bold leading-tight mb-4">
               Welcome to Coffee Pro
             </h1>
           </div>
