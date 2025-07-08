@@ -104,7 +104,7 @@ export default function About() {
               <img
                 src="/attached_assets/IMG_2249_1751953361520.PNG"
                 alt="Coffee Pro brand identity and design elements featuring logo and coffee aesthetic"
-                className="rounded-2xl shadow-2xl w-full max-w-md h-auto object-cover"
+                className="rounded-2xl shadow-2xl w-full max-w-sm h-auto object-cover"
               />
             </div>
           </div>
