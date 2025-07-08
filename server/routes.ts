@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { notificationService } from "./notifications";
 import { 
   insertUserSchema, 
   insertContactMessageSchema,
@@ -307,6 +308,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           currentPoints: updatedCustomer.currentPoints - 5,
           totalRewards: (updatedCustomer.totalRewards || 0) + 1,
         });
+
+        // Send congratulatory notification
+        await notificationService.notifyCustomerReward({
+          customerName: updatedCustomer.name,
+          phone: updatedCustomer.phone,
+          currentPoints: updatedCustomer.currentPoints,
+          message: `Congratulations ${updatedCustomer.name}! You've earned a FREE COFFEE at Coffee Pro!`
+        });
       }
 
       res.json({
@@ -344,6 +353,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const rewards = await storage.getAllLoyaltyRewards();
       res.json(rewards);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/notifications", requireAdminAuth, async (req, res) => {
+    try {
+      const notifications = notificationService.getNotificationHistory();
+      res.json(notifications);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

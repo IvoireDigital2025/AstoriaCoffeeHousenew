@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -58,6 +58,15 @@ interface LoyaltyReward {
   pointsUsed: number;
   notes: string | null;
   redeemedAt: string;
+}
+
+interface Notification {
+  id: number;
+  phone: string;
+  message: string;
+  sentAt: string;
+  method: string;
+  status: 'sent' | 'failed' | 'pending';
 }
 
 export default function AdminDashboard() {
@@ -138,6 +147,21 @@ export default function AdminDashboard() {
       }
       if (!response.ok) {
         throw new Error('Failed to fetch loyalty rewards');
+      }
+      return response.json();
+    }
+  });
+
+  const { data: notifications, isLoading: notificationsLoading } = useQuery({
+    queryKey: ['/api/admin/notifications'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/notifications');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch notifications');
       }
       return response.json();
     }
@@ -304,7 +328,7 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="marketing" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="marketing" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               Marketing Contacts ({totalContacts})
@@ -316,6 +340,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="loyalty" className="flex items-center gap-2">
               <Coffee className="w-4 h-4" />
               Loyalty Program ({loyaltyCustomers?.length || 0})
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="flex items-center gap-2">
+              <Bell className="w-4 h-4" />
+              Notifications ({notifications?.length || 0})
             </TabsTrigger>
           </TabsList>
 
@@ -732,6 +760,118 @@ export default function AdminDashboard() {
                       </p>
                     </div>
                   )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="notifications" className="space-y-8">
+            {/* Notifications Overview */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bell className="w-5 h-5" />
+                  Customer Notifications
+                </CardTitle>
+                <p className="text-sm text-coffee-medium">
+                  Track congratulatory messages sent to customers when they earn free coffee rewards
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-800">Total Sent</h3>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {notifications?.filter((n: Notification) => n.status === 'sent').length || 0}
+                    </p>
+                  </div>
+                  <div className="bg-yellow-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-yellow-800">Pending</h3>
+                    <p className="text-2xl font-bold text-yellow-600">
+                      {notifications?.filter((n: Notification) => n.status === 'pending').length || 0}
+                    </p>
+                  </div>
+                  <div className="bg-red-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-red-800">Failed</h3>
+                    <p className="text-2xl font-bold text-red-600">
+                      {notifications?.filter((n: Notification) => n.status === 'failed').length || 0}
+                    </p>
+                  </div>
+                </div>
+
+                {notificationsLoading ? (
+                  <div className="text-center py-8">
+                    <p className="text-coffee-medium">Loading notifications...</p>
+                  </div>
+                ) : notifications && notifications.length > 0 ? (
+                  <div className="space-y-4">
+                    {notifications.map((notification: Notification) => (
+                      <Card key={notification.id} className="border-l-4 border-l-coffee-primary">
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Phone className="w-4 h-4 text-coffee-medium" />
+                                <span className="font-medium">{notification.phone}</span>
+                                <Badge 
+                                  className={`${
+                                    notification.status === 'sent' ? 'bg-green-100 text-green-800' :
+                                    notification.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
+                                  }`}
+                                >
+                                  {notification.status.toUpperCase()}
+                                </Badge>
+                                <Badge variant="outline">{notification.method.toUpperCase()}</Badge>
+                              </div>
+                              <p className="text-coffee-medium mb-2">"{notification.message}"</p>
+                              <p className="text-sm text-coffee-light">
+                                <Calendar className="w-3 h-3 inline mr-1" />
+                                {format(new Date(notification.sentAt), "MMM dd, yyyy 'at' h:mm a")}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <Bell className="w-12 h-12 text-coffee-light mx-auto mb-4" />
+                    <p className="text-coffee-medium">No notifications sent yet</p>
+                    <p className="text-sm text-coffee-light">
+                      Notifications will appear here when customers earn free coffee rewards
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Notification Info */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Free SMS Alternatives</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-800 mb-2">Current Setup</h4>
+                    <p className="text-blue-700 text-sm">
+                      The system logs all reward notifications for tracking. When customers earn free coffee, 
+                      notifications are logged here for your reference.
+                    </p>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-800 mb-2">Future SMS Options</h4>
+                    <p className="text-green-700 text-sm mb-2">
+                      To enable actual SMS notifications, you can use free tiers from:
+                    </p>
+                    <ul className="text-green-700 text-sm space-y-1">
+                      <li>• Twilio (Free trial with $15 credit)</li>
+                      <li>• EmailJS (200 free emails/month)</li>
+                      <li>• SendGrid (100 free emails/day)</li>
+                    </ul>
+                  </div>
                 </div>
               </CardContent>
             </Card>
