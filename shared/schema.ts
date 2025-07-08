@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -54,6 +54,36 @@ export const videos = pgTable("videos", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Loyalty program tables
+export const loyaltyCustomers = pgTable("loyalty_customers", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 50 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  totalVisits: integer("total_visits").default(0),
+  currentPoints: integer("current_points").default(0),
+  totalRewards: integer("total_rewards").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const loyaltyVisits = pgTable("loyalty_visits", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => loyaltyCustomers.id),
+  visitDate: timestamp("visit_date").defaultNow(),
+  pointsEarned: integer("points_earned").default(1),
+  notes: text("notes"),
+});
+
+export const loyaltyRewards = pgTable("loyalty_rewards", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => loyaltyCustomers.id),
+  rewardType: varchar("reward_type", { length: 100 }).default("free_coffee"),
+  pointsUsed: integer("points_used").default(5),
+  redeemedAt: timestamp("redeemed_at").defaultNow(),
+  notes: text("notes"),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   points: true,
@@ -86,6 +116,25 @@ export const insertVideoSchema = createInsertSchema(videos).omit({
   createdAt: true,
 });
 
+export const insertLoyaltyCustomerSchema = createInsertSchema(loyaltyCustomers).omit({
+  id: true,
+  totalVisits: true,
+  currentPoints: true,
+  totalRewards: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLoyaltyVisitSchema = createInsertSchema(loyaltyVisits).omit({
+  id: true,
+  visitDate: true,
+});
+
+export const insertLoyaltyRewardSchema = createInsertSchema(loyaltyRewards).omit({
+  id: true,
+  redeemedAt: true,
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type MenuItem = typeof menuItems.$inferSelect;
@@ -97,3 +146,10 @@ export type MarketingContact = typeof marketingContacts.$inferSelect;
 export type InsertMarketingContact = z.infer<typeof insertMarketingContactSchema>;
 export type Video = typeof videos.$inferSelect;
 export type InsertVideo = z.infer<typeof insertVideoSchema>;
+
+export type LoyaltyCustomer = typeof loyaltyCustomers.$inferSelect;
+export type InsertLoyaltyCustomer = z.infer<typeof insertLoyaltyCustomerSchema>;
+export type LoyaltyVisit = typeof loyaltyVisits.$inferSelect;
+export type InsertLoyaltyVisit = z.infer<typeof insertLoyaltyVisitSchema>;
+export type LoyaltyReward = typeof loyaltyRewards.$inferSelect;
+export type InsertLoyaltyReward = z.infer<typeof insertLoyaltyRewardSchema>;

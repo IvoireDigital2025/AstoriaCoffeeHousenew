@@ -4,6 +4,9 @@ import {
   contactMessages,
   marketingContacts,
   videos,
+  loyaltyCustomers,
+  loyaltyVisits,
+  loyaltyRewards,
   type User, 
   type InsertUser,
   type MenuItem,
@@ -13,7 +16,13 @@ import {
   type MarketingContact,
   type InsertMarketingContact,
   type Video,
-  type InsertVideo
+  type InsertVideo,
+  type LoyaltyCustomer,
+  type InsertLoyaltyCustomer,
+  type LoyaltyVisit,
+  type InsertLoyaltyVisit,
+  type LoyaltyReward,
+  type InsertLoyaltyReward
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, asc, desc } from "drizzle-orm";
@@ -48,6 +57,22 @@ export interface IStorage {
   getVideo(id: number): Promise<Video | undefined>;
   getAllVideos(): Promise<Video[]>;
   deleteVideo(id: number): Promise<void>;
+
+  // Loyalty program operations
+  getLoyaltyCustomer(id: number): Promise<LoyaltyCustomer | undefined>;
+  getLoyaltyCustomerByPhone(phone: string): Promise<LoyaltyCustomer | undefined>;
+  getLoyaltyCustomerByEmail(email: string): Promise<LoyaltyCustomer | undefined>;
+  createLoyaltyCustomer(customer: InsertLoyaltyCustomer): Promise<LoyaltyCustomer>;
+  updateLoyaltyCustomer(id: number, updates: Partial<LoyaltyCustomer>): Promise<LoyaltyCustomer | undefined>;
+  getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]>;
+  
+  createLoyaltyVisit(visit: InsertLoyaltyVisit): Promise<LoyaltyVisit>;
+  getLoyaltyVisitsByCustomer(customerId: number): Promise<LoyaltyVisit[]>;
+  getAllLoyaltyVisits(): Promise<LoyaltyVisit[]>;
+  
+  createLoyaltyReward(reward: InsertLoyaltyReward): Promise<LoyaltyReward>;
+  getLoyaltyRewardsByCustomer(customerId: number): Promise<LoyaltyReward[]>;
+  getAllLoyaltyRewards(): Promise<LoyaltyReward[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -57,12 +82,18 @@ export class MemStorage implements IStorage {
 
   private marketingContacts: Map<number, MarketingContact>;
   private videos: Map<number, Video>;
+  private loyaltyCustomers: Map<number, LoyaltyCustomer>;
+  private loyaltyVisits: Map<number, LoyaltyVisit>;
+  private loyaltyRewards: Map<number, LoyaltyReward>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
 
   private currentMarketingContactId: number;
   private currentVideoId: number;
+  private currentLoyaltyCustomerId: number;
+  private currentLoyaltyVisitId: number;
+  private currentLoyaltyRewardId: number;
 
   constructor() {
     this.users = new Map();
@@ -70,11 +101,17 @@ export class MemStorage implements IStorage {
     this.contactMessages = new Map();
     this.marketingContacts = new Map();
     this.videos = new Map();
+    this.loyaltyCustomers = new Map();
+    this.loyaltyVisits = new Map();
+    this.loyaltyRewards = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
     this.currentContactMessageId = 1;
     this.currentMarketingContactId = 1;
     this.currentVideoId = 1;
+    this.currentLoyaltyCustomerId = 1;
+    this.currentLoyaltyVisitId = 1;
+    this.currentLoyaltyRewardId = 1;
     
     // Initialize with sample menu items
     this.initializeMenuItems();
@@ -353,6 +390,96 @@ export class MemStorage implements IStorage {
   async deleteVideo(id: number): Promise<void> {
     this.videos.delete(id);
   }
+
+  // Loyalty program methods
+  async getLoyaltyCustomer(id: number): Promise<LoyaltyCustomer | undefined> {
+    return this.loyaltyCustomers.get(id);
+  }
+
+  async getLoyaltyCustomerByPhone(phone: string): Promise<LoyaltyCustomer | undefined> {
+    return Array.from(this.loyaltyCustomers.values()).find(customer => customer.phone === phone);
+  }
+
+  async getLoyaltyCustomerByEmail(email: string): Promise<LoyaltyCustomer | undefined> {
+    return Array.from(this.loyaltyCustomers.values()).find(customer => customer.email === email);
+  }
+
+  async createLoyaltyCustomer(insertCustomer: InsertLoyaltyCustomer): Promise<LoyaltyCustomer> {
+    const id = this.currentLoyaltyCustomerId++;
+    const customer: LoyaltyCustomer = {
+      id,
+      ...insertCustomer,
+      totalVisits: 0,
+      currentPoints: 0,
+      totalRewards: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.loyaltyCustomers.set(id, customer);
+    return customer;
+  }
+
+  async updateLoyaltyCustomer(id: number, updates: Partial<LoyaltyCustomer>): Promise<LoyaltyCustomer | undefined> {
+    const customer = this.loyaltyCustomers.get(id);
+    if (!customer) return undefined;
+    
+    const updatedCustomer = { ...customer, ...updates, updatedAt: new Date() };
+    this.loyaltyCustomers.set(id, updatedCustomer);
+    return updatedCustomer;
+  }
+
+  async getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]> {
+    return Array.from(this.loyaltyCustomers.values()).sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async createLoyaltyVisit(insertVisit: InsertLoyaltyVisit): Promise<LoyaltyVisit> {
+    const id = this.currentLoyaltyVisitId++;
+    const visit: LoyaltyVisit = {
+      id,
+      ...insertVisit,
+      visitDate: new Date(),
+      pointsEarned: insertVisit.pointsEarned || 1,
+    };
+    this.loyaltyVisits.set(id, visit);
+    return visit;
+  }
+
+  async getLoyaltyVisitsByCustomer(customerId: number): Promise<LoyaltyVisit[]> {
+    return Array.from(this.loyaltyVisits.values())
+      .filter(visit => visit.customerId === customerId)
+      .sort((a, b) => b.visitDate!.getTime() - a.visitDate!.getTime());
+  }
+
+  async getAllLoyaltyVisits(): Promise<LoyaltyVisit[]> {
+    return Array.from(this.loyaltyVisits.values()).sort((a, b) => 
+      b.visitDate!.getTime() - a.visitDate!.getTime()
+    );
+  }
+
+  async createLoyaltyReward(insertReward: InsertLoyaltyReward): Promise<LoyaltyReward> {
+    const id = this.currentLoyaltyRewardId++;
+    const reward: LoyaltyReward = {
+      id,
+      ...insertReward,
+      redeemedAt: new Date(),
+    };
+    this.loyaltyRewards.set(id, reward);
+    return reward;
+  }
+
+  async getLoyaltyRewardsByCustomer(customerId: number): Promise<LoyaltyReward[]> {
+    return Array.from(this.loyaltyRewards.values())
+      .filter(reward => reward.customerId === customerId)
+      .sort((a, b) => b.redeemedAt!.getTime() - a.redeemedAt!.getTime());
+  }
+
+  async getAllLoyaltyRewards(): Promise<LoyaltyReward[]> {
+    return Array.from(this.loyaltyRewards.values()).sort((a, b) => 
+      b.redeemedAt!.getTime() - a.redeemedAt!.getTime()
+    );
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -475,6 +602,92 @@ export class DatabaseStorage implements IStorage {
 
   async deleteVideo(id: number): Promise<void> {
     await db.delete(videos).where(eq(videos.id, id));
+  }
+
+  // Loyalty program methods
+  async getLoyaltyCustomer(id: number): Promise<LoyaltyCustomer | undefined> {
+    const [customer] = await db.select().from(loyaltyCustomers).where(eq(loyaltyCustomers.id, id));
+    return customer;
+  }
+
+  async getLoyaltyCustomerByPhone(phone: string): Promise<LoyaltyCustomer | undefined> {
+    const [customer] = await db.select().from(loyaltyCustomers).where(eq(loyaltyCustomers.phone, phone));
+    return customer;
+  }
+
+  async getLoyaltyCustomerByEmail(email: string): Promise<LoyaltyCustomer | undefined> {
+    const [customer] = await db.select().from(loyaltyCustomers).where(eq(loyaltyCustomers.email, email));
+    return customer;
+  }
+
+  async createLoyaltyCustomer(insertCustomer: InsertLoyaltyCustomer): Promise<LoyaltyCustomer> {
+    const [customer] = await db
+      .insert(loyaltyCustomers)
+      .values(insertCustomer)
+      .returning();
+    return customer;
+  }
+
+  async updateLoyaltyCustomer(id: number, updates: Partial<LoyaltyCustomer>): Promise<LoyaltyCustomer | undefined> {
+    const [customer] = await db
+      .update(loyaltyCustomers)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(loyaltyCustomers.id, id))
+      .returning();
+    return customer;
+  }
+
+  async getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]> {
+    return await db
+      .select()
+      .from(loyaltyCustomers)
+      .orderBy(desc(loyaltyCustomers.createdAt));
+  }
+
+  async createLoyaltyVisit(insertVisit: InsertLoyaltyVisit): Promise<LoyaltyVisit> {
+    const [visit] = await db
+      .insert(loyaltyVisits)
+      .values(insertVisit)
+      .returning();
+    return visit;
+  }
+
+  async getLoyaltyVisitsByCustomer(customerId: number): Promise<LoyaltyVisit[]> {
+    return await db
+      .select()
+      .from(loyaltyVisits)
+      .where(eq(loyaltyVisits.customerId, customerId))
+      .orderBy(desc(loyaltyVisits.visitDate));
+  }
+
+  async getAllLoyaltyVisits(): Promise<LoyaltyVisit[]> {
+    return await db
+      .select()
+      .from(loyaltyVisits)
+      .orderBy(desc(loyaltyVisits.visitDate));
+  }
+
+  async createLoyaltyReward(insertReward: InsertLoyaltyReward): Promise<LoyaltyReward> {
+    const [reward] = await db
+      .insert(loyaltyRewards)
+      .values(insertReward)
+      .returning();
+    return reward;
+  }
+
+  async getLoyaltyRewardsByCustomer(customerId: number): Promise<LoyaltyReward[]> {
+    return await db
+      .select()
+      .from(loyaltyRewards)
+      .where(eq(loyaltyRewards.customerId, customerId))
+      .orderBy(desc(loyaltyRewards.redeemedAt));
+  }
+
+  async getAllLoyaltyRewards(): Promise<LoyaltyReward[]> {
+    return await db
+      .select()
+      .from(loyaltyRewards)
+      .orderBy(desc(loyaltyRewards.redeemedAt));
   }
 }
 

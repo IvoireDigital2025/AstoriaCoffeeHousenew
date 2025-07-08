@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2 } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -29,6 +29,34 @@ interface ContactMessage {
   subject: string;
   message: string;
   createdAt: string;
+}
+
+interface LoyaltyCustomer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  totalVisits: number;
+  currentPoints: number;
+  totalRewards: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface LoyaltyVisit {
+  id: number;
+  customerId: number;
+  visitDate: string;
+  pointsEarned: number;
+}
+
+interface LoyaltyReward {
+  id: number;
+  customerId: number;
+  rewardType: string;
+  pointsUsed: number;
+  notes: string | null;
+  redeemedAt: string;
 }
 
 export default function AdminDashboard() {
@@ -65,6 +93,78 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch contact messages');
       }
       return response.json();
+    }
+  });
+
+  // Loyalty program data queries
+  const { data: loyaltyCustomers, isLoading: loyaltyCustomersLoading } = useQuery({
+    queryKey: ['/api/admin/loyalty/customers'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/loyalty/customers');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch loyalty customers');
+      }
+      return response.json();
+    }
+  });
+
+  const { data: loyaltyVisits, isLoading: loyaltyVisitsLoading } = useQuery({
+    queryKey: ['/api/admin/loyalty/visits'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/loyalty/visits');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch loyalty visits');
+      }
+      return response.json();
+    }
+  });
+
+  const { data: loyaltyRewards, isLoading: loyaltyRewardsLoading } = useQuery({
+    queryKey: ['/api/admin/loyalty/rewards'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/loyalty/rewards');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch loyalty rewards');
+      }
+      return response.json();
+    }
+  });
+
+  // Redeem reward mutation
+  const redeemRewardMutation = useMutation({
+    mutationFn: async ({ customerId, notes }: { customerId: number; notes?: string }) => {
+      await apiRequest('/api/admin/loyalty/redeem', {
+        method: 'POST',
+        body: JSON.stringify({ customerId, notes }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/loyalty/customers'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/loyalty/rewards'] });
+      toast({
+        title: "Reward Redeemed",
+        description: "Customer reward has been redeemed successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Redeem Failed",
+        description: error.message || "Failed to redeem reward",
+        variant: "destructive",
+      });
     }
   });
 
@@ -166,7 +266,7 @@ export default function AdminDashboard() {
     return acc;
   }, {}) || {};
 
-  if (contactsLoading || messagesLoading) {
+  if (contactsLoading || messagesLoading || loyaltyCustomersLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white p-6">
         <div className="max-w-7xl mx-auto">
@@ -203,7 +303,7 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="marketing" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="marketing" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               Marketing Contacts ({totalContacts})
@@ -211,6 +311,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="messages" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
               Customer Messages ({contactMessages?.length || 0})
+            </TabsTrigger>
+            <TabsTrigger value="loyalty" className="flex items-center gap-2">
+              <Coffee className="w-4 h-4" />
+              Loyalty Program ({loyaltyCustomers?.length || 0})
             </TabsTrigger>
           </TabsList>
 
@@ -414,6 +518,188 @@ export default function AdminDashboard() {
                       <h3 className="text-lg font-medium text-coffee-dark mb-2">No customer messages</h3>
                       <p className="text-coffee-medium">
                         Customer messages from the contact form will appear here
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="loyalty" className="space-y-8">
+            {/* Loyalty Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2">
+                    <User className="w-8 h-8 text-coffee-primary" />
+                    <div>
+                      <p className="text-sm text-coffee-medium">Total Customers</p>
+                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyCustomers?.length || 0}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2">
+                    <Coffee className="w-8 h-8 text-coffee-primary" />
+                    <div>
+                      <p className="text-sm text-coffee-medium">Total Visits</p>
+                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyVisits?.length || 0}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2">
+                    <Gift className="w-8 h-8 text-coffee-primary" />
+                    <div>
+                      <p className="text-sm text-coffee-medium">Total Rewards</p>
+                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyRewards?.length || 0}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2">
+                    <Star className="w-8 h-8 text-coffee-primary" />
+                    <div>
+                      <p className="text-sm text-coffee-medium">Active Points</p>
+                      <p className="text-2xl font-bold text-coffee-dark">
+                        {loyaltyCustomers?.reduce((sum, customer) => sum + (customer.currentPoints || 0), 0) || 0}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Loyalty Customers Table */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Coffee className="w-5 h-5" />
+                  Loyalty Customers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  {loyaltyCustomersLoading ? (
+                    <div className="space-y-4">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      ))}
+                    </div>
+                  ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
+                    <div className="space-y-4">
+                      {loyaltyCustomers.map((customer: LoyaltyCustomer) => (
+                        <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
+                            <div>
+                              <p className="font-medium text-coffee-dark">{customer.name}</p>
+                              <p className="text-sm text-coffee-medium">{customer.email}</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-sm text-coffee-medium">Phone</p>
+                              <p className="text-coffee-dark">{customer.phone}</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-sm text-coffee-medium">Visits</p>
+                              <p className="text-coffee-dark font-bold">{customer.totalVisits}</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-sm text-coffee-medium">Current Points</p>
+                              <Badge variant={customer.currentPoints >= 5 ? "default" : "secondary"}>
+                                {customer.currentPoints}
+                              </Badge>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-sm text-coffee-medium">Total Rewards</p>
+                              <p className="text-coffee-dark font-bold">{customer.totalRewards}</p>
+                            </div>
+                            <div className="text-center">
+                              {customer.currentPoints >= 5 && (
+                                <Button
+                                  size="sm"
+                                  onClick={() => redeemRewardMutation.mutate({ customerId: customer.id })}
+                                  disabled={redeemRewardMutation.isPending}
+                                  className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                                >
+                                  <Gift className="w-4 h-4 mr-1" />
+                                  Redeem
+                                </Button>
+                              )}
+                              {customer.currentPoints < 5 && (
+                                <p className="text-xs text-coffee-medium">
+                                  {5 - customer.currentPoints} more to reward
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mt-2 text-xs text-coffee-medium">
+                            Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <Coffee className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-500 font-medium">No loyalty customers yet</p>
+                      <p className="text-gray-400 text-sm">
+                        Customer loyalty check-ins will appear here
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Visits */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
+                  Recent Visits
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  {loyaltyVisitsLoading ? (
+                    <div className="space-y-4">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      ))}
+                    </div>
+                  ) : loyaltyVisits && loyaltyVisits.length > 0 ? (
+                    <div className="space-y-3">
+                      {loyaltyVisits.slice(0, 10).map((visit: LoyaltyVisit) => {
+                        const customer = loyaltyCustomers?.find((c: LoyaltyCustomer) => c.id === visit.customerId);
+                        return (
+                          <div key={visit.id} className="flex justify-between items-center border-b pb-2">
+                            <div>
+                              <p className="font-medium text-coffee-dark">{customer?.name || `Customer ${visit.customerId}`}</p>
+                              <p className="text-sm text-coffee-medium">{customer?.phone}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm text-coffee-dark">+{visit.pointsEarned} points</p>
+                              <p className="text-xs text-coffee-medium">
+                                {format(new Date(visit.visitDate), 'MMM dd, yyyy h:mm a')}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-500 font-medium">No visits recorded yet</p>
+                      <p className="text-gray-400 text-sm">
+                        Customer check-ins will appear here
                       </p>
                     </div>
                   )}

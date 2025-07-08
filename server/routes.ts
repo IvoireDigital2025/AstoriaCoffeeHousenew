@@ -4,7 +4,10 @@ import { storage } from "./storage";
 import { 
   insertUserSchema, 
   insertContactMessageSchema,
-  insertMarketingContactSchema
+  insertMarketingContactSchema,
+  insertLoyaltyCustomerSchema,
+  insertLoyaltyVisitSchema,
+  insertLoyaltyRewardSchema
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -217,7 +220,134 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Loyalty program routes
+  
+  // QR Code check-in endpoint (for customers)
+  app.post("/api/loyalty/checkin", async (req, res) => {
+    try {
+      const { name, phone, email } = req.body;
+      
+      if (!name || !phone || !email) {
+        return res.status(400).json({ message: "Name, phone, and email are required" });
+      }
 
+      // Check if customer exists by phone (primary identifier)
+      let customer = await storage.getLoyaltyCustomerByPhone(phone);
+      
+      if (!customer) {
+        // Create new customer
+        customer = await storage.createLoyaltyCustomer({ name, phone, email });
+      }
+
+      // Create visit record
+      const visit = await storage.createLoyaltyVisit({
+        customerId: customer.id,
+        pointsEarned: 1,
+      });
+
+      // Update customer points and visit count
+      const updatedCustomer = await storage.updateLoyaltyCustomer(customer.id, {
+        totalVisits: (customer.totalVisits || 0) + 1,
+        currentPoints: (customer.currentPoints || 0) + 1,
+      });
+
+      // Check if customer earned a free coffee (5 points)
+      const earnedReward = updatedCustomer && updatedCustomer.currentPoints >= 5;
+      
+      if (earnedReward) {
+        // Create reward record
+        await storage.createLoyaltyReward({
+          customerId: customer.id,
+          rewardType: "free_coffee",
+          pointsUsed: 5,
+        });
+        
+        // Reset current points
+        await storage.updateLoyaltyCustomer(customer.id, {
+          currentPoints: updatedCustomer.currentPoints - 5,
+          totalRewards: (updatedCustomer.totalRewards || 0) + 1,
+        });
+      }
+
+      res.json({
+        message: earnedReward ? "Congratulations! You earned a free coffee!" : "Check-in successful!",
+        customer: updatedCustomer,
+        visit: visit,
+        earnedReward,
+        pointsToNextReward: earnedReward ? 5 : (5 - (updatedCustomer?.currentPoints || 0)),
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  // Admin routes for loyalty program
+  app.get("/api/admin/loyalty/customers", requireAdminAuth, async (req, res) => {
+    try {
+      const customers = await storage.getAllLoyaltyCustomers();
+      res.json(customers);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/loyalty/visits", requireAdminAuth, async (req, res) => {
+    try {
+      const visits = await storage.getAllLoyaltyVisits();
+      res.json(visits);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/loyalty/rewards", requireAdminAuth, async (req, res) => {
+    try {
+      const rewards = await storage.getAllLoyaltyRewards();
+      res.json(rewards);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post("/api/admin/loyalty/redeem", requireAdminAuth, async (req, res) => {
+    try {
+      const { customerId, notes } = req.body;
+      
+      if (!customerId) {
+        return res.status(400).json({ message: "Customer ID is required" });
+      }
+
+      const customer = await storage.getLoyaltyCustomer(customerId);
+      if (!customer) {
+        return res.status(404).json({ message: "Customer not found" });
+      }
+
+      if ((customer.currentPoints || 0) < 5) {
+        return res.status(400).json({ message: "Customer doesn't have enough points for a reward" });
+      }
+
+      // Create reward record
+      await storage.createLoyaltyReward({
+        customerId: customer.id,
+        rewardType: "free_coffee",
+        pointsUsed: 5,
+        notes,
+      });
+      
+      // Update customer points
+      const updatedCustomer = await storage.updateLoyaltyCustomer(customer.id, {
+        currentPoints: customer.currentPoints - 5,
+        totalRewards: (customer.totalRewards || 0) + 1,
+      });
+
+      res.json({
+        message: "Reward redeemed successfully",
+        customer: updatedCustomer,
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;
