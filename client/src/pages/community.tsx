@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Users, Heart, Star, MessageCircle } from "lucide-react";
+import { Coffee, Users, Heart, Star, MessageCircle, Play, Instagram } from "lucide-react";
 import NewsletterSignup from "@/components/newsletter-signup";
 
 // Community photos imports
@@ -232,6 +232,67 @@ export default function Community() {
                     <p className="text-coffee-medium text-sm">Our community sharing their Coffee Pro experiences on social media with #coffeepro #egyptian #queenscoffee.</p>
                   </CardContent>
                 </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Instagram Video Section */}
+      <section className="py-16 px-6 bg-gradient-to-r from-coffee-primary/5 to-amber-100/20">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="p-3 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full">
+                <Instagram className="w-8 h-8 text-pink-600" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-coffee-dark">
+                Our Most Popular Video
+              </h2>
+            </div>
+            <p className="text-lg text-coffee-medium max-w-2xl mx-auto mb-8">
+              See why our community loves Coffee Pro! Watch our most popular Instagram video featuring authentic Egyptian coffee culture and the warm atmosphere that makes us special.
+            </p>
+          </div>
+
+          <Card className="bg-white/95 backdrop-blur-sm border border-coffee-accent/20 shadow-xl rounded-2xl overflow-hidden">
+            <CardContent className="p-8 text-center">
+              <div className="relative bg-gradient-to-br from-coffee-primary/10 to-amber-100/30 rounded-xl p-12 mb-6">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+                    <Play className="w-8 h-8 text-white ml-1 group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-coffee-dark mb-4">
+                  Experience Coffee Pro's Authentic Egyptian Atmosphere
+                </h3>
+                <p className="text-coffee-medium text-lg mb-6">
+                  Join thousands of viewers who've discovered the magic of our coffee shop through this viral Instagram video.
+                </p>
+                <a 
+                  href="https://www.instagram.com/coffee_pro_astoria/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  <Instagram className="w-5 h-5" />
+                  Watch on Instagram
+                </a>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="bg-coffee-cream/50 rounded-xl p-6">
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">50K+</div>
+                  <div className="text-coffee-medium">Views</div>
+                </div>
+                <div className="bg-coffee-cream/50 rounded-xl p-6">
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">2K+</div>
+                  <div className="text-coffee-medium">Likes</div>
+                </div>
+                <div className="bg-coffee-cream/50 rounded-xl p-6">
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">500+</div>
+                  <div className="text-coffee-medium">Comments</div>
+                </div>
               </div>
             </CardContent>
           </Card>
