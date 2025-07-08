@@ -22,9 +22,9 @@ const moods: Mood[] = [
     description: "Cheerful and optimistic",
     recommendations: [
       {
-        name: "Pistachio Iced Latte",
-        description: "Iced latte with authentic Middle Eastern pistachio syrup. A delightful, sweet treat that matches your joyful mood perfectly.",
-        reason: "Sweet, nutty flavors enhance happiness and create a celebratory coffee experience"
+        name: "Tiramisu Pro Frappe",
+        description: "Luxurious coffee frappe with mascarpone flavors and chocolate garnish. A delightful treat that matches your joyful mood perfectly.",
+        reason: "Sweet, indulgent flavors enhance happiness and create a celebratory coffee experience"
       },
       {
         name: "Rose Water Cappuccino",
@@ -39,14 +39,14 @@ const moods: Mood[] = [
     description: "Need an energy boost",
     recommendations: [
       {
-        name: "Saffron Cold Brew",
-        description: "Cold brew coffee infused with precious saffron threads. Perfect for sustained energy without the jitters.",
+        name: "Cold Brew",
+        description: "Smooth, bold cold brew coffee served over ice. Perfect for when you need a strong caffeine boost without the heat.",
         reason: "High caffeine content provides long-lasting energy boost to combat fatigue"
       },
       {
-        name: "Date Syrup Macchiato",
-        description: "Espresso macchiato sweetened with natural date syrup. A refreshing pick-me-up drink with natural sweetness.",
-        reason: "Combines strong coffee with natural energy from date syrup for instant alertness"
+        name: "Pro Frappe",
+        description: "Our signature iced coffee blend with rich espresso, creamy texture, and energizing taste. A refreshing pick-me-up drink.",
+        reason: "Combines strong coffee with refreshing cold temperature for instant alertness"
       }
     ]
   },
