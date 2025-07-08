@@ -12,7 +12,6 @@ interface Mood {
     name: string;
     description: string;
     reason: string;
-    price: string;
   }[];
 }
 
@@ -31,14 +30,12 @@ const moods: Mood[] = [
       {
         name: "Cold Brew",
         description: "Smooth, concentrated coffee served cold for maximum caffeine impact. Perfect for sustained energy without the jitters.",
-        reason: "High caffeine content provides long-lasting energy boost to combat fatigue",
-        price: "$4.50"
+        reason: "High caffeine content provides long-lasting energy boost to combat fatigue"
       },
       {
         name: "Pro Frappe",
         description: "Our signature iced coffee blend with rich espresso, creamy texture, and energizing taste. A refreshing pick-me-up drink.",
-        reason: "Combines strong coffee with refreshing cold temperature for instant alertness",
-        price: "$5.25"
+        reason: "Combines strong coffee with refreshing cold temperature for instant alertness"
       }
     ]
   },
@@ -158,13 +155,10 @@ export default function MoodSelector() {
                   {selectedMood?.recommendations.map((rec, index) => (
                     <Card key={index} className="bg-gradient-to-br from-white via-coffee-cream/20 to-coffee-cream/40 border-2 border-coffee-accent/30 hover:border-coffee-secondary/50 hover:shadow-2xl hover:shadow-coffee-secondary/20 transition-all duration-300 rounded-2xl overflow-hidden transform hover:scale-105 hover:-translate-y-1">
                       <CardContent className="p-8">
-                        <div className="flex items-start justify-between mb-6">
+                        <div className="mb-6">
                           <h4 className="text-2xl font-playfair font-bold text-coffee-dark">
                             {rec.name}
                           </h4>
-                          <Badge className="bg-gradient-to-r from-coffee-secondary to-blue-600 text-white font-bold px-4 py-2 text-lg rounded-full shadow-lg">
-                            {rec.price}
-                          </Badge>
                         </div>
                         <p className="text-coffee-medium mb-6 leading-relaxed text-lg">
                           {rec.description}
