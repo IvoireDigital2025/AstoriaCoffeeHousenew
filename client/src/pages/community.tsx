@@ -366,32 +366,40 @@ export default function Community() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-coffee-dark mb-4">
-              What Our Community Says
+              Google Reviews
             </h2>
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="flex text-orange-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-current" />
+                ))}
+              </div>
+              <span className="text-lg font-semibold text-coffee-dark">4.9</span>
+              <span className="text-coffee-medium">from 223 reviews</span>
+            </div>
             <p className="text-lg text-coffee-medium max-w-2xl mx-auto">
-              Hear from the people who make Coffee Pro their daily destination.
+              Authentic feedback from our valued customers on Google.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Sample testimonials - these would be replaced with real community feedback */}
             {[
               {
-                name: "Sarah M.",
-                role: "Regular Customer",
-                text: "Coffee Pro feels like a second home. The staff remembers my order and always greets me with a smile. The authentic Middle Eastern atmosphere is unmatched in NYC.",
+                name: "Summer Choi",
+                role: "Google Customer",
+                text: "One of the best dessert spots I've been to in New York! The desserts were absolutely delicious—perfectly balanced flavors and not too sweet. I especially loved the pistachio cheese bomb. The atmosphere was cozy and inviting.",
                 rating: 5
               },
               {
-                name: "Ahmed K.",
-                role: "Community Member",
-                text: "As someone from the Middle East, finding authentic coffee and hospitality here brings me so much joy. It's like a little piece of home in Queens.",
+                name: "Jona Lama",
+                role: "Google Customer", 
+                text: "Coffee Pro is a fantastic spot for great coffee and pastries. The quality is excellent, and the cozy atmosphere makes it a perfect place to unwind. The staff are incredibly gentle and cheerful, adding a warm, welcoming touch to the experience. Highly recommend for coffee lovers!",
                 rating: 5
               },
               {
-                name: "Maria L.",
-                role: "Local Resident",
-                text: "I've been coming here since they opened. The quality is consistently excellent, and the cultural experience is educational and enriching for my whole family.",
+                name: "Janaan Harb",
+                role: "Google Customer",
+                text: "I got the cutest strawberry matcha with oat milk, a smoked salmon sandwich (I added avocado) and a Dubai muffin. The food was great and the staff were super sweet.",
                 rating: 5
               }
             ].map((testimonial, index) => (
