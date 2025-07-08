@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Star } from "lucide-react";
-import LoyaltyDashboard from "./loyalty-dashboard";
+import { Menu } from "lucide-react";
+
 
 export default function Navigation() {
   const [location] = useLocation();
-  const [isLoyaltyOpen, setIsLoyaltyOpen] = useState(false);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -16,7 +16,7 @@ export default function Navigation() {
     { path: "/mood-selector", label: "Mood Selector" },
     { path: "/about", label: "About" },
     { path: "/community", label: "Community" },
-    { path: "/loyalty", label: "Loyalty" },
+
     { path: "/contact", label: "Contact" },
   ];
 
@@ -100,16 +100,6 @@ export default function Navigation() {
                       </div>
                     </div>
                     <div className="p-6 space-y-3 border-t border-coffee-cream">
-                      <Button
-                        onClick={() => {
-                          setIsLoyaltyOpen(true);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className="w-full bg-coffee-primary hover:bg-coffee-primary/90 text-white py-3"
-                      >
-                        <Star className="h-4 w-4 mr-2" />
-                        Loyalty Program
-                      </Button>
                       <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
                         <Button
                           className="w-full bg-coffee-blue hover:bg-coffee-blue/90 text-white py-3"
@@ -127,10 +117,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      <LoyaltyDashboard 
-        isOpen={isLoyaltyOpen} 
-        onClose={() => setIsLoyaltyOpen(false)} 
-      />
+
     </>
   );
 }

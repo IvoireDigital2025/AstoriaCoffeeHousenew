@@ -12,7 +12,7 @@ import Menu from "@/pages/menu";
 import About from "@/pages/about";
 import Locations from "@/pages/locations";
 import Contact from "@/pages/contact";
-import Loyalty from "@/pages/loyalty";
+
 import Community from "@/pages/community";
 import MoodSelectorPage from "@/pages/mood-selector";
 import AdminDashboard from "@/pages/admin-dashboard";
@@ -30,7 +30,7 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/locations" component={Locations} />
           <Route path="/contact" component={Contact} />
-          <Route path="/loyalty" component={Loyalty} />
+
           <Route path="/community" component={Community} />
           <Route path="/mood-selector" component={MoodSelectorPage} />
           <Route path="/admin/login" component={AdminLogin} />

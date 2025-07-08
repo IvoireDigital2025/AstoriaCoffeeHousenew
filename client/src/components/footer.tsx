@@ -63,14 +63,7 @@ export default function Footer() {
                 </Link>
               </li>
 
-              <li>
-                <Link 
-                  to="/loyalty" 
-                  className="text-coffee-secondary hover:text-coffee-accent transition-colors"
-                >
-                  Loyalty Program
-                </Link>
-              </li>
+
               <li>
                 <Link 
                   to="/contact" 
