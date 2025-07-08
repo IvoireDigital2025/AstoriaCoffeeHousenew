@@ -105,6 +105,8 @@ export default function About() {
                 src="/attached_assets/IMG_2249_1751953361520.PNG"
                 alt="Coffee Pro brand identity and design elements featuring logo and coffee aesthetic"
                 className="rounded-2xl shadow-2xl w-full max-w-sm h-auto object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -147,6 +149,8 @@ export default function About() {
                   src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
                   alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
                   className="rounded-2xl shadow-2xl w-full max-w-48 h-auto object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute -bottom-3 -right-3 w-16 h-16 bg-gradient-to-br from-coffee-primary to-amber-600 rounded-full flex items-center justify-center">
                   <Coffee className="w-8 h-8 text-white" />

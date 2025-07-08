@@ -29,6 +29,61 @@
     font-size: 16px;
   }
   
+  /* Image optimization for better performance */
+  img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    loading: lazy;
+    /* Responsive image sizing */
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  /* Responsive image containers */
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Mobile-first image optimization */
+  @media (max-width: 768px) {
+    img {
+      image-rendering: optimizeSpeed;
+    }
+  }
+  
+  /* Preload critical images */
+  .hero-image {
+    loading: eager;
+  }
+  
+  /* Optimize background images */
+  .bg-cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+  }
+  
+  /* Performance optimizations */
+  .transform {
+    transform: translateZ(0);
+  }
+  
+  /* Minimize reflows and repaints */
+  .transition-all {
+    will-change: transform, opacity;
+  }
+  
+  /* Optimize fonts for performance */
+  @font-face {
+    font-display: swap;
+  }
+  
   @media (max-width: 768px) {
     /* Larger touch targets on mobile */
     .touch-target {

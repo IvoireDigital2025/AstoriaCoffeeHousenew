@@ -37,7 +37,8 @@ export default function Home() {
               <img 
                 src="/attached_assets/01_1749671523922.webp"
                 alt="Coffee Pro - Coffee & Bakery Logo"
-                className="h-16 w-auto"
+                className="h-16 w-auto hero-image"
+                loading="eager"
               />
               <h1 className="text-xl font-playfair font-bold leading-tight">
                 Welcome to
@@ -52,7 +53,8 @@ export default function Home() {
               <img 
                 src="/attached_assets/01_1749671523922.webp"
                 alt="Coffee Pro - Coffee & Bakery Logo"
-                className="h-20 md:h-24 w-auto"
+                className="h-20 md:h-24 w-auto hero-image"
+                loading="eager"
               />
             </div>
           </div>
@@ -307,6 +309,8 @@ export default function Home() {
                 src="/attached_assets/2024-12-14_1751843932493.webp" 
                 alt="Coffee Pro interior with warm lighting and comfortable seating"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white">
@@ -319,6 +323,8 @@ export default function Home() {
                 src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
                 alt="Perfect latte art created by Coffee Pro baristas"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white">
@@ -331,6 +337,8 @@ export default function Home() {
                 src="/attached_assets/unnamed (4)_1751844297728.webp" 
                 alt="Authentic Egyptian pastries with pistachio and chocolate at Coffee Pro"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white">
@@ -343,6 +351,8 @@ export default function Home() {
                 src="/attached_assets/unnamed (1)_1751844049412.webp" 
                 alt="Coffee Pro storefront with outdoor seating in Astoria"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white">
