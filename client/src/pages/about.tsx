@@ -73,6 +73,30 @@ export default function About() {
           </div>
         </div>
 
+        {/* Meet the Owner Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-playfair font-bold text-coffee-dark">
+              Meet the Owner
+            </h2>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-playfair font-semibold text-coffee-primary">
+                Mohamed
+              </h3>
+              <p className="text-lg text-coffee-medium leading-relaxed">
+                The owner, Mohamed, has a passion for coffee and has combined his travels with his love for Arabic culture in the cafe's design and menu.
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <img
+              src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
+              alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
+              className="rounded-xl shadow-lg w-full max-w-sm h-auto object-cover"
+            />
+          </div>
+        </div>
+
         {/* Values Section */}
         <div className="bg-coffee-cream rounded-xl p-12 mb-20">
           <h2 className="text-3xl font-playfair font-bold text-coffee-dark text-center mb-12">

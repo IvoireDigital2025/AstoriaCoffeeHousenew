@@ -124,6 +124,10 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Updated Community page to display actual Google rating (4.9 from 223 reviews)
 - ✓ Added specific customer reviews mentioning pistachio cheese bomb, strawberry matcha, and Dubai muffin
 - ✓ Completely removed loyalty program functionality from website navigation and components
+- ✓ Removed image from Contact page and adjusted layout to 2-column design
+- ✓ Removed "What Makes Our Community Special" section from Community page for streamlined focus
+- ✓ Added "Meet the Owner" section on About page featuring Mohamed's professional photo and personal story
+- ✓ Positioned owner section before "Our Values" section to personalize the brand experience
 
 
 ## User Preferences
