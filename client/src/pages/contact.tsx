@@ -220,6 +220,7 @@ export default function Contact() {
                     <Select 
                       value={formData.subject} 
                       onValueChange={(value) => handleInputChange("subject", value)}
+                      required
                     >
                       <SelectTrigger className="focus:border-coffee-primary focus:ring-coffee-primary">
                         <SelectValue placeholder="Select a subject" />
