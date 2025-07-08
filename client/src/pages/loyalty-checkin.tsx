@@ -5,9 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Gift, User, Phone, Mail, CheckCircle, QrCode } from "lucide-react";
+import { Coffee, Gift, User, Phone, Mail, CheckCircle } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
-import QRCodeComponent from "@/components/QRCode";
 
 interface CheckinResponse {
   message: string;
@@ -140,34 +139,8 @@ export default function LoyaltyCheckin() {
     );
   }
 
-  // Get current URL for QR code
-  const currentUrl = typeof window !== 'undefined' ? window.location.origin + '/loyalty' : '';
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white p-4">
-      {/* QR Code Display Section for Staff/Customers */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <Card className="shadow-lg">
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl font-bold text-coffee-dark flex items-center justify-center gap-2">
-              <QrCode className="w-6 h-6" />
-              Coffee Pro Loyalty Program QR Code
-            </CardTitle>
-            <p className="text-coffee-medium">Scan this code or visit this page to check-in and earn rewards</p>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center space-y-4">
-            <div className="bg-white p-4 rounded-lg shadow-inner">
-              <QRCodeComponent value={currentUrl} size={200} />
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-coffee-medium font-mono bg-coffee-cream/50 px-3 py-1 rounded">
-                {currentUrl}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
       {/* Check-in Form */}
       <div className="flex items-center justify-center">
         <Card className="w-full max-w-md shadow-lg">
@@ -176,7 +149,7 @@ export default function LoyaltyCheckin() {
               <Coffee className="w-16 h-16 text-coffee-primary" />
             </div>
             <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty</CardTitle>
-            <p className="text-coffee-medium">Scan QR code & check-in for rewards</p>
+            <p className="text-coffee-medium">Check-in to earn rewards</p>
           </CardHeader>
           <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
