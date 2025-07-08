@@ -24,9 +24,9 @@ export default function About() {
     },
     {
       icon: Award,
-      title: "Excellence",
-      description: "Our passion and unyielding commitment to excellence ensures every cup reflects the finest coffee artistry and craftsmanship.",
-      badge: "Artisan Craft"
+      title: "Heritage",
+      description: "We honor Egyptian coffee traditions while embracing innovation, creating a bridge between authentic cultural heritage and modern coffee artistry.",
+      badge: "Cultural Heritage"
     }
   ];
 
