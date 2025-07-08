@@ -53,13 +53,16 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-lg text-coffee-medium">
               <p>
-                Coffee Pro, an oasis of warmth and flavor in the vibrant heart of Astoria Boulevard in Long Island City, welcomes you with a unique blend of coffee artistry and Egyptian heritage. Established twelve months ago, this cozy coffee shop captivates visitors with its enchanting decor, inspired by the rich cultural traditions of Egypt.
+                Coffee Pro was founded from a deep passion for coffee, baking, and cultural connection. Inspired by the journey of the coffee bean - from its origins in fertile lands to its transformation into the perfect roast - and the rich baking traditions of the Middle East, especially Egypt, our brand blends heritage with craft.
               </p>
               <p>
-                Indulge in high-quality coffee, carefully crafted using the finest beans, reflecting the team's passion and unyielding commitment to excellence. From locally made pastries to authentic coffee experiences, Coffee Pro is a sanctuary where you can savor the distinctive taste of coffee and embark on a sensory journey that celebrates tradition and innovation.
+                Our identity draws from the natural beauty of the desert dunes, symbolizing growth, warmth, and timeless rituals of sharing coffee. At Coffee Pro, every cup and every pastry is a reflection of tradition, quality, and hospitality.
               </p>
               <p>
-                Our space serves as a bridge between the rich coffee heritage of Egypt and the dynamic energy of New York City, creating an atmosphere where every visit becomes a memorable experience rooted in authenticity and craftsmanship.
+                Born from one founder's dream to bring people together through flavor and experience, Coffee Pro is now a growing brand inviting passionate partners to join the journey.
+              </p>
+              <p>
+                We invite you to become part of the Coffee Pro family - to bring this shared passion to your community and to create a space where people don't just grab coffee, they stay for the story.
               </p>
             </div>
 
