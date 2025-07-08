@@ -22,9 +22,9 @@ const moods: Mood[] = [
     description: "Cheerful and optimistic",
     recommendations: [
       {
-        name: "Tiramisu Pro Frappe",
-        description: "Luxurious coffee frappe with mascarpone flavors and chocolate garnish. A delightful treat that matches your joyful mood perfectly.",
-        reason: "Sweet, indulgent flavors enhance happiness and create a celebratory coffee experience"
+        name: "Pistachio Iced Latte",
+        description: "Iced latte with authentic Middle Eastern pistachio syrup. A delightful, sweet treat that matches your joyful mood perfectly.",
+        reason: "Sweet, nutty flavors enhance happiness and create a celebratory coffee experience"
       },
       {
         name: "Rose Water Cappuccino",
@@ -39,14 +39,14 @@ const moods: Mood[] = [
     description: "Need an energy boost",
     recommendations: [
       {
-        name: "Cold Brew",
-        description: "Smooth, concentrated coffee served cold for maximum caffeine impact. Perfect for sustained energy without the jitters.",
+        name: "Saffron Cold Brew",
+        description: "Cold brew coffee infused with precious saffron threads. Perfect for sustained energy without the jitters.",
         reason: "High caffeine content provides long-lasting energy boost to combat fatigue"
       },
       {
-        name: "Pro Frappe",
-        description: "Our signature iced coffee blend with rich espresso, creamy texture, and energizing taste. A refreshing pick-me-up drink.",
-        reason: "Combines strong coffee with refreshing cold temperature for instant alertness"
+        name: "Date Syrup Macchiato",
+        description: "Espresso macchiato sweetened with natural date syrup. A refreshing pick-me-up drink with natural sweetness.",
+        reason: "Combines strong coffee with natural energy from date syrup for instant alertness"
       }
     ]
   },
@@ -56,14 +56,14 @@ const moods: Mood[] = [
     description: "Calm and peaceful state",
     recommendations: [
       {
-        name: "Caramel Pro",
-        description: "Rich, smooth coffee with luxurious caramel notes and creamy texture. A comforting blend perfect for peaceful moments and gentle indulgence.",
-        reason: "Sweet, comforting flavors complement a calm state of mind and enhance relaxation"
+        name: "Pistachio Iced Latte",
+        description: "Iced latte with authentic Middle Eastern pistachio syrup. A comforting blend perfect for peaceful moments and gentle indulgence.",
+        reason: "Sweet, nutty flavors complement a calm state of mind and enhance relaxation"
       },
       {
-        name: "Lavender Honey Coffee",
-        description: "Aromatic coffee infused with soothing lavender and natural honey sweetness. A unique blend that promotes tranquility and well-being.",
-        reason: "Lavender's calming properties and honey's natural sweetness create the perfect drink for peaceful moments"
+        name: "Date Syrup Macchiato",
+        description: "Espresso macchiato sweetened with natural date syrup. A unique blend that promotes tranquility and well-being with natural sweetness.",
+        reason: "Gentle coffee with natural date syrup provides comforting sweetness perfect for peaceful moments"
       }
     ]
   },
@@ -107,14 +107,14 @@ const moods: Mood[] = [
     description: "High energy boost",
     recommendations: [
       {
-        name: "Strawfee Clouds",
-        description: "Refreshing iced coffee with strawberry flavors and creamy clouds. A vibrant, energizing drink that matches your dynamic spirit.",
-        reason: "Fruity, refreshing flavors with caffeine boost amplify your natural energy and enthusiasm"
+        name: "Saffron Cold Brew",
+        description: "Cold brew coffee infused with precious saffron threads. A vibrant, energizing drink that matches your dynamic spirit.",
+        reason: "Bold cold brew with exotic saffron provides sustained energy perfect for high-intensity activities"
       },
       {
-        name: "Iced Americano",
-        description: "Bold espresso shots over ice for a clean, powerful coffee experience. Pure energy in its most concentrated form.",
-        reason: "Strong, cold coffee provides immediate energy boost perfect for high-intensity activities"
+        name: "Orange Blossom Americano",
+        description: "Classic Americano with a hint of orange blossom water. Pure energy in its most concentrated form with aromatic floral notes.",
+        reason: "Strong coffee with uplifting orange blossom provides immediate energy boost perfect for high-intensity activities"
       }
     ]
   },
