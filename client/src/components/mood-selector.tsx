@@ -27,7 +27,20 @@ const moods: Mood[] = [
     emoji: "😴",
     name: "Tired",
     description: "Need an energy boost",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Cold Brew",
+        description: "Smooth, concentrated coffee served cold for maximum caffeine impact. Perfect for sustained energy without the jitters.",
+        reason: "High caffeine content provides long-lasting energy boost to combat fatigue",
+        price: "$4.50"
+      },
+      {
+        name: "Pro Frappe",
+        description: "Our signature iced coffee blend with rich espresso, creamy texture, and energizing taste. A refreshing pick-me-up drink.",
+        reason: "Combines strong coffee with refreshing cold temperature for instant alertness",
+        price: "$5.25"
+      }
+    ]
   },
   {
     emoji: "😌",
