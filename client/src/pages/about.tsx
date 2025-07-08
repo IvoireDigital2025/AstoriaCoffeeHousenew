@@ -8,28 +8,10 @@ export default function About() {
     { number: "Growing", label: "Happy Customers" },
   ];
 
-  const images = [
-    {
-      src: "/attached_assets/unnamed (7)_1751846156927.webp",
-      alt: "Coffee Pro interior showing professional coffee equipment and elegant lighting",
-      className: ""
-    },
-    {
-      src: "/attached_assets/ChatGPT Image Jul 6, 2025, 05_10_05 PM_1751845854267.png",
-      alt: "Premium coffee beans used at Coffee Pro",
-      className: "mt-8"
-    },
-    {
-      src: "/attached_assets/unnamed (3)_1751845854268.webp",
-      alt: "Authentic Middle Eastern pastry with pistachio filling at Coffee Pro",
-      className: "-mt-8"
-    },
-    {
-      src: "/attached_assets/unnamed_1751845854269.webp",
-      alt: "Coffee Pro heritage corner with traditional Middle Eastern ambiance",
-      className: ""
-    }
-  ];
+  const brandImage = {
+    src: "/attached_assets/IMG_2249_1751953361520.PNG",
+    alt: "Coffee Pro brand identity and design elements featuring logo and coffee aesthetic",
+  };
 
   return (
     <div className="min-h-screen bg-white py-20">
@@ -81,16 +63,13 @@ export default function About() {
             </div>
           </div>
 
-          {/* Image Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {images.map((image, index) => (
-              <img
-                key={index}
-                src={image.src}
-                alt={image.alt}
-                className={`rounded-xl shadow-lg w-full h-auto object-cover ${image.className}`}
-              />
-            ))}
+          {/* Brand Image */}
+          <div className="flex justify-center">
+            <img
+              src={brandImage.src}
+              alt={brandImage.alt}
+              className="rounded-xl shadow-lg w-full max-w-md h-auto object-cover"
+            />
           </div>
         </div>
 
