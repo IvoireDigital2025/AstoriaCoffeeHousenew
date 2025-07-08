@@ -8,7 +8,8 @@ import {
   insertMarketingContactSchema,
   insertLoyaltyCustomerSchema,
   insertLoyaltyVisitSchema,
-  insertLoyaltyRewardSchema
+  insertLoyaltyRewardSchema,
+  insertFranchiseApplicationSchema
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -372,6 +373,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { id } = req.params;
       await storage.deleteMarketingContact(parseInt(id));
       res.json({ message: "Contact deleted successfully" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  // Franchise application routes
+  app.post("/api/franchise/apply", async (req, res) => {
+    try {
+      const applicationData = insertFranchiseApplicationSchema.parse(req.body);
+      const application = await storage.createFranchiseApplication(applicationData);
+      res.json({ 
+        message: "Franchise application submitted successfully!",
+        application 
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/franchise/applications", requireAdminAuth, async (req, res) => {
+    try {
+      const applications = await storage.getAllFranchiseApplications();
+      res.json(applications);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.patch("/api/admin/franchise/applications/:id/status", requireAdminAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      const application = await storage.updateFranchiseApplicationStatus(parseInt(id), status);
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      res.json(application);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.delete("/api/admin/franchise/applications/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteFranchiseApplication(parseInt(id));
+      res.json({ message: "Application deleted successfully" });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

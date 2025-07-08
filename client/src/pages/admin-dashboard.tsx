@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell, Building } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -67,6 +67,22 @@ interface Notification {
   sentAt: string;
   method: string;
   status: 'sent' | 'failed' | 'pending';
+}
+
+interface FranchiseApplication {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  businessExperience: string;
+  investmentCapacity: string;
+  preferredLocation: string;
+  timelineToOpen: string;
+  additionalInfo: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function AdminDashboard() {
@@ -162,6 +178,21 @@ export default function AdminDashboard() {
       }
       if (!response.ok) {
         throw new Error('Failed to fetch notifications');
+      }
+      return response.json();
+    }
+  });
+
+  const { data: franchiseApplications, isLoading: franchiseLoading } = useQuery({
+    queryKey: ['/api/admin/franchise/applications'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/franchise/applications');
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch franchise applications');
       }
       return response.json();
     }
@@ -350,7 +381,7 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="marketing" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="marketing" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               Marketing Contacts ({totalContacts})
@@ -362,6 +393,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="loyalty" className="flex items-center gap-2">
               <Coffee className="w-4 h-4" />
               Loyalty Program ({loyaltyCustomers?.length || 0})
+            </TabsTrigger>
+            <TabsTrigger value="franchise" className="flex items-center gap-2">
+              <Building className="w-4 h-4" />
+              Franchise Applications ({franchiseApplications?.length || 0})
             </TabsTrigger>
             <TabsTrigger value="notifications" className="flex items-center gap-2">
               <Bell className="w-4 h-4" />

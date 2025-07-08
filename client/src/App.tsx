@@ -19,6 +19,7 @@ import AdminDashboard from "@/pages/admin-dashboard";
 import AdminLogin from "@/pages/admin-login";
 import Loyalty from "@/pages/loyalty";
 import LoyaltyCheckin from "@/pages/loyalty-checkin";
+import Franchise from "@/pages/franchise";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -37,6 +38,7 @@ function Router() {
           <Route path="/mood-selector" component={MoodSelectorPage} />
           <Route path="/loyalty" component={Loyalty} />
           <Route path="/loyalty/checkin" component={LoyaltyCheckin} />
+          <Route path="/franchise" component={Franchise} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin/contacts" component={AdminDashboard} />
           <Route component={NotFound} />

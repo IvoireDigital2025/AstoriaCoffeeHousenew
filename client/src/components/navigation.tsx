@@ -53,14 +53,24 @@ export default function Navigation() {
                     {item.label}
                   </Link>
                 ))}
-                <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    className="bg-orange-600 hover:bg-orange-700 text-white"
-                    size="sm"
-                  >
-                    Order Delivery
-                  </Button>
-                </a>
+                <div className="flex items-center space-x-3">
+                  <Link href="/franchise">
+                    <Button
+                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                      size="sm"
+                    >
+                      Franchise Opportunity
+                    </Button>
+                  </Link>
+                  <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
+                    <Button
+                      className="bg-orange-600 hover:bg-orange-700 text-white"
+                      size="sm"
+                    >
+                      Order Delivery
+                    </Button>
+                  </a>
+                </div>
               </div>
             </div>
             
@@ -100,6 +110,14 @@ export default function Navigation() {
                       </div>
                     </div>
                     <div className="p-6 space-y-3 border-t border-coffee-cream">
+                      <Link href="/franchise">
+                        <Button
+                          className="w-full bg-coffee-primary hover:bg-coffee-medium text-white py-3"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Franchise Opportunity
+                        </Button>
+                      </Link>
                       <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
                         <Button
                           className="w-full bg-coffee-blue hover:bg-coffee-blue/90 text-white py-3"

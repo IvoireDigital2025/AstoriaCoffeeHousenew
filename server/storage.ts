@@ -7,6 +7,7 @@ import {
   loyaltyCustomers,
   loyaltyVisits,
   loyaltyRewards,
+  franchiseApplications,
   type User, 
   type InsertUser,
   type MenuItem,
@@ -22,7 +23,9 @@ import {
   type LoyaltyVisit,
   type InsertLoyaltyVisit,
   type LoyaltyReward,
-  type InsertLoyaltyReward
+  type InsertLoyaltyReward,
+  type FranchiseApplication,
+  type InsertFranchiseApplication
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, asc, desc } from "drizzle-orm";
@@ -74,6 +77,12 @@ export interface IStorage {
   createLoyaltyReward(reward: InsertLoyaltyReward): Promise<LoyaltyReward>;
   getLoyaltyRewardsByCustomer(customerId: number): Promise<LoyaltyReward[]>;
   getAllLoyaltyRewards(): Promise<LoyaltyReward[]>;
+
+  // Franchise application operations
+  createFranchiseApplication(application: InsertFranchiseApplication): Promise<FranchiseApplication>;
+  getAllFranchiseApplications(): Promise<FranchiseApplication[]>;
+  updateFranchiseApplicationStatus(id: number, status: string): Promise<FranchiseApplication | undefined>;
+  deleteFranchiseApplication(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -86,6 +95,7 @@ export class MemStorage implements IStorage {
   private loyaltyCustomers: Map<number, LoyaltyCustomer>;
   private loyaltyVisits: Map<number, LoyaltyVisit>;
   private loyaltyRewards: Map<number, LoyaltyReward>;
+  private franchiseApplications: Map<number, FranchiseApplication>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
@@ -95,6 +105,7 @@ export class MemStorage implements IStorage {
   private currentLoyaltyCustomerId: number;
   private currentLoyaltyVisitId: number;
   private currentLoyaltyRewardId: number;
+  private currentFranchiseApplicationId: number;
 
   constructor() {
     this.users = new Map();
@@ -105,6 +116,7 @@ export class MemStorage implements IStorage {
     this.loyaltyCustomers = new Map();
     this.loyaltyVisits = new Map();
     this.loyaltyRewards = new Map();
+    this.franchiseApplications = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
     this.currentContactMessageId = 1;
@@ -113,6 +125,7 @@ export class MemStorage implements IStorage {
     this.currentLoyaltyCustomerId = 1;
     this.currentLoyaltyVisitId = 1;
     this.currentLoyaltyRewardId = 1;
+    this.currentFranchiseApplicationId = 1;
     
     // Initialize with sample menu items
     this.initializeMenuItems();
@@ -485,6 +498,39 @@ export class MemStorage implements IStorage {
       b.redeemedAt!.getTime() - a.redeemedAt!.getTime()
     );
   }
+
+  // Franchise application methods
+  async createFranchiseApplication(insertApplication: InsertFranchiseApplication): Promise<FranchiseApplication> {
+    const id = this.currentFranchiseApplicationId++;
+    const application: FranchiseApplication = {
+      id,
+      ...insertApplication,
+      status: "pending",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.franchiseApplications.set(id, application);
+    return application;
+  }
+
+  async getAllFranchiseApplications(): Promise<FranchiseApplication[]> {
+    return Array.from(this.franchiseApplications.values()).sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async updateFranchiseApplicationStatus(id: number, status: string): Promise<FranchiseApplication | undefined> {
+    const application = this.franchiseApplications.get(id);
+    if (!application) return undefined;
+    
+    const updatedApplication = { ...application, status, updatedAt: new Date() };
+    this.franchiseApplications.set(id, updatedApplication);
+    return updatedApplication;
+  }
+
+  async deleteFranchiseApplication(id: number): Promise<void> {
+    this.franchiseApplications.delete(id);
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -697,6 +743,35 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(loyaltyRewards)
       .orderBy(desc(loyaltyRewards.redeemedAt));
+  }
+
+  // Franchise application methods
+  async createFranchiseApplication(insertApplication: InsertFranchiseApplication): Promise<FranchiseApplication> {
+    const [application] = await db
+      .insert(franchiseApplications)
+      .values(insertApplication)
+      .returning();
+    return application;
+  }
+
+  async getAllFranchiseApplications(): Promise<FranchiseApplication[]> {
+    return await db
+      .select()
+      .from(franchiseApplications)
+      .orderBy(desc(franchiseApplications.createdAt));
+  }
+
+  async updateFranchiseApplicationStatus(id: number, status: string): Promise<FranchiseApplication | undefined> {
+    const [application] = await db
+      .update(franchiseApplications)
+      .set({ status, updatedAt: new Date() })
+      .where(eq(franchiseApplications.id, id))
+      .returning();
+    return application || undefined;
+  }
+
+  async deleteFranchiseApplication(id: number): Promise<void> {
+    await db.delete(franchiseApplications).where(eq(franchiseApplications.id, id));
   }
 }
 

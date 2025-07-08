@@ -153,3 +153,29 @@ export type LoyaltyVisit = typeof loyaltyVisits.$inferSelect;
 export type InsertLoyaltyVisit = z.infer<typeof insertLoyaltyVisitSchema>;
 export type LoyaltyReward = typeof loyaltyRewards.$inferSelect;
 export type InsertLoyaltyReward = z.infer<typeof insertLoyaltyRewardSchema>;
+
+// Franchise applications table
+export const franchiseApplications = pgTable("franchise_applications", {
+  id: serial("id").primaryKey(),
+  firstName: varchar("first_name", { length: 100 }).notNull(),
+  lastName: varchar("last_name", { length: 100 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 20 }).notNull(),
+  businessExperience: text("business_experience").notNull(),
+  investmentCapacity: varchar("investment_capacity", { length: 50 }).notNull(),
+  preferredLocation: varchar("preferred_location", { length: 255 }).notNull(),
+  timelineToOpen: varchar("timeline_to_open", { length: 50 }).notNull(),
+  additionalInfo: text("additional_info"),
+  status: varchar("status", { length: 20 }).default("pending").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertFranchiseApplicationSchema = createInsertSchema(franchiseApplications).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type FranchiseApplication = typeof franchiseApplications.$inferSelect;
+export type InsertFranchiseApplication = z.infer<typeof insertFranchiseApplicationSchema>;
