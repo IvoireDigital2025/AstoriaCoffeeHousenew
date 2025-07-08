@@ -43,7 +43,18 @@ const moods: Mood[] = [
     emoji: "😌",
     name: "Relaxed",
     description: "Calm and peaceful state",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Caramel Pro",
+        description: "Rich, smooth coffee with luxurious caramel notes and creamy texture. A comforting blend perfect for peaceful moments and gentle indulgence.",
+        reason: "Sweet, comforting flavors complement a calm state of mind and enhance relaxation"
+      },
+      {
+        name: "Lavender Honey Coffee",
+        description: "Aromatic coffee infused with soothing lavender and natural honey sweetness. A unique blend that promotes tranquility and well-being.",
+        reason: "Lavender's calming properties and honey's natural sweetness create the perfect drink for peaceful moments"
+      }
+    ]
   },
   {
     emoji: "🤔",
