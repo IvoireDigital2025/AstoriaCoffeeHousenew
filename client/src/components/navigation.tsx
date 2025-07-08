@@ -13,7 +13,6 @@ export default function Navigation() {
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/menu", label: "Menu" },
-    { path: "/mood-selector", label: "Mood Selector" },
     { path: "/about", label: "About" },
     { path: "/community", label: "Community" },
     { path: "/loyalty", label: "Loyalty" },
