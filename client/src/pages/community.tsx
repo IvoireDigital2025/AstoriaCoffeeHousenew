@@ -294,72 +294,7 @@ export default function Community() {
         </div>
       </section>
 
-      {/* Community Values Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-coffee-dark mb-4">
-              What Makes Our Community Special
-            </h2>
-            <p className="text-lg text-coffee-medium max-w-2xl mx-auto">
-              Our community is built on shared values of hospitality, cultural appreciation, and genuine connection.
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Cultural Heritage */}
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-coffee-primary/20 to-amber-200/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Coffee className="w-8 h-8 text-coffee-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-coffee-dark mb-4">Cultural Heritage</h3>
-                <p className="text-coffee-medium leading-relaxed">
-                  We celebrate authentic Egyptian coffee traditions, 
-                  bringing authentic flavors and hospitality to New York City.
-                </p>
-                <Badge className="mt-4 bg-gradient-to-r from-coffee-primary to-amber-600 text-white">
-                  Authentic Traditions
-                </Badge>
-              </CardContent>
-            </Card>
-
-            {/* Community Connection */}
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-coffee-primary/20 to-amber-200/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="w-8 h-8 text-coffee-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-coffee-dark mb-4">Community Connection</h3>
-                <p className="text-coffee-medium leading-relaxed">
-                  Every customer becomes part of our extended family. We create lasting relationships 
-                  that go beyond just serving great coffee.
-                </p>
-                <Badge className="mt-4 bg-gradient-to-r from-coffee-primary to-amber-600 text-white">
-                  Family Atmosphere
-                </Badge>
-              </CardContent>
-            </Card>
-
-            {/* Quality & Service */}
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-coffee-primary/20 to-amber-200/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Star className="w-8 h-8 text-coffee-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-coffee-dark mb-4">Quality & Service</h3>
-                <p className="text-coffee-medium leading-relaxed">
-                  We're committed to excellence in every cup, every pastry, and every interaction. 
-                  Our community deserves nothing less than the best.
-                </p>
-                <Badge className="mt-4 bg-gradient-to-r from-coffee-primary to-amber-600 text-white">
-                  Excellence First
-                </Badge>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Community Testimonials */}
       <section className="py-16 px-6 bg-gradient-to-r from-coffee-primary/5 to-amber-100/30">
