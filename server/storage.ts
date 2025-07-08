@@ -33,6 +33,7 @@ export interface IStorage {
   // Contact operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   getAllContactMessages(): Promise<ContactMessage[]>;
+  deleteContactMessage(id: number): Promise<void>;
   
 
   
@@ -285,6 +286,10 @@ export class MemStorage implements IStorage {
     );
   }
 
+  async deleteContactMessage(id: number): Promise<void> {
+    this.contactMessages.delete(id);
+  }
+
 
 
   async createMarketingContact(insertContact: InsertMarketingContact): Promise<MarketingContact> {
@@ -407,6 +412,10 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(contactMessages)
       .orderBy(desc(contactMessages.createdAt));
+  }
+
+  async deleteContactMessage(id: number): Promise<void> {
+    await db.delete(contactMessages).where(eq(contactMessages.id, id));
   }
 
 

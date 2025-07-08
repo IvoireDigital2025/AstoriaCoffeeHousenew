@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface MarketingContact {
   id: number;
@@ -35,6 +36,7 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("all");
+  const queryClient = useQueryClient();
 
   const { data: contacts, isLoading: contactsLoading } = useQuery({
     queryKey: ['/api/marketing/contacts'],
@@ -65,6 +67,35 @@ export default function AdminDashboard() {
       return response.json();
     }
   });
+
+  // Delete contact message mutation
+  const deleteContactMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest(`/api/contact/${id}`, {
+        method: 'DELETE'
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/contact/messages'] });
+      toast({
+        title: "Contact Deleted",
+        description: "Contact message has been deleted successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Delete Failed",
+        description: error.message || "Failed to delete contact message",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleDeleteContact = async (id: number, name: string) => {
+    if (confirm(`Are you sure you want to delete the message from ${name}?`)) {
+      deleteContactMutation.mutate(id);
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -349,8 +380,19 @@ export default function AdminDashboard() {
                           <h3 className="font-medium text-coffee-dark">{message.name}</h3>
                           <p className="text-sm text-coffee-medium">{message.email}</p>
                         </div>
-                        <div className="text-sm text-coffee-medium">
-                          {format(new Date(message.createdAt), 'MMM d, yyyy HH:mm')}
+                        <div className="flex items-center gap-3">
+                          <div className="text-sm text-coffee-medium">
+                            {format(new Date(message.createdAt), 'MMM d, yyyy HH:mm')}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeleteContact(message.id, message.name)}
+                            disabled={deleteContactMutation.isPending}
+                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
                       </div>
                       

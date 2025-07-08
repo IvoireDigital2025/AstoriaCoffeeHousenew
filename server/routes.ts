@@ -9,6 +9,15 @@ import {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Admin authentication middleware
+  const requireAdminAuth = (req: any, res: any, next: any) => {
+    const isAuthenticated = req.session?.adminAuthenticated;
+    if (!isAuthenticated) {
+      return res.status(401).json({ message: "Admin authentication required" });
+    }
+    next();
+  };
+  
   // User/Loyalty routes
   app.post("/api/users", async (req, res) => {
     try {
@@ -92,6 +101,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.delete("/api/contact/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid contact ID" });
+      }
+      
+      await storage.deleteContactMessage(id);
+      res.json({ message: "Contact message deleted successfully" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
 
 
   // Marketing Contact routes
@@ -147,15 +170,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: error.message });
     }
   });
-
-  // Admin authentication middleware
-  const requireAdminAuth = (req: any, res: any, next: any) => {
-    const isAuthenticated = req.session?.adminAuthenticated;
-    if (!isAuthenticated) {
-      return res.status(401).json({ message: "Admin authentication required" });
-    }
-    next();
-  };
 
   // Admin login endpoint
   app.post("/api/admin/login", (req: any, res) => {
