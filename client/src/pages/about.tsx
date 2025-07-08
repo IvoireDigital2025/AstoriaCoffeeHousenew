@@ -146,7 +146,7 @@ export default function About() {
                 <img
                   src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
                   alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
-                  className="rounded-2xl shadow-2xl w-full max-w-xs h-auto object-cover"
+                  className="rounded-2xl shadow-2xl w-full max-w-48 h-auto object-cover"
                 />
                 <div className="absolute -bottom-3 -right-3 w-16 h-16 bg-gradient-to-br from-coffee-primary to-amber-600 rounded-full flex items-center justify-center">
                   <Coffee className="w-8 h-8 text-white" />
