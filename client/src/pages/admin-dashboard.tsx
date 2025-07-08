@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import QRCodeComponent from "@/components/QRCode";
 
 interface MarketingContact {
   id: number;
@@ -527,6 +528,34 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="loyalty" className="space-y-8">
+            {/* QR Code for Staff */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <QrCode className="w-5 h-5" />
+                  Loyalty Program QR Code
+                </CardTitle>
+                <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center space-y-4">
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <QRCodeComponent 
+                    value={typeof window !== 'undefined' ? window.location.origin + '/loyalty' : ''} 
+                    size={150} 
+                  />
+                </div>
+                <div className="text-center">
+                  <Button 
+                    onClick={() => window.open('/loyalty', '_blank')}
+                    className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                  >
+                    <QrCode className="w-4 h-4 mr-2" />
+                    Open QR Code Page
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Loyalty Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>

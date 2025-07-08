@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Gift, User, Phone, Mail, CheckCircle } from "lucide-react";
+import { Coffee, Gift, User, Phone, Mail, CheckCircle, QrCode } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
+import QRCodeComponent from "@/components/QRCode";
 
 interface CheckinResponse {
   message: string;
@@ -139,83 +140,112 @@ export default function LoyaltyCheckin() {
     );
   }
 
+  // Get current URL for QR code
+  const currentUrl = typeof window !== 'undefined' ? window.location.origin + '/loyalty' : '';
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4">
-            <Coffee className="w-16 h-16 text-coffee-primary" />
-          </div>
-          <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty</CardTitle>
-          <p className="text-coffee-medium">Scan QR code & check-in for rewards</p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="name" className="text-coffee-dark">Full Name</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
-                <Input
-                  id="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Enter your full name"
-                  className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
-                  required
-                />
-              </div>
+    <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white p-4">
+      {/* QR Code Display Section for Staff/Customers */}
+      <div className="max-w-4xl mx-auto mb-8">
+        <Card className="shadow-lg">
+          <CardHeader className="text-center">
+            <CardTitle className="text-xl font-bold text-coffee-dark flex items-center justify-center gap-2">
+              <QrCode className="w-6 h-6" />
+              Coffee Pro Loyalty Program QR Code
+            </CardTitle>
+            <p className="text-coffee-medium">Scan this code or visit this page to check-in and earn rewards</p>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center space-y-4">
+            <div className="bg-white p-4 rounded-lg shadow-inner">
+              <QRCodeComponent value={currentUrl} size={200} />
             </div>
-
-            <div>
-              <Label htmlFor="phone" className="text-coffee-dark">Phone Number</Label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                  placeholder="(555) 123-4567"
-                  className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="email" className="text-coffee-dark">Email Address</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  placeholder="your.email@example.com"
-                  className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="bg-coffee-cream/30 rounded-lg p-4 text-center">
-              <p className="text-sm text-coffee-medium">
-                <strong>How it works:</strong> Get 1 point per visit. Earn a free coffee at 5 points!
+            <div className="text-center">
+              <p className="text-sm text-coffee-medium font-mono bg-coffee-cream/50 px-3 py-1 rounded">
+                {currentUrl}
               </p>
             </div>
+          </CardContent>
+        </Card>
+      </div>
 
-            <Button 
-              type="submit" 
-              className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
-              disabled={checkinMutation.isPending}
-            >
-              <Coffee className="w-4 h-4 mr-2" />
-              {checkinMutation.isPending ? "Checking in..." : "Check In"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      {/* Check-in Form */}
+      <div className="flex items-center justify-center">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="text-center">
+            <div className="mx-auto mb-4">
+              <Coffee className="w-16 h-16 text-coffee-primary" />
+            </div>
+            <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty</CardTitle>
+            <p className="text-coffee-medium">Scan QR code & check-in for rewards</p>
+          </CardHeader>
+          <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="name" className="text-coffee-dark">Full Name</Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <Input
+                      id="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="Enter your full name"
+                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-coffee-dark">Phone Number</Label>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                      placeholder="(555) 123-4567"
+                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="text-coffee-dark">Email Address</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      placeholder="your.email@example.com"
+                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-coffee-cream/30 rounded-lg p-4 text-center">
+                  <p className="text-sm text-coffee-medium">
+                    <strong>How it works:</strong> Get 1 point per visit. Earn a free coffee at 5 points!
+                  </p>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
+                  disabled={checkinMutation.isPending}
+                >
+                  <Coffee className="w-4 h-4 mr-2" />
+                  {checkinMutation.isPending ? "Checking in..." : "Check In"}
+                </Button>
+              </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
