@@ -540,17 +540,17 @@ export default function AdminDashboard() {
               <CardContent className="flex flex-col items-center space-y-4">
                 <div className="bg-white p-4 rounded-lg shadow-inner">
                   <QRCodeComponent 
-                    value={typeof window !== 'undefined' ? window.location.origin + '/loyalty' : ''} 
+                    value={typeof window !== 'undefined' ? window.location.origin + '/loyalty/checkin' : ''} 
                     size={150} 
                   />
                 </div>
                 <div className="text-center">
                   <Button 
-                    onClick={() => window.open('/loyalty', '_blank')}
+                    onClick={() => window.open('/loyalty/checkin', '_blank')}
                     className="bg-coffee-primary hover:bg-coffee-medium text-white"
                   >
                     <QrCode className="w-4 h-4 mr-2" />
-                    Open QR Code Page
+                    Open Check-in Page
                   </Button>
                 </div>
               </CardContent>

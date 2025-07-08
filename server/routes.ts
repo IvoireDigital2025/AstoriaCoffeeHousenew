@@ -222,6 +222,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Loyalty program routes
   
+  // Registration endpoint (for customers to join online)
+  app.post("/api/loyalty/register", async (req, res) => {
+    try {
+      const { name, phone, email } = req.body;
+      
+      if (!name || !phone || !email) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
+
+      // Check if customer already exists by phone
+      const existingCustomer = await storage.getLoyaltyCustomerByPhone(phone);
+      if (existingCustomer) {
+        return res.status(400).json({ message: "A customer with this phone number is already registered" });
+      }
+
+      const customer = await storage.createLoyaltyCustomer({
+        name,
+        phone,
+        email,
+        currentPoints: 0,
+        totalVisits: 0,
+        totalRewards: 0,
+      });
+
+      res.json({ 
+        message: "Successfully registered for loyalty program!",
+        customer: {
+          id: customer.id,
+          name: customer.name,
+          currentPoints: customer.currentPoints,
+          totalVisits: customer.totalVisits,
+          totalRewards: customer.totalRewards,
+        }
+      });
+    } catch (error) {
+      console.error("Error registering for loyalty program:", error);
+      res.status(500).json({ message: "Failed to register for loyalty program" });
+    }
+  });
+  
   // QR Code check-in endpoint (for customers)
   app.post("/api/loyalty/checkin", async (req, res) => {
     try {
