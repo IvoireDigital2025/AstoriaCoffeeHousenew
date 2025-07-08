@@ -85,9 +85,32 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <div className="space-y-2 text-coffee-secondary">
               <p>Coffee Pro</p>
-              <p>23-33 Astoria Blvd, Astoria, NY 11102</p>
-              <p>(347) 329-6816</p>
-              <p>Coffeepro23@gmail.com</p>
+              <p>
+                <a 
+                  href="https://maps.google.com/?q=23-33+Astoria+Blvd,+Astoria,+NY+11102" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-coffee-accent transition-colors"
+                >
+                  23-33 Astoria Blvd, Astoria, NY 11102
+                </a>
+              </p>
+              <p>
+                <a 
+                  href="tel:+13473296816" 
+                  className="hover:text-coffee-accent transition-colors"
+                >
+                  (347) 329-6816
+                </a>
+              </p>
+              <p>
+                <a 
+                  href="mailto:Coffeepro23@gmail.com" 
+                  className="hover:text-coffee-accent transition-colors"
+                >
+                  Coffeepro23@gmail.com
+                </a>
+              </p>
             </div>
           </div>
         </div>
