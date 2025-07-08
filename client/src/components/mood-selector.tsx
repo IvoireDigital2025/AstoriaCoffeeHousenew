@@ -20,7 +20,18 @@ const moods: Mood[] = [
     emoji: "😊",
     name: "Happy",
     description: "Cheerful and optimistic",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Tiramisu Pro Frappe",
+        description: "Luxurious coffee frappe with mascarpone flavors and chocolate garnish. A delightful treat that matches your joyful mood perfectly.",
+        reason: "Sweet, indulgent flavors enhance happiness and create a celebratory coffee experience"
+      },
+      {
+        name: "Rose Water Cappuccino",
+        description: "Classic cappuccino enhanced with delicate rose water. An elegant and uplifting drink with floral notes that brighten your day.",
+        reason: "Aromatic rose water creates a cheerful, sophisticated drinking experience that complements your positive energy"
+      }
+    ]
   },
   {
     emoji: "😴",
@@ -60,19 +71,52 @@ const moods: Mood[] = [
     emoji: "🤔",
     name: "Focused",
     description: "Ready to concentrate",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Arabic Coffee (Qahwa)",
+        description: "Traditional Egyptian coffee with cardamom and saffron. A pure, concentrated coffee experience that enhances mental clarity and focus.",
+        reason: "Strong, authentic coffee with aromatic spices provides sustained concentration without distractions"
+      },
+      {
+        name: "Turkish Coffee",
+        description: "Finely ground coffee beans prepared in traditional Turkish style. Rich, intense flavor that sharpens mental alertness.",
+        reason: "Concentrated coffee preparation delivers focused energy and enhances cognitive performance"
+      }
+    ]
   },
   {
     emoji: "🥶",
     name: "Cold",
     description: "Want something warm",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Cardamom Latte",
+        description: "Espresso with steamed milk and aromatic cardamom spice. A warming, comforting drink with Middle Eastern spices that heat you from within.",
+        reason: "Hot, spiced latte provides immediate warmth and comfort on cold days"
+      },
+      {
+        name: "Egyptian Mint Tea",
+        description: "Traditional Atay with fresh mint leaves and sugar. A hot, soothing tea that warms your body and refreshes your spirit.",
+        reason: "Hot tea with warming spices provides gentle heat and comfort during cold weather"
+      }
+    ]
   },
   {
     emoji: "🔥",
     name: "Energetic",
     description: "High energy boost",
-    recommendations: []
+    recommendations: [
+      {
+        name: "Strawfee Clouds",
+        description: "Refreshing iced coffee with strawberry flavors and creamy clouds. A vibrant, energizing drink that matches your dynamic spirit.",
+        reason: "Fruity, refreshing flavors with caffeine boost amplify your natural energy and enthusiasm"
+      },
+      {
+        name: "Iced Americano",
+        description: "Bold espresso shots over ice for a clean, powerful coffee experience. Pure energy in its most concentrated form.",
+        reason: "Strong, cold coffee provides immediate energy boost perfect for high-intensity activities"
+      }
+    ]
   },
 
 ];
