@@ -115,7 +115,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="space-y-8">
@@ -262,18 +262,7 @@ export default function Contact() {
             </Card>
           </div>
 
-          {/* Map */}
-          <div className="lg:col-span-1">
-            <Card className="h-96 overflow-hidden border-none shadow-lg">
-              <CardContent className="p-0 h-full">
-                <img
-                  src="/attached_assets/unnamed (7)_1751846288527.webp"
-                  alt="Coffee Pro interior showing professional coffee equipment and elegant lighting"
-                  className="w-full h-full object-cover object-top"
-                />
-              </CardContent>
-            </Card>
-          </div>
+
         </div>
 
         {/* Newsletter Signup Section */}
