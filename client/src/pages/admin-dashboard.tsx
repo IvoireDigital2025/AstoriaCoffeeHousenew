@@ -167,6 +167,28 @@ export default function AdminDashboard() {
     }
   });
 
+  const deleteMarketingContactMutation = useMutation({
+    mutationFn: async (contactId: number) => {
+      await apiRequest(`/api/admin/marketing/contacts/${contactId}`, {
+        method: 'DELETE'
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/marketing/contacts'] });
+      toast({
+        title: "Contact deleted",
+        description: "Marketing contact has been successfully removed.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete contact",
+        variant: "destructive",
+      });
+    }
+  });
+
   // Redeem reward mutation
   const redeemRewardMutation = useMutation({
     mutationFn: async ({ customerId, notes }: { customerId: number; notes?: string }) => {
@@ -472,9 +494,20 @@ export default function AdminDashboard() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-coffee-medium">
-                          <Calendar className="w-4 h-4" />
-                          {format(new Date(contact.createdAt), 'MMM d, yyyy')}
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2 text-sm text-coffee-medium">
+                            <Calendar className="w-4 h-4" />
+                            {format(new Date(contact.createdAt), 'MMM d, yyyy')}
+                          </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => deleteMarketingContactMutation.mutate(contact.id)}
+                            disabled={deleteMarketingContactMutation.isPending}
+                            className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
                       </div>
                     </div>

@@ -51,6 +51,7 @@ export interface IStorage {
   getMarketingContactByEmail(email: string): Promise<MarketingContact | undefined>;
   updateMarketingContactSubscription(email: string, subscribed: boolean): Promise<MarketingContact | undefined>;
   getAllMarketingContacts(): Promise<MarketingContact[]>;
+  deleteMarketingContact(id: number): Promise<void>;
 
   // Video operations
   createVideo(video: InsertVideo): Promise<Video>;
@@ -364,6 +365,10 @@ export class MemStorage implements IStorage {
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
+  async deleteMarketingContact(id: number): Promise<void> {
+    this.marketingContacts.delete(id);
+  }
+
   // Video operations
   async createVideo(insertVideo: InsertVideo): Promise<Video> {
     const id = this.currentVideoId++;
@@ -577,6 +582,10 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(marketingContacts)
       .orderBy(desc(marketingContacts.createdAt));
+  }
+
+  async deleteMarketingContact(id: number): Promise<void> {
+    await db.delete(marketingContacts).where(eq(marketingContacts.id, id));
   }
 
   // Video operations
