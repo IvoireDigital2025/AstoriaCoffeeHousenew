@@ -258,11 +258,6 @@ export default function Community() {
           <Card className="bg-white/95 backdrop-blur-sm border border-coffee-accent/20 shadow-xl rounded-2xl overflow-hidden">
             <CardContent className="p-8 text-center">
               <div className="relative bg-gradient-to-br from-coffee-primary/10 to-amber-100/30 rounded-xl p-12 mb-6">
-                <div className="flex items-center justify-center mb-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
-                    <Play className="w-8 h-8 text-white ml-1 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                </div>
                 <h3 className="text-2xl font-bold text-coffee-dark mb-4">
                   Experience Coffee Pro's Authentic Egyptian Atmosphere
                 </h3>
