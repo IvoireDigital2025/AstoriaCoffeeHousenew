@@ -321,19 +321,19 @@ export default function Community() {
             {[
               {
                 name: "Summer Choi",
-                role: "Google Customer",
+                role: "",
                 text: "One of the best dessert spots I've been to in New York! The desserts were absolutely delicious—perfectly balanced flavors and not too sweet. I especially loved the pistachio cheese bomb. The atmosphere was cozy and inviting.",
                 rating: 5
               },
               {
                 name: "Jona Lama",
-                role: "Google Customer", 
+                role: "", 
                 text: "Coffee Pro is a fantastic spot for great coffee and pastries. The quality is excellent, and the cozy atmosphere makes it a perfect place to unwind. The staff are incredibly gentle and cheerful, adding a warm, welcoming touch to the experience. Highly recommend for coffee lovers!",
                 rating: 5
               },
               {
                 name: "Janaan Harb",
-                role: "Google Customer",
+                role: "",
                 text: "I got the cutest strawberry matcha with oat milk, a smoked salmon sandwich (I added avocado) and a Dubai muffin. The food was great and the staff were super sweet.",
                 rating: 5
               }
@@ -354,7 +354,6 @@ export default function Community() {
                     </div>
                     <div>
                       <p className="font-semibold text-coffee-dark">{testimonial.name}</p>
-                      <p className="text-sm text-coffee-medium">{testimonial.role}</p>
                     </div>
                   </div>
                 </CardContent>
