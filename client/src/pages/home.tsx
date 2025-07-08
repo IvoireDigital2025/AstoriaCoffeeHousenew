@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
-import MoodSelector from "@/components/mood-selector";
+import MoodButtons from "@/components/mood-buttons";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -103,7 +103,7 @@ export default function Home() {
                 Let your current mood guide you to the perfect coffee or treat selection
               </p>
             </div>
-            <MoodSelector />
+            <MoodButtons />
           </div>
         </div>
       </section>
