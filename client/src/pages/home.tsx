@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
-import MoodButtons from "@/components/mood-buttons";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -91,19 +90,6 @@ export default function Home() {
                 Join Loyalty Program
               </Button>
             </Link>
-          </div>
-          
-          {/* Mood-Based Recommendations */}
-          <div className="mt-8 max-w-4xl mx-auto">
-            <div className="text-center mb-6">
-              <h3 className="text-xl sm:text-2xl font-playfair font-bold text-white mb-2">
-                Find Your Perfect Match
-              </h3>
-              <p className="text-gray-200 text-sm sm:text-base">
-                Let your current mood guide you to the perfect coffee or treat selection
-              </p>
-            </div>
-            <MoodButtons />
           </div>
         </div>
       </section>
