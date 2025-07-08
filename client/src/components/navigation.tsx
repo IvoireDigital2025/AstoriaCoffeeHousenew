@@ -11,7 +11,6 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { path: "/", label: "Home" },
     { path: "/menu", label: "Menu" },
     { path: "/mood-selector", label: "Mood Selector" },
     { path: "/about", label: "About" },
