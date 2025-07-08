@@ -702,70 +702,89 @@ export default function AdminDashboard() {
               </Card>
             </div>
 
-            {/* Loyalty Customers Table */}
+            {/* Individual Customer Folders */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Coffee className="w-5 h-5" />
-                  Loyalty Customers
+                  <User className="w-5 h-5" />
+                  Individual Customer Folders
                 </CardTitle>
+                <p className="text-sm text-coffee-medium mt-1">
+                  Each customer has their own folder with points and visit history tracked by phone number
+                </p>
               </CardHeader>
               <CardContent>
-                <div className="overflow-x-auto">
+                <div className="space-y-4">
                   {loyaltyCustomersLoading ? (
                     <div className="space-y-4">
                       {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                        <div key={i} className="h-16 bg-gray-200 rounded animate-pulse"></div>
                       ))}
                     </div>
                   ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
                     <div className="space-y-4">
                       {loyaltyCustomers.map((customer: LoyaltyCustomer) => (
                         <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
-                            <div>
-                              <p className="font-medium text-coffee-dark">{customer.name}</p>
-                              <p className="text-sm text-coffee-medium">{customer.email}</p>
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-coffee-primary rounded-full flex items-center justify-center text-white font-bold">
+                                {customer.name.charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                <p className="font-bold text-coffee-dark">{customer.name}</p>
+                                <p className="text-sm text-coffee-medium">{customer.phone}</p>
+                                <p className="text-sm text-coffee-medium">{customer.email}</p>
+                              </div>
                             </div>
-                            <div className="text-center">
-                              <p className="text-sm text-coffee-medium">Phone</p>
-                              <p className="text-coffee-dark">{customer.phone}</p>
+                            <div className="text-right">
+                              <p className="text-xs text-coffee-medium">Customer ID: {customer.id}</p>
+                              <p className="text-xs text-coffee-medium">
+                                Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
+                              </p>
                             </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-3 bg-coffee-cream/30 rounded-lg">
                             <div className="text-center">
-                              <p className="text-sm text-coffee-medium">Visits</p>
-                              <p className="text-coffee-dark font-bold">{customer.totalVisits}</p>
+                              <p className="text-sm text-coffee-medium">Total Visits</p>
+                              <p className="text-2xl font-bold text-coffee-dark">{customer.totalVisits}</p>
                             </div>
                             <div className="text-center">
                               <p className="text-sm text-coffee-medium">Current Points</p>
-                              <Badge variant={customer.currentPoints >= 5 ? "default" : "secondary"}>
+                              <Badge 
+                                variant={customer.currentPoints >= 5 ? "default" : "secondary"}
+                                className="text-lg px-3 py-1"
+                              >
                                 {customer.currentPoints}
                               </Badge>
                             </div>
                             <div className="text-center">
                               <p className="text-sm text-coffee-medium">Total Rewards</p>
-                              <p className="text-coffee-dark font-bold">{customer.totalRewards}</p>
+                              <p className="text-2xl font-bold text-green-600">{customer.totalRewards}</p>
                             </div>
                             <div className="text-center">
-                              {customer.currentPoints >= 5 && (
+                              {customer.currentPoints >= 5 ? (
                                 <Button
                                   size="sm"
                                   onClick={() => redeemRewardMutation.mutate({ customerId: customer.id })}
                                   disabled={redeemRewardMutation.isPending}
-                                  className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                                  className="bg-green-600 hover:bg-green-700 text-white"
                                 >
                                   <Gift className="w-4 h-4 mr-1" />
-                                  Redeem
+                                  Redeem FREE Coffee
                                 </Button>
-                              )}
-                              {customer.currentPoints < 5 && (
-                                <p className="text-xs text-coffee-medium">
-                                  {5 - customer.currentPoints} more to reward
-                                </p>
+                              ) : (
+                                <div>
+                                  <p className="text-sm text-coffee-medium">Points to Reward</p>
+                                  <p className="text-lg font-bold text-amber-600">{5 - customer.currentPoints}</p>
+                                </div>
                               )}
                             </div>
                           </div>
-                          <div className="mt-2 text-xs text-coffee-medium">
-                            Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
+                          
+                          <div className="mt-3 text-xs text-coffee-medium">
+                            <p><strong>Recognition:</strong> System recognizes this customer by phone number {customer.phone}</p>
+                            <p><strong>Last Activity:</strong> {format(new Date(customer.updatedAt), 'MMM dd, yyyy HH:mm')}</p>
                           </div>
                         </div>
                       ))}
@@ -775,7 +794,7 @@ export default function AdminDashboard() {
                       <Coffee className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                       <p className="text-gray-500 font-medium">No loyalty customers yet</p>
                       <p className="text-gray-400 text-sm">
-                        Customer loyalty check-ins will appear here
+                        When customers check-in using QR codes, their individual folders will appear here
                       </p>
                     </div>
                   )}

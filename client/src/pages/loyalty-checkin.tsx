@@ -28,6 +28,7 @@ export default function LoyaltyCheckin() {
     email: "",
   });
   const [checkinResult, setCheckinResult] = useState<CheckinResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const checkinMutation = useMutation({
@@ -148,8 +149,19 @@ export default function LoyaltyCheckin() {
             <div className="mx-auto mb-4">
               <Coffee className="w-16 h-16 text-coffee-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty</CardTitle>
-            <p className="text-coffee-medium">Check-in to earn rewards</p>
+            <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty Check-in</CardTitle>
+            <p className="text-coffee-medium">Earn 1 point per visit • 5 points = 1 FREE Coffee</p>
+            
+            {/* How It Works */}
+            <div className="bg-amber-50 rounded-lg p-4 mt-4 text-left">
+              <h4 className="font-bold text-coffee-dark mb-2 text-sm">How Our System Works:</h4>
+              <ul className="text-xs text-coffee-medium space-y-1">
+                <li>• Each customer has their own account tracked by phone number</li>
+                <li>• Your points and visit history are saved automatically</li>
+                <li>• Every check-in earns you 1 point toward your next reward</li>
+                <li>• Staff can view your total points and visit history</li>
+              </ul>
+            </div>
           </CardHeader>
           <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -203,7 +215,7 @@ export default function LoyaltyCheckin() {
 
                 <div className="bg-coffee-cream/30 rounded-lg p-4 text-center">
                   <p className="text-sm text-coffee-medium">
-                    <strong>How it works:</strong> Get 1 point per visit. Earn a free coffee at 5 points!
+                    <strong>Returning customer?</strong> We'll recognize you by your phone number and add points to your existing account.
                   </p>
                 </div>
 
