@@ -85,7 +85,7 @@ export default function Navigation() {
                       className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-3 py-2 text-sm"
                       size="sm"
                     >
-                      Franchise
+                      Franchise Opportunity
                     </Button>
                   </Link>
                   <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
