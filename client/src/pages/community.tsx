@@ -282,16 +282,16 @@ export default function Community() {
               
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">📱</div>
-                  <div className="text-coffee-medium">Watch Now</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">50,000+</div>
+                  <div className="text-coffee-medium">Views</div>
                 </div>
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">☕</div>
-                  <div className="text-coffee-medium">Authentic</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">1,500+</div>
+                  <div className="text-coffee-medium">Likes</div>
                 </div>
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">🇪🇬</div>
-                  <div className="text-coffee-medium">Egyptian</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">100+</div>
+                  <div className="text-coffee-medium">Comments</div>
                 </div>
               </div>
             </CardContent>
