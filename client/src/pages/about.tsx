@@ -141,8 +141,8 @@ export default function About() {
                 </div>
               </div>
             </div>
-            <div className="lg:order-1 flex justify-center">
-              <div className="relative">
+            <div className="lg:order-1 flex justify-center items-end">
+              <div className="relative mt-8">
                 <img
                   src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
                   alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
