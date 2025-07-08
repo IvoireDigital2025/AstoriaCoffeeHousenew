@@ -270,7 +270,7 @@ export default function Community() {
                   Join thousands of viewers who've discovered the magic of our coffee shop through this viral Instagram video.
                 </p>
                 <a 
-                  href="https://www.instagram.com/coffee_pro_astoria/" 
+                  href="https://www.instagram.com/reel/DJU2jSQxJ6p/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -282,16 +282,16 @@ export default function Community() {
               
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">50K+</div>
-                  <div className="text-coffee-medium">Views</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">📱</div>
+                  <div className="text-coffee-medium">Watch Now</div>
                 </div>
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">2K+</div>
-                  <div className="text-coffee-medium">Likes</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">☕</div>
+                  <div className="text-coffee-medium">Authentic</div>
                 </div>
                 <div className="bg-coffee-cream/50 rounded-xl p-6">
-                  <div className="text-2xl font-bold text-coffee-primary mb-2">500+</div>
-                  <div className="text-coffee-medium">Comments</div>
+                  <div className="text-2xl font-bold text-coffee-primary mb-2">🇪🇬</div>
+                  <div className="text-coffee-medium">Egyptian</div>
                 </div>
               </div>
             </CardContent>
