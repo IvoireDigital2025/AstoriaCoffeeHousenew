@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Menu, ChevronDown } from "lucide-react";
 
 
 export default function Navigation() {
@@ -12,10 +18,8 @@ export default function Navigation() {
 
   const navItems = [
     { path: "/menu", label: "Menu" },
-    { path: "/mood-selector", label: "Mood Selector" },
     { path: "/about", label: "About" },
     { path: "/community", label: "Community" },
-    { path: "/loyalty", label: "Loyalty" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -25,7 +29,7 @@ export default function Navigation() {
     <>
       <nav className="bg-white shadow-lg sticky top-0 z-50 border-b border-coffee-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-18">
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0 transform hover:scale-105 transition-transform duration-200">
                 <img 
@@ -38,32 +42,55 @@ export default function Navigation() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:block">
-              <div className="ml-10 flex items-center space-x-8">
+              <div className="ml-10 flex items-center space-x-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     href={item.path}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       isActive(item.path)
-                        ? "text-coffee-primary bg-coffee-cream"
-                        : "text-coffee-dark hover:text-coffee-primary hover:bg-coffee-cream/50"
+                        ? "text-coffee-primary border-b-2 border-coffee-primary"
+                        : "text-coffee-dark hover:text-coffee-primary"
                     }`}
                   >
                     {item.label}
                   </Link>
                 ))}
-                <div className="flex items-center space-x-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="px-3 py-2 text-sm font-medium text-coffee-dark hover:text-coffee-primary flex items-center gap-1"
+                    >
+                      More
+                      <ChevronDown className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link href="/mood-selector" className="w-full">
+                        Mood Selector
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/loyalty" className="w-full">
+                        Loyalty Program
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div className="flex items-center space-x-3 ml-6">
                   <Link href="/franchise">
                     <Button
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors"
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-3 py-2 text-sm"
                       size="sm"
                     >
-                      Franchise Opportunity
+                      Franchise
                     </Button>
                   </Link>
                   <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
                     <Button
-                      className="bg-orange-600 hover:bg-orange-700 text-white font-medium px-4 py-2 rounded-lg transition-colors"
+                      className="bg-orange-600 hover:bg-orange-700 text-white font-medium px-3 py-2 text-sm"
                       size="sm"
                     >
                       Order Delivery
