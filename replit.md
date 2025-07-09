@@ -150,6 +150,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Status cards show visual selection feedback with ring borders and hover effects
 - ✓ Applications automatically move to appropriate sections when approved/rejected
 - ✓ Added filter header showing current selection and count of displayed applications
+- ✓ Fixed loyalty check-in API call to use correct apiRequest format (POST method)
 
 
 ## User Preferences

@@ -33,13 +33,7 @@ export default function LoyaltyCheckin() {
 
   const checkinMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return await apiRequest("/api/loyalty/checkin", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return await apiRequest("POST", "/api/loyalty/checkin", data);
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);
