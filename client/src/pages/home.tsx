@@ -62,7 +62,7 @@ export default function Home() {
           {/* Description */}
           <div className="mb-6">
             <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed px-2">
-              Experience authentic Egyptian coffee culture at Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
+              Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
             </p>
             <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2 mb-6">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
