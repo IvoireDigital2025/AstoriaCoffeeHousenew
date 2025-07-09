@@ -407,9 +407,7 @@ export default function AdminDashboard() {
 
   const deleteMarketingContactMutation = useMutation({
     mutationFn: async (contactId: number) => {
-      await apiRequest(`/api/admin/marketing/contacts/${contactId}`, {
-        method: 'DELETE'
-      });
+      await apiRequest('DELETE', `/api/admin/marketing/contacts/${contactId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/marketing/contacts'] });
@@ -456,9 +454,7 @@ export default function AdminDashboard() {
   // Delete contact message mutation
   const deleteContactMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest(`/api/contact/${id}`, {
-        method: 'DELETE'
-      });
+      await apiRequest('DELETE', `/api/contact/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/contact/messages'] });

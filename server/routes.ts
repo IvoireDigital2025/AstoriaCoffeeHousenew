@@ -425,15 +425,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/marketing/contacts/:id", requireAdminAuth, async (req, res) => {
-    try {
-      const { id } = req.params;
-      await storage.deleteMarketingContact(parseInt(id));
-      res.json({ message: "Marketing contact deleted successfully" });
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
-  });
+
 
   app.post("/api/admin/loyalty/redeem", requireAdminAuth, async (req, res) => {
     try {
