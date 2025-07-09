@@ -102,7 +102,7 @@ export default function About() {
             </div>
             <div className="flex justify-center">
               <img
-                src="/attached_assets/IMG_4483_1752039030933.jpg"
+                src="/attached_assets/IMG_4484_1752039133460.JPG"
                 alt="Coffee Pro brand identity and design elements featuring logo and coffee aesthetic"
                 className="rounded-2xl shadow-2xl w-full max-w-sm h-auto object-cover"
                 loading="lazy"
