@@ -95,22 +95,22 @@ export default function FranchisePage() {
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative h-full flex items-center justify-center">
           <div className="text-center text-white space-y-6">
-            <h1 className="text-5xl font-bold mb-4">Join the Coffee Pro Family</h1>
-            <p className="text-xl max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-5xl font-bold mb-4">Join the Coffee Pro Family</h1>
+            <p className="text-base sm:text-xl max-w-2xl mx-auto px-4">
               Bring authentic Egyptian coffee culture to your community. Partner with Coffee Pro and become part of our growing franchise network.
             </p>
-            <div className="flex items-center justify-center space-x-8 mt-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 mt-8">
               <div className="flex items-center space-x-2">
                 <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                <span className="text-lg">4.9 Rating</span>
+                <span className="text-base sm:text-lg">4.9 Rating</span>
               </div>
               <div className="flex items-center space-x-2">
                 <TrendingUp className="w-5 h-5 text-green-400" />
-                <span className="text-lg">Growing Market</span>
+                <span className="text-base sm:text-lg">Growing Market</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="w-5 h-5 text-blue-400" />
-                <span className="text-lg">Strong Community</span>
+                <span className="text-base sm:text-lg">Strong Community</span>
               </div>
             </div>
           </div>

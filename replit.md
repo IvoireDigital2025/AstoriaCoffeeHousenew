@@ -157,6 +157,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Optimized mood card descriptions for better display in small spaces
 - ✓ Added custom CSS for improved text wrapping and hyphenation in mood squares
 - ✓ Reduced mood selector header description text size for better mobile display
+- ✓ Optimized franchise page hero text sizing for mobile devices with responsive layout
+- ✓ Converted franchise hero stats to vertical layout on mobile for better readability
 
 
 ## User Preferences
