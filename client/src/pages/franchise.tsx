@@ -78,7 +78,7 @@ export default function FranchisePage() {
             <div className="mt-8">
               <Button 
                 onClick={() => window.location.href = '/'}
-                className="bg-coffee-blue hover:bg-coffee-blue/90 text-white px-8 py-3"
+                className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3"
               >
                 Return to Home
               </Button>
@@ -394,9 +394,16 @@ export default function FranchisePage() {
                   <Button
                     type="submit"
                     disabled={submitApplication.isPending}
-                    className="bg-coffee-blue hover:bg-coffee-blue/90 text-white px-8 py-3 text-lg"
+                    className="bg-coffee-primary hover:bg-coffee-medium text-white px-8 py-3 text-lg"
                   >
-                    {submitApplication.isPending ? 'Submitting...' : 'Submit Application'}
+                    {submitApplication.isPending ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Submitting...
+                      </>
+                    ) : (
+                      'Submit Application'
+                    )}
                   </Button>
                 </div>
               </form>
