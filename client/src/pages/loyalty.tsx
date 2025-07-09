@@ -89,10 +89,10 @@ export default function Loyalty() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="mx-auto mb-8">
             <Coffee className="w-20 h-20 text-coffee-primary mx-auto mb-4" />
-            <h1 className="text-4xl md:text-5xl font-bold text-coffee-dark mb-4">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-coffee-dark mb-4">
               Join Coffee Pro Loyalty
             </h1>
-            <p className="text-xl text-coffee-medium mb-8">
+            <p className="text-base sm:text-xl text-coffee-medium mb-8">
               Earn rewards with every visit to our Astoria location
             </p>
           </div>

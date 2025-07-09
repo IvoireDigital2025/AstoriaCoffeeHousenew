@@ -70,14 +70,14 @@ export default function Menu() {
         {/* Futuristic Header */}
         <div className="text-center mb-20" id="menu-top">
           <div className="relative">
-            <h1 className="text-6xl md:text-7xl font-playfair font-bold text-white mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-6xl md:text-7xl font-playfair font-bold text-white mb-6 tracking-tight">
               Coffee Pro Menu - Astoria's Best Coffee & Pastries
             </h1>
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary rounded-full"></div>
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-secondary rounded-full"></div>
           </div>
           
-          <p className="text-2xl text-stone-100 mb-8 font-light tracking-wide text-center">
+          <p className="text-base sm:text-2xl text-stone-100 mb-8 font-light tracking-wide text-center">
             Authentic Egyptian Coffee, Specialty Drinks, Fresh Pastries & Traditional Middle Eastern Treats in Queens NY
           </p>
           

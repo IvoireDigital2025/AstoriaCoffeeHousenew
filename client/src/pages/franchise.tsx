@@ -121,8 +121,8 @@ export default function FranchisePage() {
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-coffee-dark mb-4">Why Choose Coffee Pro Franchise?</h2>
-            <p className="text-xl text-coffee-medium">Join a proven concept with authentic Egyptian heritage</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-coffee-dark mb-4">Why Choose Coffee Pro Franchise?</h2>
+            <p className="text-base sm:text-xl text-coffee-medium">Join a proven concept with authentic Egyptian heritage</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -134,7 +134,7 @@ export default function FranchisePage() {
                 <CardTitle className="text-coffee-dark">Authentic Concept</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-coffee-medium text-center">
+                <p className="text-sm sm:text-base text-coffee-medium text-center">
                   Unique Egyptian coffee experience with Dubai chocolate, Kunafa, and traditional pastries that customers love.
                 </p>
               </CardContent>
@@ -148,7 +148,7 @@ export default function FranchisePage() {
                 <CardTitle className="text-coffee-dark">Proven Success</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-coffee-medium text-center">
+                <p className="text-sm sm:text-base text-coffee-medium text-center">
                   4.9-star rating from 223+ customers in our flagship Astoria location shows the market demand for our concept.
                 </p>
               </CardContent>
@@ -162,7 +162,7 @@ export default function FranchisePage() {
                 <CardTitle className="text-coffee-dark">Full Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-coffee-medium text-center">
+                <p className="text-sm sm:text-base text-coffee-medium text-center">
                   Complete training, marketing support, and ongoing operational guidance to ensure your success.
                 </p>
               </CardContent>
@@ -176,44 +176,44 @@ export default function FranchisePage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-coffee-dark mb-6">Investment Overview</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-coffee-dark mb-6">Investment Overview</h2>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <DollarSign className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Initial Investment: Flexible</span>
+                  <span className="text-sm sm:text-base text-coffee-medium">Initial Investment: Flexible</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Building className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Space Requirements: 800-1,200 sq ft</span>
+                  <span className="text-sm sm:text-base text-coffee-medium">Space Requirements: 800-1,200 sq ft</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Clock className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Setup Timeline: 3-6 months</span>
+                  <span className="text-sm sm:text-base text-coffee-medium">Setup Timeline: 3-6 months</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Users className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Staff Requirements: Flexible</span>
+                  <span className="text-sm sm:text-base text-coffee-medium">Staff Requirements: Flexible</span>
                 </div>
               </div>
               
               <div className="mt-8">
-                <h3 className="text-xl font-semibold text-coffee-dark mb-4">What's Included:</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-coffee-dark mb-4">What's Included:</h3>
                 <ul className="space-y-2">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-coffee-medium">Equipment package</span>
+                    <span className="text-sm sm:text-base text-coffee-medium">Equipment package</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-coffee-medium">Training program</span>
+                    <span className="text-sm sm:text-base text-coffee-medium">Training program</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-coffee-medium">Marketing materials</span>
+                    <span className="text-sm sm:text-base text-coffee-medium">Marketing materials</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-coffee-medium">Ongoing support</span>
+                    <span className="text-sm sm:text-base text-coffee-medium">Ongoing support</span>
                   </li>
                 </ul>
               </div>
@@ -236,8 +236,8 @@ export default function FranchisePage() {
       <div className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-coffee-dark mb-4">Apply for Franchise</h2>
-            <p className="text-xl text-coffee-medium">Take the first step toward owning your Coffee Pro franchise</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-coffee-dark mb-4">Apply for Franchise</h2>
+            <p className="text-base sm:text-xl text-coffee-medium">Take the first step toward owning your Coffee Pro franchise</p>
           </div>
 
           <Card className="border-2 border-coffee-light">

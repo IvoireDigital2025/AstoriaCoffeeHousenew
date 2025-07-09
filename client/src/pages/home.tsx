@@ -99,10 +99,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-6">
+              <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-coffee-dark mb-6">
                 Authentic Coffee Heritage
               </h2>
-              <p className="text-xl text-coffee-medium mb-6">
+              <p className="text-base sm:text-xl text-coffee-medium mb-6">
                 Experience the rich traditions of Egyptian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
                 authentic brewing techniques and warm hospitality. Complement your coffee 
@@ -140,10 +140,10 @@ export default function Home() {
       <section className="py-12 sm:py-14 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+            <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-coffee-dark mb-4">
               New Signature Drinks
             </h2>
-            <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl text-coffee-medium max-w-3xl mx-auto">
               Discover our latest creations - innovative drinks that blend traditional coffee craftsmanship with exciting new flavors
             </p>
           </div>
@@ -214,10 +214,10 @@ export default function Home() {
       <section className="py-12 sm:py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+            <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-coffee-dark mb-4">
               Heritage Meets Innovation
             </h2>
-            <p className="text-xl text-coffee-medium max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl text-coffee-medium max-w-3xl mx-auto">
               Bringing authentic Egyptian coffee traditions to New York City - where traditional hospitality meets modern excellence
             </p>
           </div>

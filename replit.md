@@ -159,6 +159,14 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Reduced mood selector header description text size for better mobile display
 - ✓ Optimized franchise page hero text sizing for mobile devices with responsive layout
 - ✓ Converted franchise hero stats to vertical layout on mobile for better readability
+- ✓ Reduced text sizes across all major sections for mobile optimization:
+  - Mood selector header description
+  - Loyalty program hero text
+  - Franchise page content sections
+  - Home page "Authentic Coffee Heritage" section
+  - Home page "New Signature Drinks" section
+  - Home page "Heritage Meets Innovation" section
+  - Menu page header and subtitle text
 
 
 ## User Preferences
