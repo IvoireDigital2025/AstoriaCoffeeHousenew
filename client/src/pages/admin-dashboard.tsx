@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell, Building } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell, Building, FileSpreadsheet } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import QRCodeComponent from "@/components/QRCode";
+import * as XLSX from 'xlsx';
+import Papa from 'papaparse';
 
 interface MarketingContact {
   id: number;
@@ -113,6 +115,189 @@ export default function AdminDashboard() {
       });
     },
   });
+
+  // Download functions
+  const downloadCSV = (data: any[], filename: string, headers: string[]) => {
+    const csv = Papa.unparse({
+      fields: headers,
+      data: data.map(item => headers.map(header => item[header] || ''))
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${filename}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const downloadExcel = (data: any[], filename: string, headers: string[]) => {
+    const worksheet = XLSX.utils.json_to_sheet(
+      data.map(item => {
+        const row: any = {};
+        headers.forEach(header => {
+          row[header] = item[header] || '';
+        });
+        return row;
+      })
+    );
+    
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
+    XLSX.writeFile(workbook, `${filename}.xlsx`);
+  };
+
+  const downloadMarketingContacts = (format: 'csv' | 'excel') => {
+    if (!contacts || contacts.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No marketing contacts available to download.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const headers = ['id', 'email', 'name', 'phone', 'source', 'subscribed', 'createdAt'];
+    const processedData = contacts.map((contact: MarketingContact) => ({
+      id: contact.id,
+      email: contact.email,
+      name: contact.name || '',
+      phone: contact.phone || '',
+      source: contact.source,
+      subscribed: contact.subscribed ? 'Yes' : 'No',
+      createdAt: format(new Date(contact.createdAt), 'yyyy-MM-dd HH:mm:ss')
+    }));
+
+    const filename = `marketing_contacts_${format(new Date(), 'yyyy-MM-dd')}`;
+    
+    if (format === 'csv') {
+      downloadCSV(processedData, filename, headers);
+    } else {
+      downloadExcel(processedData, filename, headers);
+    }
+
+    toast({
+      title: "Download Complete",
+      description: `Marketing contacts exported as ${format.toUpperCase()} successfully.`,
+      variant: "default",
+    });
+  };
+
+  const downloadContactMessages = (format: 'csv' | 'excel') => {
+    if (!contactMessages || contactMessages.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No contact messages available to download.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const headers = ['id', 'name', 'email', 'subject', 'message', 'createdAt'];
+    const processedData = contactMessages.map((message: ContactMessage) => ({
+      id: message.id,
+      name: message.name,
+      email: message.email,
+      subject: message.subject,
+      message: message.message,
+      createdAt: format(new Date(message.createdAt), 'yyyy-MM-dd HH:mm:ss')
+    }));
+
+    const filename = `contact_messages_${format(new Date(), 'yyyy-MM-dd')}`;
+    
+    if (format === 'csv') {
+      downloadCSV(processedData, filename, headers);
+    } else {
+      downloadExcel(processedData, filename, headers);
+    }
+
+    toast({
+      title: "Download Complete",
+      description: `Contact messages exported as ${format.toUpperCase()} successfully.`,
+      variant: "default",
+    });
+  };
+
+  const downloadLoyaltyCustomers = (format: 'csv' | 'excel') => {
+    if (!loyaltyCustomers || loyaltyCustomers.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No loyalty customers available to download.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const headers = ['id', 'name', 'email', 'phone', 'totalVisits', 'currentPoints', 'totalRewards', 'createdAt'];
+    const processedData = loyaltyCustomers.map((customer: LoyaltyCustomer) => ({
+      id: customer.id,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      totalVisits: customer.totalVisits,
+      currentPoints: customer.currentPoints,
+      totalRewards: customer.totalRewards,
+      createdAt: format(new Date(customer.createdAt), 'yyyy-MM-dd HH:mm:ss')
+    }));
+
+    const filename = `loyalty_customers_${format(new Date(), 'yyyy-MM-dd')}`;
+    
+    if (format === 'csv') {
+      downloadCSV(processedData, filename, headers);
+    } else {
+      downloadExcel(processedData, filename, headers);
+    }
+
+    toast({
+      title: "Download Complete",
+      description: `Loyalty customers exported as ${format.toUpperCase()} successfully.`,
+      variant: "default",
+    });
+  };
+
+  const downloadFranchiseApplications = (format: 'csv' | 'excel') => {
+    if (!franchiseApplications || franchiseApplications.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No franchise applications available to download.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const headers = ['id', 'firstName', 'lastName', 'email', 'phone', 'businessExperience', 'investmentCapacity', 'preferredLocation', 'timelineToOpen', 'additionalInfo', 'status', 'createdAt'];
+    const processedData = franchiseApplications.map((app: FranchiseApplication) => ({
+      id: app.id,
+      firstName: app.firstName,
+      lastName: app.lastName,
+      email: app.email,
+      phone: app.phone,
+      businessExperience: app.businessExperience,
+      investmentCapacity: app.investmentCapacity,
+      preferredLocation: app.preferredLocation,
+      timelineToOpen: app.timelineToOpen,
+      additionalInfo: app.additionalInfo || '',
+      status: app.status,
+      createdAt: format(new Date(app.createdAt), 'yyyy-MM-dd HH:mm:ss')
+    }));
+
+    const filename = `franchise_applications_${format(new Date(), 'yyyy-MM-dd')}`;
+    
+    if (format === 'csv') {
+      downloadCSV(processedData, filename, headers);
+    } else {
+      downloadExcel(processedData, filename, headers);
+    }
+
+    toast({
+      title: "Download Complete",
+      description: `Franchise applications exported as ${format.toUpperCase()} successfully.`,
+      variant: "default",
+    });
+  };
 
   const { data: contacts, isLoading: contactsLoading } = useQuery({
     queryKey: ['/api/marketing/contacts'],
@@ -324,30 +509,7 @@ export default function AdminDashboard() {
     return matchesSearch && matchesSource;
   }) || [];
 
-  const handleExportCSV = () => {
-    if (!filteredContacts.length) return;
-    
-    const csvContent = [
-      ['ID', 'Email', 'Name', 'Phone', 'Source', 'Subscribed', 'Created At'],
-      ...filteredContacts.map((contact: MarketingContact) => [
-        contact.id,
-        contact.email,
-        contact.name || '',
-        contact.phone || '',
-        contact.source,
-        contact.subscribed ? 'Yes' : 'No',
-        format(new Date(contact.createdAt), 'yyyy-MM-dd HH:mm:ss')
-      ])
-    ].map(row => row.join(',')).join('\n');
-    
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `coffee-pro-contacts-${format(new Date(), 'yyyy-MM-dd')}.csv`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+
 
   const getSourceColor = (source: string) => {
     switch (source) {
@@ -508,12 +670,20 @@ export default function AdminDashboard() {
                     </select>
                     
                     <Button
-                      onClick={handleExportCSV}
+                      onClick={() => downloadMarketingContacts('csv')}
                       disabled={!filteredContacts.length}
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Export CSV
+                      CSV
+                    </Button>
+                    <Button
+                      onClick={() => downloadMarketingContacts('excel')}
+                      disabled={!filteredContacts.length}
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Excel
                     </Button>
                   </div>
                 </div>
@@ -589,9 +759,31 @@ export default function AdminDashboard() {
           <TabsContent value="messages" className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
-                  Customer Contact Messages
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5" />
+                    Customer Contact Messages
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadContactMessages('csv')}
+                      disabled={!contactMessages?.length}
+                      size="sm"
+                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      CSV
+                    </Button>
+                    <Button
+                      onClick={() => downloadContactMessages('excel')}
+                      disabled={!contactMessages?.length}
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Excel
+                    </Button>
+                  </div>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -727,13 +919,37 @@ export default function AdminDashboard() {
             {/* Individual Customer Folders */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  Individual Customer Folders
+                <CardTitle className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <User className="w-5 h-5" />
+                      Individual Customer Folders
+                    </div>
+                    <p className="text-sm text-coffee-medium mt-1">
+                      Each customer has their own folder with points and visit history tracked by phone number
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadLoyaltyCustomers('csv')}
+                      disabled={!loyaltyCustomers?.length}
+                      size="sm"
+                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      CSV
+                    </Button>
+                    <Button
+                      onClick={() => downloadLoyaltyCustomers('excel')}
+                      disabled={!loyaltyCustomers?.length}
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Excel
+                    </Button>
+                  </div>
                 </CardTitle>
-                <p className="text-sm text-coffee-medium mt-1">
-                  Each customer has their own folder with points and visit history tracked by phone number
-                </p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -878,13 +1094,37 @@ export default function AdminDashboard() {
             {/* Franchise Applications Overview */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building className="w-5 h-5" />
-                  Franchise Applications
+                <CardTitle className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Building className="w-5 h-5" />
+                      Franchise Applications
+                    </div>
+                    <p className="text-sm text-coffee-medium">
+                      Manage and review franchise application submissions
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadFranchiseApplications('csv')}
+                      disabled={!franchiseApplications?.length}
+                      size="sm"
+                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      CSV
+                    </Button>
+                    <Button
+                      onClick={() => downloadFranchiseApplications('excel')}
+                      disabled={!franchiseApplications?.length}
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Excel
+                    </Button>
+                  </div>
                 </CardTitle>
-                <p className="text-sm text-coffee-medium">
-                  Manage and review franchise application submissions
-                </p>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
