@@ -144,7 +144,7 @@ export default function About() {
               </div>
             </div>
             <div className="lg:order-1 flex justify-center items-end">
-              <div className="relative mt-8">
+              <div className="mt-8">
                 <img
                   src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
                   alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
@@ -152,9 +152,6 @@ export default function About() {
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute -bottom-3 -right-3 w-16 h-16 bg-gradient-to-br from-coffee-primary to-amber-600 rounded-full flex items-center justify-center">
-                  <Coffee className="w-8 h-8 text-white" />
-                </div>
               </div>
             </div>
           </div>
