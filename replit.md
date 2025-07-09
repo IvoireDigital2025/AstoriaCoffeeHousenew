@@ -151,6 +151,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Applications automatically move to appropriate sections when approved/rejected
 - ✓ Added filter header showing current selection and count of displayed applications
 - ✓ Fixed loyalty check-in API call to use correct apiRequest format (POST method)
+- ✓ Added "More" section to mobile navigation menu with Mood Selector and Loyalty Program links
+- ✓ Fixed mobile navigation accessibility by including all desktop menu options
 
 
 ## User Preferences

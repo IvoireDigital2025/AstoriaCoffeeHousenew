@@ -133,6 +133,37 @@ export default function Navigation() {
                             {item.label}
                           </Link>
                         ))}
+                        
+                        {/* More Section for Mobile */}
+                        <div className="pt-3 border-t border-coffee-cream">
+                          <h3 className="px-4 py-2 text-sm font-semibold text-coffee-medium uppercase tracking-wider">
+                            More
+                          </h3>
+                          <div className="space-y-1">
+                            <Link
+                              href="/mood-selector"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`block px-4 py-3 text-base font-medium transition-colors rounded-lg ${
+                                isActive("/mood-selector")
+                                  ? "text-coffee-primary bg-coffee-cream"
+                                  : "text-coffee-dark hover:text-coffee-primary hover:bg-coffee-cream"
+                              }`}
+                            >
+                              Mood Selector
+                            </Link>
+                            <Link
+                              href="/loyalty"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`block px-4 py-3 text-base font-medium transition-colors rounded-lg ${
+                                isActive("/loyalty")
+                                  ? "text-coffee-primary bg-coffee-cream"
+                                  : "text-coffee-dark hover:text-coffee-primary hover:bg-coffee-cream"
+                              }`}
+                            >
+                              Loyalty Program
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="p-6 space-y-4 border-t border-coffee-cream bg-white">
