@@ -49,15 +49,17 @@ export default function FranchisePage() {
       });
     },
     onError: (error) => {
+      console.error('Form submission error:', error);
       toast({
         title: "Submission Error",
-        description: "There was an error submitting your application. Please try again.",
+        description: `There was an error submitting your application: ${error.message}`,
         variant: "destructive",
       });
     },
   });
 
   const onSubmit = (data: InsertFranchiseApplication) => {
+    console.log('Form data being submitted:', data);
     submitApplication.mutate(data);
   };
 
@@ -332,7 +334,7 @@ export default function FranchisePage() {
                 {/* Investment Capacity */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Investment Capacity *</label>
-                  <Select onValueChange={(value) => form.setValue('investmentCapacity', value)}>
+                  <Select onValueChange={(value) => form.setValue('investmentCapacity', value, { shouldValidate: true })}>
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your investment range" />
                     </SelectTrigger>
@@ -352,7 +354,7 @@ export default function FranchisePage() {
                 {/* Preferred Location */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Preferred Location *</label>
-                  <Select onValueChange={(value) => form.setValue('preferredLocation', value)}>
+                  <Select onValueChange={(value) => form.setValue('preferredLocation', value, { shouldValidate: true })}>
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your preferred state" />
                     </SelectTrigger>
@@ -417,7 +419,7 @@ export default function FranchisePage() {
                 {/* Timeline */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Timeline to Open *</label>
-                  <Select onValueChange={(value) => form.setValue('timelineToOpen', value)}>
+                  <Select onValueChange={(value) => form.setValue('timelineToOpen', value, { shouldValidate: true })}>
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your preferred timeline" />
                     </SelectTrigger>
