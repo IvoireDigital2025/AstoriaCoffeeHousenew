@@ -198,20 +198,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-coffee-primary to-amber-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-playfair font-bold text-white mb-6">
-            Join the Coffee Pro Family
-          </h2>
-          <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            We invite you to become part of the Coffee Pro family - to bring this shared passion to your community and to create a space where people don't just grab coffee, they stay for the story.
-          </p>
-          <Badge className="bg-white text-coffee-primary px-6 py-3 text-lg font-semibold">
-            Experience Authentic Egyptian Coffee Culture
-          </Badge>
-        </div>
-      </section>
+
     </div>
   );
 }
