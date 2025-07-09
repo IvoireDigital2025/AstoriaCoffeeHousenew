@@ -53,7 +53,7 @@ const moods: Mood[] = [
   {
     emoji: "😌",
     name: "Relaxed",
-    description: "Calm and peaceful state",
+    description: "Calm and peaceful",
     recommendations: [
       {
         name: "Pistachio Iced Latte",
@@ -70,7 +70,7 @@ const moods: Mood[] = [
   {
     emoji: "🤔",
     name: "Focused",
-    description: "Ready to concentrate",
+    description: "Need to concentrate",
     recommendations: [
       {
         name: "Arabic Coffee (Qahwa)",
@@ -181,11 +181,11 @@ export default function MoodSelector() {
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-coffee-secondary/30 to-amber-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div className="text-center flex-1 flex flex-col justify-center">
-                      <h3 className="text-sm sm:text-base font-playfair font-bold text-coffee-dark group-hover:text-coffee-secondary transition-colors duration-300 mb-1">
+                    <div className="text-center flex-1 flex flex-col justify-center px-1">
+                      <h3 className="text-xs sm:text-sm font-playfair font-bold text-coffee-dark group-hover:text-coffee-secondary transition-colors duration-300 mb-1 leading-tight">
                         {mood.name}
                       </h3>
-                      <p className="text-xs text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-tight px-1 text-center max-h-8 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                      <p className="text-[10px] sm:text-xs text-coffee-medium group-hover:text-coffee-dark transition-colors duration-300 leading-tight px-1 text-center mood-text-clamp mood-card-text">
                         {mood.description}
                       </p>
                     </div>
