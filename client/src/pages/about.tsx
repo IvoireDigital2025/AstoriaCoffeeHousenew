@@ -128,10 +128,10 @@ export default function About() {
               </div>
               <div className="space-y-6">
                 <h3 className="text-3xl font-playfair font-semibold text-coffee-primary">
-                  Mohamed
+                  Mohamed Samara
                 </h3>
                 <p className="text-lg text-coffee-medium leading-relaxed">
-                  The owner, Mohamed, has a passion for coffee and has combined his travels with his love for Arabic culture in the cafe's design and menu. His vision brings authentic Egyptian hospitality to the heart of Astoria, creating a space where tradition meets innovation.
+                  The owner, Mohamed Samara, has a passion for coffee and has combined his travels with his love for Arabic culture in the cafe's design and menu. His vision brings authentic Egyptian hospitality to the heart of Astoria, creating a space where tradition meets innovation.
                 </p>
                 <div className="flex items-center space-x-2">
                   <Badge className="bg-amber-100 text-coffee-dark">
@@ -147,7 +147,7 @@ export default function About() {
               <div className="mt-8">
                 <img
                   src="/attached_assets/PHOTO MOHAMED_1751955903969.JPG"
-                  alt="Mohamed, owner of Coffee Pro, passionate about coffee and Arabic culture"
+                  alt="Mohamed Samara, owner of Coffee Pro, passionate about coffee and Arabic culture"
                   className="rounded-2xl shadow-2xl w-full max-w-48 h-auto object-cover"
                   loading="lazy"
                   decoding="async"
