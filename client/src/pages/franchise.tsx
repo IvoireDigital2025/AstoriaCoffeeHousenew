@@ -181,7 +181,7 @@ export default function FranchisePage() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <DollarSign className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Initial Investment: $150,000 - $250,000</span>
+                  <span className="text-coffee-medium">Initial Investment: $80,000 - $250,000</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Building className="w-5 h-5 text-coffee-primary" />
@@ -337,10 +337,11 @@ export default function FranchisePage() {
                       <SelectValue placeholder="Select your investment range" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="80k-120k">$80,000 - $120,000</SelectItem>
+                      <SelectItem value="120k-150k">$120,000 - $150,000</SelectItem>
                       <SelectItem value="150k-200k">$150,000 - $200,000</SelectItem>
                       <SelectItem value="200k-250k">$200,000 - $250,000</SelectItem>
-                      <SelectItem value="250k-300k">$250,000 - $300,000</SelectItem>
-                      <SelectItem value="300k+">$300,000+</SelectItem>
+                      <SelectItem value="250k+">$250,000+</SelectItem>
                     </SelectContent>
                   </Select>
                   {form.formState.errors.investmentCapacity && (
