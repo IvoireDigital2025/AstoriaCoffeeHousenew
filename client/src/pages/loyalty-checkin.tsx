@@ -10,7 +10,7 @@ import { apiRequest } from "@/lib/queryClient";
 
 interface CheckinResponse {
   message: string;
-  customer: {
+  customer?: {
     id: number;
     name: string;
     currentPoints: number;
@@ -91,26 +91,28 @@ export default function LoyaltyCheckin() {
             <div className="text-center">
               <p className="text-lg text-coffee-medium mb-4">{checkinResult.message}</p>
               
-              <div className="bg-coffee-cream/50 rounded-lg p-4 space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-coffee-medium">Current Points:</span>
-                  <span className="font-bold text-coffee-dark">{checkinResult.customer.currentPoints}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-coffee-medium">Total Visits:</span>
-                  <span className="font-bold text-coffee-dark">{checkinResult.customer.totalVisits}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-coffee-medium">Total Rewards:</span>
-                  <span className="font-bold text-coffee-dark">{checkinResult.customer.totalRewards}</span>
-                </div>
-                {!checkinResult.earnedReward && (
+              {checkinResult.customer && (
+                <div className="bg-coffee-cream/50 rounded-lg p-4 space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-coffee-medium">Points to Next Reward:</span>
-                    <span className="font-bold text-coffee-primary">{checkinResult.pointsToNextReward}</span>
+                    <span className="text-coffee-medium">Current Points:</span>
+                    <span className="font-bold text-coffee-dark">{checkinResult.customer.currentPoints}</span>
                   </div>
-                )}
-              </div>
+                  <div className="flex justify-between">
+                    <span className="text-coffee-medium">Total Visits:</span>
+                    <span className="font-bold text-coffee-dark">{checkinResult.customer.totalVisits}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-coffee-medium">Total Rewards:</span>
+                    <span className="font-bold text-coffee-dark">{checkinResult.customer.totalRewards}</span>
+                  </div>
+                  {!checkinResult.earnedReward && (
+                    <div className="flex justify-between">
+                      <span className="text-coffee-medium">Points to Next Reward:</span>
+                      <span className="font-bold text-coffee-primary">{checkinResult.pointsToNextReward}</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {checkinResult.earnedReward && (
