@@ -159,7 +159,7 @@ export default function MoodSelector() {
                 <Sparkles className="w-8 h-8 text-amber-600" />
               </div>
             </div>
-            <p className="text-xl text-coffee-dark/80 font-light max-w-2xl mx-auto">
+            <p className="text-sm sm:text-xl text-coffee-dark/80 font-light max-w-2xl mx-auto">
               Choose your current mood to discover the perfect Coffee Pro experience tailored just for you
             </p>
             <div className="mt-6 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
