@@ -92,6 +92,28 @@ export default function AdminDashboard() {
   const [sourceFilter, setSourceFilter] = useState("all");
   const queryClient = useQueryClient();
 
+  // Franchise application status update mutation
+  const updateFranchiseStatus = useMutation({
+    mutationFn: async ({ id, status }: { id: number; status: string }) => {
+      await apiRequest('PATCH', `/api/admin/franchise/applications/${id}/status`, { status });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/franchise/applications'] });
+      toast({
+        title: "Status Updated",
+        description: "Franchise application status has been updated successfully.",
+        variant: "default",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Update Failed",
+        description: `Failed to update application status: ${error.message}`,
+        variant: "destructive",
+      });
+    },
+  });
+
   const { data: contacts, isLoading: contactsLoading } = useQuery({
     queryKey: ['/api/marketing/contacts'],
     queryFn: async () => {
@@ -865,7 +887,7 @@ export default function AdminDashboard() {
                 </p>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <h3 className="font-semibold text-blue-800">Total Applications</h3>
                     <p className="text-2xl font-bold text-blue-600">
@@ -882,6 +904,12 @@ export default function AdminDashboard() {
                     <h3 className="font-semibold text-green-800">Approved</h3>
                     <p className="text-2xl font-bold text-green-600">
                       {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'approved').length || 0}
+                    </p>
+                  </div>
+                  <div className="bg-red-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-red-800">Rejected</h3>
+                    <p className="text-2xl font-bold text-red-600">
+                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'rejected').length || 0}
                     </p>
                   </div>
                 </div>
@@ -904,7 +932,8 @@ export default function AdminDashboard() {
                                   className={`${
                                     application.status === 'approved' ? 'bg-green-100 text-green-800' :
                                     application.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                    'bg-red-100 text-red-800'
+                                    application.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                                    'bg-gray-100 text-gray-800'
                                   }`}
                                 >
                                   {application.status.toUpperCase()}
@@ -947,6 +976,26 @@ export default function AdminDashboard() {
                                 Applied: {format(new Date(application.createdAt), "MMM dd, yyyy 'at' h:mm a")}
                               </p>
                             </div>
+                            {application.status === 'pending' && (
+                              <div className="flex gap-2 mt-4 pt-4 border-t">
+                                <Button
+                                  onClick={() => updateFranchiseStatus.mutate({ id: application.id, status: 'approved' })}
+                                  disabled={updateFranchiseStatus.isPending}
+                                  size="sm"
+                                  className="bg-green-600 hover:bg-green-700 text-white"
+                                >
+                                  Approve
+                                </Button>
+                                <Button
+                                  onClick={() => updateFranchiseStatus.mutate({ id: application.id, status: 'rejected' })}
+                                  disabled={updateFranchiseStatus.isPending}
+                                  size="sm"
+                                  variant="destructive"
+                                >
+                                  Deny
+                                </Button>
+                              </div>
+                            )}
                           </div>
                         </CardContent>
                       </Card>
