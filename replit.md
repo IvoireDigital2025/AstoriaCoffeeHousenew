@@ -144,6 +144,12 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ QR code display restricted to admin dashboard for staff to print and display in-store
 - ✓ Removed QR code from customer-facing loyalty page for security and proper workflow
 - ✓ Removed "Google Customer" text from all review testimonials for cleaner display
+- ✓ Fixed delete contact functionality in admin dashboard by correcting API request format
+- ✓ Implemented clickable franchise application status sections (All, Pending, Approved, Rejected)
+- ✓ Added dynamic filtering for franchise applications based on selected status
+- ✓ Status cards show visual selection feedback with ring borders and hover effects
+- ✓ Applications automatically move to appropriate sections when approved/rejected
+- ✓ Added filter header showing current selection and count of displayed applications
 
 
 ## User Preferences

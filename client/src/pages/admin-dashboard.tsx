@@ -92,6 +92,7 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [selectedFranchiseStatus, setSelectedFranchiseStatus] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   // Franchise application status update mutation
@@ -523,6 +524,12 @@ export default function AdminDashboard() {
     acc[contact.source] = (acc[contact.source] || 0) + 1;
     return acc;
   }, {}) || {};
+
+  // Filter franchise applications based on selected status
+  const filteredFranchiseApplications = franchiseApplications?.filter((app: FranchiseApplication) => {
+    if (selectedFranchiseStatus === null) return true;
+    return app.status === selectedFranchiseStatus;
+  }) || [];
 
   if (contactsLoading || messagesLoading || loyaltyCustomersLoading) {
     return (
@@ -1124,25 +1131,53 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
+                  <div 
+                    onClick={() => setSelectedFranchiseStatus(null)}
+                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                      selectedFranchiseStatus === null 
+                        ? 'bg-blue-100 ring-2 ring-blue-500' 
+                        : 'bg-blue-50 hover:bg-blue-100'
+                    }`}
+                  >
                     <h3 className="font-semibold text-blue-800">Total Applications</h3>
                     <p className="text-2xl font-bold text-blue-600">
                       {franchiseApplications?.length || 0}
                     </p>
                   </div>
-                  <div className="bg-yellow-50 p-4 rounded-lg">
+                  <div 
+                    onClick={() => setSelectedFranchiseStatus('pending')}
+                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                      selectedFranchiseStatus === 'pending' 
+                        ? 'bg-yellow-100 ring-2 ring-yellow-500' 
+                        : 'bg-yellow-50 hover:bg-yellow-100'
+                    }`}
+                  >
                     <h3 className="font-semibold text-yellow-800">Pending Review</h3>
                     <p className="text-2xl font-bold text-yellow-600">
                       {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'pending').length || 0}
                     </p>
                   </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
+                  <div 
+                    onClick={() => setSelectedFranchiseStatus('approved')}
+                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                      selectedFranchiseStatus === 'approved' 
+                        ? 'bg-green-100 ring-2 ring-green-500' 
+                        : 'bg-green-50 hover:bg-green-100'
+                    }`}
+                  >
                     <h3 className="font-semibold text-green-800">Approved</h3>
                     <p className="text-2xl font-bold text-green-600">
                       {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'approved').length || 0}
                     </p>
                   </div>
-                  <div className="bg-red-50 p-4 rounded-lg">
+                  <div 
+                    onClick={() => setSelectedFranchiseStatus('rejected')}
+                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                      selectedFranchiseStatus === 'rejected' 
+                        ? 'bg-red-100 ring-2 ring-red-500' 
+                        : 'bg-red-50 hover:bg-red-100'
+                    }`}
+                  >
                     <h3 className="font-semibold text-red-800">Rejected</h3>
                     <p className="text-2xl font-bold text-red-600">
                       {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'rejected').length || 0}
@@ -1150,13 +1185,29 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
+                {/* Filter Header */}
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-coffee-dark">
+                    {selectedFranchiseStatus === null 
+                      ? 'All Applications' 
+                      : selectedFranchiseStatus === 'pending' 
+                        ? 'Pending Applications' 
+                        : selectedFranchiseStatus === 'approved' 
+                          ? 'Approved Applications' 
+                          : 'Rejected Applications'}
+                  </h3>
+                  <p className="text-sm text-coffee-medium">
+                    Showing {filteredFranchiseApplications.length} of {franchiseApplications?.length || 0} applications
+                  </p>
+                </div>
+
                 {franchiseLoading ? (
                   <div className="text-center py-8">
                     <p className="text-coffee-medium">Loading applications...</p>
                   </div>
-                ) : franchiseApplications && franchiseApplications.length > 0 ? (
+                ) : filteredFranchiseApplications && filteredFranchiseApplications.length > 0 ? (
                   <div className="space-y-4">
-                    {franchiseApplications.map((application: FranchiseApplication) => (
+                    {filteredFranchiseApplications.map((application: FranchiseApplication) => (
                       <Card key={application.id} className="border-l-4 border-l-coffee-primary">
                         <CardContent className="p-4">
                           <div className="flex justify-between items-start">
@@ -1240,9 +1291,15 @@ export default function AdminDashboard() {
                 ) : (
                   <div className="text-center py-8">
                     <Building className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500 font-medium">No franchise applications yet</p>
+                    <p className="text-gray-500 font-medium">
+                      {selectedFranchiseStatus === null 
+                        ? 'No franchise applications yet' 
+                        : `No ${selectedFranchiseStatus} applications`}
+                    </p>
                     <p className="text-gray-400 text-sm">
-                      Applications will appear here when submitted
+                      {selectedFranchiseStatus === null 
+                        ? 'Applications will appear here when submitted' 
+                        : `No applications with ${selectedFranchiseStatus} status found`}
                     </p>
                   </div>
                 )}
