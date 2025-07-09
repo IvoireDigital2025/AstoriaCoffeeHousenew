@@ -852,6 +852,119 @@ export default function AdminDashboard() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="franchise" className="space-y-8">
+            {/* Franchise Applications Overview */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="w-5 h-5" />
+                  Franchise Applications
+                </CardTitle>
+                <p className="text-sm text-coffee-medium">
+                  Manage and review franchise application submissions
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-800">Total Applications</h3>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {franchiseApplications?.length || 0}
+                    </p>
+                  </div>
+                  <div className="bg-yellow-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-yellow-800">Pending Review</h3>
+                    <p className="text-2xl font-bold text-yellow-600">
+                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'pending').length || 0}
+                    </p>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-green-800">Approved</h3>
+                    <p className="text-2xl font-bold text-green-600">
+                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'approved').length || 0}
+                    </p>
+                  </div>
+                </div>
+
+                {franchiseLoading ? (
+                  <div className="text-center py-8">
+                    <p className="text-coffee-medium">Loading applications...</p>
+                  </div>
+                ) : franchiseApplications && franchiseApplications.length > 0 ? (
+                  <div className="space-y-4">
+                    {franchiseApplications.map((application: FranchiseApplication) => (
+                      <Card key={application.id} className="border-l-4 border-l-coffee-primary">
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <User className="w-4 h-4 text-coffee-medium" />
+                                <span className="font-medium">{application.firstName} {application.lastName}</span>
+                                <Badge 
+                                  className={`${
+                                    application.status === 'approved' ? 'bg-green-100 text-green-800' :
+                                    application.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
+                                  }`}
+                                >
+                                  {application.status.toUpperCase()}
+                                </Badge>
+                              </div>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                  <p className="text-sm text-coffee-light">Email:</p>
+                                  <p className="text-coffee-medium">{application.email}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-coffee-light">Phone:</p>
+                                  <p className="text-coffee-medium">{application.phone}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-coffee-light">Investment Capacity:</p>
+                                  <p className="text-coffee-medium">{application.investmentCapacity}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-coffee-light">Preferred Location:</p>
+                                  <p className="text-coffee-medium">{application.preferredLocation}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-coffee-light">Timeline:</p>
+                                  <p className="text-coffee-medium">{application.timelineToOpen}</p>
+                                </div>
+                              </div>
+                              <div className="mb-3">
+                                <p className="text-sm text-coffee-light">Business Experience:</p>
+                                <p className="text-coffee-medium">{application.businessExperience}</p>
+                              </div>
+                              {application.additionalInfo && (
+                                <div className="mb-3">
+                                  <p className="text-sm text-coffee-light">Additional Information:</p>
+                                  <p className="text-coffee-medium">{application.additionalInfo}</p>
+                                </div>
+                              )}
+                              <p className="text-sm text-coffee-light">
+                                <Calendar className="w-3 h-3 inline mr-1" />
+                                Applied: {format(new Date(application.createdAt), "MMM dd, yyyy 'at' h:mm a")}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <Building className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-500 font-medium">No franchise applications yet</p>
+                    <p className="text-gray-400 text-sm">
+                      Applications will appear here when submitted
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="notifications" className="space-y-8">
             {/* Notifications Overview */}
             <Card>
