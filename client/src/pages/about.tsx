@@ -37,10 +37,10 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
 
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-playfair font-bold text-coffee-dark mb-6">
+            <h1 className="text-2xl sm:text-5xl md:text-6xl font-playfair font-bold text-coffee-dark mb-6">
               About Coffee Pro
             </h1>
-            <p className="text-base sm:text-xl md:text-2xl text-coffee-medium max-w-4xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-xl md:text-2xl text-coffee-medium max-w-4xl mx-auto leading-relaxed">
               An oasis of warmth and flavor in the vibrant heart of Astoria Boulevard, bringing Egyptian coffee traditions to New York City.
             </p>
           </div>

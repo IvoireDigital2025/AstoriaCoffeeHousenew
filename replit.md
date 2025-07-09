@@ -167,7 +167,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
   - Home page "New Signature Drinks" section
   - Home page "Heritage Meets Innovation" section
   - Menu page header and subtitle text
-  - About page header and subtitle text
+  - About page header and subtitle text (further reduced for mobile)
 - ✓ Removed "Experience Authentic Egyptian Coffee Culture" text from home page, about page, and SEO meta tags
 - ✓ Completely removed "Call to Action" section from about page containing the promotional text and gap space
 - ✓ Streamlined content to focus on location and product offerings without promotional language
