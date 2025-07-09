@@ -181,7 +181,7 @@ export default function FranchisePage() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <DollarSign className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Initial Investment: $80,000 - $250,000</span>
+                  <span className="text-coffee-medium">Initial Investment: Flexible</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Building className="w-5 h-5 text-coffee-primary" />
@@ -193,7 +193,7 @@ export default function FranchisePage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Users className="w-5 h-5 text-coffee-primary" />
-                  <span className="text-coffee-medium">Staff Requirements: 4-8 employees</span>
+                  <span className="text-coffee-medium">Staff Requirements: Flexible</span>
                 </div>
               </div>
               
