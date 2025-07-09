@@ -35,10 +35,7 @@ export default function FranchisePage() {
 
   const submitApplication = useMutation({
     mutationFn: async (data: InsertFranchiseApplication) => {
-      await apiRequest('/api/franchise/apply', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      await apiRequest('POST', '/api/franchise/apply', data);
     },
     onSuccess: () => {
       setSubmitted(true);
