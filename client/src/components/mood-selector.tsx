@@ -22,14 +22,14 @@ const moods: Mood[] = [
     description: "Cheerful and optimistic",
     recommendations: [
       {
-        name: "Tiramisu Pro Frappe",
-        description: "Luxurious coffee frappe with mascarpone flavors and chocolate garnish. A delightful treat that matches your joyful mood perfectly.",
-        reason: "Sweet, indulgent flavors enhance happiness and create a celebratory coffee experience"
+        name: "Strawfee Clouds",
+        description: "Dreamy strawberry-infused coffee creation with whipped cream clouds. A playful and delicious drink that captures the essence of pure joy.",
+        reason: "Sweet strawberry flavors and cloud-like texture create a whimsical, happiness-boosting experience"
       },
       {
-        name: "Rose Water Cappuccino",
-        description: "Classic cappuccino enhanced with delicate rose water. An elegant and uplifting drink with floral notes that brighten your day.",
-        reason: "Aromatic rose water creates a cheerful, sophisticated drinking experience that complements your positive energy"
+        name: "Iced Moccha",
+        description: "Rich chocolate and espresso blend served over ice with creamy foam. A refreshing chocolate coffee treat that brings instant smiles.",
+        reason: "Chocolate and coffee combination triggers feel-good endorphins perfect for celebrating happy moments"
       }
     ]
   },
