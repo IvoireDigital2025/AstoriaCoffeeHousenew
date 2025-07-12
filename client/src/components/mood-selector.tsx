@@ -73,14 +73,14 @@ const moods: Mood[] = [
     description: "Need to concentrate",
     recommendations: [
       {
-        name: "Arabic Coffee (Qahwa)",
-        description: "Traditional Egyptian coffee with cardamom and saffron. A pure, concentrated coffee experience that enhances mental clarity and focus.",
-        reason: "Strong, authentic coffee with aromatic spices provides sustained concentration without distractions"
+        name: "Hot Cortado",
+        description: "Balanced espresso with equal parts warm milk. A smooth, concentrated coffee that enhances mental clarity without overwhelming intensity.",
+        reason: "Perfect espresso-to-milk ratio provides sustained focus and concentration without jitters"
       },
       {
-        name: "Turkish Coffee",
-        description: "Finely ground coffee beans prepared in traditional Turkish style. Rich, intense flavor that sharpens mental alertness.",
-        reason: "Concentrated coffee preparation delivers focused energy and enhances cognitive performance"
+        name: "Iced Macchiato",
+        description: "Chilled espresso with a dollop of foam and milk. Clean, crisp coffee flavor that sharpens mental alertness and keeps you cool.",
+        reason: "Cold espresso with minimal milk delivers pure coffee focus while keeping you refreshed during intense work"
       }
     ]
   },
