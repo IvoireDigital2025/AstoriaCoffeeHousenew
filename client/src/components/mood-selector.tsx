@@ -56,14 +56,14 @@ const moods: Mood[] = [
     description: "Calm and peaceful",
     recommendations: [
       {
-        name: "Pistachio Iced Latte",
-        description: "Iced latte with authentic Middle Eastern pistachio syrup. A comforting blend perfect for peaceful moments and gentle indulgence.",
-        reason: "Sweet, nutty flavors complement a calm state of mind and enhance relaxation"
+        name: "Iced Lavender Matcha",
+        description: "Soothing matcha green tea with calming lavender essence served over ice. A zen-like drink that promotes tranquility and mindful relaxation.",
+        reason: "Lavender's calming properties combined with matcha's gentle energy create perfect harmony for peaceful moments"
       },
       {
-        name: "Date Syrup Macchiato",
-        description: "Espresso macchiato sweetened with natural date syrup. A unique blend that promotes tranquility and well-being with natural sweetness.",
-        reason: "Gentle coffee with natural date syrup provides comforting sweetness perfect for peaceful moments"
+        name: "Pistachio Hot Latte",
+        description: "Warm espresso with creamy steamed milk and authentic pistachio syrup. A comforting hot drink that wraps you in cozy warmth and nutty sweetness.",
+        reason: "Warm, nutty flavors and creamy texture provide the perfect comfort for relaxation and unwinding"
       }
     ]
   },
