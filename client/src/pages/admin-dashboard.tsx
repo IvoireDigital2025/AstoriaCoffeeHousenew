@@ -224,7 +224,16 @@ export default function AdminDashboard() {
   };
 
   const downloadLoyaltyCustomers = (format: 'csv' | 'excel') => {
-    if (!filteredLoyaltyCustomers || filteredLoyaltyCustomers.length === 0) {
+    // Get filtered customers based on current search term
+    const customersToDownload = loyaltyCustomers?.filter((customer: LoyaltyCustomer) => {
+      const matchesSearch = 
+        customer.name.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
+        customer.phone.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
+        customer.email.toLowerCase().includes(loyaltySearchTerm.toLowerCase());
+      return matchesSearch;
+    }) || [];
+
+    if (!customersToDownload || customersToDownload.length === 0) {
       toast({
         title: "No Data",
         description: "No loyalty customers available to download.",
@@ -234,7 +243,7 @@ export default function AdminDashboard() {
     }
 
     const headers = ['id', 'name', 'email', 'phone', 'totalVisits', 'currentPoints', 'totalRewards', 'createdAt'];
-    const processedData = filteredLoyaltyCustomers.map((customer: LoyaltyCustomer) => ({
+    const processedData = customersToDownload.map((customer: LoyaltyCustomer) => ({
       id: customer.id,
       name: customer.name,
       email: customer.email,
@@ -945,7 +954,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-2">
                     <Button
                       onClick={() => downloadLoyaltyCustomers('csv')}
-                      disabled={!filteredLoyaltyCustomers?.length}
+                      disabled={!loyaltyCustomers?.length}
                       size="sm"
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
                     >
@@ -954,7 +963,7 @@ export default function AdminDashboard() {
                     </Button>
                     <Button
                       onClick={() => downloadLoyaltyCustomers('excel')}
-                      disabled={!filteredLoyaltyCustomers?.length}
+                      disabled={!loyaltyCustomers?.length}
                       size="sm"
                       className="bg-green-600 hover:bg-green-700 text-white"
                     >
