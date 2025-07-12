@@ -40,7 +40,7 @@ function Router() {
           <Route path="/loyalty/checkin" component={LoyaltyCheckin} />
           <Route path="/franchise" component={Franchise} />
           <Route path="/admin/login" component={AdminLogin} />
-          <Route path="/admin/contacts" component={AdminDashboard} />
+          <Route path="/admin/dashboard" component={AdminDashboard} />
           <Route component={NotFound} />
         </Switch>
       </main>
