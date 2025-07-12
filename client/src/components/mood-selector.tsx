@@ -107,14 +107,14 @@ const moods: Mood[] = [
     description: "High energy boost",
     recommendations: [
       {
-        name: "Saffron Cold Brew",
-        description: "Cold brew coffee infused with precious saffron threads. A vibrant, energizing drink that matches your dynamic spirit.",
-        reason: "Bold cold brew with exotic saffron provides sustained energy perfect for high-intensity activities"
+        name: "Red Eye",
+        description: "Drip coffee with a shot of espresso added. Maximum caffeine intensity for when you need serious energy and alertness.",
+        reason: "Double coffee combination delivers explosive energy boost perfect for high-intensity activities and demanding tasks"
       },
       {
-        name: "Orange Blossom Americano",
-        description: "Classic Americano with a hint of orange blossom water. Pure energy in its most concentrated form with aromatic floral notes.",
-        reason: "Strong coffee with uplifting orange blossom provides immediate energy boost perfect for high-intensity activities"
+        name: "Doppio Espresso",
+        description: "Double shot of pure espresso. Concentrated coffee power in its most intense form for maximum energy impact.",
+        reason: "Pure double espresso provides immediate, powerful energy surge ideal for peak performance and dynamic activities"
       }
     ]
   },

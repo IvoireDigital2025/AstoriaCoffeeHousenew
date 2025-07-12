@@ -176,6 +176,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Added "Marshmallow Hot Chocolate" and "London Fog" to Cold mood recommendations
 - ✓ Updated Tired mood recommendations with "Cold Brew" and "Hot V60"
 - ✓ Added "Hot Cortado" and "Iced Macchiato" to Focused mood recommendations
+- ✓ Updated Energetic mood recommendations with "Red Eye" and "Doppio Espresso"
 
 
 ## User Preferences
