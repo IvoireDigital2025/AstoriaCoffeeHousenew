@@ -93,7 +93,6 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("all");
   const [selectedFranchiseStatus, setSelectedFranchiseStatus] = useState<string | null>(null);
-  const [loyaltySearchTerm, setLoyaltySearchTerm] = useState("");
   const queryClient = useQueryClient();
 
   // Franchise application status update mutation
@@ -224,16 +223,7 @@ export default function AdminDashboard() {
   };
 
   const downloadLoyaltyCustomers = (format: 'csv' | 'excel') => {
-    // Get filtered customers based on current search term
-    const customersToDownload = loyaltyCustomers?.filter((customer: LoyaltyCustomer) => {
-      const matchesSearch = 
-        customer.name.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
-        customer.phone.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
-        customer.email.toLowerCase().includes(loyaltySearchTerm.toLowerCase());
-      return matchesSearch;
-    }) || [];
-
-    if (!customersToDownload || customersToDownload.length === 0) {
+    if (!loyaltyCustomers || loyaltyCustomers.length === 0) {
       toast({
         title: "No Data",
         description: "No loyalty customers available to download.",
@@ -243,7 +233,7 @@ export default function AdminDashboard() {
     }
 
     const headers = ['id', 'name', 'email', 'phone', 'totalVisits', 'currentPoints', 'totalRewards', 'createdAt'];
-    const processedData = customersToDownload.map((customer: LoyaltyCustomer) => ({
+    const processedData = loyaltyCustomers.map((customer: LoyaltyCustomer) => ({
       id: customer.id,
       name: customer.name,
       email: customer.email,
@@ -514,15 +504,6 @@ export default function AdminDashboard() {
     const matchesSource = sourceFilter === "all" || contact.source === sourceFilter;
     
     return matchesSearch && matchesSource;
-  }) || [];
-
-  // Filter loyalty customers based on search term
-  const filteredLoyaltyCustomers = loyaltyCustomers?.filter((customer: LoyaltyCustomer) => {
-    const matchesSearch = 
-      customer.name.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
-      customer.phone.toLowerCase().includes(loyaltySearchTerm.toLowerCase()) ||
-      customer.email.toLowerCase().includes(loyaltySearchTerm.toLowerCase());
-    return matchesSearch;
   }) || [];
 
 
@@ -974,25 +955,6 @@ export default function AdminDashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Search Input */}
-                <div className="mb-6">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
-                    <Input
-                      type="text"
-                      placeholder="Search customers by name, phone, or email..."
-                      value={loyaltySearchTerm}
-                      onChange={(e) => setLoyaltySearchTerm(e.target.value)}
-                      className="pl-10 border-coffee-medium/30 focus:border-coffee-primary"
-                    />
-                  </div>
-                  {loyaltySearchTerm && (
-                    <p className="text-sm text-coffee-medium mt-2">
-                      Found {filteredLoyaltyCustomers.length} customer{filteredLoyaltyCustomers.length !== 1 ? 's' : ''} matching "{loyaltySearchTerm}"
-                    </p>
-                  )}
-                </div>
-
                 <div className="space-y-4">
                   {loyaltyCustomersLoading ? (
                     <div className="space-y-4">
@@ -1000,9 +962,9 @@ export default function AdminDashboard() {
                         <div key={i} className="h-16 bg-gray-200 rounded animate-pulse"></div>
                       ))}
                     </div>
-                  ) : filteredLoyaltyCustomers && filteredLoyaltyCustomers.length > 0 ? (
+                  ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
                     <div className="space-y-4">
-                      {filteredLoyaltyCustomers.map((customer: LoyaltyCustomer) => (
+                      {loyaltyCustomers.map((customer: LoyaltyCustomer) => (
                         <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-3">
@@ -1067,14 +1029,6 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                       ))}
-                    </div>
-                  ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
-                    <div className="text-center py-8">
-                      <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-500 font-medium">No customers found</p>
-                      <p className="text-gray-400 text-sm">
-                        No customers match your search "{loyaltySearchTerm}"
-                      </p>
                     </div>
                   ) : (
                     <div className="text-center py-8">
