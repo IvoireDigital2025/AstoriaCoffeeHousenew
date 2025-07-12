@@ -173,6 +173,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Streamlined content to focus on location and product offerings without promotional language
 - ✓ Enhanced mood selector recommendations by adding "Strawfee Clouds" and "Iced Moccha" to Happy mood
 - ✓ Updated Relaxed mood recommendations with "Iced Lavender Matcha" and "Pistachio Hot Latte"
+- ✓ Added "Marshmallow Hot Chocolate" and "London Fog" to Cold mood recommendations
+- ✓ Updated Tired mood recommendations with "Cold Brew" and "Hot V60"
 
 
 ## User Preferences

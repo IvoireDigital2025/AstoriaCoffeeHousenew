@@ -44,9 +44,9 @@ const moods: Mood[] = [
         reason: "High caffeine content provides long-lasting energy boost to combat fatigue"
       },
       {
-        name: "Pro Frappe",
-        description: "Our signature iced coffee blend with rich espresso, creamy texture, and energizing taste. A refreshing pick-me-up drink.",
-        reason: "Combines strong coffee with refreshing cold temperature for instant alertness"
+        name: "Hot V60",
+        description: "Expertly brewed pour-over coffee using V60 method. Clean, bright flavors with maximum caffeine extraction for pure energy.",
+        reason: "Precise brewing method delivers optimal caffeine extraction and pure coffee flavor for sustained alertness"
       }
     ]
   },
@@ -90,14 +90,14 @@ const moods: Mood[] = [
     description: "Want something warm",
     recommendations: [
       {
-        name: "Cardamom Latte",
-        description: "Espresso with steamed milk and aromatic cardamom spice. A warming, comforting drink with Middle Eastern spices that heat you from within.",
-        reason: "Hot, spiced latte provides immediate warmth and comfort on cold days"
+        name: "Marshmallow Hot Chocolate",
+        description: "Rich, velvety hot chocolate topped with fluffy marshmallows. A cozy, indulgent treat that wraps you in warmth and sweetness.",
+        reason: "Creamy hot chocolate with marshmallows provides instant comfort and warmth to chase away the cold"
       },
       {
-        name: "Egyptian Mint Tea",
-        description: "Traditional Atay with fresh mint leaves and sugar. A hot, soothing tea that warms your body and refreshes your spirit.",
-        reason: "Hot tea with warming spices provides gentle heat and comfort during cold weather"
+        name: "London Fog",
+        description: "Earl Grey tea with steamed milk and vanilla syrup. A sophisticated, warming tea latte that combines British elegance with cozy comfort.",
+        reason: "Hot tea with creamy milk and vanilla creates a warming, aromatic experience perfect for cold weather"
       }
     ]
   },
