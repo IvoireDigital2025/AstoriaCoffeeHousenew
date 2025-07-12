@@ -93,6 +93,7 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("all");
   const [selectedFranchiseStatus, setSelectedFranchiseStatus] = useState<string | null>(null);
+  const [customerSearchQuery, setCustomerSearchQuery] = useState("");
   const queryClient = useQueryClient();
 
   // Franchise application status update mutation
@@ -953,6 +954,17 @@ export default function AdminDashboard() {
                     </Button>
                   </div>
                 </CardTitle>
+                
+                {/* Customer Search Bar */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                  <Input
+                    placeholder="Search customers by name, phone, or email..."
+                    value={customerSearchQuery}
+                    onChange={(e) => setCustomerSearchQuery(e.target.value)}
+                    className="pl-10 border-coffee-accent/30 focus:border-coffee-primary"
+                  />
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -963,73 +975,93 @@ export default function AdminDashboard() {
                       ))}
                     </div>
                   ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
-                    <div className="space-y-4">
-                      {loyaltyCustomers.map((customer: LoyaltyCustomer) => (
-                        <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-coffee-primary rounded-full flex items-center justify-center text-white font-bold">
-                                {customer.name.charAt(0).toUpperCase()}
-                              </div>
-                              <div>
-                                <p className="font-bold text-coffee-dark">{customer.name}</p>
-                                <p className="text-sm text-coffee-medium">{customer.phone}</p>
-                                <p className="text-sm text-coffee-medium">{customer.email}</p>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-xs text-coffee-medium">Customer ID: {customer.id}</p>
-                              <p className="text-xs text-coffee-medium">
-                                Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-3 bg-coffee-cream/30 rounded-lg">
-                            <div className="text-center">
-                              <p className="text-sm text-coffee-medium">Total Visits</p>
-                              <p className="text-2xl font-bold text-coffee-dark">{customer.totalVisits}</p>
-                            </div>
-                            <div className="text-center">
-                              <p className="text-sm text-coffee-medium">Current Points</p>
-                              <Badge 
-                                variant={customer.currentPoints >= 5 ? "default" : "secondary"}
-                                className="text-lg px-3 py-1"
-                              >
-                                {customer.currentPoints}
-                              </Badge>
-                            </div>
-                            <div className="text-center">
-                              <p className="text-sm text-coffee-medium">Total Rewards</p>
-                              <p className="text-2xl font-bold text-green-600">{customer.totalRewards}</p>
-                            </div>
-                            <div className="text-center">
-                              {customer.currentPoints >= 5 ? (
-                                <Button
-                                  size="sm"
-                                  onClick={() => redeemRewardMutation.mutate({ customerId: customer.id })}
-                                  disabled={redeemRewardMutation.isPending}
-                                  className="bg-green-600 hover:bg-green-700 text-white"
-                                >
-                                  <Gift className="w-4 h-4 mr-1" />
-                                  Redeem FREE Coffee
-                                </Button>
+                    (() => {
+                      const filteredCustomers = loyaltyCustomers.filter((customer: LoyaltyCustomer) => 
+                        customerSearchQuery === '' || 
+                        customer.name.toLowerCase().includes(customerSearchQuery.toLowerCase()) ||
+                        customer.phone.includes(customerSearchQuery) ||
+                        customer.email.toLowerCase().includes(customerSearchQuery.toLowerCase())
+                      );
+                      
+                      return (
+                        <div className="space-y-4">
+                          {customerSearchQuery && (
+                            <div className="text-sm text-coffee-medium bg-coffee-cream/30 p-3 rounded-lg">
+                              {filteredCustomers.length > 0 ? (
+                                <>Showing {filteredCustomers.length} of {loyaltyCustomers.length} customers</>
                               ) : (
-                                <div>
-                                  <p className="text-sm text-coffee-medium">Points to Reward</p>
-                                  <p className="text-lg font-bold text-amber-600">{5 - customer.currentPoints}</p>
-                                </div>
+                                <>No customers found matching "{customerSearchQuery}"</>
                               )}
                             </div>
-                          </div>
-                          
-                          <div className="mt-3 text-xs text-coffee-medium">
-                            <p><strong>Recognition:</strong> System recognizes this customer by phone number {customer.phone}</p>
-                            <p><strong>Last Activity:</strong> {format(new Date(customer.updatedAt), 'MMM dd, yyyy HH:mm')}</p>
-                          </div>
+                          )}
+                          {filteredCustomers.map((customer: LoyaltyCustomer) => (
+                            <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-12 h-12 bg-coffee-primary rounded-full flex items-center justify-center text-white font-bold">
+                                    {customer.name.charAt(0).toUpperCase()}
+                                  </div>
+                                  <div>
+                                    <p className="font-bold text-coffee-dark">{customer.name}</p>
+                                    <p className="text-sm text-coffee-medium">{customer.phone}</p>
+                                    <p className="text-sm text-coffee-medium">{customer.email}</p>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-xs text-coffee-medium">Customer ID: {customer.id}</p>
+                                  <p className="text-xs text-coffee-medium">
+                                    Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
+                                  </p>
+                                </div>
+                              </div>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-3 bg-coffee-cream/30 rounded-lg">
+                                <div className="text-center">
+                                  <p className="text-sm text-coffee-medium">Total Visits</p>
+                                  <p className="text-2xl font-bold text-coffee-dark">{customer.totalVisits}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-sm text-coffee-medium">Current Points</p>
+                                  <Badge 
+                                    variant={customer.currentPoints >= 5 ? "default" : "secondary"}
+                                    className="text-lg px-3 py-1"
+                                  >
+                                    {customer.currentPoints}
+                                  </Badge>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-sm text-coffee-medium">Total Rewards</p>
+                                  <p className="text-2xl font-bold text-green-600">{customer.totalRewards}</p>
+                                </div>
+                                <div className="text-center">
+                                  {customer.currentPoints >= 5 ? (
+                                    <Button
+                                      size="sm"
+                                      onClick={() => redeemRewardMutation.mutate({ customerId: customer.id })}
+                                      disabled={redeemRewardMutation.isPending}
+                                      className="bg-green-600 hover:bg-green-700 text-white"
+                                    >
+                                      <Gift className="w-4 h-4 mr-1" />
+                                      Redeem FREE Coffee
+                                    </Button>
+                                  ) : (
+                                    <div>
+                                      <p className="text-sm text-coffee-medium">Points to Reward</p>
+                                      <p className="text-lg font-bold text-amber-600">{5 - customer.currentPoints}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              
+                              <div className="mt-3 text-xs text-coffee-medium">
+                                <p><strong>Recognition:</strong> System recognizes this customer by phone number {customer.phone}</p>
+                                <p><strong>Last Activity:</strong> {format(new Date(customer.updatedAt), 'MMM dd, yyyy HH:mm')}</p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })()
                   ) : (
                     <div className="text-center py-8">
                       <Coffee className="w-12 h-12 text-gray-400 mx-auto mb-4" />
