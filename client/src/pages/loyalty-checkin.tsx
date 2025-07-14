@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Gift, User, Phone, Mail, CheckCircle } from "lucide-react";
+import { Coffee, Gift, User, Phone, Mail, CheckCircle, MapPin, AlertCircle } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 interface CheckinResponse {
@@ -29,11 +29,95 @@ export default function LoyaltyCheckin() {
   });
   const [checkinResult, setCheckinResult] = useState<CheckinResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [locationStatus, setLocationStatus] = useState<'checking' | 'valid' | 'invalid' | 'denied'>('checking');
+  const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>(null);
   const { toast } = useToast();
+
+  // Coffee Pro store location: 23-33 Astoria Blvd, Astoria, NY 11102
+  const STORE_LOCATION = {
+    latitude: 40.7709,
+    longitude: -73.9207,
+    radius: 100 // meters - adjust as needed
+  };
+
+  useEffect(() => {
+    checkLocationPermission();
+  }, []);
+
+  const checkLocationPermission = () => {
+    if (!navigator.geolocation) {
+      setLocationStatus('invalid');
+      toast({
+        title: "Location Required",
+        description: "Your device doesn't support location services. Please check in at the store.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ latitude, longitude });
+        
+        const distance = calculateDistance(
+          latitude, 
+          longitude, 
+          STORE_LOCATION.latitude, 
+          STORE_LOCATION.longitude
+        );
+        
+        if (distance <= STORE_LOCATION.radius) {
+          setLocationStatus('valid');
+        } else {
+          setLocationStatus('invalid');
+          toast({
+            title: "Location Check Failed",
+            description: `You must be within ${STORE_LOCATION.radius}m of Coffee Pro to check in. You're ${Math.round(distance)}m away.`,
+            variant: "destructive",
+          });
+        }
+      },
+      (error) => {
+        console.error('Location error:', error);
+        setLocationStatus('denied');
+        toast({
+          title: "Location Access Denied",
+          description: "Please enable location services and reload the page to check in.",
+          variant: "destructive",
+        });
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 30000
+      }
+    );
+  };
+
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371000; // Earth's radius in meters
+    const φ1 = lat1 * Math.PI/180;
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+  };
 
   const checkinMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return await apiRequest("POST", "/api/loyalty/checkin", data);
+      const checkinData = {
+        ...data,
+        latitude: userLocation?.latitude,
+        longitude: userLocation?.longitude,
+      };
+      return await apiRequest("POST", "/api/loyalty/checkin", checkinData);
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);
@@ -55,6 +139,17 @@ export default function LoyaltyCheckin() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check location first
+    if (locationStatus !== 'valid') {
+      toast({
+        title: "Location Check Required",
+        description: "You must be at Coffee Pro to check in. Please enable location services and be within the store.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (!formData.name || !formData.phone || !formData.email) {
       toast({
         title: "Missing Information",
@@ -63,6 +158,7 @@ export default function LoyaltyCheckin() {
       });
       return;
     }
+    
     checkinMutation.mutate(formData);
   };
 
@@ -148,6 +244,44 @@ export default function LoyaltyCheckin() {
             <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty Check-in</CardTitle>
             <p className="text-coffee-medium">Earn 1 point per visit • 5 points = 1 FREE Coffee</p>
             
+            {/* Location Status Indicator */}
+            <div className="mt-4 p-3 rounded-lg border">
+              {locationStatus === 'checking' && (
+                <div className="flex items-center justify-center space-x-2 text-blue-600">
+                  <MapPin className="w-4 h-4 animate-pulse" />
+                  <span className="text-sm">Checking location...</span>
+                </div>
+              )}
+              {locationStatus === 'valid' && (
+                <div className="flex items-center justify-center space-x-2 text-green-600">
+                  <CheckCircle className="w-4 h-4" />
+                  <span className="text-sm">Location verified - You're at Coffee Pro!</span>
+                </div>
+              )}
+              {locationStatus === 'invalid' && (
+                <div className="flex items-center justify-center space-x-2 text-red-600">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="text-sm">Please visit Coffee Pro to check in</span>
+                </div>
+              )}
+              {locationStatus === 'denied' && (
+                <div className="flex flex-col items-center justify-center space-y-2">
+                  <div className="flex items-center space-x-2 text-orange-600">
+                    <AlertCircle className="w-4 h-4" />
+                    <span className="text-sm">Enable location services to check in</span>
+                  </div>
+                  <Button 
+                    onClick={checkLocationPermission} 
+                    variant="outline" 
+                    size="sm"
+                    className="text-xs"
+                  >
+                    Try Again
+                  </Button>
+                </div>
+              )}
+            </div>
+            
             {/* How It Works */}
             <div className="bg-amber-50 rounded-lg p-4 mt-4 text-left">
               <h4 className="font-bold text-coffee-dark mb-2 text-sm">How Our System Works:</h4>
@@ -217,11 +351,11 @@ export default function LoyaltyCheckin() {
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
-                  disabled={checkinMutation.isPending}
+                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white disabled:bg-gray-400"
+                  disabled={checkinMutation.isPending || locationStatus !== 'valid'}
                 >
                   <Coffee className="w-4 h-4 mr-2" />
-                  {checkinMutation.isPending ? "Checking in..." : "Check In"}
+                  {checkinMutation.isPending ? "Checking in..." : locationStatus === 'valid' ? "Check In" : "Location Required"}
                 </Button>
               </form>
           </CardContent>

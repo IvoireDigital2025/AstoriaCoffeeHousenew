@@ -12,6 +12,22 @@ import {
   insertFranchiseApplicationSchema
 } from "@shared/schema";
 
+// Distance calculation function (Haversine formula)
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371000; // Earth's radius in meters
+  const φ1 = lat1 * Math.PI/180;
+  const φ2 = lat2 * Math.PI/180;
+  const Δφ = (lat2-lat1) * Math.PI/180;
+  const Δλ = (lon2-lon1) * Math.PI/180;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  return R * c;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Admin authentication middleware
@@ -267,10 +283,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // QR Code check-in endpoint (for customers)
   app.post("/api/loyalty/checkin", async (req, res) => {
     try {
-      const { name, phone, email } = req.body;
+      const { name, phone, email, latitude, longitude } = req.body;
       
       if (!name || !phone || !email) {
         return res.status(400).json({ message: "Name, phone, and email are required" });
+      }
+
+      // Location validation
+      if (!latitude || !longitude) {
+        return res.status(400).json({ message: "Location data is required for check-in" });
+      }
+
+      // Coffee Pro store location: 23-33 Astoria Blvd, Astoria, NY 11102
+      const STORE_LOCATION = {
+        latitude: 40.7709,
+        longitude: -73.9207,
+        radius: 100 // meters
+      };
+
+      // Calculate distance between user and store
+      const distance = calculateDistance(latitude, longitude, STORE_LOCATION.latitude, STORE_LOCATION.longitude);
+      
+      if (distance > STORE_LOCATION.radius) {
+        return res.status(403).json({ 
+          message: `You must be within ${STORE_LOCATION.radius}m of Coffee Pro to check in. You are ${Math.round(distance)}m away.` 
+        });
       }
 
       // Check if customer exists by phone (primary identifier)
