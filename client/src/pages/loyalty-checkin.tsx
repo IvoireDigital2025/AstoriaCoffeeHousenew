@@ -53,15 +53,6 @@ export default function LoyaltyCheckin() {
       // Get token from URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      const adminAccess = urlParams.get('admin'); // Check for admin access parameter
-      
-      // Allow admin access
-      if (adminAccess === 'true') {
-        setTokenValid(true);
-        setTokenMessage('Staff access granted');
-        setRemainingTime(3600); // 1 hour for staff
-        return;
-      }
       
       if (!token) {
         setTokenValid(false);
@@ -204,9 +195,8 @@ export default function LoyaltyCheckin() {
       return;
     }
     
-    // Check location (skip for staff access)
-    const isStaffAccess = tokenMessage === 'Staff access granted';
-    if (!isStaffAccess && locationStatus !== 'valid') {
+    // Check location
+    if (locationStatus !== 'valid') {
       toast({
         title: "Location Check Required",
         description: "You must be at Coffee Pro to check in. Please enable location services and be within the store.",
@@ -346,10 +336,7 @@ export default function LoyaltyCheckin() {
                 <div className="flex items-center justify-center space-x-2 text-green-700">
                   <Clock className="w-4 h-4" />
                   <span className="text-sm font-medium">
-                    {tokenMessage === 'Staff access granted' ? 
-                      'Staff Access - No Time Limit' : 
-                      `Time remaining: ${Math.floor(remainingTime / 60)}:${(remainingTime % 60).toString().padStart(2, '0')}`
-                    }
+                    Time remaining: {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
                   </span>
                 </div>
               </div>
@@ -463,12 +450,11 @@ export default function LoyaltyCheckin() {
                 <Button 
                   type="submit" 
                   className="w-full bg-coffee-primary hover:bg-coffee-medium text-white disabled:bg-gray-400"
-                  disabled={checkinMutation.isPending || (!tokenValid || (tokenMessage !== 'Staff access granted' && locationStatus !== 'valid'))}
+                  disabled={checkinMutation.isPending || locationStatus !== 'valid' || !tokenValid}
                 >
                   <Coffee className="w-4 h-4 mr-2" />
                   {checkinMutation.isPending ? "Checking in..." : 
                    !tokenValid ? "Invalid Access" :
-                   tokenMessage === 'Staff access granted' ? "Check In" :
                    locationStatus === 'valid' ? "Check In" : "Location Required"}
                 </Button>
               </form>

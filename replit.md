@@ -185,12 +185,6 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Created real-time location status indicator with visual feedback
 - ✓ Added server-side location validation using Haversine distance calculation
 - ✓ Implemented user-friendly error messages for location access and proximity issues
-- ✓ Created secure QR token system with 60-second timeout for customer check-ins
-- ✓ Added QR token generation endpoint with automatic cleanup of expired tokens
-- ✓ Implemented token validation to prevent direct URL access by customers
-- ✓ Added staff access bypass (admin=true parameter) for unlimited check-in access
-- ✓ Created dynamic QR code component with countdown timer and auto-refresh
-- ✓ Staff can access check-in page directly from admin dashboard without restrictions
 
 
 ## User Preferences
