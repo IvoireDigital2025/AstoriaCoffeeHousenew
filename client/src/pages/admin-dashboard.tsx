@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import QRCodeComponent from "@/components/QRCode";
+import WebsiteQRCode from "@/components/WebsiteQRCode";
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 
@@ -843,18 +844,35 @@ export default function AdminDashboard() {
 
           <TabsContent value="loyalty" className="space-y-8">
             {/* QR Code for Staff */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <QrCode className="w-5 h-5" />
-                  Loyalty Program QR Code
-                </CardTitle>
-                <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center space-y-4">
-                <QRCodeComponent size={150} mode="admin" />
-              </CardContent>
-            </Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Loyalty Program QR Code */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <QrCode className="w-5 h-5" />
+                    Loyalty Program QR Code
+                  </CardTitle>
+                  <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center space-y-4">
+                  <QRCodeComponent size={150} mode="admin" />
+                </CardContent>
+              </Card>
+
+              {/* Website QR Code */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <QrCode className="w-5 h-5" />
+                    Website QR Code
+                  </CardTitle>
+                  <p className="text-sm text-coffee-medium">Print and display this QR code for customers to access your website</p>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center space-y-4">
+                  <WebsiteQRCode size={150} />
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Loyalty Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

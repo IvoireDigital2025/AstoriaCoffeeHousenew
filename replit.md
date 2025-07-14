@@ -190,6 +190,9 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ Check-in page requires QR code scan for access - no direct URL access allowed
 - ✓ Added countdown timer showing remaining time to complete check-in
 - ✓ Implemented QR code download functionality for staff to print and display
+- ✓ Added website QR code for customers to access Coffee Pro website directly
+- ✓ Created dual QR code system: loyalty check-in and website access
+- ✓ Both QR codes downloadable from admin dashboard for printing and display
 
 
 ## User Preferences
