@@ -853,10 +853,18 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="flex flex-col items-center space-y-4">
                 <QRCodeComponent size={150} />
-                <div className="text-center">
-                  <p className="text-sm text-coffee-medium mt-2">
+                <div className="text-center space-y-3">
+                  <p className="text-sm text-coffee-medium">
                     Customers have 60 seconds to complete check-in after scanning
                   </p>
+                  <Button 
+                    onClick={() => window.open('/loyalty/checkin?admin=true', '_blank')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    size="sm"
+                  >
+                    <QrCode className="w-4 h-4 mr-2" />
+                    Staff Access to Check-in
+                  </Button>
                 </div>
               </CardContent>
             </Card>
