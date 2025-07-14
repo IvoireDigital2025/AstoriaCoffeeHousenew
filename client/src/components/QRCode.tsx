@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import QRCode from 'qrcode';
 import { Button } from '@/components/ui/button';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Download } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 
 interface QRCodeProps {
@@ -16,6 +16,16 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
   const [expiresAt, setExpiresAt] = useState<Date | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  const downloadQRCode = () => {
+    if (canvasRef.current) {
+      // Create a download link
+      const link = document.createElement('a');
+      link.download = 'coffee-pro-loyalty-qr-code.png';
+      link.href = canvasRef.current.toDataURL();
+      link.click();
+    }
+  };
 
   const generateToken = async () => {
     setIsGenerating(true);
@@ -100,13 +110,22 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
           />
         </div>
         
-        <div className="text-center">
+        <div className="text-center space-y-3">
           <div className="text-sm text-coffee-medium">
             <span className="font-bold text-green-600">Always Active</span> - Display this QR code in your store
           </div>
-          <p className="text-xs text-coffee-medium mt-1">
+          <p className="text-xs text-coffee-medium">
             When customers scan this code, they'll have 60 seconds to complete check-in
           </p>
+          
+          <Button 
+            onClick={downloadQRCode}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+            size="sm"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Download QR Code
+          </Button>
         </div>
       </div>
     );
