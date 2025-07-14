@@ -31,6 +31,28 @@ NODE_ENV=production
 1. In Railway's console, run: `npm run db:push`
 2. This creates all necessary tables
 
+## Alternative: Simpler Deployment (if build fails)
+
+If you encounter build issues with Railway, you can deploy in development mode:
+
+1. **Update railway.json** to use development mode:
+   ```json
+   {
+     "deploy": {
+       "startCommand": "npm run dev"
+     }
+   }
+   ```
+
+2. **Set environment variables**:
+   ```
+   NODE_ENV=development
+   SESSION_SECRET=your-secret-key
+   ADMIN_PASSWORD=your-admin-password
+   ```
+
+3. **Deploy**: Railway will run in development mode with hot reloading
+
 ### 6. Post-Deployment Setup
 1. Visit: `https://your-app-name.railway.app/admin`
 2. Login with your admin password
