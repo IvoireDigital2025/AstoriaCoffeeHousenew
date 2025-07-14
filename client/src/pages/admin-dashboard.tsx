@@ -852,12 +852,7 @@ export default function AdminDashboard() {
                 <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
               </CardHeader>
               <CardContent className="flex flex-col items-center space-y-4">
-                <QRCodeComponent size={150} />
-                <div className="text-center">
-                  <p className="text-sm text-coffee-medium mt-2">
-                    Customers have 60 seconds to complete check-in after scanning
-                  </p>
-                </div>
+                <QRCodeComponent size={150} mode="admin" />
               </CardContent>
             </Card>
 

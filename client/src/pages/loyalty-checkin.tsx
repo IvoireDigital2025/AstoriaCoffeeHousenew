@@ -55,12 +55,35 @@ export default function LoyaltyCheckin() {
       const token = urlParams.get('token');
       
       if (!token) {
-        setTokenValid(false);
-        setTokenMessage('Access denied. Please scan the QR code at Coffee Pro to check in.');
-        return;
+        // If no token in URL, generate a new one (when scanning static QR code)
+        try {
+          const response = await apiRequest('POST', '/api/qr/generate', {});
+          setTokenValid(true);
+          setTokenMessage('QR code verified successfully!');
+          setRemainingTime(response.validFor);
+          
+          // Start countdown timer
+          const timer = setInterval(() => {
+            setRemainingTime(prev => {
+              if (prev <= 1) {
+                clearInterval(timer);
+                setTokenValid(false);
+                setTokenMessage('Time expired. Please scan a new QR code.');
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+          
+          return () => clearInterval(timer);
+        } catch (error) {
+          setTokenValid(false);
+          setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
+          return;
+        }
       }
 
-      // Validate token with server
+      // If token exists in URL, validate it
       const response = await apiRequest('POST', '/api/qr/validate', { token });
       
       if (response.valid) {

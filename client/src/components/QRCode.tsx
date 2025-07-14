@@ -7,9 +7,10 @@ import { apiRequest } from '@/lib/queryClient';
 interface QRCodeProps {
   size?: number;
   className?: string;
+  mode?: 'admin' | 'dynamic'; // admin mode shows static QR, dynamic mode shows expiring tokens
 }
 
-export default function QRCodeComponent({ size = 200, className = "" }: QRCodeProps) {
+export default function QRCodeComponent({ size = 200, className = "", mode = 'dynamic' }: QRCodeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [token, setToken] = useState<string>('');
   const [expiresAt, setExpiresAt] = useState<Date | null>(null);
@@ -31,11 +32,30 @@ export default function QRCodeComponent({ size = 200, className = "" }: QRCodePr
   };
 
   useEffect(() => {
-    generateToken();
-  }, []);
+    if (mode === 'admin') {
+      // For admin mode, show static QR code that points to the check-in page
+      const qrValue = `${window.location.origin}/loyalty/checkin`;
+      
+      if (canvasRef.current) {
+        QRCode.toCanvas(canvasRef.current, qrValue, {
+          width: size,
+          margin: 2,
+          color: {
+            dark: '#2D1B1B', // Coffee dark color
+            light: '#FFFFFF'
+          }
+        }, (error) => {
+          if (error) console.error('QR Code generation error:', error);
+        });
+      }
+    } else {
+      // For dynamic mode, generate tokens
+      generateToken();
+    }
+  }, [mode, size]);
 
   useEffect(() => {
-    if (token && expiresAt) {
+    if (mode === 'dynamic' && token && expiresAt) {
       const qrValue = `${window.location.origin}/loyalty/checkin?token=${token}`;
       
       if (canvasRef.current) {
@@ -51,10 +71,10 @@ export default function QRCodeComponent({ size = 200, className = "" }: QRCodePr
         });
       }
     }
-  }, [token, size]);
+  }, [token, size, mode]);
 
   useEffect(() => {
-    if (expiresAt) {
+    if (mode === 'dynamic' && expiresAt) {
       const timer = setInterval(() => {
         const now = new Date();
         const remaining = Math.max(0, Math.floor((expiresAt.getTime() - now.getTime()) / 1000));
@@ -67,8 +87,32 @@ export default function QRCodeComponent({ size = 200, className = "" }: QRCodePr
 
       return () => clearInterval(timer);
     }
-  }, [expiresAt]);
+  }, [expiresAt, mode]);
 
+  // Admin mode renders static QR code
+  if (mode === 'admin') {
+    return (
+      <div className={`flex flex-col items-center space-y-4 ${className}`}>
+        <div className="bg-white p-4 rounded-lg shadow-inner">
+          <canvas 
+            ref={canvasRef} 
+            className="rounded-lg shadow-md"
+          />
+        </div>
+        
+        <div className="text-center">
+          <div className="text-sm text-coffee-medium">
+            <span className="font-bold text-green-600">Always Active</span> - Display this QR code in your store
+          </div>
+          <p className="text-xs text-coffee-medium mt-1">
+            When customers scan this code, they'll have 60 seconds to complete check-in
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Dynamic mode renders expiring tokens
   return (
     <div className={`flex flex-col items-center space-y-4 ${className}`}>
       <div className="bg-white p-4 rounded-lg shadow-inner">
