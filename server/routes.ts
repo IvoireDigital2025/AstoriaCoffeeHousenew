@@ -285,7 +285,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // QR Code check-in endpoint (for customers)
   app.post("/api/loyalty/checkin", async (req, res) => {
     try {
-      const { name, phone, email, latitude, longitude } = req.body;
+      const { name, phone, email, latitude, longitude, timezone, localTime } = req.body;
       
       if (!name || !phone || !email) {
         return res.status(400).json({ message: "Name, phone, and email are required" });
@@ -320,10 +320,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         customer = await storage.createLoyaltyCustomer({ name, phone, email });
       }
 
-      // Create visit record
+      // Use customer's local time for visit record if provided
+      const visitTime = localTime ? new Date(localTime) : new Date();
+      
+      // Create visit record with customer's local time
       const visit = await storage.createLoyaltyVisit({
         customerId: customer.id,
         pointsEarned: 1,
+        visitDate: visitTime,
       });
 
       // Update customer points and visit count

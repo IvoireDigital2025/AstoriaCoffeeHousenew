@@ -470,7 +470,7 @@ export class MemStorage implements IStorage {
     const visit: LoyaltyVisit = {
       id,
       ...insertVisit,
-      visitDate: new Date(),
+      visitDate: insertVisit.visitDate || new Date(),
       pointsEarned: insertVisit.pointsEarned || 1,
     };
     this.loyaltyVisits.set(id, visit);

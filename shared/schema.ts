@@ -127,7 +127,8 @@ export const insertLoyaltyCustomerSchema = createInsertSchema(loyaltyCustomers).
 
 export const insertLoyaltyVisitSchema = createInsertSchema(loyaltyVisits).omit({
   id: true,
-  visitDate: true,
+}).extend({
+  visitDate: z.date().optional(),
 });
 
 export const insertLoyaltyRewardSchema = createInsertSchema(loyaltyRewards).omit({

@@ -180,10 +180,13 @@ export default function LoyaltyCheckin() {
 
   const checkinMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
+      const now = new Date();
       const checkinData = {
         ...data,
         latitude: userLocation?.latitude,
         longitude: userLocation?.longitude,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        localTime: now.toISOString(),
       };
       return await apiRequest("POST", "/api/loyalty/checkin", checkinData);
     },
