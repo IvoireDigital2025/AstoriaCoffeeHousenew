@@ -852,20 +852,11 @@ export default function AdminDashboard() {
                 <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
               </CardHeader>
               <CardContent className="flex flex-col items-center space-y-4">
-                <div className="bg-white p-4 rounded-lg shadow-inner">
-                  <QRCodeComponent 
-                    value={typeof window !== 'undefined' ? window.location.origin + '/loyalty/checkin' : ''} 
-                    size={150} 
-                  />
-                </div>
+                <QRCodeComponent size={150} />
                 <div className="text-center">
-                  <Button 
-                    onClick={() => window.open('/loyalty/checkin', '_blank')}
-                    className="bg-coffee-primary hover:bg-coffee-medium text-white"
-                  >
-                    <QrCode className="w-4 h-4 mr-2" />
-                    Open Check-in Page
-                  </Button>
+                  <p className="text-sm text-coffee-medium mt-2">
+                    Customers have 60 seconds to complete check-in after scanning
+                  </p>
                 </div>
               </CardContent>
             </Card>

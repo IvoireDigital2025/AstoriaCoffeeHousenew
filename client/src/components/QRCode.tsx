@@ -1,34 +1,102 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import QRCode from 'qrcode';
+import { Button } from '@/components/ui/button';
+import { RefreshCw } from 'lucide-react';
+import { apiRequest } from '@/lib/queryClient';
 
 interface QRCodeProps {
-  value: string;
   size?: number;
   className?: string;
 }
 
-export default function QRCodeComponent({ value, size = 200, className = "" }: QRCodeProps) {
+export default function QRCodeComponent({ size = 200, className = "" }: QRCodeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [token, setToken] = useState<string>('');
+  const [expiresAt, setExpiresAt] = useState<Date | null>(null);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const generateToken = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await apiRequest('POST', '/api/qr/generate', {});
+      setToken(response.token);
+      setExpiresAt(new Date(response.expiresAt));
+      setTimeLeft(response.validFor);
+    } catch (error) {
+      console.error('Failed to generate QR token:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   useEffect(() => {
-    if (canvasRef.current) {
-      QRCode.toCanvas(canvasRef.current, value, {
-        width: size,
-        margin: 2,
-        color: {
-          dark: '#2D1B1B', // Coffee dark color
-          light: '#FFFFFF'
-        }
-      }, (error) => {
-        if (error) console.error('QR Code generation error:', error);
-      });
+    generateToken();
+  }, []);
+
+  useEffect(() => {
+    if (token && expiresAt) {
+      const qrValue = `${window.location.origin}/loyalty/checkin?token=${token}`;
+      
+      if (canvasRef.current) {
+        QRCode.toCanvas(canvasRef.current, qrValue, {
+          width: size,
+          margin: 2,
+          color: {
+            dark: '#2D1B1B', // Coffee dark color
+            light: '#FFFFFF'
+          }
+        }, (error) => {
+          if (error) console.error('QR Code generation error:', error);
+        });
+      }
     }
-  }, [value, size]);
+  }, [token, size]);
+
+  useEffect(() => {
+    if (expiresAt) {
+      const timer = setInterval(() => {
+        const now = new Date();
+        const remaining = Math.max(0, Math.floor((expiresAt.getTime() - now.getTime()) / 1000));
+        setTimeLeft(remaining);
+        
+        if (remaining === 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [expiresAt]);
 
   return (
-    <canvas 
-      ref={canvasRef} 
-      className={`rounded-lg shadow-md ${className}`}
-    />
+    <div className={`flex flex-col items-center space-y-4 ${className}`}>
+      <div className="bg-white p-4 rounded-lg shadow-inner">
+        <canvas 
+          ref={canvasRef} 
+          className="rounded-lg shadow-md"
+        />
+      </div>
+      
+      <div className="text-center space-y-2">
+        <div className="text-sm text-coffee-medium">
+          {timeLeft > 0 ? (
+            <>Valid for <span className="font-bold text-coffee-dark">{timeLeft}s</span></>
+          ) : (
+            <span className="text-red-600 font-bold">Expired</span>
+          )}
+        </div>
+        
+        <Button 
+          onClick={generateToken}
+          disabled={isGenerating || timeLeft > 0}
+          className="bg-coffee-primary hover:bg-coffee-medium text-white"
+          size="sm"
+        >
+          <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
+          {isGenerating ? 'Generating...' : 'Generate New Code'}
+        </Button>
+      </div>
+    </div>
   );
 }

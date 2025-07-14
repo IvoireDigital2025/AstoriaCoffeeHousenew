@@ -8,6 +8,7 @@ import {
   loyaltyVisits,
   loyaltyRewards,
   franchiseApplications,
+  qrTokens,
   type User, 
   type InsertUser,
   type MenuItem,
@@ -25,7 +26,9 @@ import {
   type LoyaltyReward,
   type InsertLoyaltyReward,
   type FranchiseApplication,
-  type InsertFranchiseApplication
+  type InsertFranchiseApplication,
+  type QrToken,
+  type InsertQrToken
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, asc, desc } from "drizzle-orm";
@@ -83,6 +86,12 @@ export interface IStorage {
   getAllFranchiseApplications(): Promise<FranchiseApplication[]>;
   updateFranchiseApplicationStatus(id: number, status: string): Promise<FranchiseApplication | undefined>;
   deleteFranchiseApplication(id: number): Promise<void>;
+
+  // QR Token operations
+  createQrToken(token: InsertQrToken): Promise<QrToken>;
+  getQrToken(token: string): Promise<QrToken | undefined>;
+  markQrTokenAsUsed(token: string): Promise<void>;
+  cleanupExpiredTokens(): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -96,6 +105,7 @@ export class MemStorage implements IStorage {
   private loyaltyVisits: Map<number, LoyaltyVisit>;
   private loyaltyRewards: Map<number, LoyaltyReward>;
   private franchiseApplications: Map<number, FranchiseApplication>;
+  private qrTokens: Map<number, QrToken>;
   private currentUserId: number;
   private currentMenuItemId: number;
   private currentContactMessageId: number;
@@ -106,6 +116,7 @@ export class MemStorage implements IStorage {
   private currentLoyaltyVisitId: number;
   private currentLoyaltyRewardId: number;
   private currentFranchiseApplicationId: number;
+  private currentQrTokenId: number;
 
   constructor() {
     this.users = new Map();
@@ -117,6 +128,7 @@ export class MemStorage implements IStorage {
     this.loyaltyVisits = new Map();
     this.loyaltyRewards = new Map();
     this.franchiseApplications = new Map();
+    this.qrTokens = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
     this.currentContactMessageId = 1;
@@ -126,6 +138,7 @@ export class MemStorage implements IStorage {
     this.currentLoyaltyVisitId = 1;
     this.currentLoyaltyRewardId = 1;
     this.currentFranchiseApplicationId = 1;
+    this.currentQrTokenId = 1;
     
     // Initialize with sample menu items
     this.initializeMenuItems();
@@ -531,6 +544,40 @@ export class MemStorage implements IStorage {
   async deleteFranchiseApplication(id: number): Promise<void> {
     this.franchiseApplications.delete(id);
   }
+
+  // QR Token operations
+  async createQrToken(insertToken: InsertQrToken): Promise<QrToken> {
+    const token: QrToken = {
+      id: this.currentQrTokenId++,
+      token: insertToken.token,
+      expiresAt: insertToken.expiresAt,
+      used: false,
+      createdAt: new Date(),
+    };
+    this.qrTokens.set(token.id, token);
+    return token;
+  }
+
+  async getQrToken(tokenString: string): Promise<QrToken | undefined> {
+    return Array.from(this.qrTokens.values()).find(token => token.token === tokenString);
+  }
+
+  async markQrTokenAsUsed(tokenString: string): Promise<void> {
+    const token = await this.getQrToken(tokenString);
+    if (token) {
+      token.used = true;
+      this.qrTokens.set(token.id, token);
+    }
+  }
+
+  async cleanupExpiredTokens(): Promise<void> {
+    const now = new Date();
+    for (const [id, token] of this.qrTokens.entries()) {
+      if (token.expiresAt < now) {
+        this.qrTokens.delete(id);
+      }
+    }
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -772,6 +819,37 @@ export class DatabaseStorage implements IStorage {
 
   async deleteFranchiseApplication(id: number): Promise<void> {
     await db.delete(franchiseApplications).where(eq(franchiseApplications.id, id));
+  }
+
+  // QR Token operations
+  async createQrToken(insertToken: InsertQrToken): Promise<QrToken> {
+    const [token] = await db
+      .insert(qrTokens)
+      .values(insertToken)
+      .returning();
+    return token;
+  }
+
+  async getQrToken(tokenString: string): Promise<QrToken | undefined> {
+    const [token] = await db
+      .select()
+      .from(qrTokens)
+      .where(eq(qrTokens.token, tokenString));
+    return token || undefined;
+  }
+
+  async markQrTokenAsUsed(tokenString: string): Promise<void> {
+    await db
+      .update(qrTokens)
+      .set({ used: true })
+      .where(eq(qrTokens.token, tokenString));
+  }
+
+  async cleanupExpiredTokens(): Promise<void> {
+    const now = new Date();
+    await db
+      .delete(qrTokens)
+      .where(eq(qrTokens.expiresAt, now));
   }
 }
 

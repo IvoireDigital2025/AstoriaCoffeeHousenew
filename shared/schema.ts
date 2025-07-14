@@ -179,3 +179,21 @@ export const insertFranchiseApplicationSchema = createInsertSchema(franchiseAppl
 
 export type FranchiseApplication = typeof franchiseApplications.$inferSelect;
 export type InsertFranchiseApplication = z.infer<typeof insertFranchiseApplicationSchema>;
+
+// QR Code tokens table for secure check-in access
+export const qrTokens = pgTable("qr_tokens", {
+  id: serial("id").primaryKey(),
+  token: varchar("token", { length: 255 }).notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  used: boolean("used").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertQrTokenSchema = createInsertSchema(qrTokens).omit({
+  id: true,
+  used: true,
+  createdAt: true,
+});
+
+export type QrToken = typeof qrTokens.$inferSelect;
+export type InsertQrToken = z.infer<typeof insertQrTokenSchema>;

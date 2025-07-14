@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Gift, User, Phone, Mail, CheckCircle, MapPin, AlertCircle } from "lucide-react";
+import { Coffee, Gift, User, Phone, Mail, CheckCircle, MapPin, AlertCircle, Clock, XCircle } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 interface CheckinResponse {
@@ -31,6 +31,9 @@ export default function LoyaltyCheckin() {
   const [isLoading, setIsLoading] = useState(false);
   const [locationStatus, setLocationStatus] = useState<'checking' | 'valid' | 'invalid' | 'denied'>('checking');
   const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>(null);
+  const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+  const [tokenMessage, setTokenMessage] = useState<string>('');
+  const [remainingTime, setRemainingTime] = useState<number>(0);
   const { toast } = useToast();
 
   // Coffee Pro store location: 23-33 Astoria Blvd, Astoria, NY 11102
@@ -41,8 +44,50 @@ export default function LoyaltyCheckin() {
   };
 
   useEffect(() => {
+    validateTokenFromUrl();
     checkLocationPermission();
   }, []);
+
+  const validateTokenFromUrl = async () => {
+    try {
+      // Get token from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      
+      if (!token) {
+        setTokenValid(false);
+        setTokenMessage('Access denied. Please scan the QR code at Coffee Pro to check in.');
+        return;
+      }
+
+      // Validate token with server
+      const response = await apiRequest('POST', '/api/qr/validate', { token });
+      
+      if (response.valid) {
+        setTokenValid(true);
+        setTokenMessage('QR code verified successfully!');
+        setRemainingTime(response.remainingTime);
+        
+        // Start countdown timer
+        const timer = setInterval(() => {
+          setRemainingTime(prev => {
+            if (prev <= 1) {
+              clearInterval(timer);
+              setTokenValid(false);
+              setTokenMessage('Time expired. Please scan a new QR code.');
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+        
+        return () => clearInterval(timer);
+      }
+    } catch (error: any) {
+      setTokenValid(false);
+      setTokenMessage(error.message || 'Invalid or expired QR code. Please scan a new code.');
+    }
+  };
 
   const checkLocationPermission = () => {
     if (!navigator.geolocation) {
@@ -140,7 +185,17 @@ export default function LoyaltyCheckin() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check location first
+    // Check token validity first
+    if (!tokenValid) {
+      toast({
+        title: "Invalid Access",
+        description: "Please scan the QR code at Coffee Pro to check in.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Check location
     if (locationStatus !== 'valid') {
       toast({
         title: "Location Check Required",
@@ -166,6 +221,37 @@ export default function LoyaltyCheckin() {
     setCheckinResult(null);
     setFormData({ name: "", phone: "", email: "" });
   };
+
+  // Access denied page for invalid tokens
+  if (tokenValid === false) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center p-4">
+        <Card className="w-full max-w-md shadow-lg border-red-200">
+          <CardHeader className="text-center">
+            <div className="mx-auto mb-4">
+              <XCircle className="w-16 h-16 text-red-600" />
+            </div>
+            <CardTitle className="text-2xl font-bold text-red-600">Access Denied</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center space-y-4">
+            <p className="text-coffee-medium">{tokenMessage}</p>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <p className="text-red-700 text-sm">
+                To check in, you must scan the QR code displayed at Coffee Pro. 
+                This ensures you're physically present at our store.
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-coffee-medium">
+                <strong>Visit Coffee Pro:</strong><br />
+                23-33 Astoria Blvd, Astoria, NY 11102
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (checkinResult) {
     return (
@@ -243,6 +329,18 @@ export default function LoyaltyCheckin() {
             </div>
             <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty Check-in</CardTitle>
             <p className="text-coffee-medium">Earn 1 point per visit • 5 points = 1 FREE Coffee</p>
+            
+            {/* QR Token Time Remaining */}
+            {tokenValid && (
+              <div className="mt-4 p-3 rounded-lg border-2 border-green-200 bg-green-50">
+                <div className="flex items-center justify-center space-x-2 text-green-700">
+                  <Clock className="w-4 h-4" />
+                  <span className="text-sm font-medium">
+                    Time remaining: {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
+            )}
             
             {/* Location Status Indicator */}
             <div className="mt-4 p-3 rounded-lg border">
@@ -352,10 +450,12 @@ export default function LoyaltyCheckin() {
                 <Button 
                   type="submit" 
                   className="w-full bg-coffee-primary hover:bg-coffee-medium text-white disabled:bg-gray-400"
-                  disabled={checkinMutation.isPending || locationStatus !== 'valid'}
+                  disabled={checkinMutation.isPending || locationStatus !== 'valid' || !tokenValid}
                 >
                   <Coffee className="w-4 h-4 mr-2" />
-                  {checkinMutation.isPending ? "Checking in..." : locationStatus === 'valid' ? "Check In" : "Location Required"}
+                  {checkinMutation.isPending ? "Checking in..." : 
+                   !tokenValid ? "Invalid Access" :
+                   locationStatus === 'valid' ? "Check In" : "Location Required"}
                 </Button>
               </form>
           </CardContent>

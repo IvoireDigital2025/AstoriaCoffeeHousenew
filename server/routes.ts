@@ -9,8 +9,10 @@ import {
   insertLoyaltyCustomerSchema,
   insertLoyaltyVisitSchema,
   insertLoyaltyRewardSchema,
-  insertFranchiseApplicationSchema
+  insertFranchiseApplicationSchema,
+  insertQrTokenSchema
 } from "@shared/schema";
+import { randomBytes } from "crypto";
 
 // Distance calculation function (Haversine formula)
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -498,6 +500,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         message: "Reward redeemed successfully",
         customer: updatedCustomer,
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  // QR Token generation and validation endpoints
+  app.post("/api/qr/generate", requireAdminAuth, async (req, res) => {
+    try {
+      // Clean up expired tokens first
+      await storage.cleanupExpiredTokens();
+      
+      // Generate secure random token
+      const tokenString = randomBytes(32).toString('hex');
+      
+      // Token expires in 60 seconds
+      const expiresAt = new Date(Date.now() + 60 * 1000);
+      
+      const token = await storage.createQrToken({
+        token: tokenString,
+        expiresAt,
+      });
+      
+      res.json({
+        token: tokenString,
+        expiresAt: expiresAt.toISOString(),
+        validFor: 60 // seconds
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post("/api/qr/validate", async (req, res) => {
+    try {
+      const { token } = req.body;
+      
+      if (!token) {
+        return res.status(400).json({ message: "Token is required" });
+      }
+      
+      const qrToken = await storage.getQrToken(token);
+      
+      if (!qrToken) {
+        return res.status(404).json({ message: "Invalid token" });
+      }
+      
+      const now = new Date();
+      
+      if (qrToken.expiresAt < now) {
+        return res.status(400).json({ message: "Token has expired" });
+      }
+      
+      if (qrToken.used) {
+        return res.status(400).json({ message: "Token has already been used" });
+      }
+      
+      // Mark token as used
+      await storage.markQrTokenAsUsed(token);
+      
+      res.json({ 
+        valid: true, 
+        message: "Token validated successfully",
+        remainingTime: Math.max(0, Math.floor((qrToken.expiresAt.getTime() - now.getTime()) / 1000))
       });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
