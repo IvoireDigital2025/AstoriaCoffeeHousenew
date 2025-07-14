@@ -55,7 +55,12 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
+// Initialize the Express app for Vercel
+let isInitialized = false;
+
+async function initializeApp() {
+  if (isInitialized) return app;
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -68,8 +73,13 @@ app.use((req, res, next) => {
 
   // For Vercel, serve static files from dist/public
   serveStatic(app);
+  
+  isInitialized = true;
+  return app;
+}
 
-})();
-
-// Export the app for Vercel serverless functions
-export default app;
+// Export handler for Vercel serverless functions
+export default async function handler(req: Request, res: Response) {
+  const app = await initializeApp();
+  return app(req, res);
+}
