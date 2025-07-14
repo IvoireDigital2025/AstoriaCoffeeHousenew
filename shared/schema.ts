@@ -84,20 +84,6 @@ export const loyaltyRewards = pgTable("loyalty_rewards", {
   notes: text("notes"),
 });
 
-export const pendingCheckins = pgTable("pending_checkins", {
-  id: serial("id").primaryKey(),
-  customerName: varchar("customer_name", { length: 255 }).notNull(),
-  customerPhone: varchar("customer_phone", { length: 50 }).notNull(),
-  customerEmail: varchar("customer_email", { length: 255 }).notNull(),
-  latitude: text("latitude"),
-  longitude: text("longitude"),
-  status: varchar("status", { length: 20 }).default("pending"), // pending, approved, rejected
-  staffNotes: text("staff_notes"),
-  approvedBy: text("approved_by"),
-  approvedAt: timestamp("approved_at"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   points: true,
@@ -149,12 +135,6 @@ export const insertLoyaltyRewardSchema = createInsertSchema(loyaltyRewards).omit
   redeemedAt: true,
 });
 
-export const insertPendingCheckinSchema = createInsertSchema(pendingCheckins).omit({
-  id: true,
-  createdAt: true,
-  approvedAt: true,
-});
-
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type MenuItem = typeof menuItems.$inferSelect;
@@ -173,8 +153,6 @@ export type LoyaltyVisit = typeof loyaltyVisits.$inferSelect;
 export type InsertLoyaltyVisit = z.infer<typeof insertLoyaltyVisitSchema>;
 export type LoyaltyReward = typeof loyaltyRewards.$inferSelect;
 export type InsertLoyaltyReward = z.infer<typeof insertLoyaltyRewardSchema>;
-export type PendingCheckin = typeof pendingCheckins.$inferSelect;
-export type InsertPendingCheckin = z.infer<typeof insertPendingCheckinSchema>;
 
 // Franchise applications table
 export const franchiseApplications = pgTable("franchise_applications", {

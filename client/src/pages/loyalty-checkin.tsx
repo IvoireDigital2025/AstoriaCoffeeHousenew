@@ -19,8 +19,6 @@ interface CheckinResponse {
   };
   earnedReward: boolean;
   pointsToNextReward: number;
-  isPending?: boolean;
-  pendingId?: number;
 }
 
 export default function LoyaltyCheckin() {

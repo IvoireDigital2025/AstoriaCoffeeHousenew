@@ -7,7 +7,6 @@ import {
   loyaltyCustomers,
   loyaltyVisits,
   loyaltyRewards,
-  pendingCheckins,
   franchiseApplications,
   type User, 
   type InsertUser,
@@ -25,8 +24,6 @@ import {
   type InsertLoyaltyVisit,
   type LoyaltyReward,
   type InsertLoyaltyReward,
-  type PendingCheckin,
-  type InsertPendingCheckin,
   type FranchiseApplication,
   type InsertFranchiseApplication
 } from "@shared/schema";
@@ -81,12 +78,6 @@ export interface IStorage {
   getLoyaltyRewardsByCustomer(customerId: number): Promise<LoyaltyReward[]>;
   getAllLoyaltyRewards(): Promise<LoyaltyReward[]>;
 
-  // Pending check-in operations
-  createPendingCheckin(checkin: InsertPendingCheckin): Promise<PendingCheckin>;
-  getAllPendingCheckins(): Promise<PendingCheckin[]>;
-  updatePendingCheckinStatus(id: number, status: string, staffNotes?: string, approvedBy?: string): Promise<PendingCheckin | undefined>;
-  deletePendingCheckin(id: number): Promise<void>;
-
   // Franchise application operations
   createFranchiseApplication(application: InsertFranchiseApplication): Promise<FranchiseApplication>;
   getAllFranchiseApplications(): Promise<FranchiseApplication[]>;
@@ -104,7 +95,6 @@ export class MemStorage implements IStorage {
   private loyaltyCustomers: Map<number, LoyaltyCustomer>;
   private loyaltyVisits: Map<number, LoyaltyVisit>;
   private loyaltyRewards: Map<number, LoyaltyReward>;
-  private pendingCheckins: Map<number, PendingCheckin>;
   private franchiseApplications: Map<number, FranchiseApplication>;
   private currentUserId: number;
   private currentMenuItemId: number;
@@ -115,7 +105,6 @@ export class MemStorage implements IStorage {
   private currentLoyaltyCustomerId: number;
   private currentLoyaltyVisitId: number;
   private currentLoyaltyRewardId: number;
-  private currentPendingCheckinId: number;
   private currentFranchiseApplicationId: number;
 
   constructor() {
@@ -127,7 +116,6 @@ export class MemStorage implements IStorage {
     this.loyaltyCustomers = new Map();
     this.loyaltyVisits = new Map();
     this.loyaltyRewards = new Map();
-    this.pendingCheckins = new Map();
     this.franchiseApplications = new Map();
     this.currentUserId = 1;
     this.currentMenuItemId = 1;
@@ -137,7 +125,6 @@ export class MemStorage implements IStorage {
     this.currentLoyaltyCustomerId = 1;
     this.currentLoyaltyVisitId = 1;
     this.currentLoyaltyRewardId = 1;
-    this.currentPendingCheckinId = 1;
     this.currentFranchiseApplicationId = 1;
     
     // Initialize with sample menu items
@@ -756,40 +743,6 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(loyaltyRewards)
       .orderBy(desc(loyaltyRewards.redeemedAt));
-  }
-
-  // Pending check-in methods
-  async createPendingCheckin(insertCheckin: InsertPendingCheckin): Promise<PendingCheckin> {
-    const [checkin] = await db
-      .insert(pendingCheckins)
-      .values(insertCheckin)
-      .returning();
-    return checkin;
-  }
-
-  async getAllPendingCheckins(): Promise<PendingCheckin[]> {
-    return await db
-      .select()
-      .from(pendingCheckins)
-      .orderBy(desc(pendingCheckins.createdAt));
-  }
-
-  async updatePendingCheckinStatus(id: number, status: string, staffNotes?: string, approvedBy?: string): Promise<PendingCheckin | undefined> {
-    const updateData: any = { status };
-    if (staffNotes) updateData.staffNotes = staffNotes;
-    if (approvedBy) updateData.approvedBy = approvedBy;
-    if (status === 'approved') updateData.approvedAt = new Date();
-
-    const [checkin] = await db
-      .update(pendingCheckins)
-      .set(updateData)
-      .where(eq(pendingCheckins.id, id))
-      .returning();
-    return checkin || undefined;
-  }
-
-  async deletePendingCheckin(id: number): Promise<void> {
-    await db.delete(pendingCheckins).where(eq(pendingCheckins.id, id));
   }
 
   // Franchise application methods

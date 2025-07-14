@@ -9,7 +9,6 @@ import {
   insertLoyaltyCustomerSchema,
   insertLoyaltyVisitSchema,
   insertLoyaltyRewardSchema,
-  insertPendingCheckinSchema,
   insertFranchiseApplicationSchema
 } from "@shared/schema";
 
