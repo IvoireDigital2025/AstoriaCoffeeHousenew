@@ -17,7 +17,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to true in production with HTTPS
+    secure: process.env.NODE_ENV === 'production', // HTTPS in production
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -75,7 +75,7 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Use Railway's PORT environment variable or default to 5000
+  // Use PORT environment variable (Render/Railway) or default to 5000
   const port = parseInt(process.env.PORT || "5000");
   server.listen({
     port,
