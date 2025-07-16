@@ -653,8 +653,6 @@ export default function AdminDashboard() {
                       <Download className="w-4 h-4 mr-2" />
                       CSV
                     </Button>
-                    <Button
-                    </Button>
                   </div>
                 </div>
 
@@ -743,9 +741,6 @@ export default function AdminDashboard() {
                     >
                       <Download className="w-4 h-4 mr-2" />
                       CSV
-                    </Button>
-                    <Button
-                      Excel
                     </Button>
                   </div>
                 </CardTitle>
@@ -905,9 +900,6 @@ export default function AdminDashboard() {
                     >
                       <Download className="w-4 h-4 mr-2" />
                       CSV
-                    </Button>
-                    <Button
-                      Excel
                     </Button>
                   </div>
                 </CardTitle>
@@ -1105,9 +1097,6 @@ export default function AdminDashboard() {
                     >
                       <Download className="w-4 h-4 mr-2" />
                       CSV
-                    </Button>
-                    <Button
-                      Excel
                     </Button>
                   </div>
                 </CardTitle>
