@@ -5,6 +5,7 @@ services:
     plan: starter
     buildCommand: npm ci && npm run build
     startCommand: node server/production.js
+    region: oregon
     envVars:
       - key: NODE_ENV
         value: production

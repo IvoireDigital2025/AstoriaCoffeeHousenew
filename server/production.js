@@ -4,6 +4,17 @@ const path = require('path');
 const { Pool } = require('pg');
 const fs = require('fs');
 
+// Ensure required environment variables
+if (!process.env.DATABASE_URL) {
+  console.error('DATABASE_URL environment variable is required');
+  process.exit(1);
+}
+
+if (!process.env.SESSION_SECRET) {
+  console.error('SESSION_SECRET environment variable is required');
+  process.exit(1);
+}
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
