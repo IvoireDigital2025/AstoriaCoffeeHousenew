@@ -200,6 +200,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Newsletter subscription (alternative endpoint)
+  app.post("/api/newsletter/subscribe", async (req, res) => {
+    try {
+      const contactData = insertMarketingContactSchema.parse({
+        ...req.body,
+        source: req.body.source || "newsletter",
+        subscribed: true
+      });
+      
+      // Check if email already exists
+      const existingContact = await storage.getMarketingContactByEmail(contactData.email);
+      if (existingContact) {
+        if (!existingContact.subscribed) {
+          // Resubscribe existing contact
+          const updatedContact = await storage.updateMarketingContactSubscription(contactData.email, true);
+          return res.json({ 
+            success: true,
+            message: "Successfully resubscribed to our newsletter!",
+            contact: updatedContact
+          });
+        }
+        return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
+      }
+      
+      const contact = await storage.createMarketingContact(contactData);
+      res.json({ 
+        success: true,
+        message: "Successfully subscribed to our newsletter!",
+        contact: contact
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
   // Admin login endpoint
   app.post("/api/admin/login", (req: any, res) => {
     try {
