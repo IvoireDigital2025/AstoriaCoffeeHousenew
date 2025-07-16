@@ -23,6 +23,7 @@ export default function AdminLogin() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Include cookies in the request
         body: JSON.stringify({ password }),
       });
 
@@ -31,7 +32,7 @@ export default function AdminLogin() {
           title: "Login Successful",
           description: "Welcome to the admin dashboard",
         });
-        setLocation("/admin/contacts");
+        setLocation("/admin");
       } else {
         const error = await response.json();
         toast({

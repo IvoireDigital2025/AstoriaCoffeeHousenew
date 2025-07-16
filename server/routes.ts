@@ -252,8 +252,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/admin/marketing/contacts", requireAdminAuth, async (req, res) => {
+    try {
+      const contacts = await storage.getAllMarketingContacts();
+      res.json(contacts);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
   // Protected admin route to get all contact messages
   app.get("/api/contact/messages", requireAdminAuth, async (req, res) => {
+    try {
+      const messages = await storage.getAllContactMessages();
+      res.json(messages);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/contact/messages", requireAdminAuth, async (req, res) => {
     try {
       const messages = await storage.getAllContactMessages();
       res.json(messages);
