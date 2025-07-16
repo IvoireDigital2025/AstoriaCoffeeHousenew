@@ -3,6 +3,8 @@ import session from "express-session";
 import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { pool } from "./db";
+import connectPgSimple from "connect-pg-simple";
 
 const app = express();
 app.use(express.json());
@@ -11,15 +13,26 @@ app.use(express.urlencoded({ extended: false }));
 // Serve attached assets
 app.use('/attached_assets', express.static('attached_assets'));
 
-// Session configuration
+// Create PostgreSQL session store
+const pgSession = connectPgSimple(session);
+
+// Session configuration for production with database store
 app.use(session({
+  store: new pgSession({
+    pool: pool,
+    tableName: 'user_sessions',
+    createTableIfMissing: true
+  }),
   secret: process.env.SESSION_SECRET || 'coffee-pro-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production', // HTTPS in production
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+  },
+  name: 'coffee-pro-session'
 }));
 
 // Serve attached assets

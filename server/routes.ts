@@ -34,6 +34,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Admin authentication middleware
   const requireAdminAuth = (req: any, res: any, next: any) => {
+    console.log('Session check:', {
+      sessionId: req.session?.id,
+      adminAuthenticated: req.session?.adminAuthenticated,
+      sessionExists: !!req.session
+    });
+    
     const isAuthenticated = req.session?.adminAuthenticated;
     if (!isAuthenticated) {
       return res.status(401).json({ message: "Admin authentication required" });
@@ -200,16 +206,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { password } = req.body;
       const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
       
+      console.log('Login attempt:', {
+        hasPassword: !!password,
+        sessionExists: !!req.session,
+        sessionId: req.session?.id
+      });
+      
       if (password === adminPassword) {
         if (!req.session) {
           return res.status(500).json({ message: "Session not available" });
         }
         req.session.adminAuthenticated = true;
-        res.json({ message: "Login successful" });
+        
+        // Save session explicitly
+        req.session.save((err: any) => {
+          if (err) {
+            console.error('Session save error:', err);
+            return res.status(500).json({ message: "Failed to save session" });
+          }
+          console.log('Session saved successfully:', req.session.id);
+          res.json({ message: "Login successful" });
+        });
       } else {
         res.status(401).json({ message: "Invalid password" });
       }
     } catch (error: any) {
+      console.error('Login error:', error);
       res.status(500).json({ message: "Server error during login" });
     }
   });

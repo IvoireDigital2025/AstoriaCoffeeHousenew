@@ -3,6 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const { Pool } = require('pg');
 const fs = require('fs');
+const connectPgSimple = require('connect-pg-simple');
 
 // Ensure required environment variables
 if (!process.env.DATABASE_URL) {
@@ -25,15 +26,26 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-// Session configuration
+// Create PostgreSQL session store
+const pgSession = connectPgSimple(session);
+
+// Session configuration for production with database store
 app.use(session({
+  store: new pgSession({
+    pool: pool,
+    tableName: 'user_sessions',
+    createTableIfMissing: true
+  }),
   secret: process.env.SESSION_SECRET || 'coffee-pro-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000
-  }
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+  },
+  name: 'coffee-pro-session'
 }));
 
 // Serve static files
