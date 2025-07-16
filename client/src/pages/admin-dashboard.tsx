@@ -13,7 +13,6 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import QRCodeComponent from "@/components/QRCode";
 import WebsiteQRCode from "@/components/WebsiteQRCode";
-import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 
 interface MarketingContact {
@@ -137,23 +136,9 @@ export default function AdminDashboard() {
     document.body.removeChild(link);
   };
 
-  const downloadExcel = (data: any[], filename: string, headers: string[]) => {
-    const worksheet = XLSX.utils.json_to_sheet(
-      data.map(item => {
-        const row: any = {};
-        headers.forEach(header => {
-          row[header] = item[header] || '';
-        });
-        return row;
-      })
-    );
-    
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
-    XLSX.writeFile(workbook, `${filename}.xlsx`);
-  };
+  // Excel export removed due to security vulnerabilities - CSV export available
 
-  const downloadMarketingContacts = (format: 'csv' | 'excel') => {
+  const downloadMarketingContacts = () => {
     if (!contacts || contacts.length === 0) {
       toast({
         title: "No Data",
@@ -175,12 +160,7 @@ export default function AdminDashboard() {
     }));
 
     const filename = `marketing_contacts_${format(new Date(), 'yyyy-MM-dd')}`;
-    
-    if (format === 'csv') {
-      downloadCSV(processedData, filename, headers);
-    } else {
-      downloadExcel(processedData, filename, headers);
-    }
+    downloadCSV(processedData, filename, headers);
 
     toast({
       title: "Download Complete",
@@ -189,7 +169,7 @@ export default function AdminDashboard() {
     });
   };
 
-  const downloadContactMessages = (format: 'csv' | 'excel') => {
+  const downloadContactMessages = () => {
     if (!contactMessages || contactMessages.length === 0) {
       toast({
         title: "No Data",
@@ -211,20 +191,17 @@ export default function AdminDashboard() {
 
     const filename = `contact_messages_${format(new Date(), 'yyyy-MM-dd')}`;
     
-    if (format === 'csv') {
-      downloadCSV(processedData, filename, headers);
-    } else {
-      downloadExcel(processedData, filename, headers);
-    }
+    // Only CSV export available for security
+    downloadCSV(processedData, filename, headers);
 
     toast({
       title: "Download Complete",
-      description: `Contact messages exported as ${format.toUpperCase()} successfully.`,
+      description: "Contact messages exported as CSV successfully.",
       variant: "default",
     });
   };
 
-  const downloadLoyaltyCustomers = (format: 'csv' | 'excel') => {
+  const downloadLoyaltyCustomers = () => {
     if (!loyaltyCustomers || loyaltyCustomers.length === 0) {
       toast({
         title: "No Data",
@@ -248,20 +225,17 @@ export default function AdminDashboard() {
 
     const filename = `loyalty_customers_${format(new Date(), 'yyyy-MM-dd')}`;
     
-    if (format === 'csv') {
-      downloadCSV(processedData, filename, headers);
-    } else {
-      downloadExcel(processedData, filename, headers);
-    }
+    // Only CSV export available for security
+    downloadCSV(processedData, filename, headers);
 
     toast({
       title: "Download Complete",
-      description: `Loyalty customers exported as ${format.toUpperCase()} successfully.`,
+      description: "Loyalty customers exported as CSV successfully.",
       variant: "default",
     });
   };
 
-  const downloadFranchiseApplications = (format: 'csv' | 'excel') => {
+  const downloadFranchiseApplications = () => {
     if (!franchiseApplications || franchiseApplications.length === 0) {
       toast({
         title: "No Data",
@@ -289,15 +263,12 @@ export default function AdminDashboard() {
 
     const filename = `franchise_applications_${format(new Date(), 'yyyy-MM-dd')}`;
     
-    if (format === 'csv') {
-      downloadCSV(processedData, filename, headers);
-    } else {
-      downloadExcel(processedData, filename, headers);
-    }
+    // Only CSV export available for security
+    downloadCSV(processedData, filename, headers);
 
     toast({
       title: "Download Complete",
-      description: `Franchise applications exported as ${format.toUpperCase()} successfully.`,
+      description: "Franchise applications exported as CSV successfully.",
       variant: "default",
     });
   };
@@ -675,7 +646,7 @@ export default function AdminDashboard() {
                     </select>
                     
                     <Button
-                      onClick={() => downloadMarketingContacts('csv')}
+                      onClick={() => downloadMarketingContacts()}
                       disabled={!filteredContacts.length}
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
                     >
@@ -683,12 +654,6 @@ export default function AdminDashboard() {
                       CSV
                     </Button>
                     <Button
-                      onClick={() => downloadMarketingContacts('excel')}
-                      disabled={!filteredContacts.length}
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
-                      Excel
                     </Button>
                   </div>
                 </div>
@@ -771,7 +736,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => downloadContactMessages('csv')}
+                      onClick={() => downloadContactMessages()}
                       disabled={!contactMessages?.length}
                       size="sm"
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
@@ -780,12 +745,6 @@ export default function AdminDashboard() {
                       CSV
                     </Button>
                     <Button
-                      onClick={() => downloadContactMessages('excel')}
-                      disabled={!contactMessages?.length}
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
                       Excel
                     </Button>
                   </div>
@@ -939,7 +898,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => downloadLoyaltyCustomers('csv')}
+                      onClick={() => downloadLoyaltyCustomers()}
                       disabled={!loyaltyCustomers?.length}
                       size="sm"
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
@@ -948,12 +907,6 @@ export default function AdminDashboard() {
                       CSV
                     </Button>
                     <Button
-                      onClick={() => downloadLoyaltyCustomers('excel')}
-                      disabled={!loyaltyCustomers?.length}
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
                       Excel
                     </Button>
                   </div>
@@ -1145,7 +1098,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => downloadFranchiseApplications('csv')}
+                      onClick={() => downloadFranchiseApplications()}
                       disabled={!franchiseApplications?.length}
                       size="sm"
                       className="bg-coffee-primary hover:bg-coffee-medium text-white"
@@ -1154,12 +1107,6 @@ export default function AdminDashboard() {
                       CSV
                     </Button>
                     <Button
-                      onClick={() => downloadFranchiseApplications('excel')}
-                      disabled={!franchiseApplications?.length}
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
                       Excel
                     </Button>
                   </div>
