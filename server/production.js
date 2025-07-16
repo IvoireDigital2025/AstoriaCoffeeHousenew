@@ -40,6 +40,19 @@ app.use(session({
 app.use('/attached_assets', express.static(path.join(__dirname, '../attached_assets')));
 app.use(express.static(path.join(__dirname, '../dist/public')));
 
+// Serve React app for all routes except API
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+  const indexPath = path.join(__dirname, '../dist/public/index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Application not found');
+  }
+});
+
 // Simple API routes for basic functionality
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -92,15 +105,7 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// Serve React app for all other routes
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, '../dist/public/index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send('Application not found');
-  }
-});
+
 
 // Error handling
 app.use((err, req, res, next) => {
