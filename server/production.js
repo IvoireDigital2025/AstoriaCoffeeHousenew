@@ -40,10 +40,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to false for development
+    secure: process.env.NODE_ENV === 'production', // HTTPS in production
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: 'lax'
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   },
   name: 'coffee-pro-session'
 }));
@@ -148,6 +148,27 @@ app.get('/api/contact/messages', requireAdminAuth, async (req, res) => {
   }
 });
 
+// Admin route aliases (expected by frontend)
+app.get('/api/admin/marketing/contacts', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM marketing_contacts ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Admin marketing contacts error:', error);
+    res.status(500).json({ message: 'Failed to fetch marketing contacts' });
+  }
+});
+
+app.get('/api/admin/contact/messages', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM contact_messages ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Admin contact messages error:', error);
+    res.status(500).json({ message: 'Failed to fetch contact messages' });
+  }
+});
+
 app.get('/api/admin/loyalty/customers', requireAdminAuth, async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM loyalty_customers ORDER BY created_at DESC');
@@ -188,6 +209,72 @@ app.get('/api/admin/franchise/applications', requireAdminAuth, async (req, res) 
   }
 });
 
+// Franchise application status update
+app.patch('/api/admin/franchise/applications/:id/status', requireAdminAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value' });
+    }
+    
+    const result = await pool.query(
+      'UPDATE franchise_applications SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
+      [status, id]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Application not found' });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Franchise status update error:', error);
+    res.status(500).json({ message: 'Failed to update application status' });
+  }
+});
+
+// Delete franchise application
+app.delete('/api/admin/franchise/applications/:id', requireAdminAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM franchise_applications WHERE id = $1', [id]);
+    res.json({ message: 'Application deleted successfully' });
+  } catch (error) {
+    console.error('Delete franchise application error:', error);
+    res.status(500).json({ message: 'Failed to delete application' });
+  }
+});
+
+// Marketing unsubscribe endpoint
+app.post('/api/marketing/unsubscribe', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+    
+    const result = await pool.query(
+      'UPDATE marketing_contacts SET subscribed = false WHERE email = $1 RETURNING *',
+      [email]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Email not found in our system' });
+    }
+    
+    res.json({ 
+      message: 'Successfully unsubscribed from our newsletter',
+      contact: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Unsubscribe error:', error);
+    res.status(500).json({ message: 'Failed to unsubscribe' });
+  }
+});
+
 app.get('/api/admin/notifications', requireAdminAuth, async (req, res) => {
   try {
     // Return empty array for now, or implement notification system
@@ -214,6 +301,111 @@ app.get('/api/admin/qr-codes', requireAdminAuth, (req, res) => {
   } catch (error) {
     console.error('QR codes error:', error);
     res.status(500).json({ message: 'Failed to generate QR codes' });
+  }
+});
+
+// Newsletter subscription endpoints
+app.post('/api/marketing/newsletter', async (req, res) => {
+  try {
+    const { email, name, phone } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    // Check if email already exists
+    const existingContact = await pool.query('SELECT * FROM marketing_contacts WHERE email = $1', [email]);
+    
+    if (existingContact.rows.length > 0) {
+      const contact = existingContact.rows[0];
+      if (!contact.subscribed) {
+        // Resubscribe existing contact
+        await pool.query(
+          'UPDATE marketing_contacts SET subscribed = true, name = COALESCE($1, name), phone = COALESCE($2, phone) WHERE email = $3',
+          [name, phone, email]
+        );
+        return res.json({ message: 'Successfully resubscribed to our newsletter!' });
+      }
+      return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
+    }
+    
+    // Create new contact
+    await pool.query(
+      'INSERT INTO marketing_contacts (email, name, phone, source, subscribed) VALUES ($1, $2, $3, $4, true)',
+      [email, name, phone, 'newsletter']
+    );
+    
+    res.json({ message: 'Successfully subscribed to our newsletter!' });
+  } catch (error) {
+    console.error('Newsletter subscription error:', error);
+    res.status(500).json({ message: 'Failed to subscribe to newsletter' });
+  }
+});
+
+app.post('/api/newsletter/subscribe', async (req, res) => {
+  try {
+    const { email, name, phone, source } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    // Check if email already exists
+    const existingContact = await pool.query('SELECT * FROM marketing_contacts WHERE email = $1', [email]);
+    
+    if (existingContact.rows.length > 0) {
+      const contact = existingContact.rows[0];
+      if (!contact.subscribed) {
+        // Resubscribe existing contact
+        await pool.query(
+          'UPDATE marketing_contacts SET subscribed = true, name = COALESCE($1, name), phone = COALESCE($2, phone) WHERE email = $3',
+          [name, phone, email]
+        );
+        return res.json({ 
+          success: true,
+          message: 'Successfully resubscribed to our newsletter!' 
+        });
+      }
+      return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
+    }
+    
+    // Create new contact
+    await pool.query(
+      'INSERT INTO marketing_contacts (email, name, phone, source, subscribed) VALUES ($1, $2, $3, $4, true)',
+      [email, name, phone, source || 'newsletter']
+    );
+    
+    res.json({ 
+      success: true,
+      message: 'Successfully subscribed to our newsletter!' 
+    });
+  } catch (error) {
+    console.error('Newsletter subscription error:', error);
+    res.status(500).json({ message: 'Failed to subscribe to newsletter' });
+  }
+});
+
+// Contact form submission endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const result = await pool.query(
+      'INSERT INTO contact_messages (name, email, subject, message) VALUES ($1, $2, $3, $4) RETURNING id',
+      [name, email, subject, message]
+    );
+    
+    res.json({ 
+      message: 'Message sent successfully',
+      id: result.rows[0].id 
+    });
+  } catch (error) {
+    console.error('Contact form error:', error);
+    res.status(500).json({ message: 'Failed to send message' });
   }
 });
 
