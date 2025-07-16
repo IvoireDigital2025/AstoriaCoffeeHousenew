@@ -70,21 +70,158 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Admin authentication middleware
+const requireAdminAuth = (req, res, next) => {
+  console.log('Session check:', {
+    sessionId: req.session?.id,
+    adminAuthenticated: req.session?.adminAuthenticated,
+    sessionExists: !!req.session
+  });
+  
+  const isAuthenticated = req.session?.adminAuthenticated;
+  if (!isAuthenticated) {
+    return res.status(401).json({ message: "Admin authentication required" });
+  }
+  next();
+};
+
 // Admin login route
 app.post('/api/admin/login', (req, res) => {
-  const { password } = req.body;
-  if (password === process.env.ADMIN_PASSWORD) {
-    req.session.isAdmin = true;
-    res.json({ success: true });
-  } else {
-    res.status(401).json({ error: 'Invalid password' });
+  try {
+    const { password } = req.body;
+    const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
+    
+    console.log('Login attempt:', {
+      hasPassword: !!password,
+      sessionExists: !!req.session,
+      sessionId: req.session?.id
+    });
+    
+    if (password === adminPassword) {
+      if (!req.session) {
+        return res.status(500).json({ message: "Session not available" });
+      }
+      req.session.adminAuthenticated = true;
+      
+      // Save session explicitly
+      req.session.save((err) => {
+        if (err) {
+          console.error('Session save error:', err);
+          return res.status(500).json({ message: "Failed to save session" });
+        }
+        console.log('Session saved successfully:', req.session.id);
+        res.json({ message: "Login successful" });
+      });
+    } else {
+      res.status(401).json({ message: "Invalid password" });
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: "Server error during login" });
   }
 });
 
 // Admin logout route
 app.post('/api/admin/logout', (req, res) => {
-  req.session.isAdmin = false;
-  res.json({ success: true });
+  req.session.adminAuthenticated = false;
+  res.json({ message: "Logged out successfully" });
+});
+
+// Protected admin routes
+app.get('/api/marketing/contacts', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM marketing_contacts ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Marketing contacts error:', error);
+    res.status(500).json({ message: 'Failed to fetch marketing contacts' });
+  }
+});
+
+app.get('/api/contact/messages', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM contact_messages ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Contact messages error:', error);
+    res.status(500).json({ message: 'Failed to fetch contact messages' });
+  }
+});
+
+app.get('/api/admin/loyalty/customers', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM loyalty_customers ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Loyalty customers error:', error);
+    res.status(500).json({ message: 'Failed to fetch loyalty customers' });
+  }
+});
+
+app.get('/api/admin/loyalty/visits', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM loyalty_visits ORDER BY visit_date DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Loyalty visits error:', error);
+    res.status(500).json({ message: 'Failed to fetch loyalty visits' });
+  }
+});
+
+app.get('/api/admin/loyalty/rewards', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM loyalty_rewards ORDER BY redeemed_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Loyalty rewards error:', error);
+    res.status(500).json({ message: 'Failed to fetch loyalty rewards' });
+  }
+});
+
+app.get('/api/admin/franchise/applications', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM franchise_applications ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Franchise applications error:', error);
+    res.status(500).json({ message: 'Failed to fetch franchise applications' });
+  }
+});
+
+app.get('/api/admin/notifications', requireAdminAuth, async (req, res) => {
+  try {
+    // Return empty array for now, or implement notification system
+    res.json([]);
+  } catch (error) {
+    console.error('Notifications error:', error);
+    res.status(500).json({ message: 'Failed to fetch notifications' });
+  }
+});
+
+// QR code admin routes
+app.get('/api/admin/qr-codes', requireAdminAuth, (req, res) => {
+  try {
+    const baseUrl = process.env.REPLIT_DOMAIN || 'https://your-app.replit.app';
+    res.json({
+      loyaltyQR: `${baseUrl}/loyalty/checkin?token=loyalty-checkin-token`,
+      websiteQR: baseUrl
+    });
+  } catch (error) {
+    console.error('QR codes error:', error);
+    res.status(500).json({ message: 'Failed to generate QR codes' });
+  }
+});
+
+// Delete contact endpoint
+app.delete('/api/marketing/contacts/:id', requireAdminAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM marketing_contacts WHERE id = $1', [id]);
+    res.json({ message: 'Contact deleted successfully' });
+  } catch (error) {
+    console.error('Delete contact error:', error);
+    res.status(500).json({ message: 'Failed to delete contact' });
+  }
 });
 
 // Newsletter subscription
@@ -105,12 +242,12 @@ app.post('/api/newsletter/subscribe', async (req, res) => {
 // Contact form submission
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
     await pool.query(
-      'INSERT INTO customer_contacts (name, email, phone, message) VALUES ($1, $2, $3, $4)',
-      [name, email, phone, message]
+      'INSERT INTO contact_messages (name, email, phone, subject, message) VALUES ($1, $2, $3, $4, $5)',
+      [name, email, phone, subject, message]
     );
-    res.json({ success: true });
+    res.json({ message: 'Message sent successfully' });
   } catch (error) {
     console.error('Contact form error:', error);
     res.status(500).json({ error: 'Failed to submit contact form' });
