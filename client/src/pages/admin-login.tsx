@@ -19,7 +19,10 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
+      console.log('Attempting login with password:', password);
       const response = await apiRequest("POST", "/api/admin/login", { password });
+      
+      console.log('Login response:', response);
       
       toast({
         title: "Login Successful",
@@ -27,6 +30,7 @@ export default function AdminLogin() {
       });
       setLocation("/admin");
     } catch (error: any) {
+      console.error('Login error:', error);
       toast({
         title: "Login Failed",
         description: error.message || "Invalid password",

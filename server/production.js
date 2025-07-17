@@ -29,13 +29,22 @@ const pool = new Pool({
 // Create PostgreSQL session store
 const pgSession = connectPgSimple(session);
 
-// Session configuration for production with database store
-app.use(session({
-  store: new pgSession({
+// Session configuration for production - fallback to memory store if database fails
+let sessionStore;
+try {
+  sessionStore = new pgSession({
     pool: pool,
     tableName: 'user_sessions',
     createTableIfMissing: true
-  }),
+  });
+  console.log('Using PostgreSQL session store');
+} catch (error) {
+  console.error('PostgreSQL session store failed, using memory store:', error);
+  sessionStore = null; // Use default memory store
+}
+
+app.use(session({
+  store: sessionStore,
   secret: process.env.SESSION_SECRET || 'coffee-pro-secret-key',
   resave: false,
   saveUninitialized: false,
@@ -43,7 +52,7 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production', // HTTPS in production
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax' // Changed from 'none' to 'strict'
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' // Changed back to 'none' for cross-origin
   },
   name: 'coffee-pro-session'
 }));
@@ -86,7 +95,7 @@ const requireAdminAuth = (req, res, next) => {
 };
 
 // Admin login route
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', async (req, res) => {
   try {
     const { password } = req.body;
     const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
@@ -94,25 +103,46 @@ app.post('/api/admin/login', (req, res) => {
     console.log('Login attempt:', {
       hasPassword: !!password,
       sessionExists: !!req.session,
-      sessionId: req.session?.id
+      sessionId: req.session?.id,
+      requestBody: req.body
     });
+    
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
     
     if (password === adminPassword) {
       if (!req.session) {
+        console.error('Session not available');
         return res.status(500).json({ message: "Session not available" });
       }
+      
       req.session.adminAuthenticated = true;
       
-      // Save session explicitly
-      req.session.save((err) => {
-        if (err) {
-          console.error('Session save error:', err);
-          return res.status(500).json({ message: "Failed to save session" });
-        }
-        console.log('Session saved successfully:', req.session.id);
+      // Save session with promise wrapper
+      const saveSession = () => {
+        return new Promise((resolve, reject) => {
+          req.session.save((err) => {
+            if (err) {
+              console.error('Session save error:', err);
+              reject(err);
+            } else {
+              console.log('Session saved successfully:', req.session.id);
+              resolve(true);
+            }
+          });
+        });
+      };
+      
+      try {
+        await saveSession();
         res.json({ message: "Login successful" });
-      });
+      } catch (saveError) {
+        console.error('Session save failed:', saveError);
+        res.status(500).json({ message: "Failed to save session" });
+      }
     } else {
+      console.log('Invalid password provided');
       res.status(401).json({ message: "Invalid password" });
     }
   } catch (error) {
