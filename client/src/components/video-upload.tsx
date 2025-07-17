@@ -68,14 +68,7 @@ export default function VideoUpload({ onVideoUploaded }: VideoUploadProps) {
       formData.append('title', title);
       formData.append('description', description);
 
-      const getApiBaseUrl = () => {
-        if (import.meta.env.PROD) {
-          return window.location.origin;
-        }
-        return 'http://localhost:5000';
-      };
-      
-      const response = await fetch(`${getApiBaseUrl()}/api/videos/upload`, {
+      const response = await fetch(`/api/videos/upload`, {
         method: 'POST',
         body: formData,
         credentials: 'include'
