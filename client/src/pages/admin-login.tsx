@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Lock, Coffee } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function AdminLogin() {
   const [, setLocation] = useLocation();
@@ -18,33 +19,17 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Include cookies in the request
-        body: JSON.stringify({ password }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Login Successful",
-          description: "Welcome to the admin dashboard",
-        });
-        setLocation("/admin");
-      } else {
-        const error = await response.json();
-        toast({
-          title: "Login Failed",
-          description: error.message || "Invalid password",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
+      const response = await apiRequest("POST", "/api/admin/login", { password });
+      
       toast({
-        title: "Login Error",
-        description: "Unable to connect to server",
+        title: "Login Successful",
+        description: "Welcome to the admin dashboard",
+      });
+      setLocation("/admin");
+    } catch (error: any) {
+      toast({
+        title: "Login Failed",
+        description: error.message || "Invalid password",
         variant: "destructive",
       });
     } finally {

@@ -274,109 +274,32 @@ export default function AdminDashboard() {
   };
 
   const { data: contacts, isLoading: contactsLoading } = useQuery({
-    queryKey: ['/api/marketing/contacts'],
-    queryFn: async () => {
-      const response = await fetch('/api/marketing/contacts');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch contacts');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/marketing/contacts']
   });
 
   const { data: contactMessages, isLoading: messagesLoading } = useQuery({
-    queryKey: ['/api/contact/messages'],
-    queryFn: async () => {
-      const response = await fetch('/api/contact/messages');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch contact messages');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/contact/messages']
   });
 
   // Loyalty program data queries
   const { data: loyaltyCustomers, isLoading: loyaltyCustomersLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/customers'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/customers');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty customers');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/admin/loyalty/customers']
   });
 
   const { data: loyaltyVisits, isLoading: loyaltyVisitsLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/visits'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/visits');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty visits');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/admin/loyalty/visits']
   });
 
   const { data: loyaltyRewards, isLoading: loyaltyRewardsLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/rewards'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/rewards');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty rewards');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/admin/loyalty/rewards']
   });
 
   const { data: notifications, isLoading: notificationsLoading } = useQuery({
-    queryKey: ['/api/admin/notifications'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/notifications');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch notifications');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/admin/notifications']
   });
 
   const { data: franchiseApplications, isLoading: franchiseLoading } = useQuery({
-    queryKey: ['/api/admin/franchise/applications'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/franchise/applications');
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch franchise applications');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/admin/franchise/applications']
   });
 
   const deleteMarketingContactMutation = useMutation({
@@ -454,7 +377,7 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/logout', { method: 'POST' });
+      await apiRequest('POST', '/api/admin/logout');
       toast({
         title: "Logged Out",
         description: "You have been logged out successfully",
