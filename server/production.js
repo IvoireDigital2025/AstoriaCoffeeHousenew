@@ -801,6 +801,37 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Menu endpoints (for frontend compatibility)
+app.get('/api/menu', async (req, res) => {
+  try {
+    // Return empty menu items (website is informational only)
+    res.json([]);
+  } catch (error) {
+    console.error('Menu error:', error);
+    res.status(500).json({ error: 'Failed to fetch menu' });
+  }
+});
+
+app.get('/api/menu/:category', async (req, res) => {
+  try {
+    // Return empty menu items (website is informational only)
+    res.json([]);
+  } catch (error) {
+    console.error('Menu category error:', error);
+    res.status(500).json({ error: 'Failed to fetch menu category' });
+  }
+});
+
+// Login endpoint alias (for frontend compatibility)
+app.get('/api/login', (req, res) => {
+  res.status(405).json({ message: 'Method not allowed. Use POST for login.' });
+});
+
+// Health check endpoint
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 
 
 // Error handling
