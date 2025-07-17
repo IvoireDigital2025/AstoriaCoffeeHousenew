@@ -38,7 +38,14 @@ export default function Menu() {
   const { toast } = useToast();
 
   const { data: menuItems, isLoading } = useQuery<MenuItem[]>({
-    queryKey: ["/api/menu", activeCategory]
+    queryKey: ["/api/menu", activeCategory],
+    queryFn: async () => {
+      const response = await fetch(`/api/menu?category=${activeCategory}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch menu items");
+      }
+      return response.json();
+    },
   });
 
   const categories = [

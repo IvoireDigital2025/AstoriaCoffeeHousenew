@@ -9,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Gift, Coffee } from "lucide-react";
 import { insertMarketingContactSchema } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
 import { z } from "zod";
 
 const newsletterSchema = insertMarketingContactSchema.pick({
@@ -40,7 +39,19 @@ export default function NewsletterSignup({ variant = "default", className = "" }
 
   const newsletterMutation = useMutation({
     mutationFn: async (data: NewsletterFormData) => {
-      const response = await apiRequest("POST", "/api/marketing/newsletter", data);
+      const response = await fetch("/api/marketing/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to subscribe");
+      }
+
       return response.json();
     },
     onSuccess: (response) => {

@@ -29,30 +29,21 @@ const pool = new Pool({
 // Create PostgreSQL session store
 const pgSession = connectPgSimple(session);
 
-// Session configuration for production - fallback to memory store if database fails
-let sessionStore;
-try {
-  sessionStore = new pgSession({
+// Session configuration for production with database store
+app.use(session({
+  store: new pgSession({
     pool: pool,
     tableName: 'user_sessions',
     createTableIfMissing: true
-  });
-  console.log('Using PostgreSQL session store');
-} catch (error) {
-  console.error('PostgreSQL session store failed, using memory store:', error);
-  sessionStore = null; // Use default memory store
-}
-
-app.use(session({
-  store: sessionStore,
+  }),
   secret: process.env.SESSION_SECRET || 'coffee-pro-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production', // HTTPS in production
+    secure: false, // Set to false for development
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' // Changed back to 'none' for cross-origin
+    sameSite: 'lax'
   },
   name: 'coffee-pro-session'
 }));
@@ -95,7 +86,7 @@ const requireAdminAuth = (req, res, next) => {
 };
 
 // Admin login route
-app.post('/api/admin/login', async (req, res) => {
+app.post('/api/admin/login', (req, res) => {
   try {
     const { password } = req.body;
     const adminPassword = process.env.ADMIN_PASSWORD || "Coffeeproegypt";
@@ -103,46 +94,25 @@ app.post('/api/admin/login', async (req, res) => {
     console.log('Login attempt:', {
       hasPassword: !!password,
       sessionExists: !!req.session,
-      sessionId: req.session?.id,
-      requestBody: req.body
+      sessionId: req.session?.id
     });
-    
-    if (!password) {
-      return res.status(400).json({ message: "Password is required" });
-    }
     
     if (password === adminPassword) {
       if (!req.session) {
-        console.error('Session not available');
         return res.status(500).json({ message: "Session not available" });
       }
-      
       req.session.adminAuthenticated = true;
       
-      // Save session with promise wrapper
-      const saveSession = () => {
-        return new Promise((resolve, reject) => {
-          req.session.save((err) => {
-            if (err) {
-              console.error('Session save error:', err);
-              reject(err);
-            } else {
-              console.log('Session saved successfully:', req.session.id);
-              resolve(true);
-            }
-          });
-        });
-      };
-      
-      try {
-        await saveSession();
+      // Save session explicitly
+      req.session.save((err) => {
+        if (err) {
+          console.error('Session save error:', err);
+          return res.status(500).json({ message: "Failed to save session" });
+        }
+        console.log('Session saved successfully:', req.session.id);
         res.json({ message: "Login successful" });
-      } catch (saveError) {
-        console.error('Session save failed:', saveError);
-        res.status(500).json({ message: "Failed to save session" });
-      }
+      });
     } else {
-      console.log('Invalid password provided');
       res.status(401).json({ message: "Invalid password" });
     }
   } catch (error) {
@@ -155,24 +125,6 @@ app.post('/api/admin/login', async (req, res) => {
 app.post('/api/admin/logout', (req, res) => {
   req.session.adminAuthenticated = false;
   res.json({ message: "Logged out successfully" });
-});
-
-// Admin authentication check endpoint
-app.get('/api/admin/auth/check', (req, res) => {
-  const isAuthenticated = req.session?.adminAuthenticated || false;
-  
-  console.log('Auth check:', {
-    sessionExists: !!req.session,
-    sessionId: req.session?.id,
-    adminAuthenticated: req.session?.adminAuthenticated,
-    isAuthenticated
-  });
-  
-  if (isAuthenticated) {
-    res.json({ authenticated: true, message: "Admin authenticated" });
-  } else {
-    res.status(401).json({ authenticated: false, message: "Not authenticated" });
-  }
 });
 
 // Protected admin routes
@@ -192,27 +144,6 @@ app.get('/api/contact/messages', requireAdminAuth, async (req, res) => {
     res.json(result.rows);
   } catch (error) {
     console.error('Contact messages error:', error);
-    res.status(500).json({ message: 'Failed to fetch contact messages' });
-  }
-});
-
-// Admin route aliases (expected by frontend)
-app.get('/api/admin/marketing/contacts', requireAdminAuth, async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM marketing_contacts ORDER BY created_at DESC');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Admin marketing contacts error:', error);
-    res.status(500).json({ message: 'Failed to fetch marketing contacts' });
-  }
-});
-
-app.get('/api/admin/contact/messages', requireAdminAuth, async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM contact_messages ORDER BY created_at DESC');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Admin contact messages error:', error);
     res.status(500).json({ message: 'Failed to fetch contact messages' });
   }
 });
@@ -257,72 +188,6 @@ app.get('/api/admin/franchise/applications', requireAdminAuth, async (req, res) 
   }
 });
 
-// Franchise application status update
-app.patch('/api/admin/franchise/applications/:id/status', requireAdminAuth, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-    
-    if (!['pending', 'approved', 'rejected'].includes(status)) {
-      return res.status(400).json({ message: 'Invalid status value' });
-    }
-    
-    const result = await pool.query(
-      'UPDATE franchise_applications SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
-      [status, id]
-    );
-    
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Application not found' });
-    }
-    
-    res.json(result.rows[0]);
-  } catch (error) {
-    console.error('Franchise status update error:', error);
-    res.status(500).json({ message: 'Failed to update application status' });
-  }
-});
-
-// Delete franchise application
-app.delete('/api/admin/franchise/applications/:id', requireAdminAuth, async (req, res) => {
-  try {
-    const { id } = req.params;
-    await pool.query('DELETE FROM franchise_applications WHERE id = $1', [id]);
-    res.json({ message: 'Application deleted successfully' });
-  } catch (error) {
-    console.error('Delete franchise application error:', error);
-    res.status(500).json({ message: 'Failed to delete application' });
-  }
-});
-
-// Marketing unsubscribe endpoint
-app.post('/api/marketing/unsubscribe', async (req, res) => {
-  try {
-    const { email } = req.body;
-    
-    if (!email) {
-      return res.status(400).json({ message: 'Email is required' });
-    }
-    
-    const result = await pool.query(
-      'UPDATE marketing_contacts SET subscribed = false WHERE email = $1 RETURNING *',
-      [email]
-    );
-    
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Email not found in our system' });
-    }
-    
-    res.json({ 
-      message: 'Successfully unsubscribed from our newsletter',
-      contact: result.rows[0]
-    });
-  } catch (error) {
-    console.error('Unsubscribe error:', error);
-    res.status(500).json({ message: 'Failed to unsubscribe' });
-  }
-});
-
 app.get('/api/admin/notifications', requireAdminAuth, async (req, res) => {
   try {
     // Return empty array for now, or implement notification system
@@ -349,111 +214,6 @@ app.get('/api/admin/qr-codes', requireAdminAuth, (req, res) => {
   } catch (error) {
     console.error('QR codes error:', error);
     res.status(500).json({ message: 'Failed to generate QR codes' });
-  }
-});
-
-// Newsletter subscription endpoints
-app.post('/api/marketing/newsletter', async (req, res) => {
-  try {
-    const { email, name, phone } = req.body;
-    
-    if (!email) {
-      return res.status(400).json({ message: 'Email is required' });
-    }
-
-    // Check if email already exists
-    const existingContact = await pool.query('SELECT * FROM marketing_contacts WHERE email = $1', [email]);
-    
-    if (existingContact.rows.length > 0) {
-      const contact = existingContact.rows[0];
-      if (!contact.subscribed) {
-        // Resubscribe existing contact
-        await pool.query(
-          'UPDATE marketing_contacts SET subscribed = true, name = COALESCE($1, name), phone = COALESCE($2, phone) WHERE email = $3',
-          [name, phone, email]
-        );
-        return res.json({ message: 'Successfully resubscribed to our newsletter!' });
-      }
-      return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
-    }
-    
-    // Create new contact
-    await pool.query(
-      'INSERT INTO marketing_contacts (email, name, phone, source, subscribed) VALUES ($1, $2, $3, $4, true)',
-      [email, name, phone, 'newsletter']
-    );
-    
-    res.json({ message: 'Successfully subscribed to our newsletter!' });
-  } catch (error) {
-    console.error('Newsletter subscription error:', error);
-    res.status(500).json({ message: 'Failed to subscribe to newsletter' });
-  }
-});
-
-app.post('/api/newsletter/subscribe', async (req, res) => {
-  try {
-    const { email, name, phone, source } = req.body;
-    
-    if (!email) {
-      return res.status(400).json({ message: 'Email is required' });
-    }
-
-    // Check if email already exists
-    const existingContact = await pool.query('SELECT * FROM marketing_contacts WHERE email = $1', [email]);
-    
-    if (existingContact.rows.length > 0) {
-      const contact = existingContact.rows[0];
-      if (!contact.subscribed) {
-        // Resubscribe existing contact
-        await pool.query(
-          'UPDATE marketing_contacts SET subscribed = true, name = COALESCE($1, name), phone = COALESCE($2, phone) WHERE email = $3',
-          [name, phone, email]
-        );
-        return res.json({ 
-          success: true,
-          message: 'Successfully resubscribed to our newsletter!' 
-        });
-      }
-      return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
-    }
-    
-    // Create new contact
-    await pool.query(
-      'INSERT INTO marketing_contacts (email, name, phone, source, subscribed) VALUES ($1, $2, $3, $4, true)',
-      [email, name, phone, source || 'newsletter']
-    );
-    
-    res.json({ 
-      success: true,
-      message: 'Successfully subscribed to our newsletter!' 
-    });
-  } catch (error) {
-    console.error('Newsletter subscription error:', error);
-    res.status(500).json({ message: 'Failed to subscribe to newsletter' });
-  }
-});
-
-// Contact form submission endpoint
-app.post('/api/contact', async (req, res) => {
-  try {
-    const { name, email, subject, message } = req.body;
-    
-    if (!name || !email || !subject || !message) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    const result = await pool.query(
-      'INSERT INTO contact_messages (name, email, subject, message) VALUES ($1, $2, $3, $4) RETURNING id',
-      [name, email, subject, message]
-    );
-    
-    res.json({ 
-      message: 'Message sent successfully',
-      id: result.rows[0].id 
-    });
-  } catch (error) {
-    console.error('Contact form error:', error);
-    res.status(500).json({ message: 'Failed to send message' });
   }
 });
 
@@ -829,37 +589,6 @@ app.post('/api/contact', async (req, res) => {
     console.error('Contact form error:', error);
     res.status(500).json({ error: 'Failed to submit contact form' });
   }
-});
-
-// Menu endpoints (for frontend compatibility)
-app.get('/api/menu', async (req, res) => {
-  try {
-    // Return empty menu items (website is informational only)
-    res.json([]);
-  } catch (error) {
-    console.error('Menu error:', error);
-    res.status(500).json({ error: 'Failed to fetch menu' });
-  }
-});
-
-app.get('/api/menu/:category', async (req, res) => {
-  try {
-    // Return empty menu items (website is informational only)
-    res.json([]);
-  } catch (error) {
-    console.error('Menu category error:', error);
-    res.status(500).json({ error: 'Failed to fetch menu category' });
-  }
-});
-
-// Login endpoint alias (for frontend compatibility)
-app.get('/api/login', (req, res) => {
-  res.status(405).json({ message: 'Method not allowed. Use POST for login.' });
-});
-
-// Health check endpoint
-app.get('/api/status', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 

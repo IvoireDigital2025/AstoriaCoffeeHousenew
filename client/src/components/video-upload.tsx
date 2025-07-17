@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, Video, X, Play } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
 
 interface VideoUploadProps {
   onVideoUploaded?: (videoData: any) => void;
@@ -68,10 +67,9 @@ export default function VideoUpload({ onVideoUploaded }: VideoUploadProps) {
       formData.append('title', title);
       formData.append('description', description);
 
-      const response = await fetch(`/api/videos/upload`, {
+      const response = await fetch('/api/videos/upload', {
         method: 'POST',
         body: formData,
-        credentials: 'include'
       });
 
       if (response.ok) {
