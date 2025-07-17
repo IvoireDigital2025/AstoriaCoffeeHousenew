@@ -26,14 +26,7 @@ export default function VideoGallery({ showUploadCount = false, maxVideos }: Vid
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const { data: videos, isLoading, error } = useQuery({
-    queryKey: ['/api/videos'],
-    queryFn: async () => {
-      const response = await fetch('/api/videos');
-      if (!response.ok) {
-        throw new Error('Failed to fetch videos');
-      }
-      return response.json();
-    }
+    queryKey: ['/api/videos']
   });
 
   const displayVideos = maxVideos ? videos?.slice(0, maxVideos) : videos;
