@@ -95,6 +95,43 @@ export default function AdminDashboard() {
   const [selectedFranchiseStatus, setSelectedFranchiseStatus] = useState<string | null>(null);
   const [customerSearchQuery, setCustomerSearchQuery] = useState("");
   const queryClient = useQueryClient();
+  
+  // Authentication check query
+  const { data: authCheck, isLoading: authLoading, error: authError } = useQuery({
+    queryKey: ['/api/admin/auth/check'],
+    retry: false,
+    staleTime: 0,
+    cacheTime: 0
+  });
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && (authError || !authCheck?.authenticated)) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to access the admin dashboard.",
+        variant: "destructive",
+      });
+      setLocation('/admin/login');
+    }
+  }, [authLoading, authCheck, authError, setLocation, toast]);
+
+  // Don't render anything until authentication is verified
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-coffee-dark to-stone-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-coffee-primary mx-auto mb-4"></div>
+          <p className="text-white text-lg">Verifying authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render admin content if not authenticated
+  if (!authCheck?.authenticated) {
+    return null;
+  }
 
   // Franchise application status update mutation
   const updateFranchiseStatus = useMutation({

@@ -43,7 +43,7 @@ app.use(session({
     secure: process.env.NODE_ENV === 'production', // HTTPS in production
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax' // Changed from 'none' to 'strict'
   },
   name: 'coffee-pro-session'
 }));
@@ -125,6 +125,24 @@ app.post('/api/admin/login', (req, res) => {
 app.post('/api/admin/logout', (req, res) => {
   req.session.adminAuthenticated = false;
   res.json({ message: "Logged out successfully" });
+});
+
+// Admin authentication check endpoint
+app.get('/api/admin/auth/check', (req, res) => {
+  const isAuthenticated = req.session?.adminAuthenticated || false;
+  
+  console.log('Auth check:', {
+    sessionExists: !!req.session,
+    sessionId: req.session?.id,
+    adminAuthenticated: req.session?.adminAuthenticated,
+    isAuthenticated
+  });
+  
+  if (isAuthenticated) {
+    res.json({ authenticated: true, message: "Admin authenticated" });
+  } else {
+    res.status(401).json({ authenticated: false, message: "Not authenticated" });
+  }
 });
 
 // Protected admin routes
