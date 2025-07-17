@@ -12,8 +12,12 @@ const getApiBaseUrl = () => {
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
-    const text = (await res.text()) || res.statusText;
-    throw new Error(`${res.status}: ${text}`);
+    try {
+      const text = await res.text();
+      throw new Error(`${res.status}: ${text || res.statusText}`);
+    } catch (textError) {
+      throw new Error(`${res.status}: ${res.statusText}`);
+    }
   }
 }
 
@@ -22,18 +26,27 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // Construct full URL with base URL
-  const fullUrl = url.startsWith('/') ? `${getApiBaseUrl()}${url}` : url;
-  
-  const res = await fetch(fullUrl, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
+  try {
+    // Construct full URL with base URL
+    const fullUrl = url.startsWith('/') ? `${getApiBaseUrl()}${url}` : url;
+    
+    console.log('API Request:', { method, fullUrl, data });
+    
+    const res = await fetch(fullUrl, {
+      method,
+      headers: data ? { "Content-Type": "application/json" } : {},
+      body: data ? JSON.stringify(data) : undefined,
+      credentials: "include",
+    });
 
-  await throwIfResNotOk(res);
-  return res;
+    console.log('API Response:', { status: res.status, statusText: res.statusText });
+    
+    await throwIfResNotOk(res);
+    return res;
+  } catch (error) {
+    console.error('API Request Error:', error);
+    throw error;
+  }
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";
