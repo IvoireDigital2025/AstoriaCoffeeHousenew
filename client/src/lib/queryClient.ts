@@ -39,12 +39,22 @@ export async function apiRequest(
       credentials: "include",
     });
 
-    console.log('API Response:', { status: res.status, statusText: res.statusText });
+    console.log('API Response:', { 
+      status: res.status, 
+      statusText: res.statusText,
+      ok: res.ok,
+      headers: Object.fromEntries(res.headers.entries())
+    });
     
     await throwIfResNotOk(res);
     return res;
   } catch (error) {
-    console.error('API Request Error:', error);
+    console.error('API Request Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      cause: error.cause
+    });
     throw error;
   }
 }
