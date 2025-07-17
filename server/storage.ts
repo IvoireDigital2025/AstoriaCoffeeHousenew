@@ -461,7 +461,7 @@ export class MemStorage implements IStorage {
 
   async getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]> {
     return Array.from(this.loyaltyCustomers.values()).sort((a, b) => 
-      b.createdAt.getTime() - a.createdAt.getTime()
+      (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
     );
   }
 
@@ -469,9 +469,10 @@ export class MemStorage implements IStorage {
     const id = this.currentLoyaltyVisitId++;
     const visit: LoyaltyVisit = {
       id,
-      ...insertVisit,
+      customerId: insertVisit.customerId || null,
       visitDate: insertVisit.visitDate || new Date(),
       pointsEarned: insertVisit.pointsEarned || 1,
+      notes: insertVisit.notes || null,
     };
     this.loyaltyVisits.set(id, visit);
     return visit;
@@ -493,7 +494,10 @@ export class MemStorage implements IStorage {
     const id = this.currentLoyaltyRewardId++;
     const reward: LoyaltyReward = {
       id,
-      ...insertReward,
+      customerId: insertReward.customerId || null,
+      notes: insertReward.notes || null,
+      rewardType: insertReward.rewardType || null,
+      pointsUsed: insertReward.pointsUsed || null,
       redeemedAt: new Date(),
     };
     this.loyaltyRewards.set(id, reward);
@@ -517,7 +521,15 @@ export class MemStorage implements IStorage {
     const id = this.currentFranchiseApplicationId++;
     const application: FranchiseApplication = {
       id,
-      ...insertApplication,
+      email: insertApplication.email,
+      phone: insertApplication.phone,
+      firstName: insertApplication.firstName,
+      lastName: insertApplication.lastName,
+      businessExperience: insertApplication.businessExperience,
+      investmentCapacity: insertApplication.investmentCapacity,
+      preferredLocation: insertApplication.preferredLocation,
+      timelineToOpen: insertApplication.timelineToOpen,
+      additionalInfo: insertApplication.additionalInfo || null,
       status: "pending",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -572,7 +584,7 @@ export class MemStorage implements IStorage {
 
   async cleanupExpiredTokens(): Promise<void> {
     const now = new Date();
-    for (const [id, token] of this.qrTokens.entries()) {
+    for (const [id, token] of Array.from(this.qrTokens.entries())) {
       if (token.expiresAt < now) {
         this.qrTokens.delete(id);
       }
