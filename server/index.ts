@@ -1,5 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
+import cors from "cors";
 import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -7,6 +8,15 @@ import { pool } from "./db";
 import connectPgSimple from "connect-pg-simple";
 
 const app = express();
+
+// CORS configuration for development
+if (process.env.NODE_ENV === "development") {
+  app.use(cors({
+    origin: true, // Allow all origins in development
+    credentials: true // Allow cookies/sessions
+  }));
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
