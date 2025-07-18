@@ -10,33 +10,43 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Redirect HTTP to HTTPS in production
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
+    return res.redirect("https://" + req.headers.host + req.url);
+  }
+  next();
+});
+
 // Serve attached assets
-app.use('/attached_assets', express.static('attached_assets'));
+app.use("/attached_assets", express.static("attached_assets"));
 
 // Create PostgreSQL session store
 const pgSession = connectPgSimple(session);
 
 // Session configuration for production with database store
-app.use(session({
-  store: new pgSession({
-    pool: pool,
-    tableName: 'user_sessions',
-    createTableIfMissing: true
-  }),
-  secret: process.env.SESSION_SECRET || 'coffee-pro-secret-key',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production', // HTTPS in production
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-  },
-  name: 'coffee-pro-session'
-}));
+app.use(
+  session({
+    store: new pgSession({
+      pool: pool,
+      tableName: "user_sessions",
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // HTTPS in production
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    },
+    name: "coffee-pro-session",
+  })
+);
 
 // Serve attached assets
-app.use('/attached_assets', express.static('attached_assets'));
+app.use("/attached_assets", express.static("attached_assets"));
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -90,11 +100,14 @@ app.use((req, res, next) => {
 
   // Use PORT environment variable (Render/Railway) or default to 5000
   const port = parseInt(process.env.PORT || "5000");
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  server.listen(
+    {
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    },
+    () => {
+      log(`serving on port ${port}`);
+    }
+  );
 })();
