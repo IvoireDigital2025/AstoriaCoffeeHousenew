@@ -50,14 +50,14 @@ app.use(session({
 
 // Serve static files
 app.use('/attached_assets', express.static(path.join(__dirname, '../attached_assets')));
-app.use(express.static(path.join(__dirname, '../dist/public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 // Serve React app for all routes except API
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api/')) {
     return next();
   }
-  const indexPath = path.join(__dirname, '../dist/public/index.html');
+  const indexPath = path.join(__dirname, './public/index.html');
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
