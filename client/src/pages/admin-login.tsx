@@ -23,18 +23,11 @@ export default function AdminLogin() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Include cookies in the request
+        credentials: "include", // This is enough for session-based auth
         body: JSON.stringify({ password }),
       });
 
       if (response.ok) {
-        const data = await response.json();
-
-        // Store token in localStorage
-        if (data?.token) {
-          localStorage.setItem("token", data.token);
-        }
-
         toast({
           title: "Login Successful",
           description: "Welcome to the admin dashboard",
