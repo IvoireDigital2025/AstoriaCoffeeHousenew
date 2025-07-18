@@ -28,6 +28,13 @@ export default function AdminLogin() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+
+        // Store token in localStorage
+        if (data?.token) {
+          localStorage.setItem("token", data.token);
+        }
+
         toast({
           title: "Login Successful",
           description: "Welcome to the admin dashboard",
