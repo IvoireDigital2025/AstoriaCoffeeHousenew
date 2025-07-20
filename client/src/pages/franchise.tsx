@@ -91,8 +91,13 @@ export default function FranchisePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-coffee-cream to-white">
       {/* Hero Section */}
-      <div className="relative h-[60vh] bg-gradient-to-r from-coffee-dark to-coffee-medium">
-        <div className="absolute inset-0 bg-black/30"></div>
+      <div 
+        className="relative h-[60vh] bg-gradient-to-r from-coffee-dark to-coffee-medium bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/attached_assets/IMG_2512_1751862851891_1753022052554.jpg')`
+        }}
+      >
+        <div className="absolute inset-0"></div>
         <div className="relative h-full flex items-center justify-center">
           <div className="text-center text-white space-y-6">
             <h1 className="text-3xl sm:text-5xl font-bold mb-4">Join the Coffee Pro Family</h1>
