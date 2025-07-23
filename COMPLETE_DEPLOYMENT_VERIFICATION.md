@@ -59,6 +59,10 @@ npm install
 
 ### Database Migration (Drizzle)
 ```bash
+npx drizzle-kit push
+```
+OR use the npm script:
+```bash
 npm run db:push
 ```
 This creates all required tables in PostgreSQL.
@@ -173,6 +177,14 @@ TWILIO_PHONE_NUMBER=for-loyalty-alerts
 The Coffee Pro application meets all deployment requirements and has been thoroughly tested. All systems are functional and ready for immediate deployment to Render.
 
 ### Final Deployment Command Sequence
+```bash
+npm install
+npx drizzle-kit push
+npm run build
+npm start
+```
+
+Alternative using npm scripts:
 ```bash
 npm install
 npm run db:push  
