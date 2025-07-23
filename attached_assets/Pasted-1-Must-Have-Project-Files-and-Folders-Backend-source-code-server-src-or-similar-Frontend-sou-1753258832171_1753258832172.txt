@@ -1,0 +1,138 @@
+1. Must-Have Project Files and Folders
+Backend source code (/server, /src, or similar)
+
+Frontend source code (/client, /src/client, or similar, if separate)
+
+package.json and package-lock.json (for Node projects)
+
+Database config (e.g., drizzle.config.ts, .env, or equivalent)
+
+Migration folder (if using ORM: migrations, prisma, drizzle, etc.)
+
+SQL scripts (if using raw SQL): schema.sql, create_tables.sql, etc.
+
+README.md (with setup and deployment instructions)
+
+render.yaml (if using Render’s infrastructure-as-code)
+
+Environment variable sample file: .env.example
+
+App start script: start.js, index.js, or defined in package.json
+
+Backend config files: (tsconfig.json, vite.config.ts, etc.)
+
+2. Key Database Elements (for PostgreSQL)
+List of all required tables (and their schemas)
+
+Example: users, contacts, submissions, admins, etc.
+
+Migration files (using Drizzle/Prisma/Sequelize/Knex, etc.)
+
+OR raw CREATE TABLE ... SQL scripts
+
+Seed data scripts (optional, for initial admin/test users)
+
+3. Deployment & Migration Commands
+(Customize to your stack: update with your real migration tool!)
+
+Install dependencies:
+
+nginx
+Copy
+Edit
+npm install
+Run database migrations (choose your stack):
+
+Drizzle:
+
+nginx
+Copy
+Edit
+npx drizzle-kit migrate:deploy
+Prisma:
+
+nginx
+Copy
+Edit
+npx prisma migrate deploy
+Sequelize:
+
+nginx
+Copy
+Edit
+npx sequelize-cli db:migrate
+Knex:
+
+nginx
+Copy
+Edit
+npx knex migrate:latest
+Raw SQL:
+Paste SQL in your Render database console.
+
+(Optional) Seed initial data:
+
+bash
+Copy
+Edit
+node scripts/seed.js
+or for ORM-specific commands:
+
+nginx
+Copy
+Edit
+npx drizzle-kit seed
+Start app:
+
+arduino
+Copy
+Edit
+npm run build
+npm start
+or
+
+nginx
+Copy
+Edit
+node start.js
+4. Required Documentation
+README.md should explain:
+
+All environment variables needed (DATABASE_URL, etc.)
+
+How to run migrations and start the app
+
+Stack used (Node, Drizzle/Sequelize/Prisma, etc.)
+
+Project folder structure
+
+Deployment steps for Render
+
+5. Environment Variables
+Database connection string:
+DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DBNAME
+
+Other required secrets/configs (JWT secret, email, etc.)
+
+6. What to Add if You Don’t Have It
+If missing any of the below, you must add:
+
+Migration tool or SQL scripts to create tables (manual, or with ORM)
+
+Command or script to run migrations on deploy (see above)
+
+.env.example for easy setup on any environment
+
+Documentation/README
+
+7. Troubleshooting & Verification
+After deployment and migration, test:
+
+Can you submit a form?
+
+Can you access admin dashboard?
+
+Are submissions saved to the database and visible in admin?
+
+If not, check logs, review database tables (should NOT be empty), and rerun migrations if needed.
+
