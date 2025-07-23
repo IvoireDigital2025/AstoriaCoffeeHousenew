@@ -1,0 +1,61 @@
+render@srv-d1rl3b3ipnbc73ciq0sg-cdcc76748-jbkpb:~/project/src$ npm install
+
+up to date, audited 522 packages in 3s
+
+70 packages are looking for funding
+  run `npm fund` for details
+
+3 vulnerabilities (2 low, 1 critical)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+render@srv-d1rl3b3ipnbc73ciq0sg-cdcc76748-jbkpb:~/project/src$ npx drizzle-kit push
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/opt/render/project/src/drizzle.config.ts'
+Cannot find module 'drizzle-kit'
+Require stack:
+- /opt/render/project/src/drizzle.config.ts
+- /opt/render/.cache/_npx/7c7555b0b81cc7e0/node_modules/drizzle-kit/bin.cjs
+render@srv-d1rl3b3ipnbc73ciq0sg-cdcc76748-jbkpb:~/project/src$ npm run build
+
+> rest-express@1.0.0 build
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v6.3.5 building for production...
+✓ 2243 modules transformed.
+
+<--- Last few GCs --->
+
+[316:0xf115000]    29484 ms: Mark-Compact 245.4 (257.5) -> 245.4 (257.0) MB, pooled: 1 MB, 894.58 / 0.00 ms  (average mu = 0.326, current mu = 0.007) allocation failure; scavenge might not succeed
+[316:0xf115000]    30577 ms: Mark-Compact 250.2 (261.8) -> 250.1 (261.8) MB, pooled: 1 MB, 996.84 / 0.00 ms  (average mu = 0.213, current mu = 0.089) allocation failure; scavenge might not succeed
+
+
+<--- JS stacktrace --->
+
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0xe13fde node::OOMErrorHandler(char const*, v8::OOMDetails const&) [node]
+ 2: 0x11d5070 v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [node]
+ 3: 0x11d5347 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [node]
+ 4: 0x1402c05  [node]
+ 5: 0x141c499 v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [node]
+ 6: 0x13f0b48 v8::internal::HeapAllocator::AllocateRawWithLightRetrySlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [node]
+ 7: 0x13f1a75 v8::internal::HeapAllocator::AllocateRawWithRetryOrFailSlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [node]
+ 8: 0x13c9e6e v8::internal::Factory::AllocateRaw(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [node]
+ 9: 0x13b8f64 v8::internal::FactoryBase<v8::internal::Factory>::AllocateRawWithImmortalMap(int, v8::internal::AllocationType, v8::internal::Tagged<v8::internal::Map>, v8::internal::AllocationAlignment) [node]
+10: 0x13bae6f v8::internal::FactoryBase<v8::internal::Factory>::NewRawTwoByteString(int, v8::internal::AllocationType) [node]
+11: 0x1531937 v8::internal::JsonParser<unsigned short>::MakeString(v8::internal::JsonString const&, v8::internal::Handle<v8::internal::String>) [node]
+12: 0x15382ce  [node]
+13: 0x153a77d v8::internal::JsonParser<unsigned short>::ParseJson(v8::internal::Handle<v8::internal::Object>) [node]
+14: 0x12521dc v8::internal::Builtin_JsonParse(int, unsigned long*, v8::internal::Isolate*) [node]
+15: 0x1d883b6  [node]
+Aborted (core dumped)
+render@srv-d1rl3b3ipnbc73ciq0sg-cdcc76748-jbkpb:~/project/src$ npm start
+
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+
+9:00:32 AM [express] serving on port 10000

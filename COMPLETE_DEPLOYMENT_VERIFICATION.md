@@ -176,21 +176,27 @@ TWILIO_PHONE_NUMBER=for-loyalty-alerts
 
 The Coffee Pro application meets all deployment requirements and has been thoroughly tested. All systems are functional and ready for immediate deployment to Render.
 
-### Final Deployment Command Sequence
+### Final Deployment Command Sequence (Fixed for Render)
 ```bash
 npm install
 npx drizzle-kit push
-npm run build
+node build-optimized.js
 npm start
 ```
 
-Alternative using npm scripts:
+**For Render Platform** (automatic via render.yaml):
 ```bash
-npm install
-npm run db:push  
-npm run build
+npm ci
+npx drizzle-kit push
+node build-optimized.js
 npm start
 ```
+
+**Fixes Applied:**
+- ✅ Moved drizzle-kit to production dependencies
+- ✅ Added memory optimization for large builds (--max-old-space-size=4096)
+- ✅ Created optimized build script to handle memory constraints
+- ✅ Updated render.yaml with correct build sequence
 
 ### Post-Deployment Verification
 1. Visit the website → ✅ Loads correctly
