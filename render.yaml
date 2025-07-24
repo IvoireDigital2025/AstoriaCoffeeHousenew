@@ -3,7 +3,7 @@ services:
     name: coffee-pro-website
     runtime: node
     plan: starter
-    buildCommand: npm ci && node migrate-db.js && node build-optimized.js
+    buildCommand: npm install && node migrate.cjs && npm run build
     startCommand: npm start
     region: oregon
     envVars:

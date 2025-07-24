@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-// Direct database migration script for Render deployment
+// Direct database migration script for Render deployment (CommonJS version)
 // Creates all tables manually when drizzle-kit is not available
 
-import pkg from 'pg';
-const { Pool } = pkg;
+const { Pool } = require('pg');
 
 // Ensure DATABASE_URL is available
 if (!process.env.DATABASE_URL) {
@@ -123,6 +122,15 @@ CREATE TABLE IF NOT EXISTS franchise_applications (
   updated_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
 
+-- QR tokens table
+CREATE TABLE IF NOT EXISTS qr_tokens (
+  id SERIAL PRIMARY KEY,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
 -- User sessions table (for admin authentication)
 CREATE TABLE IF NOT EXISTS user_sessions (
   sid VARCHAR NOT NULL COLLATE "default",
@@ -136,6 +144,7 @@ CREATE INDEX IF NOT EXISTS idx_loyalty_customers_email ON loyalty_customers(emai
 CREATE INDEX IF NOT EXISTS idx_loyalty_visits_customer_id ON loyalty_visits(customer_id);
 CREATE INDEX IF NOT EXISTS idx_franchise_applications_status ON franchise_applications(status);
 CREATE INDEX IF NOT EXISTS idx_user_sessions_expire ON user_sessions(expire);
+CREATE INDEX IF NOT EXISTS idx_qr_tokens_token ON qr_tokens(token);
 `;
 
 async function createTables() {
