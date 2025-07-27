@@ -49,9 +49,6 @@ app.use(
   })
 );
 
-// Register API routes
-registerRoutes(app);
-
 // Serve static files - try multiple possible locations
 let distPath;
 const possiblePaths = [
@@ -89,7 +86,18 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Coffee Pro server running on port ${PORT}`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
-});
+// Register API routes and start server
+(async () => {
+  try {
+    await registerRoutes(app);
+    
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Coffee Pro server running on port ${PORT}`);
+      console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
+      console.log(`📁 Static files served from: ${distPath}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+})();
