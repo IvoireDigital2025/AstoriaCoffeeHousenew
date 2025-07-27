@@ -1,7 +1,6 @@
 [phases.build]
 cmds = [
   "npm install --no-cache --prefer-offline",
-  "npm run db:push",
   "npm run build"
 ]
 
@@ -11,6 +10,3 @@ cmd = "npm start"
 [variables]
 NODE_ENV = "production"
 NPM_CONFIG_CACHE = "/tmp/.npm"
-
-[providers.node]
-version = "18"
