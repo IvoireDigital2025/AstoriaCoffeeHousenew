@@ -9,4 +9,3 @@ cmd = "npm start"
 
 [variables]
 NODE_ENV = "production"
-NPM_CONFIG_CACHE = "/tmp/.npm"
