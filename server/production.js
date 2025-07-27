@@ -1,6 +1,7 @@
 import express from "express";
 import session from "express-session";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes.js";
 import { pool } from "./db.js";
@@ -51,13 +52,39 @@ app.use(
 // Register API routes
 registerRoutes(app);
 
-// Serve static files from dist
-const distPath = path.resolve(__dirname, "..", "dist", "client");
+// Serve static files - try multiple possible locations
+let distPath;
+const possiblePaths = [
+  path.resolve(__dirname, "..", "dist", "client"),
+  path.resolve(__dirname, "..", "public"),
+  path.resolve(__dirname, "..", "client", "dist"),
+  path.resolve(process.cwd(), "dist", "client"),
+  path.resolve(process.cwd(), "public")
+];
+
+for (const testPath of possiblePaths) {
+  if (fs.existsSync(testPath)) {
+    distPath = testPath;
+    break;
+  }
+}
+
+if (!distPath) {
+  console.error("❌ Could not find client build directory");
+  process.exit(1);
+}
+
+console.log(`📁 Serving static files from: ${distPath}`);
 app.use(express.static(distPath));
 
 // Serve index.html for all other routes (SPA)
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(distPath, "index.html"));
+  const indexPath = path.resolve(distPath, "index.html");
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send("Application not built properly");
+  }
 });
 
 const PORT = process.env.PORT || 3000;

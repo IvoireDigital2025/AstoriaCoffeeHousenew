@@ -40,29 +40,17 @@ async function startCoffeePro() {
 function startServer() {
   console.log('🌐 Starting Coffee Pro server...');
   
-  // Use the built dist/index.js if available, otherwise use production server
-  const serverPath = process.env.USE_PRODUCTION_SERVER ? 'server/production.js' : 'dist/index.js';
+  // Always use the production server to avoid path resolution issues
+  console.log('🔄 Using production server for reliability...');
   
-  import(`./${serverPath}`)
+  import('./server/production.js')
     .then(() => {
       console.log('✅ Coffee Pro is running successfully!');
     })
     .catch((error) => {
       console.error('❌ Server startup failed:', error.message);
-      
-      // Fallback to production server
-      if (serverPath === 'dist/index.js') {
-        console.log('🔄 Trying fallback production server...');
-        process.env.USE_PRODUCTION_SERVER = 'true';
-        import('./server/production.js')
-          .then(() => console.log('✅ Coffee Pro running with fallback server!'))
-          .catch((fallbackError) => {
-            console.error('❌ Fallback server also failed:', fallbackError.message);
-            process.exit(1);
-          });
-      } else {
-        process.exit(1);
-      }
+      console.error('Full error:', error);
+      process.exit(1);
     });
 }
 
