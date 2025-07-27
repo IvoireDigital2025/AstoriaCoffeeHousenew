@@ -1,0 +1,13 @@
+# Railway deployment ignore file
+node_modules
+.git
+.env
+.env.local
+.cache
+dist
+build
+attached_assets/*.heic
+attached_assets/*.HEIC
+attached_assets/*.mp4
+*.log
+.DS_Store
