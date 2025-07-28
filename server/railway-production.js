@@ -169,6 +169,30 @@ if (!distPath) {
 console.log(`📁 Serving static files from: ${distPath}`);
 app.use(express.static(distPath));
 
+// Serve attached assets (images) from multiple possible locations
+const possibleAssetPaths = [
+  path.resolve(process.cwd(), "attached_assets"),
+  path.resolve(distPath, "attached_assets"),
+  path.resolve(__dirname, "..", "attached_assets")
+];
+
+let assetsPath;
+for (const testPath of possibleAssetPaths) {
+  if (fs.existsSync(testPath)) {
+    assetsPath = testPath;
+    break;
+  }
+}
+
+if (assetsPath) {
+  console.log(`🖼️ Serving assets from: ${assetsPath}`);
+  app.use("/attached_assets", express.static(assetsPath));
+  app.use("/assets", express.static(assetsPath)); // Alternative path for vite alias
+} else {
+  console.log("⚠️ attached_assets directory not found in any location");
+  console.log("📁 Checked paths:", possibleAssetPaths);
+}
+
 // Serve index.html for all other routes (SPA)
 app.get("*", (req, res) => {
   const indexPath = path.resolve(distPath, "index.html");
