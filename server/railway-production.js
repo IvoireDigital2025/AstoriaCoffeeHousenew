@@ -88,15 +88,24 @@ app.use(
   })
 );
 
-// Serve static files - try multiple possible locations
+// Serve static files - try multiple possible locations including Railway-specific paths
 let distPath;
 const possiblePaths = [
   process.env.CLIENT_BUILD_PATH,
+  path.resolve(process.cwd(), "dist", "public"), // Vite builds to dist/public
+  path.resolve(process.cwd(), "dist"),
   path.resolve(process.cwd(), "dist", "client"),
+  path.resolve(process.cwd(), "build"),
   path.resolve(process.cwd(), "public"),
-  path.resolve(process.cwd(), "client", "dist"),
+  path.resolve(__dirname, "..", "dist", "public"), // Main build location
+  path.resolve(__dirname, "..", "dist"),
   path.resolve(__dirname, "..", "dist", "client"),
-  path.resolve(__dirname, "..", "public")
+  path.resolve(__dirname, "..", "build"),
+  path.resolve(__dirname, "..", "public"),
+  "/app/dist/public", // Railway absolute path
+  "/app/dist",
+  "/app/build",
+  "/app/public"
 ].filter(Boolean);
 
 for (const testPath of possiblePaths) {
@@ -109,7 +118,40 @@ for (const testPath of possiblePaths) {
 if (!distPath) {
   console.error("❌ Could not find client build directory");
   console.log("📁 Tried these paths:", possiblePaths);
-  process.exit(1);
+  
+  // List all files to debug Railway's build structure
+  console.log("🔍 Debugging build structure:");
+  try {
+    console.log("📂 Root directory contents:", fs.readdirSync("/app"));
+    if (fs.existsSync("/app/dist")) {
+      console.log("📂 /app/dist contents:", fs.readdirSync("/app/dist"));
+    }
+    if (fs.existsSync("/app/public")) {
+      console.log("📂 /app/public contents:", fs.readdirSync("/app/public"));
+    }
+  } catch (err) {
+    console.log("Could not list directories:", err.message);
+  }
+  
+  // Try to serve from a basic fallback
+  console.log("🔄 Creating basic HTML fallback...");
+  const fallbackHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head><title>Coffee Pro - Build Issue</title></head>
+    <body>
+      <h1>Coffee Pro</h1>
+      <p>The application is starting up. Build files are being located...</p>
+      <p>If this message persists, please check the Railway build logs.</p>
+    </body>
+    </html>
+  `;
+  
+  app.get("*", (req, res) => {
+    res.status(200).send(fallbackHtml);
+  });
+  
+  console.log("✅ Using fallback HTML response");
 }
 
 console.log(`📁 Serving static files from: ${distPath}`);
