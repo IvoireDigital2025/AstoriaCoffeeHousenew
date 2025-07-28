@@ -149,14 +149,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Marketing Contact routes
   app.post("/api/marketing/newsletter", async (req, res) => {
     try {
+      console.log('Newsletter subscription request:', { body: req.body, hasEmail: !!req.body?.email });
+      
       const contactData = insertMarketingContactSchema.parse({
         ...req.body,
         source: "newsletter"
       });
       
+      console.log('Parsed contact data:', { email: contactData.email, source: contactData.source });
+      
       // Check if email already exists
       const existingContact = await storage.getMarketingContactByEmail(contactData.email);
       if (existingContact) {
+        console.log('Existing contact found:', { subscribed: existingContact.subscribed });
         if (!existingContact.subscribed) {
           // Resubscribe existing contact
           const updatedContact = await storage.updateMarketingContactSubscription(contactData.email, true);
@@ -168,13 +173,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "You're already subscribed to our newsletter!" });
       }
       
+      console.log('Creating new marketing contact...');
       const contact = await storage.createMarketingContact(contactData);
+      console.log('Marketing contact created:', { id: contact.id, email: contact.email });
+      
       res.json({ 
         message: "Successfully subscribed to our newsletter!",
         contact: contact
       });
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error('Newsletter subscription error:', error);
+      res.status(400).json({ message: error.message || "Failed to subscribe to newsletter" });
     }
   });
 
@@ -300,10 +309,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const customer = await storage.createLoyaltyCustomer({
         name,
         phone,
-        email,
-        currentPoints: 0,
-        totalVisits: 0,
-        totalRewards: 0,
+        email
       });
 
       res.json({ 
@@ -377,7 +383,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Check if customer earned a free coffee (5 points)
-      const earnedReward = updatedCustomer && updatedCustomer.currentPoints >= 5;
+      const earnedReward = updatedCustomer && (updatedCustomer.currentPoints || 0) >= 5;
       
       if (earnedReward) {
         // Create reward record
@@ -389,7 +395,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         // Reset current points
         await storage.updateLoyaltyCustomer(customer.id, {
-          currentPoints: updatedCustomer.currentPoints - 5,
+          currentPoints: (updatedCustomer.currentPoints || 0) - 5,
           totalRewards: (updatedCustomer.totalRewards || 0) + 1,
         });
 
@@ -397,7 +403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await notificationService.notifyCustomerReward({
           customerName: updatedCustomer.name,
           phone: updatedCustomer.phone,
-          currentPoints: updatedCustomer.currentPoints,
+          currentPoints: updatedCustomer.currentPoints || 0,
           message: `Congratulations ${updatedCustomer.name}! You've earned a FREE COFFEE at Coffee Pro!`
         });
       }
@@ -537,7 +543,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Update customer points
       const updatedCustomer = await storage.updateLoyaltyCustomer(customer.id, {
-        currentPoints: customer.currentPoints - 5,
+        currentPoints: (customer.currentPoints || 0) - 5,
         totalRewards: (customer.totalRewards || 0) + 1,
       });
 

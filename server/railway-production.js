@@ -77,28 +77,7 @@ async function initializeServer() {
   }
 }
 
-// Initialize PostgreSQL session store with Railway-compatible settings
-const PgSession = connectPgSimple(session);
-
-app.use(
-  session({
-    store: new PgSession({
-      pool: pool,
-      tableName: "session",
-      createTableIfMissing: true,
-      errorLog: (err) => console.error('Session store error:', err),
-    }),
-    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    },
-    name: "coffee-pro-session",
-  })
-);
+// Session store will be initialized after modules are loaded
 
 // Serve static files - try multiple possible locations including Railway-specific paths
 let distPath;
@@ -209,12 +188,38 @@ const PORT = process.env.PORT || 3000;
 async function startServer() {
   try {
     await initializeServer();
+    
+    // Initialize PostgreSQL session store after modules are loaded
+    const PgSession = connectPgSimple(session);
+    
+    app.use(
+      session({
+        store: new PgSession({
+          pool: pool,
+          tableName: "session",
+          createTableIfMissing: true,
+          errorLog: (err) => console.error('Session store error:', err),
+        }),
+        secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          secure: process.env.NODE_ENV === "production",
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        },
+        name: "coffee-pro-session",
+      })
+    );
+    
+    // Register API routes after session setup
     await registerRoutes(app);
     
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Coffee Pro server running on port ${PORT}`);
       console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
       console.log(`📁 Static files served from: ${distPath}`);
+      console.log(`🔐 Session store initialized with PostgreSQL`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
