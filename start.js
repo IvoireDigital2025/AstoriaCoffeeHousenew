@@ -34,7 +34,7 @@ async function startCoffeePro() {
     }
 
     // Start the server
-    startServer();
+    await startServer();
     
   } catch (error) {
     console.error('❌ Failed to start Coffee Pro:', error.message);
@@ -42,15 +42,25 @@ async function startCoffeePro() {
   }
 }
 
-function startServer() {
+async function startServer() {
   console.log('🌐 Starting Coffee Pro server...');
   
-  // Try different server options based on available files
+  // Get absolute paths for Railway environment
+  const currentDir = process.cwd();
+  console.log(`📍 Current directory: ${currentDir}`);
+  
+  // Try different server options with absolute paths
   const serverOptions = [
-    './server/railway-production.js',  // Railway-specific server
-    './server/production.js',          // General production server
-    './dist/index.js'                  // Built server
+    path.join(currentDir, 'server', 'railway-production.js'),
+    path.join(currentDir, 'server', 'production.js'),
+    path.join(currentDir, 'server', 'railway-fallback.js'),
+    path.join(currentDir, 'dist', 'index.js')
   ];
+  
+  console.log('🔍 Checking for server files...');
+  for (const serverPath of serverOptions) {
+    console.log(`  📋 Checking: ${serverPath} - ${fs.existsSync(serverPath) ? 'EXISTS' : 'NOT FOUND'}`);
+  }
   
   let serverStarted = false;
   
@@ -59,20 +69,13 @@ function startServer() {
       console.log(`🔄 Using server: ${serverPath}`);
       
       try {
-        import(serverPath)
-          .then(() => {
-            console.log('✅ Coffee Pro is running successfully!');
-            serverStarted = true;
-          })
-          .catch((error) => {
-            console.error(`❌ Server startup failed with ${serverPath}:`, error.message);
-            if (!serverStarted) {
-              process.exit(1);
-            }
-          });
+        await import(serverPath);
+        console.log('✅ Coffee Pro is running successfully!');
+        serverStarted = true;
         break;
       } catch (error) {
-        console.log(`❌ Failed to start with ${serverPath}, trying next option...`);
+        console.error(`❌ Server startup failed with ${serverPath}:`, error.message);
+        console.error(`   Stack: ${error.stack}`);
         continue;
       }
     }
@@ -80,6 +83,18 @@ function startServer() {
   
   if (!serverStarted) {
     console.error('❌ No suitable server file found');
+    console.log('📁 Available files in current directory:');
+    try {
+      const files = fs.readdirSync(currentDir);
+      console.log('  Root files:', files.filter(f => f.includes('.js') || f.includes('server')));
+      
+      if (fs.existsSync(path.join(currentDir, 'server'))) {
+        const serverFiles = fs.readdirSync(path.join(currentDir, 'server'));
+        console.log('  Server files:', serverFiles);
+      }
+    } catch (err) {
+      console.log('  Could not read directory structure');
+    }
     process.exit(1);
   }
 }

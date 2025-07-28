@@ -1,0 +1,119 @@
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
+
+🚀 Starting Coffee Pro application...
+
+📋 Running database migration...
+
+✅ Database migration completed
+
+🌐 Starting Coffee Pro server...
+
+🔄 Using server: ./server/railway-production.js
+
+❌ No suitable server file found
