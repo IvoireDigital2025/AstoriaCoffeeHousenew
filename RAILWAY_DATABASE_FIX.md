@@ -1,58 +1,51 @@
 # Railway Database Connection Fix
 
 ## Problem
-The migration script is running during build time when the PostgreSQL database isn't accessible yet.
-
-Error: `getaddrinfo ENOTFOUND postgres.railway.internal`
-
-## Solution
-Remove database migration from build process and run it manually after deployment.
-
-## Steps to Fix
-
-### 1. Current Build Configuration (Fixed)
-The nixpacks.toml now only:
-- Installs dependencies
-- Builds the application
-- NO database migration during build
-
-### 2. After Railway Deployment Completes
-Run database migration manually in Railway terminal:
-
-```bash
-npm run db:push
+Railway deployment is failing with database connection error:
+```
+connect ECONNREFUSED fd12:924c:af4:0:a000:3d:1766:37d8:443
 ```
 
-OR use the alternative migration script:
+This indicates the database connection is being refused, likely due to:
+1. Incorrect DATABASE_URL format for Railway's PostgreSQL
+2. Missing SSL/connection configuration
+3. Neon serverless configuration issues
 
-```bash
-node migrate.cjs
+## Fix Applied
+
+### 1. Updated Database Configuration (server/db.ts)
+- Added Railway-specific Neon configuration
+- Enabled secure WebSocket connections
+- Disabled pipeline connect for stability
+- Added connection timeout and pooling settings
+
+### 2. Enhanced Session Store (server/railway-production.js)
+- Added error logging for session store issues
+- Better connection handling for Railway environment
+
+## Required Environment Variable
+
+Make sure the DATABASE_URL in Railway is correctly formatted. Railway provides this automatically when you link a PostgreSQL service.
+
+The format should be:
+```
+postgresql://username:password@host:port/database?sslmode=require
 ```
 
-### 3. Why This Happens
-- During Docker build: Database service isn't accessible
-- Railway builds services in isolation
-- Database connection only available at runtime
+## Alternative Solution
 
-### 4. Environment Variables Required
-Make sure these are set in Railway web service:
-```
-NODE_ENV=production
-SESSION_SECRET=a93f9205657eee8e31cfaca6bf94421e22983d52d29e442c645a6146d9de1ed5
-ADMIN_PASSWORD=Coffeeproegypt
-DATABASE_URL=(auto-linked from PostgreSQL service)
-```
+If the issue persists, Railway might be using a different database provider. Check:
 
-### 5. Deployment Flow
-1. ✅ Railway builds application (no database access needed)
-2. ✅ App starts and connects to database
-3. ✅ Manual migration creates tables
-4. ✅ All Coffee Pro features work
+1. Go to Railway project dashboard
+2. Check if PostgreSQL service is properly linked
+3. Verify DATABASE_URL is automatically populated
+4. Consider switching to Railway's built-in PostgreSQL instead of external Neon
 
-## Expected Results
-- Build completes successfully
-- App deploys and runs
-- Database migration done post-deployment
-- Admin dashboard and all features functional
+## Troubleshooting Steps
 
-This separation of build and migration ensures reliable Railway deployment.
+1. Verify DATABASE_URL exists in Railway Variables
+2. Check Railway PostgreSQL service status
+3. Ensure the database service is in the same project
+4. Try redeploying after linking database service properly
+
+The enhanced configuration should resolve most Railway database connection issues.

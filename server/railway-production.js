@@ -77,7 +77,7 @@ async function initializeServer() {
   }
 }
 
-// Initialize PostgreSQL session store
+// Initialize PostgreSQL session store with Railway-compatible settings
 const PgSession = connectPgSimple(session);
 
 app.use(
@@ -86,6 +86,7 @@ app.use(
       pool: pool,
       tableName: "session",
       createTableIfMissing: true,
+      errorLog: (err) => console.error('Session store error:', err),
     }),
     secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,
