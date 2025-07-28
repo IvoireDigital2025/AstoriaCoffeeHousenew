@@ -1,6 +1,7 @@
 [phases.build]
 cmds = [
-  "npm install --no-cache --prefer-offline",
+  "npm install --no-cache --prefer-offline --omit=dev",
+  "npm install --no-cache --prefer-offline --include=dev",
   "npm run build"
 ]
 
