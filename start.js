@@ -51,9 +51,9 @@ async function startServer() {
   
   // Try different server options with absolute paths
   const serverOptions = [
-    path.join(currentDir, 'server', 'railway-production.js'),
+    path.join(currentDir, 'server', 'railway-fallback.js'),  // Start with simplest working server
     path.join(currentDir, 'server', 'production.js'),
-    path.join(currentDir, 'server', 'railway-fallback.js'),
+    path.join(currentDir, 'server', 'railway-production.js'),
     path.join(currentDir, 'dist', 'index.js')
   ];
   

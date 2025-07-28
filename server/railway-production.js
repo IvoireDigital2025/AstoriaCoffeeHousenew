@@ -32,29 +32,41 @@ async function initializeServer() {
     
     let routesModule, dbModule;
     
-    // Try TypeScript files first (Railway environment)
+    // For Railway, use the fallback server since built server is standalone
+    console.log(`🔍 Railway environment detected - using fallback server approach`);
+    console.log(`💡 Built server exists but is standalone - skipping module import`);
+    
+    // Check if built server exists and just run it directly
+    const builtServerPath = path.join(__dirname, "..", "dist", "index.js");
+    if (fs.existsSync(builtServerPath)) {
+      console.log(`🚀 Found built server at: ${builtServerPath}`);
+      console.log(`🔄 Executing built server directly (Railway optimized)`);
+      
+      // Set environment variables for built server
+      process.env.NODE_ENV = 'production';
+      process.env.PORT = process.env.PORT || '8080';
+      
+      // Execute the built server
+      try {
+        require(builtServerPath);
+        console.log(`✅ Built server started successfully`);
+        return; // Exit this function as server is now running
+      } catch (err) {
+        console.log(`❌ Built server failed: ${err.message}`);
+      }
+    }
+    
+    // Fallback to TypeScript files for development
     try {
-      console.log(`🔍 Trying to import TypeScript routes from: ./routes.ts`);
+      console.log(`🔍 Falling back to TypeScript routes: ./routes.ts`);
       routesModule = await import("./routes.ts");
       dbModule = await import("./db.ts"); 
       console.log(`✅ Successfully imported TypeScript modules`);
     } catch (tsError) {
       console.log(`❌ TypeScript import failed: ${tsError.message}`);
       
-      // Fallback to JavaScript files
-      for (const location of possibleLocations.filter(l => l.endsWith('.js'))) {
-        try {
-          console.log(`🔍 Trying to import routes from: ${location}`);
-          routesModule = await import(location);
-          const dbLocation = location.replace('routes.js', 'db.js');
-          dbModule = await import(dbLocation);
-          console.log(`✅ Successfully imported from: ${location}`);
-          break;
-        } catch (err) {
-          console.log(`❌ Failed to import from: ${location} - ${err.message}`);
-          continue;
-        }
-      }
+      // Final fallback - throw error
+      throw new Error("Could not start server with any available method");
     }
     
     if (!routesModule || !dbModule) {
