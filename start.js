@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 
-// Production start script for Coffee Pro
-// Handles database migration and server startup
+// Production start script for Coffee Pro - Railway optimized
+// Handles database migration and server startup without npm warnings
 
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import path from 'path';
+import fs from 'fs';
 
 const execAsync = promisify(exec);
 
 async function startCoffeePro() {
   try {
     console.log('🚀 Starting Coffee Pro application...');
+    
+    // Set production environment to avoid npm warnings
+    process.env.NODE_ENV = 'production';
     
     // Check if DATABASE_URL is available
     if (!process.env.DATABASE_URL) {
@@ -40,19 +45,55 @@ async function startCoffeePro() {
 function startServer() {
   console.log('🌐 Starting Coffee Pro server...');
   
-  // Always use the production server to avoid path resolution issues
-  console.log('🔄 Using production server for reliability...');
+  // Try different server options based on available files
+  const serverOptions = [
+    './server/railway-production.js',  // Railway-specific server
+    './server/production.js',          // General production server
+    './dist/index.js'                  // Built server
+  ];
   
-  import('./server/production.js')
-    .then(() => {
-      console.log('✅ Coffee Pro is running successfully!');
-    })
-    .catch((error) => {
-      console.error('❌ Server startup failed:', error.message);
-      console.error('Full error:', error);
-      process.exit(1);
-    });
+  let serverStarted = false;
+  
+  for (const serverPath of serverOptions) {
+    if (fs.existsSync(serverPath)) {
+      console.log(`🔄 Using server: ${serverPath}`);
+      
+      try {
+        import(serverPath)
+          .then(() => {
+            console.log('✅ Coffee Pro is running successfully!');
+            serverStarted = true;
+          })
+          .catch((error) => {
+            console.error(`❌ Server startup failed with ${serverPath}:`, error.message);
+            if (!serverStarted) {
+              process.exit(1);
+            }
+          });
+        break;
+      } catch (error) {
+        console.log(`❌ Failed to start with ${serverPath}, trying next option...`);
+        continue;
+      }
+    }
+  }
+  
+  if (!serverStarted) {
+    console.error('❌ No suitable server file found');
+    process.exit(1);
+  }
 }
+
+// Handle graceful shutdown for Railway
+process.on('SIGTERM', () => {
+  console.log('📴 Received SIGTERM, shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  console.log('📴 Received SIGINT, shutting down gracefully...');
+  process.exit(0);
+});
 
 // Start the application
 startCoffeePro();

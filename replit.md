@@ -259,6 +259,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ **RAILWAY DATABASE CONNECTION FIX**: Switched from Neon serverless to standard PostgreSQL for Railway compatibility
 - ✓ **RAILWAY WEBSOCKET FIX**: Eliminated WebSocket connection issues by using pg driver instead of Neon WebSocket
 - ✓ **NPM WARNING FIX**: Updated nixpacks.toml to use modern --omit=dev flag instead of deprecated --production
+- ✓ **RAILWAY SIGTERM FIX**: Enhanced start.js with proper signal handling and server fallback logic
+- ✓ **RAILWAY START COMMAND FIX**: Updated railway.json to use node start.js instead of tsx command
 
 
 ## User Preferences

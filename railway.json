@@ -4,7 +4,7 @@
     "buildCommand": "npm run build && npm run db:push && cp -r attached_assets dist/public/ || echo 'No attached_assets to copy'"
   },
   "deploy": {
-    "startCommand": "npx tsx server/railway-production.js",
+    "startCommand": "node start.js",
     "numReplicas": 1,
     "sleepApplication": false,
     "restartPolicyType": "ON_FAILURE"
