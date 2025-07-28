@@ -1,0 +1,105 @@
+]
+
+📁 Serving static files from: /app/dist/public
+
+🔍 Looking for server modules...
+
+🔍 Trying to import routes from: ../dist/server/routes.js
+
+❌ Failed to import from: ../dist/server/routes.js - Cannot find module '/app/dist/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./routes.js
+
+❌ Failed to import from: ./routes.js - Cannot find module '/app/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ../server/routes.js
+
+❌ Failed to import from: ../server/routes.js - Cannot find module '/app/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./dist/routes.js
+
+❌ Failed to import from: ./dist/routes.js - Cannot find module '/app/server/dist/routes.js' imported from /app/server/railway-production.js
+
+❌ Module import failed: Could not find routes or db modules in any expected location
+
+📁 Available files in server directory:
+
+[
+
+  'db.ts',
+
+  'index.ts',
+
+  'notifications.ts',
+
+  'production.js',
+
+  'railway-production.js',
+
+  'routes.ts',
+
+  'storage.ts',
+
+  'vite.ts'
+
+]
+
+📁 Serving static files from: /app/dist/public
+
+🔍 Looking for server modules...
+
+🔍 Trying to import routes from: ../dist/server/routes.js
+
+❌ Failed to import from: ../dist/server/routes.js - Cannot find module '/app/dist/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./routes.js
+
+❌ Failed to import from: ./routes.js - Cannot find module '/app/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ../server/routes.js
+
+❌ Failed to import from: ../server/routes.js - Cannot find module '/app/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./dist/routes.js
+
+❌ Failed to import from: ./dist/routes.js - Cannot find module '/app/server/dist/routes.js' imported from /app/server/railway-production.js
+
+❌ Module import failed: Could not find routes or db modules in any expected location
+
+📁 Available files in server directory:
+
+[
+
+  'db.ts',
+
+  'index.ts',
+
+  'notifications.ts',
+
+  'production.js',
+
+  'railway-production.js',
+
+  'routes.ts',
+
+  'storage.ts',
+
+  'vite.ts'
+
+]
+
+📁 Serving static files from: /app/dist/public
+
+❌ Failed to import from: ../dist/server/routes.js - Cannot find module '/app/dist/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./routes.js
+
+❌ Failed to import from: ./routes.js - Cannot find module '/app/server/routes.js' imported from /app/server/railway-production.js
+
+🔍 Trying to import routes from: ./dist/routes.js
+
+📁 Available files in server directory:
+
+  'db.ts',
+
+  'notifications.ts',

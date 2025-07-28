@@ -21,28 +21,39 @@ async function initializeServer() {
   try {
     console.log("🔍 Looking for server modules...");
     
-    // Try multiple possible locations for built modules
+    // Try multiple possible locations - prioritize TypeScript source files for Railway
     const possibleLocations = [
-      "../dist/server/routes.js",
+      "./routes.ts",  // TypeScript source files in same directory
+      "./db.ts",
+      "../dist/server/routes.js",  // Built files if available
       "./routes.js", 
-      "../server/routes.js",
-      "./dist/routes.js"
+      "../server/routes.js"
     ];
     
     let routesModule, dbModule;
     
-    for (const location of possibleLocations) {
-      try {
-        console.log(`🔍 Trying to import routes from: ${location}`);
-        routesModule = await import(location);
-        // If routes import succeeds, try db from same location
-        const dbLocation = location.replace('routes.js', 'db.js');
-        dbModule = await import(dbLocation);
-        console.log(`✅ Successfully imported from: ${location}`);
-        break;
-      } catch (err) {
-        console.log(`❌ Failed to import from: ${location} - ${err.message}`);
-        continue;
+    // Try TypeScript files first (Railway environment)
+    try {
+      console.log(`🔍 Trying to import TypeScript routes from: ./routes.ts`);
+      routesModule = await import("./routes.ts");
+      dbModule = await import("./db.ts"); 
+      console.log(`✅ Successfully imported TypeScript modules`);
+    } catch (tsError) {
+      console.log(`❌ TypeScript import failed: ${tsError.message}`);
+      
+      // Fallback to JavaScript files
+      for (const location of possibleLocations.filter(l => l.endsWith('.js'))) {
+        try {
+          console.log(`🔍 Trying to import routes from: ${location}`);
+          routesModule = await import(location);
+          const dbLocation = location.replace('routes.js', 'db.js');
+          dbModule = await import(dbLocation);
+          console.log(`✅ Successfully imported from: ${location}`);
+          break;
+        } catch (err) {
+          console.log(`❌ Failed to import from: ${location} - ${err.message}`);
+          continue;
+        }
       }
     }
     
