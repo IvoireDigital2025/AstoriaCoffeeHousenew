@@ -4,7 +4,7 @@
     "buildCommand": "npm run build && npm run db:push"
   },
   "deploy": {
-    "startCommand": "node server/production.js",
+    "startCommand": "node server/railway-production.js",
     "numReplicas": 1,
     "sleepApplication": false,
     "restartPolicyType": "ON_FAILURE"

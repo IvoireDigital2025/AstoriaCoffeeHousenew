@@ -3,8 +3,29 @@ import session from "express-session";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { registerRoutes } from "./routes.js";
-import { pool } from "./db.js";
+// Try to import from built dist files first, then fallback to source
+let registerRoutes, pool;
+
+try {
+  // Try built version first
+  const routesModule = await import("../dist/server/routes.js");
+  const dbModule = await import("../dist/server/db.js");
+  registerRoutes = routesModule.registerRoutes;
+  pool = dbModule.pool;
+  console.log("📦 Using built server modules");
+} catch (error) {
+  try {
+    // Fallback to TypeScript source files
+    const routesModule = await import("./routes.js");
+    const dbModule = await import("./db.js");
+    registerRoutes = routesModule.registerRoutes;
+    pool = dbModule.pool;
+    console.log("📦 Using source server modules");
+  } catch (fallbackError) {
+    console.error("❌ Could not import server modules:", fallbackError.message);
+    process.exit(1);
+  }
+}
 import connectPgSimple from "connect-pg-simple";
 
 const __filename = fileURLToPath(import.meta.url);
