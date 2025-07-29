@@ -3,11 +3,10 @@ import session from "express-session";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-// Try to import from built dist files first, then fallback to source
+
 let registerRoutes, pool;
 
 try {
-  // Try built version first
   const routesModule = await import("../dist/server/routes.js");
   const dbModule = await import("../dist/server/db.js");
   registerRoutes = routesModule.registerRoutes;
@@ -15,7 +14,6 @@ try {
   console.log("📦 Using built server modules");
 } catch (error) {
   try {
-    // Fallback to TypeScript source files
     const routesModule = await import("./routes.js");
     const dbModule = await import("./db.js");
     registerRoutes = routesModule.registerRoutes;
@@ -35,9 +33,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Redirect HTTP to HTTPS in production and trust Render proxy
+// Trust the first proxy (Render requirement)
 app.set('trust proxy', 1);
 
+// Enforce HTTPS in production
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
     return res.redirect(301, "https://" + req.headers.host + req.url);
@@ -48,15 +47,13 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// Create PostgreSQL session store with error handling
 const pgSession = connectPgSimple(session);
 
-// Session configuration for production with database store
 app.use(
   session({
     store: new pgSession({
       pool: pool,
-      tableName: "user_sessions",
+      tableName: "user_sessions", // <- Must match your DB table!
       createTableIfMissing: true,
       errorLog: (error) => {
         console.error("Session store error:", error);
@@ -66,17 +63,17 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // Always true for Render HTTPS
+      secure: true, // <-- REQUIRED for Render
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: "none", // Required for Render cross-domain cookies
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "none", // <-- REQUIRED for cross-origin on Render
+      domain: undefined, // Let browser default unless you know you need this!
     },
-    name: "coffee-pro-session",
-    proxy: true, // Trust Render's proxy
+    name: "coffee-pro-session", // <-- Must match what your frontend expects!
+    proxy: true, // <-- Required for secure cookies behind proxy
   })
 );
 
-// Serve static files - try multiple possible locations
 let distPath;
 const possiblePaths = [
   path.resolve(__dirname, "..", "dist", "client"),
@@ -117,7 +114,7 @@ const PORT = process.env.PORT || 3000;
 (async () => {
   try {
     await registerRoutes(app);
-    
+
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Coffee Pro server running on port ${PORT}`);
       console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
