@@ -29,8 +29,8 @@ app.use(
   session({
     store: new pgSession({
       pool: pool,
-      tableName: "user_sessions",
-      createTableIfMissing: true,
+      tableName: "session",
+      createTableIfMissing: false,
     }),
     secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,

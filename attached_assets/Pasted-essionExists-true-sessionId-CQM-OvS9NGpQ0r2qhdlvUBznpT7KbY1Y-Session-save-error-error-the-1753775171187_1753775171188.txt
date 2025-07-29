@@ -1,0 +1,168 @@
+essionExists: true,
+  sessionId: 'CQM_OvS9NGpQ0r2qhdlvUBznpT7KbY1Y'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+6:53:20 AM [express] POST /api/admin/login 500 in 329ms :: {"message":"Failed to save session"}
+Login attempt: {
+  hasPassword: true,
+  sessionExists: true,
+  sessionId: 'uhDL6i0SHXU8HBOwydUBxa0eaH8uNHNq'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+6:53:44 AM [express] POST /api/admin/login 500 in 275ms :: {"message":"Failed to save session"}
+Login attempt: {
+  hasPassword: true,
+  sessionExists: true,
+  sessionId: 'Ax27hWPz5TEgZhEXKUdTz6DnPkCLSSDJ'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+6:53:49 AM [express] POST /api/admin/login 500 in 251ms :: {"message":"Failed to save session"}
+     ==> Detected service running on port 10000
+     ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+Login attempt: {
+  hasPassword: true,
+  sessionExists: true,
+  sessionId: 'vd2NSlIhcqhizIa7lQY8doh7DpbGeMsy'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+7:06:42 AM [express] POST /api/admin/login 500 in 332ms :: {"message":"Failed to save session"}
+Login attempt: {
+  hasPassword: true,
+  sessionExists: true,
+  sessionId: '5kTUkqRE0ywI03G0NFLRuBiUl8PcuIBt'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+7:06:51 AM [express] POST /api/admin/login 500 in 233ms :: {"message":"Failed to save session"}
+Login attempt: {
+  hasPassword: true,
+  sessionExists: true,
+  sessionId: '8pbqDnZPJ5zT3bx9MbBoNFdnuAUXbxoR'
+}
+Session save error: error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (/opt/render/project/src/node_modules/connect-pg-simple/index.js:322:21) {
+  length: 148,
+  severity: 'ERROR',
+  code: '42P10',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'plancat.c',
+  line: '915',
+  routine: 'infer_arbiter_indexes'
+}
+7:06:56 AM [express] POST /api/admin/login 500 in 252ms :: {"message":"Failed to save session"}
