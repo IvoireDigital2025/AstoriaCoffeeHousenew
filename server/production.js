@@ -35,10 +35,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Redirect HTTP to HTTPS in production
+// Redirect HTTP to HTTPS in production and trust Render proxy
+app.set('trust proxy', 1);
+
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
-    return res.redirect("https://" + req.headers.host + req.url);
+    return res.redirect(301, "https://" + req.headers.host + req.url);
   }
   next();
 });
@@ -46,7 +48,7 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// Create PostgreSQL session store
+// Create PostgreSQL session store with error handling
 const pgSession = connectPgSimple(session);
 
 // Session configuration for production with database store
@@ -56,17 +58,21 @@ app.use(
       pool: pool,
       tableName: "user_sessions",
       createTableIfMissing: true,
+      errorLog: (error) => {
+        console.error("Session store error:", error);
+      }
     }),
-    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
+    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key-render-production",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: true, // Always true for Render HTTPS
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: "lax", // Changed from strict to lax for better compatibility
     },
     name: "coffee-pro-session",
+    proxy: true, // Trust Render's proxy
   })
 );
 
