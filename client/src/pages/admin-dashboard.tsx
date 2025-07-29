@@ -362,7 +362,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Coffee Pro Admin</h1>
-                <p className="text-sm text-gray-600">Dashboard & Analytics</p>
+                <span className="text-sm text-gray-600">Dashboard & Analytics</span>
               </div>
             </div>
             <Button
@@ -499,9 +499,9 @@ export default function AdminDashboard() {
                       </div>
                       <div>
                         <span className="text-gray-900">Marketing Contacts</span>
-                        <div className="text-sm text-gray-600 font-normal mt-1">
+                        <span className="block text-sm text-gray-600 font-normal mt-1">
                           {filteredContacts.length} contacts • {subscribedContacts} subscribed
-                        </div>
+                        </span>
                       </div>
                     </CardTitle>
                   </div>
@@ -603,9 +603,9 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-900">Customer Messages</span>
-                    <div className="text-sm text-gray-600 font-normal mt-1">
+                    <span className="block text-sm text-gray-600 font-normal mt-1">
                       {contactMessages?.length || 0} inquiries received
-                    </div>
+                    </span>
                   </div>
                 </CardTitle>
               </CardHeader>
@@ -678,9 +678,9 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-900">Loyalty Program</span>
-                    <div className="text-sm text-gray-600 font-normal mt-1">
+                    <span className="block text-sm text-gray-600 font-normal mt-1">
                       {loyaltyCustomers?.length || 0} registered members
-                    </div>
+                    </span>
                   </div>
                 </CardTitle>
               </CardHeader>
@@ -752,9 +752,9 @@ export default function AdminDashboard() {
                     </div>
                     <div>
                       <span className="text-gray-900">Loyalty Check-in QR</span>
-                      <div className="text-sm text-gray-600 font-normal mt-1">
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
                         Customer point collection system
-                      </div>
+                      </span>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -786,9 +786,9 @@ export default function AdminDashboard() {
                     </div>
                     <div>
                       <span className="text-gray-900">Website QR Code</span>
-                      <div className="text-sm text-gray-600 font-normal mt-1">
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
                         Direct access to Coffee Pro website
-                      </div>
+                      </span>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -846,9 +846,9 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-900">Franchise Applications</span>
-                    <div className="text-sm text-gray-600 font-normal mt-1">
+                    <span className="block text-sm text-gray-600 font-normal mt-1">
                       {franchiseApplications?.length || 0} applications received
-                    </div>
+                    </span>
                   </div>
                 </CardTitle>
               </CardHeader>
