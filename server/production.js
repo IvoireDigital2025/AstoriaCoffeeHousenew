@@ -69,7 +69,7 @@ app.use(
       secure: true, // Always true for Render HTTPS
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: "lax", // Changed from strict to lax for better compatibility
+      sameSite: "none", // Required for Render cross-domain cookies
     },
     name: "coffee-pro-session",
     proxy: true, // Trust Render's proxy
