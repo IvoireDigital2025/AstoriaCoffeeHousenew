@@ -1,15 +1,37 @@
-// Simple fallback server for Railway deployment
-// Uses minimal imports to ensure compatibility
+// Database-enabled fallback server for Railway deployment
+// Uses database storage for all customer interactions
 
 import express from "express";
+import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
+import connectPgSimple from "connect-pg-simple";
+import { pool } from "./db.js";
+import { storage } from "./database-storage.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+// Session middleware with PostgreSQL store
+const PgSession = connectPgSimple(session);
+app.use(session({
+  store: new PgSession({
+    pool: pool,
+    tableName: 'session',
+    createTableIfMissing: true
+  }),
+  secret: process.env.SESSION_SECRET || 'CoffeePro2024SecretKey',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 
 // Basic middleware
 app.use(express.json());

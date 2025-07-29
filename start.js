@@ -49,9 +49,10 @@ async function startServer() {
   const currentDir = process.cwd();
   console.log(`📍 Current directory: ${currentDir}`);
   
-  // Try different server options with absolute paths
+  // Try different server options with absolute paths - prioritize database-enabled fallback
   const serverOptions = [
-    path.join(currentDir, 'server', 'railway-fallback.js'),  // Updated fallback with API endpoints
+    path.join(currentDir, 'server', 'railway-database-fallback.js'),  // Database-enabled fallback with full functionality
+    path.join(currentDir, 'server', 'railway-fallback.js'),  // Basic fallback as secondary option
     path.join(currentDir, 'server', 'production.js'),
     path.join(currentDir, 'server', 'railway-production.js'),
     path.join(currentDir, 'dist', 'index.js')

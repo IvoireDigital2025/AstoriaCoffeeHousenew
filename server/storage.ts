@@ -580,6 +580,7 @@ export class MemStorage implements IStorage {
   }
 }
 
+// Remove the MemStorage and use DatabaseStorage as the primary storage
 export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));

@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage } from "./database-storage";
 import { notificationService } from "./notifications";
 import { 
   insertUserSchema, 
@@ -273,7 +273,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Protected admin route to get all contact messages
   app.get("/api/contact/messages", requireAdminAuth, async (req, res) => {
     try {
-      const messages = await storage.getAllContactMessages();
+      const messages = await storage.getContactMessages();
       res.json(messages);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
@@ -282,7 +282,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/contact/messages", requireAdminAuth, async (req, res) => {
     try {
-      const messages = await storage.getAllContactMessages();
+      const messages = await storage.getContactMessages();
       res.json(messages);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
