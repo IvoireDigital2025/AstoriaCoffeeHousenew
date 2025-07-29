@@ -46,31 +46,6 @@ interface LoyaltyCustomer {
   updatedAt: string;
 }
 
-interface LoyaltyVisit {
-  id: number;
-  customerId: number;
-  visitDate: string;
-  pointsEarned: number;
-}
-
-interface LoyaltyReward {
-  id: number;
-  customerId: number;
-  rewardType: string;
-  pointsUsed: number;
-  notes: string | null;
-  redeemedAt: string;
-}
-
-interface Notification {
-  id: number;
-  phone: string;
-  message: string;
-  sentAt: string;
-  method: string;
-  status: 'sent' | 'failed' | 'pending';
-}
-
 interface FranchiseApplication {
   id: number;
   firstName: string;
@@ -96,6 +71,140 @@ export default function AdminDashboard() {
   const [customerSearchQuery, setCustomerSearchQuery] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const queryClient = useQueryClient();
+
+  // ALL QUERIES AND MUTATIONS MUST BE DEFINED BEFORE ANY CONDITIONAL RETURNS
+  const { data: contacts, isLoading: contactsLoading } = useQuery({
+    queryKey: ['/api/marketing/contacts'],
+    queryFn: async () => {
+      const response = await fetch('/api/marketing/contacts', {
+        credentials: 'include'
+      });
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch contacts');
+      }
+      return response.json();
+    },
+    enabled: isAuthenticated === true
+  });
+
+  const { data: contactMessages, isLoading: messagesLoading } = useQuery({
+    queryKey: ['/api/contact/messages'],
+    queryFn: async () => {
+      const response = await fetch('/api/contact/messages', {
+        credentials: 'include'
+      });
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch contact messages');
+      }
+      return response.json();
+    },
+    enabled: isAuthenticated === true
+  });
+
+  const { data: loyaltyCustomers, isLoading: loyaltyCustomersLoading } = useQuery({
+    queryKey: ['/api/admin/loyalty/customers'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/loyalty/customers', {
+        credentials: 'include'
+      });
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch loyalty customers');
+      }
+      return response.json();
+    },
+    enabled: isAuthenticated === true
+  });
+
+  const { data: franchiseApplications, isLoading: franchiseLoading } = useQuery({
+    queryKey: ['/api/admin/franchise/applications'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/franchise/applications', {
+        credentials: 'include'
+      });
+      if (response.status === 401) {
+        setLocation('/admin/login');
+        throw new Error('Authentication required');
+      }
+      if (!response.ok) {
+        throw new Error('Failed to fetch franchise applications');
+      }
+      return response.json();
+    },
+    enabled: isAuthenticated === true
+  });
+
+  const updateFranchiseStatus = useMutation({
+    mutationFn: async ({ id, status }: { id: number; status: string }) => {
+      await apiRequest('PATCH', `/api/admin/franchise/applications/${id}/status`, { status });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/franchise/applications'] });
+      toast({
+        title: "Status Updated",
+        description: "Franchise application status has been updated successfully.",
+        variant: "default",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Update Failed",
+        description: `Failed to update application status: ${error.message}`,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteMarketingContactMutation = useMutation({
+    mutationFn: async (contactId: number) => {
+      await apiRequest('DELETE', `/api/admin/marketing/contacts/${contactId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/marketing/contacts'] });
+      toast({
+        title: "Contact deleted",
+        description: "Marketing contact has been successfully removed.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete contact",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const deleteContactMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest('DELETE', `/api/contact/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/contact/messages'] });
+      toast({
+        title: "Contact Deleted",
+        description: "Contact message has been deleted successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Delete Failed",
+        description: error.message || "Failed to delete contact message",
+        variant: "destructive",
+      });
+    }
+  });
 
   // Check authentication status on component mount
   useEffect(() => {
@@ -153,28 +262,6 @@ export default function AdminDashboard() {
     );
   }
 
-  // Franchise application status update mutation
-  const updateFranchiseStatus = useMutation({
-    mutationFn: async ({ id, status }: { id: number; status: string }) => {
-      await apiRequest('PATCH', `/api/admin/franchise/applications/${id}/status`, { status });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/franchise/applications'] });
-      toast({
-        title: "Status Updated",
-        description: "Franchise application status has been updated successfully.",
-        variant: "default",
-      });
-    },
-    onError: (error) => {
-      toast({
-        title: "Update Failed",
-        description: `Failed to update application status: ${error.message}`,
-        variant: "destructive",
-      });
-    },
-  });
-
   // Download functions
   const downloadCSV = (data: any[], filename: string, headers: string[]) => {
     const csv = Papa.unparse({
@@ -192,333 +279,6 @@ export default function AdminDashboard() {
     link.click();
     document.body.removeChild(link);
   };
-
-  // Excel export removed due to security vulnerabilities - CSV export available
-
-  const downloadMarketingContacts = () => {
-    if (!contacts || contacts.length === 0) {
-      toast({
-        title: "No Data",
-        description: "No marketing contacts available to download.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const headers = ['id', 'email', 'name', 'phone', 'source', 'subscribed', 'createdAt'];
-    const processedData = contacts.map((contact: MarketingContact) => ({
-      id: contact.id,
-      email: contact.email,
-      name: contact.name || '',
-      phone: contact.phone || '',
-      source: contact.source,
-      subscribed: contact.subscribed ? 'Yes' : 'No',
-      createdAt: format(new Date(contact.createdAt), 'yyyy-MM-dd HH:mm:ss')
-    }));
-
-    const filename = `marketing_contacts_${format(new Date(), 'yyyy-MM-dd')}`;
-    downloadCSV(processedData, filename, headers);
-
-    toast({
-      title: "Download Complete",
-      description: "Marketing contacts exported as CSV successfully.",
-      variant: "default",
-    });
-  };
-
-  const downloadContactMessages = () => {
-    if (!contactMessages || contactMessages.length === 0) {
-      toast({
-        title: "No Data",
-        description: "No contact messages available to download.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const headers = ['id', 'name', 'email', 'subject', 'message', 'createdAt'];
-    const processedData = contactMessages.map((message: ContactMessage) => ({
-      id: message.id,
-      name: message.name,
-      email: message.email,
-      subject: message.subject,
-      message: message.message,
-      createdAt: format(new Date(message.createdAt), 'yyyy-MM-dd HH:mm:ss')
-    }));
-
-    const filename = `contact_messages_${format(new Date(), 'yyyy-MM-dd')}`;
-    
-    // Only CSV export available for security
-    downloadCSV(processedData, filename, headers);
-
-    toast({
-      title: "Download Complete",
-      description: "Contact messages exported as CSV successfully.",
-      variant: "default",
-    });
-  };
-
-  const downloadLoyaltyCustomers = () => {
-    if (!loyaltyCustomers || loyaltyCustomers.length === 0) {
-      toast({
-        title: "No Data",
-        description: "No loyalty customers available to download.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const headers = ['id', 'name', 'email', 'phone', 'totalVisits', 'currentPoints', 'totalRewards', 'createdAt'];
-    const processedData = loyaltyCustomers.map((customer: LoyaltyCustomer) => ({
-      id: customer.id,
-      name: customer.name,
-      email: customer.email,
-      phone: customer.phone,
-      totalVisits: customer.totalVisits,
-      currentPoints: customer.currentPoints,
-      totalRewards: customer.totalRewards,
-      createdAt: format(new Date(customer.createdAt), 'yyyy-MM-dd HH:mm:ss')
-    }));
-
-    const filename = `loyalty_customers_${format(new Date(), 'yyyy-MM-dd')}`;
-    
-    // Only CSV export available for security
-    downloadCSV(processedData, filename, headers);
-
-    toast({
-      title: "Download Complete",
-      description: "Loyalty customers exported as CSV successfully.",
-      variant: "default",
-    });
-  };
-
-  const downloadFranchiseApplications = () => {
-    if (!franchiseApplications || franchiseApplications.length === 0) {
-      toast({
-        title: "No Data",
-        description: "No franchise applications available to download.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const headers = ['id', 'firstName', 'lastName', 'email', 'phone', 'businessExperience', 'investmentCapacity', 'preferredLocation', 'timelineToOpen', 'additionalInfo', 'status', 'createdAt'];
-    const processedData = franchiseApplications.map((app: FranchiseApplication) => ({
-      id: app.id,
-      firstName: app.firstName,
-      lastName: app.lastName,
-      email: app.email,
-      phone: app.phone,
-      businessExperience: app.businessExperience,
-      investmentCapacity: app.investmentCapacity,
-      preferredLocation: app.preferredLocation,
-      timelineToOpen: app.timelineToOpen,
-      additionalInfo: app.additionalInfo || '',
-      status: app.status,
-      createdAt: format(new Date(app.createdAt), 'yyyy-MM-dd HH:mm:ss')
-    }));
-
-    const filename = `franchise_applications_${format(new Date(), 'yyyy-MM-dd')}`;
-    
-    // Only CSV export available for security
-    downloadCSV(processedData, filename, headers);
-
-    toast({
-      title: "Download Complete",
-      description: "Franchise applications exported as CSV successfully.",
-      variant: "default",
-    });
-  };
-
-  const { data: contacts, isLoading: contactsLoading } = useQuery({
-    queryKey: ['/api/marketing/contacts'],
-    queryFn: async () => {
-      const response = await fetch('/api/marketing/contacts', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch contacts');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const { data: contactMessages, isLoading: messagesLoading } = useQuery({
-    queryKey: ['/api/contact/messages'],
-    queryFn: async () => {
-      const response = await fetch('/api/contact/messages', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch contact messages');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  // Loyalty program data queries
-  const { data: loyaltyCustomers, isLoading: loyaltyCustomersLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/customers'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/customers', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty customers');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const { data: loyaltyVisits, isLoading: loyaltyVisitsLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/visits'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/visits', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty visits');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const { data: loyaltyRewards, isLoading: loyaltyRewardsLoading } = useQuery({
-    queryKey: ['/api/admin/loyalty/rewards'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/rewards', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch loyalty rewards');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const { data: notifications, isLoading: notificationsLoading } = useQuery({
-    queryKey: ['/api/admin/notifications'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/notifications', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch notifications');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const { data: franchiseApplications, isLoading: franchiseLoading } = useQuery({
-    queryKey: ['/api/admin/franchise/applications'],
-    queryFn: async () => {
-      const response = await fetch('/api/admin/franchise/applications', {
-        credentials: 'include'
-      });
-      if (response.status === 401) {
-        setLocation('/admin/login');
-        throw new Error('Authentication required');
-      }
-      if (!response.ok) {
-        throw new Error('Failed to fetch franchise applications');
-      }
-      return response.json();
-    },
-    enabled: isAuthenticated === true
-  });
-
-  const deleteMarketingContactMutation = useMutation({
-    mutationFn: async (contactId: number) => {
-      await apiRequest('DELETE', `/api/admin/marketing/contacts/${contactId}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/marketing/contacts'] });
-      toast({
-        title: "Contact deleted",
-        description: "Marketing contact has been successfully removed.",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to delete contact",
-        variant: "destructive",
-      });
-    }
-  });
-
-  // Redeem reward mutation
-  const redeemRewardMutation = useMutation({
-    mutationFn: async ({ customerId, notes }: { customerId: number; notes?: string }) => {
-      await apiRequest('POST', '/api/admin/loyalty/redeem', { customerId, notes });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/loyalty/customers'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/loyalty/rewards'] });
-      toast({
-        title: "Reward Redeemed",
-        description: "Customer reward has been redeemed successfully",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Redeem Failed",
-        description: error.message || "Failed to redeem reward",
-        variant: "destructive",
-      });
-    }
-  });
-
-  // Delete contact message mutation
-  const deleteContactMutation = useMutation({
-    mutationFn: async (id: number) => {
-      await apiRequest('DELETE', `/api/contact/${id}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/contact/messages'] });
-      toast({
-        title: "Contact Deleted",
-        description: "Contact message has been deleted successfully",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Delete Failed",
-        description: error.message || "Failed to delete contact message",
-        variant: "destructive",
-      });
-    }
-  });
 
   const handleDeleteContact = async (id: number, name: string) => {
     if (confirm(`Are you sure you want to delete the message from ${name}?`)) {
@@ -553,8 +313,6 @@ export default function AdminDashboard() {
     return matchesSearch && matchesSource;
   }) || [];
 
-
-
   const getSourceColor = (source: string) => {
     switch (source) {
       case 'newsletter': return 'bg-blue-100 text-blue-800';
@@ -567,10 +325,6 @@ export default function AdminDashboard() {
 
   const totalContacts = contacts?.length || 0;
   const subscribedContacts = contacts?.filter((c: MarketingContact) => c.subscribed).length || 0;
-  const sourceStats = contacts?.reduce((acc: Record<string, number>, contact: MarketingContact) => {
-    acc[contact.source] = (acc[contact.source] || 0) + 1;
-    return acc;
-  }, {}) || {};
 
   // Filter franchise applications based on selected status
   const filteredFranchiseApplications = franchiseApplications?.filter((app: FranchiseApplication) => {
@@ -614,103 +368,82 @@ export default function AdminDashboard() {
           </Button>
         </div>
 
-        <Tabs defaultValue="marketing" className="space-y-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Contacts</CardTitle>
+              <User className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalContacts}</div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Subscribed</CardTitle>
+              <Bell className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{subscribedContacts}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Messages</CardTitle>
+              <MessageSquare className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{contactMessages?.length || 0}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Loyalty Customers</CardTitle>
+              <Gift className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{loyaltyCustomers?.length || 0}</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs defaultValue="contacts" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="marketing" className="flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Marketing Contacts ({totalContacts})
-            </TabsTrigger>
-            <TabsTrigger value="messages" className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" />
-              Customer Messages ({contactMessages?.length || 0})
-            </TabsTrigger>
-            <TabsTrigger value="loyalty" className="flex items-center gap-2">
-              <Coffee className="w-4 h-4" />
-              Loyalty Program ({loyaltyCustomers?.length || 0})
-            </TabsTrigger>
-            <TabsTrigger value="franchise" className="flex items-center gap-2">
-              <Building className="w-4 h-4" />
-              Franchise Applications ({franchiseApplications?.length || 0})
-            </TabsTrigger>
-            <TabsTrigger value="notifications" className="flex items-center gap-2">
-              <Bell className="w-4 h-4" />
-              Notifications ({notifications?.length || 0})
-            </TabsTrigger>
+            <TabsTrigger value="contacts">Marketing Contacts</TabsTrigger>
+            <TabsTrigger value="messages">Customer Messages</TabsTrigger>
+            <TabsTrigger value="loyalty">Loyalty Program</TabsTrigger>
+            <TabsTrigger value="qrcodes">QR Codes</TabsTrigger>
+            <TabsTrigger value="franchise">Franchise Applications</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="marketing" className="space-y-8">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-coffee-medium">Total Contacts</p>
-                      <p className="text-2xl font-bold text-coffee-dark">{totalContacts}</p>
-                    </div>
-                    <User className="w-8 h-8 text-coffee-primary" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-coffee-medium">Subscribed</p>
-                      <p className="text-2xl font-bold text-green-600">{subscribedContacts}</p>
-                    </div>
-                    <Mail className="w-8 h-8 text-green-600" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-coffee-medium">Newsletter</p>
-                      <p className="text-2xl font-bold text-blue-600">{sourceStats.newsletter || 0}</p>
-                    </div>
-                    <Mail className="w-8 h-8 text-blue-600" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-coffee-medium">Community</p>
-                      <p className="text-2xl font-bold text-green-600">{sourceStats.community || 0}</p>
-                    </div>
-                    <User className="w-8 h-8 text-green-600" />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Search and Filters */}
+          <TabsContent value="contacts" className="space-y-6">
             <Card>
-              <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row gap-4 mb-6">
-                  <div className="flex-1">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <Mail className="w-5 h-5" />
+                      Marketing Contacts ({filteredContacts.length})
+                    </CardTitle>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                      <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        placeholder="Search by email, name, or phone..."
+                        placeholder="Search contacts..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 w-full sm:w-64"
                       />
                     </div>
-                  </div>
-                  
-                  <div className="flex gap-3">
                     <select
                       value={sourceFilter}
                       onChange={(e) => setSourceFilter(e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-coffee-primary"
+                      className="px-3 py-2 border border-gray-300 rounded-md"
                     >
                       <option value="all">All Sources</option>
                       <option value="newsletter">Newsletter</option>
@@ -718,748 +451,234 @@ export default function AdminDashboard() {
                       <option value="loyalty">Loyalty</option>
                       <option value="contact">Contact</option>
                     </select>
-                    
-                    <Button
-                      onClick={() => downloadMarketingContacts()}
-                      disabled={!filteredContacts.length}
-                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      CSV
-                    </Button>
                   </div>
                 </div>
-
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-4">
-                  {filteredContacts.map((contact: MarketingContact) => (
-                    <div key={contact.id} className="border border-coffee-accent/20 rounded-lg p-4 hover:bg-coffee-cream/30 transition-colors">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-start gap-3">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <h3 className="font-medium text-coffee-dark">
-                                  {contact.name || 'No name provided'}
-                                </h3>
-                                <Badge className={getSourceColor(contact.source)}>
-                                  {contact.source}
-                                </Badge>
-                                {contact.subscribed && (
-                                  <Badge className="bg-green-100 text-green-800">Subscribed</Badge>
-                                )}
-                              </div>
-                              <div className="space-y-1 text-sm text-coffee-medium">
-                                <div className="flex items-center gap-2">
-                                  <Mail className="w-4 h-4" />
-                                  {contact.email}
-                                </div>
-                                {contact.phone && (
-                                  <div className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4" />
-                                    {contact.phone}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
+                  {filteredContacts.map((contact) => (
+                    <div key={contact.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <Badge className={getSourceColor(contact.source)}>
+                              {contact.source}
+                            </Badge>
+                            {contact.subscribed && (
+                              <Badge variant="outline" className="text-green-600 border-green-600">
+                                Subscribed
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="space-y-1">
+                            <p className="font-medium">{contact.name || 'No name provided'}</p>
+                            <p className="text-sm text-gray-600 flex items-center gap-1">
+                              <Mail className="w-3 h-3" />
+                              {contact.email}
+                            </p>
+                            {contact.phone && (
+                              <p className="text-sm text-gray-600 flex items-center gap-1">
+                                <Phone className="w-3 h-3" />
+                                {contact.phone}
+                              </p>
+                            )}
+                            <p className="text-xs text-gray-500 flex items-center gap-1">
+                              <Calendar className="w-3 h-3" />
+                              {format(new Date(contact.createdAt), 'MMM dd, yyyy HH:mm')}
+                            </p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-2 text-sm text-coffee-medium">
-                            <Calendar className="w-4 h-4" />
-                            {format(new Date(contact.createdAt), 'MMM d, yyyy')}
-                          </div>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => deleteMarketingContactMutation.mutate(contact.id)}
-                            disabled={deleteMarketingContactMutation.isPending}
-                            className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => deleteMarketingContactMutation.mutate(contact.id)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   ))}
-                  
-                  {filteredContacts.length === 0 && (
-                    <div className="text-center py-8">
-                      <User className="w-12 h-12 text-coffee-medium mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-coffee-dark mb-2">No contacts found</h3>
-                      <p className="text-coffee-medium">
-                        {searchTerm || sourceFilter !== "all" 
-                          ? "Try adjusting your search or filter criteria"
-                          : "No marketing contacts have been collected yet"}
-                      </p>
-                    </div>
-                  )}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="messages" className="space-y-8">
+          <TabsContent value="messages" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5" />
-                    Customer Contact Messages
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => downloadContactMessages()}
-                      disabled={!contactMessages?.length}
-                      size="sm"
-                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      CSV
-                    </Button>
-                  </div>
+                <CardTitle className="flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5" />
+                  Customer Messages ({contactMessages?.length || 0})
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {contactMessages?.map((message: ContactMessage) => (
-                    <div key={message.id} className="border border-coffee-accent/20 rounded-lg p-4 hover:bg-coffee-cream/30 transition-colors">
+                    <div key={message.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h3 className="font-medium text-coffee-dark">{message.name}</h3>
-                          <p className="text-sm text-coffee-medium">{message.email}</p>
+                        <div className="space-y-1">
+                          <h3 className="font-medium">{message.name}</h3>
+                          <p className="text-sm text-gray-600">{message.email}</p>
+                          <p className="text-xs text-gray-500">
+                            {format(new Date(message.createdAt), 'MMM dd, yyyy HH:mm')}
+                          </p>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <div className="text-sm text-coffee-medium">
-                            {format(new Date(message.createdAt), 'MMM d, yyyy HH:mm')}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDeleteContact(message.id, message.name)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-gray-700">Subject: {message.subject}</p>
+                        <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded">{message.message}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="loyalty" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Gift className="w-5 h-5" />
+                  Loyalty Program Customers ({loyaltyCustomers?.length || 0})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {loyaltyCustomers?.map((customer: LoyaltyCustomer) => (
+                    <div key={customer.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h3 className="font-medium">{customer.name}</h3>
+                            <p className="text-sm text-gray-600">{customer.email}</p>
+                            <p className="text-sm text-gray-600">{customer.phone}</p>
                           </div>
+                          <div className="text-right space-y-1">
+                            <div className="flex items-center gap-2">
+                              <Star className="w-4 h-4 text-yellow-500" />
+                              <span className="text-sm font-medium">{customer.currentPoints} points</span>
+                            </div>
+                            <p className="text-xs text-gray-500">{customer.totalVisits} visits</p>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="qrcodes" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <QrCode className="w-5 h-5" />
+                    Loyalty Check-in QR Code
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Print this QR code and display it in your store for customers to check in and earn loyalty points.
+                  </p>
+                  <QRCodeComponent />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Coffee className="w-5 h-5" />
+                    Website QR Code
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Share this QR code to let customers quickly access the Coffee Pro website.
+                  </p>
+                  <WebsiteQRCode />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="franchise" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="w-5 h-5" />
+                  Franchise Applications ({franchiseApplications?.length || 0})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {franchiseApplications?.map((app: FranchiseApplication) => (
+                    <div key={app.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h3 className="font-medium">{app.firstName} {app.lastName}</h3>
+                            <p className="text-sm text-gray-600">{app.email}</p>
+                            <p className="text-sm text-gray-600">{app.phone}</p>
+                          </div>
+                          <Badge variant={app.status === 'approved' ? 'default' : app.status === 'rejected' ? 'destructive' : 'secondary'}>
+                            {app.status}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <span className="font-medium">Investment:</span> {app.investmentCapacity}
+                          </div>
+                          <div>
+                            <span className="font-medium">Timeline:</span> {app.timelineToOpen}
+                          </div>
+                          <div>
+                            <span className="font-medium">Location:</span> {app.preferredLocation}
+                          </div>
+                          <div>
+                            <span className="font-medium">Experience:</span> {app.businessExperience}
+                          </div>
+                        </div>
+                        {app.additionalInfo && (
+                          <div className="text-sm">
+                            <span className="font-medium">Additional Info:</span>
+                            <p className="text-gray-600 mt-1">{app.additionalInfo}</p>
+                          </div>
+                        )}
+                        <div className="flex gap-2">
                           <Button
-                            variant="ghost"
                             size="sm"
-                            onClick={() => handleDeleteContact(message.id, message.name)}
-                            disabled={deleteContactMutation.isPending}
-                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                            onClick={() => updateFranchiseStatus.mutate({ id: app.id, status: 'approved' })}
+                            disabled={app.status === 'approved'}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            Approve
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateFranchiseStatus.mutate({ id: app.id, status: 'rejected' })}
+                            disabled={app.status === 'rejected'}
+                          >
+                            Reject
                           </Button>
                         </div>
                       </div>
-                      
-                      <div className="mb-3">
-                        <h4 className="font-medium text-coffee-dark text-sm mb-1">Subject:</h4>
-                        <p className="text-coffee-medium">{message.subject}</p>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-medium text-coffee-dark text-sm mb-1">Message:</h4>
-                        <p className="text-coffee-medium whitespace-pre-wrap">{message.message}</p>
-                      </div>
                     </div>
-                  )) || []}
-                  
-                  {(!contactMessages || contactMessages.length === 0) && (
-                    <div className="text-center py-8">
-                      <MessageSquare className="w-12 h-12 text-coffee-medium mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-coffee-dark mb-2">No customer messages</h3>
-                      <p className="text-coffee-medium">
-                        Customer messages from the contact form will appear here
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="loyalty" className="space-y-8">
-            {/* QR Code for Staff */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Loyalty Program QR Code */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <QrCode className="w-5 h-5" />
-                    Loyalty Program QR Code
-                  </CardTitle>
-                  <p className="text-sm text-coffee-medium">Print and display this QR code in your store for customers to scan</p>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center space-y-4">
-                  <QRCodeComponent size={150} mode="admin" />
-                </CardContent>
-              </Card>
-
-              {/* Website QR Code */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <QrCode className="w-5 h-5" />
-                    Website QR Code
-                  </CardTitle>
-                  <p className="text-sm text-coffee-medium">Print and display this QR code for customers to access your website</p>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center space-y-4">
-                  <WebsiteQRCode size={150} />
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Loyalty Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2">
-                    <User className="w-8 h-8 text-coffee-primary" />
-                    <div>
-                      <p className="text-sm text-coffee-medium">Total Customers</p>
-                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyCustomers?.length || 0}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2">
-                    <Coffee className="w-8 h-8 text-coffee-primary" />
-                    <div>
-                      <p className="text-sm text-coffee-medium">Total Visits</p>
-                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyVisits?.length || 0}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2">
-                    <Gift className="w-8 h-8 text-coffee-primary" />
-                    <div>
-                      <p className="text-sm text-coffee-medium">Total Rewards</p>
-                      <p className="text-2xl font-bold text-coffee-dark">{loyaltyRewards?.length || 0}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2">
-                    <Star className="w-8 h-8 text-coffee-primary" />
-                    <div>
-                      <p className="text-sm text-coffee-medium">Active Points</p>
-                      <p className="text-2xl font-bold text-coffee-dark">
-                        {loyaltyCustomers?.reduce((sum: number, customer: LoyaltyCustomer) => sum + (customer.currentPoints || 0), 0) || 0}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Individual Customer Folders */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <User className="w-5 h-5" />
-                      Individual Customer Folders
-                    </div>
-                    <p className="text-sm text-coffee-medium mt-1">
-                      Each customer has their own folder with points and visit history tracked by phone number
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => downloadLoyaltyCustomers()}
-                      disabled={!loyaltyCustomers?.length}
-                      size="sm"
-                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      CSV
-                    </Button>
-                  </div>
-                </CardTitle>
-                
-                {/* Customer Search Bar */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
-                  <Input
-                    placeholder="Search customers by name, phone, or email..."
-                    value={customerSearchQuery}
-                    onChange={(e) => setCustomerSearchQuery(e.target.value)}
-                    className="pl-10 border-coffee-accent/30 focus:border-coffee-primary"
-                  />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {loyaltyCustomersLoading ? (
-                    <div className="space-y-4">
-                      {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-16 bg-gray-200 rounded animate-pulse"></div>
-                      ))}
-                    </div>
-                  ) : loyaltyCustomers && loyaltyCustomers.length > 0 ? (
-                    (() => {
-                      const filteredCustomers = loyaltyCustomers.filter((customer: LoyaltyCustomer) => 
-                        customerSearchQuery === '' || 
-                        customer.name.toLowerCase().includes(customerSearchQuery.toLowerCase()) ||
-                        customer.phone.includes(customerSearchQuery) ||
-                        customer.email.toLowerCase().includes(customerSearchQuery.toLowerCase())
-                      );
-                      
-                      return (
-                        <div className="space-y-4">
-                          {customerSearchQuery && (
-                            <div className="text-sm text-coffee-medium bg-coffee-cream/30 p-3 rounded-lg">
-                              {filteredCustomers.length > 0 ? (
-                                <>Showing {filteredCustomers.length} of {loyaltyCustomers.length} customers</>
-                              ) : (
-                                <>No customers found matching "{customerSearchQuery}"</>
-                              )}
-                            </div>
-                          )}
-                          {filteredCustomers.map((customer: LoyaltyCustomer) => (
-                            <div key={customer.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                              <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-12 h-12 bg-coffee-primary rounded-full flex items-center justify-center text-white font-bold">
-                                    {customer.name.charAt(0).toUpperCase()}
-                                  </div>
-                                  <div>
-                                    <p className="font-bold text-coffee-dark">{customer.name}</p>
-                                    <p className="text-sm text-coffee-medium">{customer.phone}</p>
-                                    <p className="text-sm text-coffee-medium">{customer.email}</p>
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                  <p className="text-xs text-coffee-medium">Customer ID: {customer.id}</p>
-                                  <p className="text-xs text-coffee-medium">
-                                    Joined: {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
-                                  </p>
-                                </div>
-                              </div>
-                              
-                              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-3 bg-coffee-cream/30 rounded-lg">
-                                <div className="text-center">
-                                  <p className="text-sm text-coffee-medium">Total Visits</p>
-                                  <p className="text-2xl font-bold text-coffee-dark">{customer.totalVisits}</p>
-                                </div>
-                                <div className="text-center">
-                                  <p className="text-sm text-coffee-medium">Current Points</p>
-                                  <Badge 
-                                    variant={customer.currentPoints >= 5 ? "default" : "secondary"}
-                                    className="text-lg px-3 py-1"
-                                  >
-                                    {customer.currentPoints}
-                                  </Badge>
-                                </div>
-                                <div className="text-center">
-                                  <p className="text-sm text-coffee-medium">Total Rewards</p>
-                                  <p className="text-2xl font-bold text-green-600">{customer.totalRewards}</p>
-                                </div>
-                                <div className="text-center">
-                                  {customer.currentPoints >= 5 ? (
-                                    <Button
-                                      size="sm"
-                                      onClick={() => redeemRewardMutation.mutate({ customerId: customer.id })}
-                                      disabled={redeemRewardMutation.isPending}
-                                      className="bg-green-600 hover:bg-green-700 text-white"
-                                    >
-                                      <Gift className="w-4 h-4 mr-1" />
-                                      Redeem FREE Coffee
-                                    </Button>
-                                  ) : (
-                                    <div>
-                                      <p className="text-sm text-coffee-medium">Points to Reward</p>
-                                      <p className="text-lg font-bold text-amber-600">{5 - customer.currentPoints}</p>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                              
-                              <div className="mt-3 text-xs text-coffee-medium">
-                                <p><strong>Recognition:</strong> System recognizes this customer by phone number {customer.phone}</p>
-                                <p><strong>Last Activity:</strong> {format(new Date(customer.updatedAt), 'MMM dd, yyyy HH:mm')}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      );
-                    })()
-                  ) : (
-                    <div className="text-center py-8">
-                      <Coffee className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-500 font-medium">No loyalty customers yet</p>
-                      <p className="text-gray-400 text-sm">
-                        When customers check-in using QR codes, their individual folders will appear here
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Recent Visits */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Recent Visits
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  {loyaltyVisitsLoading ? (
-                    <div className="space-y-4">
-                      {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-12 bg-gray-200 rounded animate-pulse"></div>
-                      ))}
-                    </div>
-                  ) : loyaltyVisits && loyaltyVisits.length > 0 ? (
-                    <div className="space-y-3">
-                      {loyaltyVisits.slice(0, 10).map((visit: LoyaltyVisit) => {
-                        const customer = loyaltyCustomers?.find((c: LoyaltyCustomer) => c.id === visit.customerId);
-                        return (
-                          <div key={visit.id} className="flex justify-between items-center border-b pb-2">
-                            <div>
-                              <p className="font-medium text-coffee-dark">{customer?.name || `Customer ${visit.customerId}`}</p>
-                              <p className="text-sm text-coffee-medium">{customer?.phone}</p>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-sm text-coffee-dark">+{visit.pointsEarned} points</p>
-                              <p className="text-xs text-coffee-medium">
-                                {format(new Date(visit.visitDate), 'MMM dd, yyyy h:mm a')}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-500 font-medium">No visits recorded yet</p>
-                      <p className="text-gray-400 text-sm">
-                        Customer check-ins will appear here
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="franchise" className="space-y-8">
-            {/* Franchise Applications Overview */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Building className="w-5 h-5" />
-                      Franchise Applications
-                    </div>
-                    <p className="text-sm text-coffee-medium">
-                      Manage and review franchise application submissions
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => downloadFranchiseApplications()}
-                      disabled={!franchiseApplications?.length}
-                      size="sm"
-                      className="bg-coffee-primary hover:bg-coffee-medium text-white"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      CSV
-                    </Button>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                  <div 
-                    onClick={() => setSelectedFranchiseStatus(null)}
-                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
-                      selectedFranchiseStatus === null 
-                        ? 'bg-blue-100 ring-2 ring-blue-500' 
-                        : 'bg-blue-50 hover:bg-blue-100'
-                    }`}
-                  >
-                    <h3 className="font-semibold text-blue-800">Total Applications</h3>
-                    <p className="text-2xl font-bold text-blue-600">
-                      {franchiseApplications?.length || 0}
-                    </p>
-                  </div>
-                  <div 
-                    onClick={() => setSelectedFranchiseStatus('pending')}
-                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
-                      selectedFranchiseStatus === 'pending' 
-                        ? 'bg-yellow-100 ring-2 ring-yellow-500' 
-                        : 'bg-yellow-50 hover:bg-yellow-100'
-                    }`}
-                  >
-                    <h3 className="font-semibold text-yellow-800">Pending Review</h3>
-                    <p className="text-2xl font-bold text-yellow-600">
-                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'pending').length || 0}
-                    </p>
-                  </div>
-                  <div 
-                    onClick={() => setSelectedFranchiseStatus('approved')}
-                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
-                      selectedFranchiseStatus === 'approved' 
-                        ? 'bg-green-100 ring-2 ring-green-500' 
-                        : 'bg-green-50 hover:bg-green-100'
-                    }`}
-                  >
-                    <h3 className="font-semibold text-green-800">Approved</h3>
-                    <p className="text-2xl font-bold text-green-600">
-                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'approved').length || 0}
-                    </p>
-                  </div>
-                  <div 
-                    onClick={() => setSelectedFranchiseStatus('rejected')}
-                    className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
-                      selectedFranchiseStatus === 'rejected' 
-                        ? 'bg-red-100 ring-2 ring-red-500' 
-                        : 'bg-red-50 hover:bg-red-100'
-                    }`}
-                  >
-                    <h3 className="font-semibold text-red-800">Rejected</h3>
-                    <p className="text-2xl font-bold text-red-600">
-                      {franchiseApplications?.filter((app: FranchiseApplication) => app.status === 'rejected').length || 0}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Filter Header */}
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-coffee-dark">
-                    {selectedFranchiseStatus === null 
-                      ? 'All Applications' 
-                      : selectedFranchiseStatus === 'pending' 
-                        ? 'Pending Applications' 
-                        : selectedFranchiseStatus === 'approved' 
-                          ? 'Approved Applications' 
-                          : 'Rejected Applications'}
-                  </h3>
-                  <p className="text-sm text-coffee-medium">
-                    Showing {filteredFranchiseApplications.length} of {franchiseApplications?.length || 0} applications
-                  </p>
-                </div>
-
-                {franchiseLoading ? (
-                  <div className="text-center py-8">
-                    <p className="text-coffee-medium">Loading applications...</p>
-                  </div>
-                ) : filteredFranchiseApplications && filteredFranchiseApplications.length > 0 ? (
-                  <div className="space-y-4">
-                    {filteredFranchiseApplications.map((application: FranchiseApplication) => (
-                      <Card key={application.id} className="border-l-4 border-l-coffee-primary">
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <User className="w-4 h-4 text-coffee-medium" />
-                                <span className="font-medium">{application.firstName} {application.lastName}</span>
-                                <Badge 
-                                  className={`${
-                                    application.status === 'approved' ? 'bg-green-100 text-green-800' :
-                                    application.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                    application.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                                    'bg-gray-100 text-gray-800'
-                                  }`}
-                                >
-                                  {application.status.toUpperCase()}
-                                </Badge>
-                              </div>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                                <div>
-                                  <p className="text-sm text-coffee-light">Email:</p>
-                                  <p className="text-coffee-medium">{application.email}</p>
-                                </div>
-                                <div>
-                                  <p className="text-sm text-coffee-light">Phone:</p>
-                                  <p className="text-coffee-medium">{application.phone}</p>
-                                </div>
-                                <div>
-                                  <p className="text-sm text-coffee-light">Investment Capacity:</p>
-                                  <p className="text-coffee-medium">{application.investmentCapacity}</p>
-                                </div>
-                                <div>
-                                  <p className="text-sm text-coffee-light">Preferred Location:</p>
-                                  <p className="text-coffee-medium">{application.preferredLocation}</p>
-                                </div>
-                                <div>
-                                  <p className="text-sm text-coffee-light">Timeline:</p>
-                                  <p className="text-coffee-medium">{application.timelineToOpen}</p>
-                                </div>
-                              </div>
-                              <div className="mb-3">
-                                <p className="text-sm text-coffee-light">Business Experience:</p>
-                                <p className="text-coffee-medium">{application.businessExperience}</p>
-                              </div>
-                              {application.additionalInfo && (
-                                <div className="mb-3">
-                                  <p className="text-sm text-coffee-light">Additional Information:</p>
-                                  <p className="text-coffee-medium">{application.additionalInfo}</p>
-                                </div>
-                              )}
-                              <p className="text-sm text-coffee-light">
-                                <Calendar className="w-3 h-3 inline mr-1" />
-                                Applied: {format(new Date(application.createdAt), "MMM dd, yyyy 'at' h:mm a")}
-                              </p>
-                            </div>
-                            {application.status === 'pending' && (
-                              <div className="flex gap-2 mt-4 pt-4 border-t">
-                                <Button
-                                  onClick={() => updateFranchiseStatus.mutate({ id: application.id, status: 'approved' })}
-                                  disabled={updateFranchiseStatus.isPending}
-                                  size="sm"
-                                  className="bg-green-600 hover:bg-green-700 text-white"
-                                >
-                                  Approve
-                                </Button>
-                                <Button
-                                  onClick={() => updateFranchiseStatus.mutate({ id: application.id, status: 'rejected' })}
-                                  disabled={updateFranchiseStatus.isPending}
-                                  size="sm"
-                                  variant="destructive"
-                                >
-                                  Deny
-                                </Button>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <Building className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500 font-medium">
-                      {selectedFranchiseStatus === null 
-                        ? 'No franchise applications yet' 
-                        : `No ${selectedFranchiseStatus} applications`}
-                    </p>
-                    <p className="text-gray-400 text-sm">
-                      {selectedFranchiseStatus === null 
-                        ? 'Applications will appear here when submitted' 
-                        : `No applications with ${selectedFranchiseStatus} status found`}
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="notifications" className="space-y-8">
-            {/* Notifications Overview */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="w-5 h-5" />
-                  Customer Notifications
-                </CardTitle>
-                <p className="text-sm text-coffee-medium">
-                  Track congratulatory messages sent to customers when they earn free coffee rewards
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-blue-800">Total Sent</h3>
-                    <p className="text-2xl font-bold text-blue-600">
-                      {notifications?.filter((n: Notification) => n.status === 'sent').length || 0}
-                    </p>
-                  </div>
-                  <div className="bg-yellow-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-yellow-800">Pending</h3>
-                    <p className="text-2xl font-bold text-yellow-600">
-                      {notifications?.filter((n: Notification) => n.status === 'pending').length || 0}
-                    </p>
-                  </div>
-                  <div className="bg-red-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-red-800">Failed</h3>
-                    <p className="text-2xl font-bold text-red-600">
-                      {notifications?.filter((n: Notification) => n.status === 'failed').length || 0}
-                    </p>
-                  </div>
-                </div>
-
-                {notificationsLoading ? (
-                  <div className="text-center py-8">
-                    <p className="text-coffee-medium">Loading notifications...</p>
-                  </div>
-                ) : notifications && notifications.length > 0 ? (
-                  <div className="space-y-4">
-                    {notifications.map((notification: Notification) => (
-                      <Card key={notification.id} className="border-l-4 border-l-coffee-primary">
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Phone className="w-4 h-4 text-coffee-medium" />
-                                <span className="font-medium">{notification.phone}</span>
-                                <Badge 
-                                  className={`${
-                                    notification.status === 'sent' ? 'bg-green-100 text-green-800' :
-                                    notification.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                    'bg-red-100 text-red-800'
-                                  }`}
-                                >
-                                  {notification.status.toUpperCase()}
-                                </Badge>
-                                <Badge variant="outline">{notification.method.toUpperCase()}</Badge>
-                              </div>
-                              <p className="text-coffee-medium mb-2">"{notification.message}"</p>
-                              <p className="text-sm text-coffee-light">
-                                <Calendar className="w-3 h-3 inline mr-1" />
-                                {format(new Date(notification.sentAt), "MMM dd, yyyy 'at' h:mm a")}
-                              </p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <Bell className="w-12 h-12 text-coffee-light mx-auto mb-4" />
-                    <p className="text-coffee-medium">No notifications sent yet</p>
-                    <p className="text-sm text-coffee-light">
-                      Notifications will appear here when customers earn free coffee rewards
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Notification Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Free SMS Alternatives</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800 mb-2">Current Setup</h4>
-                    <p className="text-blue-700 text-sm">
-                      The system logs all reward notifications for tracking. When customers earn free coffee, 
-                      notifications are logged here for your reference.
-                    </p>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-green-800 mb-2">Future SMS Options</h4>
-                    <p className="text-green-700 text-sm mb-2">
-                      To enable actual SMS notifications, you can use free tiers from:
-                    </p>
-                    <ul className="text-green-700 text-sm space-y-1">
-                      <li>• Twilio (Free trial with $15 credit)</li>
-                      <li>• EmailJS (200 free emails/month)</li>
-                      <li>• SendGrid (100 free emails/day)</li>
-                    </ul>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
