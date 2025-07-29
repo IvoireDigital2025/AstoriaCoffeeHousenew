@@ -57,6 +57,30 @@ export default function FranchisePage() {
 
   const onSubmit = (data: InsertFranchiseApplication) => {
     console.log('Form data being submitted:', data);
+    console.log('Form validation state:', form.formState.errors);
+    
+    // Ensure all required fields are present
+    if (!data.firstName || !data.lastName || !data.email || !data.phone || 
+        !data.businessExperience || !data.investmentCapacity || 
+        !data.preferredLocation || !data.timelineToOpen) {
+      console.error('Missing required fields:', {
+        firstName: !!data.firstName,
+        lastName: !!data.lastName,
+        email: !!data.email,
+        phone: !!data.phone,
+        businessExperience: !!data.businessExperience,
+        investmentCapacity: !!data.investmentCapacity,
+        preferredLocation: !!data.preferredLocation,
+        timelineToOpen: !!data.timelineToOpen
+      });
+      toast({
+        title: "Form Incomplete",
+        description: "Please fill in all required fields before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     submitApplication.mutate(data);
   };
 
@@ -336,16 +360,19 @@ export default function FranchisePage() {
                 {/* Investment Capacity */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Investment Capacity *</label>
-                  <Select onValueChange={(value) => form.setValue('investmentCapacity', value, { shouldValidate: true })}>
+                  <Select 
+                    value={form.watch('investmentCapacity')} 
+                    onValueChange={(value) => form.setValue('investmentCapacity', value, { shouldValidate: true })}
+                  >
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your investment range" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="80k-120k">$80,000 - $120,000</SelectItem>
-                      <SelectItem value="120k-150k">$120,000 - $150,000</SelectItem>
-                      <SelectItem value="150k-200k">$150,000 - $200,000</SelectItem>
-                      <SelectItem value="200k-250k">$200,000 - $250,000</SelectItem>
-                      <SelectItem value="250k+">$250,000+</SelectItem>
+                      <SelectItem value="$80,000 - $120,000">$80,000 - $120,000</SelectItem>
+                      <SelectItem value="$120,000 - $150,000">$120,000 - $150,000</SelectItem>
+                      <SelectItem value="$150,000 - $200,000">$150,000 - $200,000</SelectItem>
+                      <SelectItem value="$200,000 - $250,000">$200,000 - $250,000</SelectItem>
+                      <SelectItem value="$250,000+">$250,000+</SelectItem>
                     </SelectContent>
                   </Select>
                   {form.formState.errors.investmentCapacity && (
@@ -356,61 +383,64 @@ export default function FranchisePage() {
                 {/* Preferred Location */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Preferred Location *</label>
-                  <Select onValueChange={(value) => form.setValue('preferredLocation', value, { shouldValidate: true })}>
+                  <Select 
+                    value={form.watch('preferredLocation')} 
+                    onValueChange={(value) => form.setValue('preferredLocation', value, { shouldValidate: true })}
+                  >
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your preferred state" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="AL">Alabama</SelectItem>
-                      <SelectItem value="AK">Alaska</SelectItem>
-                      <SelectItem value="AZ">Arizona</SelectItem>
-                      <SelectItem value="AR">Arkansas</SelectItem>
-                      <SelectItem value="CA">California</SelectItem>
-                      <SelectItem value="CO">Colorado</SelectItem>
-                      <SelectItem value="CT">Connecticut</SelectItem>
-                      <SelectItem value="DE">Delaware</SelectItem>
-                      <SelectItem value="FL">Florida</SelectItem>
-                      <SelectItem value="GA">Georgia</SelectItem>
-                      <SelectItem value="HI">Hawaii</SelectItem>
-                      <SelectItem value="ID">Idaho</SelectItem>
-                      <SelectItem value="IL">Illinois</SelectItem>
-                      <SelectItem value="IN">Indiana</SelectItem>
-                      <SelectItem value="IA">Iowa</SelectItem>
-                      <SelectItem value="KS">Kansas</SelectItem>
-                      <SelectItem value="KY">Kentucky</SelectItem>
-                      <SelectItem value="LA">Louisiana</SelectItem>
-                      <SelectItem value="ME">Maine</SelectItem>
-                      <SelectItem value="MD">Maryland</SelectItem>
-                      <SelectItem value="MA">Massachusetts</SelectItem>
-                      <SelectItem value="MI">Michigan</SelectItem>
-                      <SelectItem value="MN">Minnesota</SelectItem>
-                      <SelectItem value="MS">Mississippi</SelectItem>
-                      <SelectItem value="MO">Missouri</SelectItem>
-                      <SelectItem value="MT">Montana</SelectItem>
-                      <SelectItem value="NE">Nebraska</SelectItem>
-                      <SelectItem value="NV">Nevada</SelectItem>
-                      <SelectItem value="NH">New Hampshire</SelectItem>
-                      <SelectItem value="NJ">New Jersey</SelectItem>
-                      <SelectItem value="NM">New Mexico</SelectItem>
-                      <SelectItem value="NY">New York</SelectItem>
-                      <SelectItem value="NC">North Carolina</SelectItem>
-                      <SelectItem value="ND">North Dakota</SelectItem>
-                      <SelectItem value="OH">Ohio</SelectItem>
-                      <SelectItem value="OK">Oklahoma</SelectItem>
-                      <SelectItem value="OR">Oregon</SelectItem>
-                      <SelectItem value="PA">Pennsylvania</SelectItem>
-                      <SelectItem value="RI">Rhode Island</SelectItem>
-                      <SelectItem value="SC">South Carolina</SelectItem>
-                      <SelectItem value="SD">South Dakota</SelectItem>
-                      <SelectItem value="TN">Tennessee</SelectItem>
-                      <SelectItem value="TX">Texas</SelectItem>
-                      <SelectItem value="UT">Utah</SelectItem>
-                      <SelectItem value="VT">Vermont</SelectItem>
-                      <SelectItem value="VA">Virginia</SelectItem>
-                      <SelectItem value="WA">Washington</SelectItem>
-                      <SelectItem value="WV">West Virginia</SelectItem>
-                      <SelectItem value="WI">Wisconsin</SelectItem>
-                      <SelectItem value="WY">Wyoming</SelectItem>
+                      <SelectItem value="Alabama">Alabama</SelectItem>
+                      <SelectItem value="Alaska">Alaska</SelectItem>
+                      <SelectItem value="Arizona">Arizona</SelectItem>
+                      <SelectItem value="Arkansas">Arkansas</SelectItem>
+                      <SelectItem value="California">California</SelectItem>
+                      <SelectItem value="Colorado">Colorado</SelectItem>
+                      <SelectItem value="Connecticut">Connecticut</SelectItem>
+                      <SelectItem value="Delaware">Delaware</SelectItem>
+                      <SelectItem value="Florida">Florida</SelectItem>
+                      <SelectItem value="Georgia">Georgia</SelectItem>
+                      <SelectItem value="Hawaii">Hawaii</SelectItem>
+                      <SelectItem value="Idaho">Idaho</SelectItem>
+                      <SelectItem value="Illinois">Illinois</SelectItem>
+                      <SelectItem value="Indiana">Indiana</SelectItem>
+                      <SelectItem value="Iowa">Iowa</SelectItem>
+                      <SelectItem value="Kansas">Kansas</SelectItem>
+                      <SelectItem value="Kentucky">Kentucky</SelectItem>
+                      <SelectItem value="Louisiana">Louisiana</SelectItem>
+                      <SelectItem value="Maine">Maine</SelectItem>
+                      <SelectItem value="Maryland">Maryland</SelectItem>
+                      <SelectItem value="Massachusetts">Massachusetts</SelectItem>
+                      <SelectItem value="Michigan">Michigan</SelectItem>
+                      <SelectItem value="Minnesota">Minnesota</SelectItem>
+                      <SelectItem value="Mississippi">Mississippi</SelectItem>
+                      <SelectItem value="Missouri">Missouri</SelectItem>
+                      <SelectItem value="Montana">Montana</SelectItem>
+                      <SelectItem value="Nebraska">Nebraska</SelectItem>
+                      <SelectItem value="Nevada">Nevada</SelectItem>
+                      <SelectItem value="New Hampshire">New Hampshire</SelectItem>
+                      <SelectItem value="New Jersey">New Jersey</SelectItem>
+                      <SelectItem value="New Mexico">New Mexico</SelectItem>
+                      <SelectItem value="New York">New York</SelectItem>
+                      <SelectItem value="North Carolina">North Carolina</SelectItem>
+                      <SelectItem value="North Dakota">North Dakota</SelectItem>
+                      <SelectItem value="Ohio">Ohio</SelectItem>
+                      <SelectItem value="Oklahoma">Oklahoma</SelectItem>
+                      <SelectItem value="Oregon">Oregon</SelectItem>
+                      <SelectItem value="Pennsylvania">Pennsylvania</SelectItem>
+                      <SelectItem value="Rhode Island">Rhode Island</SelectItem>
+                      <SelectItem value="South Carolina">South Carolina</SelectItem>
+                      <SelectItem value="South Dakota">South Dakota</SelectItem>
+                      <SelectItem value="Tennessee">Tennessee</SelectItem>
+                      <SelectItem value="Texas">Texas</SelectItem>
+                      <SelectItem value="Utah">Utah</SelectItem>
+                      <SelectItem value="Vermont">Vermont</SelectItem>
+                      <SelectItem value="Virginia">Virginia</SelectItem>
+                      <SelectItem value="Washington">Washington</SelectItem>
+                      <SelectItem value="West Virginia">West Virginia</SelectItem>
+                      <SelectItem value="Wisconsin">Wisconsin</SelectItem>
+                      <SelectItem value="Wyoming">Wyoming</SelectItem>
                     </SelectContent>
                   </Select>
                   {form.formState.errors.preferredLocation && (
@@ -421,7 +451,10 @@ export default function FranchisePage() {
                 {/* Timeline */}
                 <div>
                   <label className="block text-sm font-medium text-coffee-dark mb-2">Timeline to Open *</label>
-                  <Select onValueChange={(value) => form.setValue('timelineToOpen', value, { shouldValidate: true })}>
+                  <Select 
+                    value={form.watch('timelineToOpen')} 
+                    onValueChange={(value) => form.setValue('timelineToOpen', value, { shouldValidate: true })}
+                  >
                     <SelectTrigger className="border-coffee-light focus:border-coffee-medium">
                       <SelectValue placeholder="Select your preferred timeline" />
                     </SelectTrigger>
