@@ -101,22 +101,25 @@ export default function AdminDashboard() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log('Admin Dashboard: Checking authentication...');
         const response = await fetch('/api/marketing/contacts', {
           credentials: 'include'
         });
+        console.log('Admin Dashboard: Auth response status:', response.status);
         if (response.status === 401) {
+          console.log('Admin Dashboard: Not authenticated');
           setIsAuthenticated(false);
-          setLocation('/admin/login');
         } else {
+          console.log('Admin Dashboard: Authenticated successfully');
           setIsAuthenticated(true);
         }
       } catch (error) {
+        console.log('Admin Dashboard: Auth check error:', error);
         setIsAuthenticated(false);
-        setLocation('/admin/login');
       }
     };
     checkAuth();
-  }, [setLocation]);
+  }, []);
 
   // Show loading while checking authentication
   if (isAuthenticated === null) {
@@ -130,10 +133,22 @@ export default function AdminDashboard() {
     );
   }
 
-  // Redirect to login if not authenticated
+  // Show login form if not authenticated
   if (isAuthenticated === false) {
-    setLocation('/admin/login');
-    return null;
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center p-4">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-coffee-dark mb-4">Access Denied</h2>
+          <p className="text-coffee-medium mb-4">Please log in to access the admin dashboard.</p>
+          <button 
+            onClick={() => setLocation('/admin/login')}
+            className="bg-coffee-primary text-white px-6 py-2 rounded-lg hover:bg-coffee-dark transition-colors"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
   }
 
   // Franchise application status update mutation
@@ -316,7 +331,9 @@ export default function AdminDashboard() {
   const { data: contacts, isLoading: contactsLoading } = useQuery({
     queryKey: ['/api/marketing/contacts'],
     queryFn: async () => {
-      const response = await fetch('/api/marketing/contacts');
+      const response = await fetch('/api/marketing/contacts', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -325,13 +342,16 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch contacts');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const { data: contactMessages, isLoading: messagesLoading } = useQuery({
     queryKey: ['/api/contact/messages'],
     queryFn: async () => {
-      const response = await fetch('/api/contact/messages');
+      const response = await fetch('/api/contact/messages', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -340,14 +360,17 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch contact messages');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   // Loyalty program data queries
   const { data: loyaltyCustomers, isLoading: loyaltyCustomersLoading } = useQuery({
     queryKey: ['/api/admin/loyalty/customers'],
     queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/customers');
+      const response = await fetch('/api/admin/loyalty/customers', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -356,13 +379,16 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch loyalty customers');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const { data: loyaltyVisits, isLoading: loyaltyVisitsLoading } = useQuery({
     queryKey: ['/api/admin/loyalty/visits'],
     queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/visits');
+      const response = await fetch('/api/admin/loyalty/visits', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -371,13 +397,16 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch loyalty visits');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const { data: loyaltyRewards, isLoading: loyaltyRewardsLoading } = useQuery({
     queryKey: ['/api/admin/loyalty/rewards'],
     queryFn: async () => {
-      const response = await fetch('/api/admin/loyalty/rewards');
+      const response = await fetch('/api/admin/loyalty/rewards', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -386,13 +415,16 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch loyalty rewards');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const { data: notifications, isLoading: notificationsLoading } = useQuery({
     queryKey: ['/api/admin/notifications'],
     queryFn: async () => {
-      const response = await fetch('/api/admin/notifications');
+      const response = await fetch('/api/admin/notifications', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -401,13 +433,16 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch notifications');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const { data: franchiseApplications, isLoading: franchiseLoading } = useQuery({
     queryKey: ['/api/admin/franchise/applications'],
     queryFn: async () => {
-      const response = await fetch('/api/admin/franchise/applications');
+      const response = await fetch('/api/admin/franchise/applications', {
+        credentials: 'include'
+      });
       if (response.status === 401) {
         setLocation('/admin/login');
         throw new Error('Authentication required');
@@ -416,7 +451,8 @@ export default function AdminDashboard() {
         throw new Error('Failed to fetch franchise applications');
       }
       return response.json();
-    }
+    },
+    enabled: isAuthenticated === true
   });
 
   const deleteMarketingContactMutation = useMutation({
