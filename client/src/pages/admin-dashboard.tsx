@@ -94,7 +94,47 @@ export default function AdminDashboard() {
   const [sourceFilter, setSourceFilter] = useState("all");
   const [selectedFranchiseStatus, setSelectedFranchiseStatus] = useState<string | null>(null);
   const [customerSearchQuery, setCustomerSearchQuery] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const queryClient = useQueryClient();
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/marketing/contacts', {
+          credentials: 'include'
+        });
+        if (response.status === 401) {
+          setIsAuthenticated(false);
+          setLocation('/admin/login');
+        } else {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+        setLocation('/admin/login');
+      }
+    };
+    checkAuth();
+  }, [setLocation]);
+
+  // Show loading while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-coffee-primary mx-auto mb-4"></div>
+          <p className="text-coffee-medium">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirect to login if not authenticated
+  if (isAuthenticated === false) {
+    setLocation('/admin/login');
+    return null;
+  }
 
   // Franchise application status update mutation
   const updateFranchiseStatus = useMutation({
@@ -164,7 +204,7 @@ export default function AdminDashboard() {
 
     toast({
       title: "Download Complete",
-      description: `Marketing contacts exported as ${format.toUpperCase()} successfully.`,
+      description: "Marketing contacts exported as CSV successfully.",
       variant: "default",
     });
   };
@@ -402,11 +442,7 @@ export default function AdminDashboard() {
   // Redeem reward mutation
   const redeemRewardMutation = useMutation({
     mutationFn: async ({ customerId, notes }: { customerId: number; notes?: string }) => {
-      await apiRequest('/api/admin/loyalty/redeem', {
-        method: 'POST',
-        body: JSON.stringify({ customerId, notes }),
-        headers: { 'Content-Type': 'application/json' }
-      });
+      await apiRequest('POST', '/api/admin/loyalty/redeem', { customerId, notes });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/loyalty/customers'] });
@@ -870,7 +906,7 @@ export default function AdminDashboard() {
                     <div>
                       <p className="text-sm text-coffee-medium">Active Points</p>
                       <p className="text-2xl font-bold text-coffee-dark">
-                        {loyaltyCustomers?.reduce((sum, customer) => sum + (customer.currentPoints || 0), 0) || 0}
+                        {loyaltyCustomers?.reduce((sum: number, customer: LoyaltyCustomer) => sum + (customer.currentPoints || 0), 0) || 0}
                       </p>
                     </div>
                   </div>
