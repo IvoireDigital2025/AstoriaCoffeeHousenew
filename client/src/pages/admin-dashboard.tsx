@@ -102,16 +102,18 @@ export default function AdminDashboard() {
     const checkAuth = async () => {
       try {
         console.log('Admin Dashboard: Checking authentication...');
-        const response = await fetch('/api/marketing/contacts', {
+        const response = await fetch('/api/admin/check', {
           credentials: 'include'
         });
         console.log('Admin Dashboard: Auth response status:', response.status);
-        if (response.status === 401) {
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Admin Dashboard: Auth response data:', data);
+          setIsAuthenticated(data.authenticated);
+        } else {
           console.log('Admin Dashboard: Not authenticated');
           setIsAuthenticated(false);
-        } else {
-          console.log('Admin Dashboard: Authenticated successfully');
-          setIsAuthenticated(true);
         }
       } catch (error) {
         console.log('Admin Dashboard: Auth check error:', error);

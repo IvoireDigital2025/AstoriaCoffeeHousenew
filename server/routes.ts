@@ -251,6 +251,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ message: "Logged out successfully" });
   });
 
+  // Admin authentication check endpoint
+  app.get("/api/admin/check", (req: any, res) => {
+    console.log('Authentication check:', {
+      sessionId: req.session?.id,
+      adminAuthenticated: req.session?.adminAuthenticated,
+      sessionExists: !!req.session
+    });
+    
+    const isAuthenticated = req.session?.adminAuthenticated || false;
+    res.json({ 
+      authenticated: isAuthenticated,
+      message: isAuthenticated ? "Authenticated" : "Not authenticated"
+    });
+  });
+
   // Protected admin route to get all marketing contacts
   app.get("/api/marketing/contacts", requireAdminAuth, async (req, res) => {
     try {
