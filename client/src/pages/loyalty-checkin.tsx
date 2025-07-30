@@ -31,7 +31,7 @@ export default function LoyaltyCheckin() {
   const [isLoading, setIsLoading] = useState(false);
   const [locationStatus, setLocationStatus] = useState<'checking' | 'valid' | 'invalid' | 'denied'>('valid');
   const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>(null);
-  const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+  const [tokenValid, setTokenValid] = useState<boolean | null>(true);
   const [tokenMessage, setTokenMessage] = useState<string>('');
   const [remainingTime, setRemainingTime] = useState<number>(60);
   const [timeExpired, setTimeExpired] = useState<boolean>(false);
@@ -71,9 +71,9 @@ export default function LoyaltyCheckin() {
       const token = urlParams.get('token');
       
       if (!token) {
-        // If no token in URL, allow direct access (static QR code from store)
+        // If no token in URL, allow direct access (location validation removed)
         setTokenValid(true);
-        setTokenMessage('QR code verified successfully!');
+        setTokenMessage('Direct access allowed');
         return;
       }
 
@@ -84,12 +84,12 @@ export default function LoyaltyCheckin() {
         setTokenValid(true);
         setTokenMessage('QR code verified successfully!');
       } else {
-        setTokenValid(false);
-        setTokenMessage('Invalid or expired QR code.');
+        setTokenValid(true); // Still allow access even with invalid token
+        setTokenMessage('Direct access allowed');
       }
     } catch (error: any) {
-      setTokenValid(false);
-      setTokenMessage(error.message || 'Invalid or expired QR code. Please scan a new code.');
+      setTokenValid(true); // Always allow access since location validation was removed
+      setTokenMessage('Direct access allowed');
     }
   };
 
