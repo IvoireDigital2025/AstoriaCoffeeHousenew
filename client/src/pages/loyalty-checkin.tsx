@@ -168,7 +168,7 @@ export default function LoyaltyCheckin() {
         localTime: now.toISOString(),
       };
       const response = await apiRequest("POST", "/api/loyalty/checkin", checkinData);
-      return response as CheckinResponse;
+      return response;
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);

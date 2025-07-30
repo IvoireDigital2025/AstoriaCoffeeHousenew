@@ -457,88 +457,90 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg">
-                <Coffee className="w-6 h-6 text-white" />
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg">
+                <Coffee className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Coffee Pro Admin</h1>
-                <span className="text-sm text-gray-600">Dashboard & Analytics</span>
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 leading-tight">Coffee Pro Admin</h1>
+                <span className="text-xs sm:text-sm text-gray-600 hidden sm:block">Dashboard & Analytics</span>
               </div>
             </div>
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="border-gray-300 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition-all duration-200"
+              size="sm"
+              className="border-gray-300 text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition-all duration-200 text-xs sm:text-sm"
             >
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Logout</span>
+              <span className="sm:hidden">Exit</span>
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8">
 
         {/* Enhanced Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-8">
           <Card className="bg-gradient-to-r from-blue-500 to-blue-600 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-100 text-sm font-medium mb-1">Total Contacts</p>
-                  <p className="text-3xl font-bold text-white">{totalContacts}</p>
-                  <p className="text-blue-100 text-xs mt-1">Marketing database</p>
+                  <p className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Total Contacts</p>
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{totalContacts}</p>
+                  <p className="text-blue-100 text-xs mt-1 hidden sm:block">Marketing database</p>
                 </div>
-                <div className="bg-white/20 p-3 rounded-full">
-                  <User className="h-6 w-6 text-white" />
+                <div className="bg-white/20 p-2 sm:p-3 rounded-full">
+                  <User className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
           
           <Card className="bg-gradient-to-r from-green-500 to-green-600 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100 text-sm font-medium mb-1">Subscribed</p>
-                  <p className="text-3xl font-bold text-white">{subscribedContacts}</p>
-                  <p className="text-green-100 text-xs mt-1">Active subscribers</p>
+                  <p className="text-green-100 text-xs sm:text-sm font-medium mb-1">Subscribed</p>
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{subscribedContacts}</p>
+                  <p className="text-green-100 text-xs mt-1 hidden sm:block">Active subscribers</p>
                 </div>
-                <div className="bg-white/20 p-3 rounded-full">
-                  <Bell className="h-6 w-6 text-white" />
+                <div className="bg-white/20 p-2 sm:p-3 rounded-full">
+                  <Bell className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-r from-purple-500 to-purple-600 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100 text-sm font-medium mb-1">Messages</p>
-                  <p className="text-3xl font-bold text-white">{contactMessages?.length || 0}</p>
-                  <p className="text-purple-100 text-xs mt-1">Customer inquiries</p>
+                  <p className="text-purple-100 text-xs sm:text-sm font-medium mb-1">Messages</p>
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{contactMessages?.length || 0}</p>
+                  <p className="text-purple-100 text-xs mt-1 hidden sm:block">Customer inquiries</p>
                 </div>
-                <div className="bg-white/20 p-3 rounded-full">
-                  <MessageSquare className="h-6 w-6 text-white" />
+                <div className="bg-white/20 p-2 sm:p-3 rounded-full">
+                  <MessageSquare className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-r from-orange-500 to-red-500 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-orange-100 text-sm font-medium mb-1">Loyalty Members</p>
-                  <p className="text-3xl font-bold text-white">{loyaltyCustomers?.length || 0}</p>
-                  <p className="text-orange-100 text-xs mt-1">Registered customers</p>
+                  <p className="text-orange-100 text-xs sm:text-sm font-medium mb-1">Loyalty Members</p>
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{loyaltyCustomers?.length || 0}</p>
+                  <p className="text-orange-100 text-xs mt-1 hidden sm:block">Registered customers</p>
                 </div>
-                <div className="bg-white/20 p-3 rounded-full">
-                  <Gift className="h-6 w-6 text-white" />
+                <div className="bg-white/20 p-2 sm:p-3 rounded-full">
+                  <Gift className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </CardContent>
@@ -549,13 +551,14 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
           <Tabs defaultValue="contacts" className="w-full">
             <div className="border-b border-gray-200">
-              <TabsList className="grid w-full grid-cols-6 bg-transparent rounded-none h-auto p-0">
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-transparent rounded-none h-auto p-0 overflow-x-auto min-w-max">
                 <TabsTrigger 
                   value="contacts" 
-                  className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                  className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-3 sm:py-4 px-2 sm:px-4 md:px-6 font-medium text-xs sm:text-sm"
                 >
-                  <User className="w-4 h-4 mr-2" />
-                  Marketing Contacts
+                  <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Marketing Contacts</span>
+                  <span className="sm:hidden">Contacts</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="messages" 
