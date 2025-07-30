@@ -97,15 +97,8 @@ export default function LoyaltyCheckin() {
         }
       } catch (error: any) {
         console.error('Token validation error:', error);
-        // For testing purposes, allow access with any token temporarily
-        if (token && token.length > 5) {
-          setTokenValid(true);
-          setTokenMessage('QR code access granted (testing mode)');
-          setRemainingTime(60);
-        } else {
-          setTokenValid(false);
-          setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
-        }
+        setTokenValid(false);
+        setTokenMessage('Unable to validate QR code. Please try scanning the QR code again.');
       }
     } catch (error: any) {
       console.error('Token validation error:', error);

@@ -580,16 +580,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // QR Token generation and validation endpoints
-  // Create a test permanent token for development
-  app.get("/api/create-test-token", async (req, res) => {
+  // Initialize QR system with a working token for testing
+  app.get("/api/init-qr-system", async (req, res) => {
     try {
-      // Create a permanent test token for development
-      const testToken = "coffee-pro-test-2025";
+      // Create a permanent token that matches admin dashboard format
+      const permanentToken = "a1b2c3d4e5f6789012345678901234567890abcdef1234567890123456789012";
       
-      // Create permanent token (100 years)
+      // Check if token already exists
+      const existing = await storage.getQrToken(permanentToken);
+      if (existing) {
+        const baseUrl = req.get('host')?.includes('localhost') 
+          ? `http://${req.get('host')}`
+          : `https://${req.get('host')}`;
+        
+        return res.json({
+          testUrl: `${baseUrl}/loyalty/checkin?token=${permanentToken}`,
+          message: "QR system already initialized",
+          token: permanentToken
+        });
+      }
+      
+      // Create permanent token (100 years from now)
       const expiresAt = new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000);
       await storage.createQrToken({
-        token: testToken,
+        token: permanentToken,
         expiresAt,
       });
       
@@ -598,9 +612,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         : `https://${req.get('host')}`;
       
       res.json({
-        testUrl: `${baseUrl}/loyalty/checkin?token=${testToken}`,
-        message: "Test token created successfully",
-        token: testToken
+        testUrl: `${baseUrl}/loyalty/checkin?token=${permanentToken}`,
+        message: "QR system initialized with permanent token",
+        token: permanentToken
       });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
