@@ -3,7 +3,7 @@ import session from "express-session";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import connectPgSimple from "connect-pg-simple";
+import connectPgSimple from "connect-pg-simple";  // <-- import here, always
 
 let registerRoutes, pool;
 
@@ -34,15 +34,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Trust the first proxy (Render requirement)
+// Trust Render proxy
 app.set('trust proxy', 1);
 
-// Enforce HTTPS in production
+// Redirect HTTP to HTTPS in production
 app.use((req, res, next) => {
-  if (
-    process.env.NODE_ENV === "production" &&
-    req.headers["x-forwarded-proto"] !== "https"
-  ) {
+  if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
     return res.redirect("https://" + req.headers.host + req.url);
   }
   next();
@@ -51,32 +48,32 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// Create PostgreSQL session store
+// Session store
 const pgSession = connectPgSimple(session);
 
 app.use(
   session({
     store: new pgSession({
       pool: pool,
-      tableName: "user_sessions", // <- Must match your DB table!
+      tableName: "user_sessions",
       createTableIfMissing: true,
     }),
     secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,             // Always true for Render (HTTPS)
+      secure: true,        // Always true for Render (HTTPS)
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",         // Always "none" for Render!
-      // domain: undefined,     // Omit unless you know you need it!
+      sameSite: "none",    // Always 'none' for Render
+      // domain: undefined, // Don't set unless needed!
     },
     name: "coffee-pro-session",
-    proxy: true,                // Trust Render proxy for secure cookies
+    proxy: true,           // Trust proxy for secure cookies
   })
 );
 
-// Serve static files - try multiple possible locations
+// Serve static files from the build directory
 let distPath;
 const possiblePaths = [
   path.resolve(__dirname, "..", "dist", "client"),
@@ -101,7 +98,7 @@ if (!distPath) {
 console.log(`📁 Serving static files from: ${distPath}`);
 app.use(express.static(distPath));
 
-// Serve index.html for all other routes (SPA)
+// SPA catch-all
 app.get("*", (req, res) => {
   const indexPath = path.resolve(distPath, "index.html");
   if (fs.existsSync(indexPath)) {
