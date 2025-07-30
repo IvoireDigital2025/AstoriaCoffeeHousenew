@@ -360,8 +360,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         customer = await storage.createLoyaltyCustomer({ name, phone, email });
       }
 
-      // Check for recent check-ins (prevent multiple check-ins within 4 hours)
-      const recentVisits = await storage.getRecentLoyaltyVisits(customer.id, 4); // 4 hours
+      // Check for recent check-ins (prevent multiple check-ins within 2 hours)
+      // Get all visits for this customer and filter recent ones
+      const allVisits = await storage.getLoyaltyVisitsByCustomer(customer.id);
+      const cutoffTime = new Date(Date.now() - (2 * 60 * 60 * 1000)); // 2 hours ago
+      const recentVisits = allVisits.filter(visit => 
+        visit.visitDate && new Date(visit.visitDate) > cutoffTime
+      );
       
       if (recentVisits && recentVisits.length > 0) {
         const lastVisit = recentVisits[0];
@@ -370,9 +375,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const minutesAgo = Math.floor((timeSinceLastVisit % (1000 * 60 * 60)) / (1000 * 60));
         
         return res.status(429).json({ 
-          message: `You've already checked in recently! Please wait before your next visit.`,
+          message: `You've already checked in recently! Thank you for visiting Coffee Pro. Please come back later for your next check-in.`,
           lastCheckIn: lastVisit.visitDate,
-          canCheckInAgain: "in a few hours",
+          canCheckInAgain: "in a couple hours",
           timeSinceLastVisit: hoursAgo > 0 ? `${hoursAgo} hours ago` : `${minutesAgo} minutes ago`
         });
       }

@@ -71,8 +71,9 @@ export default function LoyaltyCheckin() {
       const token = urlParams.get('token');
       
       if (!token) {
-        // If no token in URL, allow direct access (location validation removed)
-        setTokenValid(true);
+        // No token means direct access - show access denied message
+        setTokenValid(false);
+        setTokenMessage("QR Code scan required to access check-in. Please scan the QR code at Coffee Pro's front desk.");
         setTokenMessage('Direct access allowed');
         return;
       }
@@ -271,7 +272,7 @@ export default function LoyaltyCheckin() {
               )}
             </div>
             <CardTitle className="text-2xl font-bold text-coffee-dark">
-              {checkinResult.earnedReward ? "Free Coffee Earned!" : "Check-in Complete"}
+              {checkinResult.earnedReward ? "Free Coffee Earned!" : "Thank You!"}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -300,6 +301,13 @@ export default function LoyaltyCheckin() {
                   )}
                 </div>
               )}
+              
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-blue-800 text-sm">
+                  <strong>For your next visit:</strong><br />
+                  Please scan the QR code at our front desk to check in again.
+                </p>
+              </div>
             </div>
 
             {checkinResult.earnedReward && (
@@ -311,11 +319,10 @@ export default function LoyaltyCheckin() {
             )}
 
             <Button 
-              onClick={handleStartOver}
+              onClick={() => window.location.href = '/'}
               className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
             >
-              <Coffee className="w-4 h-4 mr-2" />
-              New Check-in
+              Return Home
             </Button>
           </CardContent>
         </Card>

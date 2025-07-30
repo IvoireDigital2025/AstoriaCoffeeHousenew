@@ -31,7 +31,7 @@ import {
   type InsertQrToken
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, asc, desc } from "drizzle-orm";
+import { eq, asc, desc, and, gt } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -779,6 +779,20 @@ export class DatabaseStorage implements IStorage {
     return await db
       .select()
       .from(loyaltyVisits)
+      .orderBy(desc(loyaltyVisits.visitDate));
+  }
+
+  async getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]> {
+    const cutoffTime = new Date(Date.now() - (hoursAgo * 60 * 60 * 1000));
+    return await db
+      .select()
+      .from(loyaltyVisits)
+      .where(
+        and(
+          eq(loyaltyVisits.customerId, customerId),
+          gt(loyaltyVisits.visitDate, cutoffTime)
+        )
+      )
       .orderBy(desc(loyaltyVisits.visitDate));
   }
 
