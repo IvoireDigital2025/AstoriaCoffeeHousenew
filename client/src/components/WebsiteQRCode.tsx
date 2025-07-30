@@ -22,8 +22,8 @@ export default function WebsiteQRCode({ size = 200, className = "" }: WebsiteQRC
 
   useEffect(() => {
     if (canvasRef.current) {
-      // Generate QR code for the website homepage
-      const websiteUrl = window.location.origin;
+      // Generate QR code for the Coffee Pro website
+      const websiteUrl = 'https://yourcoffeepro.com/';
       
       QRCode.toCanvas(canvasRef.current, websiteUrl, {
         width: size,
