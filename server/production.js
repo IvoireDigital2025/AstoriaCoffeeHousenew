@@ -3,11 +3,10 @@ import session from "express-session";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import connectPgSimple from "connect-pg-simple";  // <-- import here, always
+import connectPgSimple from "connect-pg-simple";
 
 let registerRoutes, pool;
 
-// Try to import from built dist files first, then fallback to source
 try {
   const routesModule = await import("../dist/server/routes.js");
   const dbModule = await import("../dist/server/db.js");
@@ -34,12 +33,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Trust Render proxy
-app.set('trust proxy', 1);
+// Trust Render proxy for secure cookies
+app.set("trust proxy", 1);
 
-// Redirect HTTP to HTTPS in production
+// Force HTTPS on Render
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
+  if (
+    process.env.NODE_ENV === "production" &&
+    req.headers["x-forwarded-proto"] !== "https"
+  ) {
     return res.redirect("https://" + req.headers.host + req.url);
   }
   next();
@@ -48,7 +50,7 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// Session store
+// ---- SESSION CONFIGURATION ----
 const pgSession = connectPgSimple(session);
 
 app.use(
@@ -57,23 +59,27 @@ app.use(
       pool: pool,
       tableName: "user_sessions",
       createTableIfMissing: true,
+      errorLog: (error) => {
+        console.error("Session store error:", error);
+      }
     }),
     secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,        // Always true for Render (HTTPS)
+      secure: true,          // ALWAYS true for Render (HTTPS)
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",    // Always 'none' for Render
-      // domain: undefined, // Don't set unless needed!
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: "none",      // REQUIRED for Render HTTPS and cross-site!
+      // domain: undefined,  // Only set if you use subdomains (leave out by default)
     },
-    name: "coffee-pro-session",
-    proxy: true,           // Trust proxy for secure cookies
+    name: "coffee-pro-session", // Must match your frontend (usually this is correct)
+    proxy: true,             // VERY IMPORTANT for Render
   })
 );
+// ---- END SESSION CONFIGURATION ----
 
-// Serve static files from the build directory
+// Find static build folder
 let distPath;
 const possiblePaths = [
   path.resolve(__dirname, "..", "dist", "client"),
@@ -98,7 +104,7 @@ if (!distPath) {
 console.log(`📁 Serving static files from: ${distPath}`);
 app.use(express.static(distPath));
 
-// SPA catch-all
+// SPA Fallback
 app.get("*", (req, res) => {
   const indexPath = path.resolve(distPath, "index.html");
   if (fs.existsSync(indexPath)) {
