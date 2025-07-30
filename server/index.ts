@@ -7,12 +7,21 @@ import { pool } from "./db";
 import connectPgSimple from "connect-pg-simple";
 
 const app = express();
+
+// Always trust proxy in production for Render
+if (process.env.NODE_ENV === "production") {
+  app.set('trust proxy', 1);
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Redirect HTTP to HTTPS in production
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
+  if (
+    process.env.NODE_ENV === "production" &&
+    req.headers["x-forwarded-proto"] !== "https"
+  ) {
     return res.redirect("https://" + req.headers.host + req.url);
   }
   next();
@@ -21,33 +30,32 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// Create PostgreSQL session store
+// --- FIXED SESSION CONFIG ---
 const pgSession = connectPgSimple(session);
 
-// Session configuration for production with database store
 app.use(
   session({
     store: new pgSession({
       pool: pool,
-      tableName: "session",
+      tableName: "session",         // make sure your session table matches this!
       createTableIfMissing: false,
     }),
     secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      sameSite: "none",             // always "none" for cross-origin cookies on Render
+      secure: true,                 // always true for HTTPS on Render
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000
+      maxAge: 24 * 60 * 60 * 1000   // 24 hours
+      // do NOT set "domain"
     },
     name: "coffee-pro-session",
+    proxy: true                     // this is required for Render secure cookies
   })
 );
 
-// Serve attached assets
-app.use("/attached_assets", express.static("attached_assets"));
-
+// Logging middleware (leave as is)
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -66,11 +74,9 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "…";
       }
-
       log(logLine);
     }
   });
@@ -84,21 +90,18 @@ app.use((req, res, next) => {
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // Only setup Vite in development
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // Use PORT environment variable (Render/Railway) or default to 5000
+  // Use PORT environment variable (Render) or default to 5000
   const port = parseInt(process.env.PORT || "5000");
   server.listen(
     {
