@@ -3,9 +3,11 @@ import session from "express-session";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import connectPgSimple from "connect-pg-simple";
 
 let registerRoutes, pool;
 
+// Try to import from built dist files first, then fallback to source
 try {
   const routesModule = await import("../dist/server/routes.js");
   const dbModule = await import("../dist/server/db.js");
@@ -24,7 +26,6 @@ try {
     process.exit(1);
   }
 }
-import connectPgSimple from "connect-pg-simple";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,8 +39,11 @@ app.set('trust proxy', 1);
 
 // Enforce HTTPS in production
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production" && req.headers["x-forwarded-proto"] !== "https") {
-    return res.redirect(301, "https://" + req.headers.host + req.url);
+  if (
+    process.env.NODE_ENV === "production" &&
+    req.headers["x-forwarded-proto"] !== "https"
+  ) {
+    return res.redirect("https://" + req.headers.host + req.url);
   }
   next();
 });
@@ -47,6 +51,7 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
+// Create PostgreSQL session store
 const pgSession = connectPgSimple(session);
 
 app.use(
@@ -55,25 +60,23 @@ app.use(
       pool: pool,
       tableName: "user_sessions", // <- Must match your DB table!
       createTableIfMissing: true,
-      errorLog: (error) => {
-        console.error("Session store error:", error);
-      }
     }),
-    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key-render-production",
+    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // <-- REQUIRED for Render
+      secure: true,             // Always true for Render (HTTPS)
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none", // <-- REQUIRED for cross-origin on Render
-      domain: undefined, // Let browser default unless you know you need this!
+      sameSite: "none",         // Always "none" for Render!
+      // domain: undefined,     // Omit unless you know you need it!
     },
-    name: "coffee-pro-session", // <-- Must match what your frontend expects!
-    proxy: true, // <-- Required for secure cookies behind proxy
+    name: "coffee-pro-session",
+    proxy: true,                // Trust Render proxy for secure cookies
   })
 );
 
+// Serve static files - try multiple possible locations
 let distPath;
 const possiblePaths = [
   path.resolve(__dirname, "..", "dist", "client"),
