@@ -111,14 +111,6 @@ export default function Footer() {
           <p className="text-coffee-secondary">
             &copy; 2024 Coffee Pro. All rights reserved. | Privacy Policy | Terms of Service
           </p>
-          <div className="mt-2">
-            <Link 
-              href="/admin/contacts" 
-              className="text-coffee-secondary hover:text-coffee-accent transition-colors text-xs"
-            >
-              Admin Access
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
