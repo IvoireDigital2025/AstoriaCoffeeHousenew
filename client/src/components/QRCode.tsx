@@ -30,10 +30,10 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
   const generateToken = async () => {
     setIsGenerating(true);
     try {
-      const response = await apiRequest('POST', '/api/qr/generate', {});
+      const response: any = await apiRequest('POST', '/api/qr/generate', {});
       setToken(response.token);
-      setExpiresAt(new Date(response.expiresAt));
-      setTimeLeft(response.validFor);
+      setExpiresAt(response.permanent ? null : new Date(response.expiresAt));
+      setTimeLeft(response.permanent ? 0 : response.validFor);
     } catch (error) {
       console.error('Failed to generate QR token:', error);
     } finally {

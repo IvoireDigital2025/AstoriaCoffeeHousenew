@@ -587,8 +587,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate secure random token
       const tokenString = randomBytes(32).toString('hex');
       
-      // Token expires in 60 seconds
-      const expiresAt = new Date(Date.now() + 60 * 1000);
+      // Token never expires - set expiration far in the future (100 years)
+      const expiresAt = new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000);
       
       const token = await storage.createQrToken({
         token: tokenString,
@@ -598,7 +598,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         token: tokenString,
         expiresAt: expiresAt.toISOString(),
-        validFor: 60 // seconds
+        validFor: null, // No expiration
+        permanent: true
       });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
@@ -620,22 +621,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const now = new Date();
+      const isPermanent = qrToken.expiresAt.getTime() > (Date.now() + 50 * 365 * 24 * 60 * 60 * 1000); // Check if expires more than 50 years from now
       
-      if (qrToken.expiresAt < now) {
+      // Only check expiration for non-permanent tokens
+      if (!isPermanent && qrToken.expiresAt < now) {
         return res.status(400).json({ message: "Token has expired" });
       }
       
-      if (qrToken.used) {
+      // Don't mark permanent tokens as used so they can be reused
+      // Only check if used for non-permanent tokens
+      if (!isPermanent && qrToken.used) {
         return res.status(400).json({ message: "Token has already been used" });
       }
       
-      // Mark token as used
-      await storage.markQrTokenAsUsed(token);
+      // Mark non-permanent tokens as used
+      if (!isPermanent) {
+        await storage.markQrTokenAsUsed(token);
+      }
       
       res.json({ 
         valid: true, 
         message: "Token validated successfully",
-        remainingTime: Math.max(0, Math.floor((qrToken.expiresAt.getTime() - now.getTime()) / 1000))
+        permanent: isPermanent,
+        remainingTime: isPermanent ? null : Math.max(0, Math.floor((qrToken.expiresAt.getTime() - now.getTime()) / 1000))
       });
     } catch (error: any) {
       res.status(500).json({ message: error.message });

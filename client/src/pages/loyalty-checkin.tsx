@@ -57,12 +57,50 @@ export default function LoyaltyCheckin() {
       if (!token) {
         // If no token in URL, generate a new one (when scanning static QR code)
         try {
-          const response = await apiRequest('POST', '/api/qr/generate', {});
+          const response: any = await apiRequest('POST', '/api/qr/generate', {});
           setTokenValid(true);
           setTokenMessage('QR code verified successfully!');
-          setRemainingTime(response.validFor);
           
-          // Start countdown timer
+          if (response.permanent) {
+            setRemainingTime(0); // No countdown for permanent tokens
+          } else {
+            setRemainingTime(response.validFor);
+            
+            // Start countdown timer only for non-permanent tokens
+            const timer = setInterval(() => {
+              setRemainingTime(prev => {
+                if (prev <= 1) {
+                  clearInterval(timer);
+                  setTokenValid(false);
+                  setTokenMessage('Time expired. Please scan a new QR code.');
+                  return 0;
+                }
+                return prev - 1;
+              });
+            }, 1000);
+            
+            return () => clearInterval(timer);
+          }
+        } catch (error) {
+          setTokenValid(false);
+          setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
+          return;
+        }
+      }
+
+      // If token exists in URL, validate it
+      const response: any = await apiRequest('POST', '/api/qr/validate', { token });
+      
+      if (response.valid) {
+        setTokenValid(true);
+        setTokenMessage('QR code verified successfully!');
+        
+        if (response.permanent) {
+          setRemainingTime(0); // No countdown for permanent tokens
+        } else {
+          setRemainingTime(response.remainingTime);
+          
+          // Start countdown timer only for non-permanent tokens
           const timer = setInterval(() => {
             setRemainingTime(prev => {
               if (prev <= 1) {
@@ -76,35 +114,7 @@ export default function LoyaltyCheckin() {
           }, 1000);
           
           return () => clearInterval(timer);
-        } catch (error) {
-          setTokenValid(false);
-          setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
-          return;
         }
-      }
-
-      // If token exists in URL, validate it
-      const response = await apiRequest('POST', '/api/qr/validate', { token });
-      
-      if (response.valid) {
-        setTokenValid(true);
-        setTokenMessage('QR code verified successfully!');
-        setRemainingTime(response.remainingTime);
-        
-        // Start countdown timer
-        const timer = setInterval(() => {
-          setRemainingTime(prev => {
-            if (prev <= 1) {
-              clearInterval(timer);
-              setTokenValid(false);
-              setTokenMessage('Time expired. Please scan a new QR code.');
-              return 0;
-            }
-            return prev - 1;
-          });
-        }, 1000);
-        
-        return () => clearInterval(timer);
       }
     } catch (error: any) {
       setTokenValid(false);
