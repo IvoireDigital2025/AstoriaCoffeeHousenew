@@ -666,26 +666,26 @@ export default function AdminDashboard() {
                           <div className="space-y-2">
                             <p className="font-semibold text-gray-900 text-lg">{contact.name || 'Anonymous User'}</p>
                             <div className="space-y-2">
-                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                              <div className="text-sm text-gray-600 flex items-center gap-2">
                                 <div className="p-1 bg-blue-100 rounded">
                                   <Mail className="w-3 h-3 text-blue-600" />
                                 </div>
                                 <span className="font-medium">{contact.email}</span>
-                              </p>
+                              </div>
                               {contact.phone && (
-                                <p className="text-sm text-gray-600 flex items-center gap-2">
+                                <div className="text-sm text-gray-600 flex items-center gap-2">
                                   <div className="p-1 bg-green-100 rounded">
                                     <Phone className="w-3 h-3 text-green-600" />
                                   </div>
                                   <span className="font-medium">{contact.phone}</span>
-                                </p>
+                                </div>
                               )}
-                              <p className="text-xs text-gray-500 flex items-center gap-2">
+                              <div className="text-xs text-gray-500 flex items-center gap-2">
                                 <div className="p-1 bg-gray-100 rounded">
                                   <Calendar className="w-3 h-3 text-gray-500" />
                                 </div>
                                 {format(new Date(contact.createdAt), 'MMM dd, yyyy • HH:mm')}
-                              </p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -740,18 +740,18 @@ export default function AdminDashboard() {
                             </Badge>
                           </div>
                           <div className="space-y-2">
-                            <p className="text-sm text-gray-600 flex items-center gap-2">
+                            <div className="text-sm text-gray-600 flex items-center gap-2">
                               <div className="p-1 bg-blue-100 rounded">
                                 <Mail className="w-3 h-3 text-blue-600" />
                               </div>
                               <span className="font-medium">{message.email}</span>
-                            </p>
-                            <p className="text-xs text-gray-500 flex items-center gap-2">
+                            </div>
+                            <div className="text-xs text-gray-500 flex items-center gap-2">
                               <div className="p-1 bg-gray-100 rounded">
                                 <Calendar className="w-3 h-3 text-gray-500" />
                               </div>
                               {format(new Date(message.createdAt), 'MMM dd, yyyy • HH:mm')}
-                            </p>
+                            </div>
                           </div>
                         </div>
                         <Button
@@ -811,24 +811,24 @@ export default function AdminDashboard() {
                           <div className="space-y-3">
                             <h3 className="font-semibold text-gray-900 text-lg">{customer.name}</h3>
                             <div className="space-y-2">
-                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                              <div className="text-sm text-gray-600 flex items-center gap-2">
                                 <div className="p-1 bg-blue-100 rounded">
                                   <Mail className="w-3 h-3 text-blue-600" />
                                 </div>
                                 <span className="font-medium">{customer.email}</span>
-                              </p>
-                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                              </div>
+                              <div className="text-sm text-gray-600 flex items-center gap-2">
                                 <div className="p-1 bg-green-100 rounded">
                                   <Phone className="w-3 h-3 text-green-600" />
                                 </div>
                                 <span className="font-medium">{customer.phone}</span>
-                              </p>
-                              <p className="text-xs text-gray-500 flex items-center gap-2">
+                              </div>
+                              <div className="text-xs text-gray-500 flex items-center gap-2">
                                 <div className="p-1 bg-gray-100 rounded">
                                   <Calendar className="w-3 h-3 text-gray-500" />
                                 </div>
                                 Member since {format(new Date(customer.createdAt), 'MMM dd, yyyy')}
-                              </p>
+                              </div>
                             </div>
                           </div>
                           <div className="text-right space-y-3">
@@ -993,24 +993,24 @@ export default function AdminDashboard() {
                               </Badge>
                             </div>
                             <div className="space-y-2">
-                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                              <div className="text-sm text-gray-600 flex items-center gap-2">
                                 <div className="p-1 bg-blue-100 rounded">
                                   <Mail className="w-3 h-3 text-blue-600" />
                                 </div>
                                 <span className="font-medium">{app.email}</span>
-                              </p>
-                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                              </div>
+                              <div className="text-sm text-gray-600 flex items-center gap-2">
                                 <div className="p-1 bg-green-100 rounded">
                                   <Phone className="w-3 h-3 text-green-600" />
                                 </div>
                                 <span className="font-medium">{app.phone}</span>
-                              </p>
-                              <p className="text-xs text-gray-500 flex items-center gap-2">
+                              </div>
+                              <div className="text-xs text-gray-500 flex items-center gap-2">
                                 <div className="p-1 bg-gray-100 rounded">
                                   <Calendar className="w-3 h-3 text-gray-500" />
                                 </div>
                                 Applied {format(new Date(app.createdAt), 'MMM dd, yyyy • HH:mm')}
-                              </p>
+                              </div>
                             </div>
                           </div>
                         </div>
