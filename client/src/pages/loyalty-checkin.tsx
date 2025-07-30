@@ -48,57 +48,13 @@ export default function LoyaltyCheckin() {
     validateTokenFromUrl();
   }, []);
 
-  useEffect(() => {
-    if (tokenValid) {
-      const timer = setInterval(() => {
-        setRemainingTime((prev) => {
-          if (prev <= 1) {
-            setTimeExpired(true);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [tokenValid]);
+  // No timer needed for direct access
 
   const validateTokenFromUrl = async () => {
-    try {
-      // Get token from URL parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      
-      if (!token) {
-        // No token means direct access - show access denied message
-        setTokenValid(false);
-        setTokenMessage("QR Code scan required to access check-in. Please scan the QR code to get access.");
-        return;
-      }
-
-      // If token exists in URL, validate it
-      const response: any = await apiRequest('POST', '/api/qr/validate', { token });
-      
-      if (response.valid) {
-        setTokenValid(true);
-        setTokenMessage('QR code verified successfully!');
-        
-        // Set remaining time based on response
-        if (response.permanent) {
-          setRemainingTime(60); // 60 seconds to complete check-in for permanent tokens
-        } else if (response.remainingTime) {
-          setRemainingTime(response.remainingTime);
-        }
-      } else {
-        setTokenValid(false);
-        setTokenMessage('Invalid QR code. Please try scanning again.');
-      }
-    } catch (error: any) {
-      console.error('Token validation error:', error);
-      setTokenValid(false);
-      setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
-    }
+    // Remove token requirement - allow direct access
+    setTokenValid(true);
+    setTokenMessage('Welcome! Please fill out the form to check in.');
+    setRemainingTime(0); // No time limit
   };
 
   const checkLocationPermission = () => {
@@ -208,15 +164,7 @@ export default function LoyaltyCheckin() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if time has expired
-    if (timeExpired) {
-      toast({
-        title: "Session Expired",
-        description: "Please scan the QR code again to check in.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // No time expiration check needed for direct access
     
     if (!formData.name || !formData.phone || !formData.email) {
       toast({
@@ -235,36 +183,7 @@ export default function LoyaltyCheckin() {
     setFormData({ name: "", phone: "", email: "" });
   };
 
-  // Access denied page for invalid tokens
-  if (tokenValid === false) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-lg border-red-200">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4">
-              <XCircle className="w-16 h-16 text-red-600" />
-            </div>
-            <CardTitle className="text-2xl font-bold text-red-600">Access Denied</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-4">
-            <p className="text-coffee-medium">{tokenMessage}</p>
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-700 text-sm">
-                To check in, you must scan the QR code to access this page.
-                The QR code contains a secure token required for check-in.
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-coffee-medium">
-                <strong>Visit Coffee Pro:</strong><br />
-                23-33 Astoria Blvd, Astoria, NY 11102
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Remove access denied page - allow direct access
 
   if (checkinResult) {
     return (
@@ -312,7 +231,7 @@ export default function LoyaltyCheckin() {
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-blue-800 text-sm">
                   <strong>For your next visit:</strong><br />
-                  Please scan the QR code again to check in.
+                  Visit this page again to check in and earn more points!
                 </p>
               </div>
             </div>
