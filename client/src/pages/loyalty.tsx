@@ -83,95 +83,119 @@ export default function Loyalty() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white">
-      {/* Hero Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mx-auto mb-8">
-            <Coffee className="w-20 h-20 text-coffee-primary mx-auto mb-4" />
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-coffee-dark mb-4">
-              Join Coffee Pro Loyalty
-            </h1>
-            <p className="text-base sm:text-xl text-coffee-medium mb-8">
-              Earn rewards with every visit to our Astoria location
-            </p>
+    <div className="min-h-screen font-inter bg-gradient-to-br from-coffee-cream via-white to-blue-50 relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-primary opacity-10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-secondary opacity-10 rounded-full blur-3xl"></div>
+      
+      {/* Enhanced Hero Section */}
+      <section className="py-20 px-6 relative z-10">
+        <div className="max-w-5xl mx-auto text-center slide-in-up">
+          <div className="mx-auto mb-12">
+            <div className="glass-card p-8 mb-8 backdrop-blur-md inline-block">
+              <Coffee className="w-24 h-24 text-coffee-primary mx-auto mb-6 pulse-slow" />
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-playfair font-bold text-coffee-dark mb-6 leading-tight">
+                Join Coffee Pro 
+                <span className="gradient-text block">Loyalty</span>
+              </h1>
+              <div className="h-1 w-32 bg-gradient-primary rounded-full mx-auto mb-6"></div>
+              <p className="text-lg sm:text-xl text-coffee-medium font-light">
+                Earn rewards with every visit to our Astoria location
+              </p>
+            </div>
           </div>
 
-          {/* Benefits Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Gift className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Easy Rewards</h3>
-                <p className="text-coffee-medium">Get 1 point per visit, earn a free coffee at 5 points</p>
+          {/* Enhanced Benefits Cards */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="glass-card hover-lift border-0 backdrop-blur-md">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-primary rounded-full p-4 w-fit mx-auto mb-6">
+                  <Gift className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-4">Easy Rewards</h3>
+                <p className="text-coffee-medium leading-relaxed">Get 1 point per visit, earn a free coffee at 5 points</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Star className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Exclusive Perks</h3>
-                <p className="text-coffee-medium">Special offers and early access to new menu items</p>
+            <Card className="glass-card hover-lift border-0 backdrop-blur-md">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-secondary rounded-full p-4 w-fit mx-auto mb-6">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-4">Exclusive Perks</h3>
+                <p className="text-coffee-medium leading-relaxed">Special offers and early access to new menu items</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Trophy className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Access to Weekly Promotions</h3>
-                <p className="text-coffee-medium">Exclusive weekly deals and special offers for members</p>
+            <Card className="glass-card hover-lift border-0 backdrop-blur-md">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-accent rounded-full p-4 w-fit mx-auto mb-6">
+                  <Trophy className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-playfair font-semibold text-coffee-dark mb-4">Weekly Promotions</h3>
+                <p className="text-coffee-medium leading-relaxed">Exclusive weekly deals and special offers for members</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Registration Form */}
-      <section className="py-16 px-6">
-        <div className="max-w-md mx-auto">
-          <Card className="shadow-lg">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold text-coffee-dark">Sign Up Today</CardTitle>
-              <p className="text-coffee-medium">Join thousands of satisfied customers</p>
+      {/* Enhanced Registration Form */}
+      <section className="py-20 px-6 relative z-10">
+        <div className="max-w-lg mx-auto">
+          <Card className="glass-card shadow-xl border-0 backdrop-blur-md">
+            <CardHeader className="text-center pb-8">
+              <div className="bg-gradient-primary rounded-full p-4 w-fit mx-auto mb-6">
+                <User className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-3xl font-playfair font-bold text-coffee-dark mb-4">Sign Up Today</CardTitle>
+              <p className="text-coffee-medium text-lg">Join thousands of satisfied customers</p>
+              <div className="h-1 w-24 bg-gradient-primary rounded-full mx-auto mt-4"></div>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <CardContent className="px-8 pb-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="name" className="text-coffee-dark">Full Name</Label>
+                  <Label htmlFor="name" className="text-coffee-dark font-medium text-lg mb-3 block">Full Name</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gradient-primary rounded-full p-2">
+                      <User className="text-white w-4 h-4" />
+                    </div>
                     <Input
                       id="name"
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                       placeholder="Enter your full name"
-                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="enhanced-input pl-16 pr-4 py-4 text-lg rounded-xl border-2 border-coffee-accent/30 focus:border-coffee-primary focus:ring-coffee-primary/20 bg-white/80 backdrop-blur-sm"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="phone" className="text-coffee-dark">Phone Number</Label>
+                  <Label htmlFor="phone" className="text-coffee-dark font-medium text-lg mb-3 block">Phone Number</Label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gradient-secondary rounded-full p-2">
+                      <Phone className="text-white w-4 h-4" />
+                    </div>
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       placeholder="(555) 123-4567"
-                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="enhanced-input pl-16 pr-4 py-4 text-lg rounded-xl border-2 border-coffee-accent/30 focus:border-coffee-primary focus:ring-coffee-primary/20 bg-white/80 backdrop-blur-sm"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="email" className="text-coffee-dark">Email Address</Label>
+                  <Label htmlFor="email" className="text-coffee-dark font-medium text-lg mb-3 block">Email Address</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gradient-accent rounded-full p-2">
+                      <Mail className="text-white w-4 h-4" />
+                    </div>
                     <Input
                       id="email"
                       type="email"
