@@ -66,18 +66,18 @@ export default function Menu() {
       <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Futuristic Header */}
-        <div className="text-center mb-20" id="menu-top">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20" id="menu-top">
           <div className="relative">
-            <h1 className="text-3xl sm:text-6xl md:text-7xl font-playfair font-bold text-white mb-6 tracking-tight">
+            <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-playfair font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight px-2">
               Coffee Pro Menu - Astoria's Best Coffee & Pastries
             </h1>
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary rounded-full"></div>
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-secondary rounded-full"></div>
           </div>
           
-          <p className="text-base sm:text-2xl text-stone-100 mb-8 font-light tracking-wide text-center">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-stone-100 mb-6 sm:mb-8 font-light tracking-wide text-center px-4 leading-relaxed">
             Authentic Egyptian Coffee, Specialty Drinks, Fresh Pastries & Traditional Middle Eastern Treats in Queens NY
           </p>
           

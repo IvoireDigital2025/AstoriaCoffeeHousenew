@@ -104,18 +104,18 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-white py-20">
+    <div className="min-h-screen bg-white py-12 sm:py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16" id="contact-top">
-          <h1 className="text-4xl font-playfair font-bold text-coffee-dark mb-4">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16" id="contact-top">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-coffee-dark mb-3 sm:mb-4 leading-tight">
             Contact Coffee Pro
           </h1>
-          <p className="text-xl text-coffee-medium">
+          <p className="text-base sm:text-lg md:text-xl text-coffee-medium px-4">
             Get in touch with our team or visit our Astoria location
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="space-y-8">

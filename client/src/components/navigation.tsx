@@ -104,7 +104,12 @@ export default function Navigation() {
             <div className="md:hidden">
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="sm" className="p-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="p-2 min-h-[44px] min-w-[44px] touch-target hover:bg-coffee-cream"
+                    aria-label="Open mobile menu"
+                  >
                     <Menu className="w-6 h-6 text-coffee-dark" />
                   </Button>
                 </SheetTrigger>

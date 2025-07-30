@@ -159,7 +159,7 @@ export default function MoodSelector() {
                 <Sparkles className="w-8 h-8 text-amber-600" />
               </div>
             </div>
-            <p className="text-sm sm:text-xl text-coffee-dark/80 font-light max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-coffee-dark/80 font-light max-w-2xl mx-auto px-4 leading-relaxed">
               Choose your current mood to discover the perfect Coffee Pro experience tailored just for you
             </p>
             <div className="mt-6 h-1 w-32 bg-gradient-to-r from-coffee-primary to-amber-500 rounded-full mx-auto"></div>
@@ -167,12 +167,12 @@ export default function MoodSelector() {
           
           <CardContent className="p-8">
             {!showRecommendations ? (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
                 {moods.map((mood) => (
                   <Button
                     key={mood.name}
                     variant="outline"
-                    className="group h-auto p-3 sm:p-4 flex flex-col items-center gap-2 sm:gap-3 bg-gradient-to-b from-white via-coffee-cream/20 to-coffee-cream/40 border-2 border-coffee-accent/30 hover:border-coffee-secondary/60 hover:shadow-2xl hover:shadow-coffee-secondary/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 rounded-2xl h-[120px] sm:h-[140px] touch-manipulation"
+                    className="group h-auto p-2 sm:p-3 md:p-4 flex flex-col items-center gap-1 sm:gap-2 md:gap-3 bg-gradient-to-b from-white via-coffee-cream/20 to-coffee-cream/40 border-2 border-coffee-accent/30 hover:border-coffee-secondary/60 hover:shadow-2xl hover:shadow-coffee-secondary/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 rounded-2xl h-[100px] sm:h-[120px] md:h-[140px] touch-manipulation min-h-[44px]"
                     onClick={() => handleMoodSelect(mood)}
                   >
                     <div className="relative">

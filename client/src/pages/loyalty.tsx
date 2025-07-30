@@ -85,14 +85,14 @@ export default function Loyalty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white">
       {/* Hero Section */}
-      <section className="py-16 px-6">
+      <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="mx-auto mb-8">
-            <Coffee className="w-20 h-20 text-coffee-primary mx-auto mb-4" />
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-coffee-dark mb-4">
+          <div className="mx-auto mb-6 sm:mb-8">
+            <Coffee className="w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 text-coffee-primary mx-auto mb-3 sm:mb-4" />
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-coffee-dark mb-3 sm:mb-4 leading-tight px-2">
               Join Coffee Pro Loyalty
             </h1>
-            <p className="text-base sm:text-xl text-coffee-medium mb-8">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-coffee-medium mb-6 sm:mb-8 px-4 leading-relaxed">
               Earn rewards with every visit to our Astoria location
             </p>
           </div>

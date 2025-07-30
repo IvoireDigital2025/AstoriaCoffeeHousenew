@@ -3,9 +3,9 @@ import { Instagram, Facebook, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-coffee-dark text-coffee-cream py-12">
+    <footer className="bg-coffee-dark text-coffee-cream py-8 sm:py-10 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           <div className="md:col-span-2">
             <div className="mb-4">
               <img 
@@ -22,7 +22,7 @@ export default function Footer() {
                 href="https://www.instagram.com/coffeepronyc/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-coffee-secondary hover:text-coffee-accent transition-colors"
+                className="text-coffee-secondary hover:text-coffee-accent transition-colors p-2 -m-2 touch-target"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />

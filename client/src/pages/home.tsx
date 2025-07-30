@@ -95,28 +95,27 @@ export default function Home() {
       </section>
 
       {/* Heritage Showcase Section */}
-      <section className="py-12 sm:py-14 bg-coffee-cream">
+      <section className="py-8 sm:py-12 md:py-16 bg-coffee-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-coffee-dark mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-playfair font-bold text-coffee-dark mb-4 sm:mb-6 leading-tight">
                 Authentic Coffee Heritage
               </h2>
-              <p className="text-base sm:text-xl text-coffee-medium mb-6">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-coffee-medium mb-4 sm:mb-6 leading-relaxed">
                 Experience the rich traditions of Egyptian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
                 authentic brewing techniques and warm hospitality. Complement your coffee 
                 with authentic Middle Eastern treats including Dubai chocolate, Kunafa, and more.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/menu">
-                  <Button className="bg-coffee-secondary hover:bg-blue-600 text-white px-8 py-3">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Link href="/menu" className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto bg-coffee-secondary hover:bg-blue-600 text-white px-6 sm:px-8 py-3 text-sm sm:text-base font-semibold touch-target">
                     Explore Our Heritage Menu
                   </Button>
                 </Link>
-
-                <Link href="/about">
-                  <Button variant="outline" className="border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-8 py-3">
+                <Link href="/about" className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-6 sm:px-8 py-3 text-sm sm:text-base font-semibold touch-target">
                     Learn Our Story
                   </Button>
                 </Link>
