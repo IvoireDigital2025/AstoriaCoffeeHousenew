@@ -213,10 +213,8 @@ export default function LoyaltyCheckin() {
     checkinMutation.mutate(formData);
   };
 
-  const handleStartOver = () => {
-    setCheckinResult(null);
-    setFormData({ name: "", phone: "", email: "" });
-  };
+  // Removed handleStartOver function to prevent multiple check-ins
+  // Users should be redirected to homepage after successful check-in
 
   // Access denied page for invalid tokens
   if (tokenValid === false) {
@@ -301,13 +299,24 @@ export default function LoyaltyCheckin() {
               </div>
             )}
 
-            <Button 
-              onClick={handleStartOver}
-              className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
-            >
-              <Coffee className="w-4 h-4 mr-2" />
-              New Check-in
-            </Button>
+            <div className="space-y-3">
+              <div className="text-center p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-green-800 font-medium text-sm">
+                  ✅ Thank you for visiting Coffee Pro! Your check-in has been recorded.
+                </p>
+                <p className="text-green-700 text-xs mt-1">
+                  Enjoy your coffee and we'll see you next time!
+                </p>
+              </div>
+              
+              <Button 
+                onClick={() => window.location.href = '/'}
+                className="w-full bg-coffee-secondary hover:bg-coffee-dark text-white"
+              >
+                <Coffee className="w-4 h-4 mr-2" />
+                Return to Homepage
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
