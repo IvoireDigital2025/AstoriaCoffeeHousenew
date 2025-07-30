@@ -65,7 +65,7 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
   }, [mode, size]);
 
   useEffect(() => {
-    if (mode === 'dynamic' && token && expiresAt) {
+    if (mode === 'dynamic' && token) {
       const qrValue = `${window.location.origin}/loyalty/checkin?token=${token}`;
       
       if (canvasRef.current) {
@@ -112,10 +112,10 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
         
         <div className="text-center space-y-3">
           <div className="text-sm text-coffee-medium">
-            <span className="font-bold text-green-600">Always Active</span> - Display this QR code in your store
+            <span className="font-bold text-green-600">Permanent QR Code</span> - Display this code in your store
           </div>
           <p className="text-xs text-coffee-medium">
-            When customers scan this code, they'll have 60 seconds to complete check-in
+            Customers can scan this code anytime to check in and earn loyalty points
           </p>
           
           <Button 
@@ -143,21 +143,21 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
       
       <div className="text-center space-y-2">
         <div className="text-sm text-coffee-medium">
-          {timeLeft > 0 ? (
-            <>Valid for <span className="font-bold text-coffee-dark">{timeLeft}s</span></>
+          {token ? (
+            <span className="font-bold text-green-600">Permanent QR Code</span>
           ) : (
-            <span className="text-red-600 font-bold">Expired</span>
+            <span className="text-orange-600 font-bold">Generate QR Code</span>
           )}
         </div>
         
         <Button 
           onClick={generateToken}
-          disabled={isGenerating || timeLeft > 0}
+          disabled={isGenerating}
           className="bg-coffee-primary hover:bg-coffee-medium text-white"
           size="sm"
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
-          {isGenerating ? 'Generating...' : 'Generate New Code'}
+          {isGenerating ? 'Generating...' : (token ? 'Generate New Code' : 'Generate QR Code')}
         </Button>
       </div>
     </div>

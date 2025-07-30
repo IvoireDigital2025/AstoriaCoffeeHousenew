@@ -1196,7 +1196,7 @@ export default function AdminDashboard() {
                         <Gift className="w-5 h-5 text-orange-600" />
                         Loyalty Check-in QR Code
                       </h3>
-                      <QRCodeComponent />
+                      <QRCodeComponent mode="admin" />
                     </div>
                     <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
                       <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
