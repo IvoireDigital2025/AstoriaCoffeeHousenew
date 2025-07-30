@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell, Building, FileSpreadsheet } from "lucide-react";
+import { Download, Search, Mail, Phone, User, Calendar, Filter, LogOut, MessageSquare, Trash2, Coffee, Gift, Star, QrCode, Bell, Building, FileSpreadsheet, Globe } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -436,56 +436,54 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        <Tabs defaultValue="contacts" className="space-y-8">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-1">
-            <TabsList className="grid w-full grid-cols-5 bg-transparent gap-1">
-              <TabsTrigger 
-                value="contacts" 
-                className="data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 rounded-lg py-3 px-4"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Marketing Contacts</span>
-                <span className="sm:hidden">Contacts</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="messages" 
-                className="data-[state=active]:bg-purple-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 rounded-lg py-3 px-4"
-              >
-                <MessageSquare className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Customer Messages</span>
-                <span className="sm:hidden">Messages</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="loyalty" 
-                className="data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 rounded-lg py-3 px-4"
-              >
-                <Gift className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Loyalty Program</span>
-                <span className="sm:hidden">Loyalty</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="qrcodes" 
-                className="data-[state=active]:bg-green-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 rounded-lg py-3 px-4"
-              >
-                <QrCode className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">QR Codes</span>
-                <span className="sm:hidden">QR</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="franchise" 
-                className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 rounded-lg py-3 px-4"
-              >
-                <Building className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Franchise Apps</span>
-                <span className="sm:hidden">Franchise</span>
-              </TabsTrigger>
-            </TabsList>
-          </div>
+        {/* Navigation Tabs */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+          <Tabs defaultValue="contacts" className="w-full">
+            <div className="border-b border-gray-200">
+              <TabsList className="grid w-full grid-cols-5 bg-transparent rounded-none h-auto p-0">
+                <TabsTrigger 
+                  value="contacts" 
+                  className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Marketing Contacts
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="messages" 
+                  className="data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Customer Messages
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="loyalty" 
+                  className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <Gift className="w-4 h-4 mr-2" />
+                  Loyalty Program
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="franchise" 
+                  className="data-[state=active]:bg-green-50 data-[state=active]:text-green-700 data-[state=active]:border-b-2 data-[state=active]:border-green-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <Building className="w-4 h-4 mr-2" />
+                  Franchise Applications
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="qr" 
+                  className="data-[state=active]:bg-indigo-50 data-[state=active]:text-indigo-700 data-[state=active]:border-b-2 data-[state=active]:border-indigo-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <QrCode className="w-4 h-4 mr-2" />
+                  QR Codes
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
-          <TabsContent value="contacts" className="space-y-6">
-            <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg border-b border-blue-100">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            {/* Marketing Contacts Tab */}
+            <TabsContent value="contacts" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <CardTitle className="flex items-center gap-3 text-xl">
                       <div className="p-2 bg-blue-500 rounded-lg">
@@ -520,10 +518,10 @@ export default function AdminDashboard() {
                       <option value="loyalty">Loyalty</option>
                       <option value="contact">Contact</option>
                     </select>
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
+                </CardHeader>
+                <CardContent className="p-6">
                 <div className="space-y-4">
                   {filteredContacts.map((contact: MarketingContact) => (
                     <div key={contact.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg hover:border-blue-300 transition-all duration-300 group">
@@ -584,26 +582,26 @@ export default function AdminDashboard() {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          <TabsContent value="messages" className="space-y-6">
-            <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-t-lg border-b border-purple-100">
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="p-2 bg-purple-500 rounded-lg">
-                    <MessageSquare className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <span className="text-gray-900">Customer Messages</span>
-                    <span className="block text-sm text-gray-600 font-normal mt-1">
-                      {contactMessages?.length || 0} inquiries received
-                    </span>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
+            <TabsContent value="messages" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-purple-50 to-violet-50 border-b border-purple-100">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="p-2 bg-purple-500 rounded-lg">
+                      <MessageSquare className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-900">Customer Messages</span>
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
+                        {contactMessages?.length || 0} inquiries received
+                      </span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
                 <div className="space-y-4">
                   {contactMessages?.map((message: ContactMessage) => (
                     <div key={message.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-purple-300 transition-all duration-300 group">
@@ -659,14 +657,14 @@ export default function AdminDashboard() {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          <TabsContent value="loyalty" className="space-y-6">
-            <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-orange-50 to-red-50 rounded-t-lg border-b border-orange-100">
-                <CardTitle className="flex items-center gap-3 text-xl">
+            <TabsContent value="loyalty" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-orange-50 to-red-50 border-b border-orange-100">
+                  <CardTitle className="flex items-center gap-3 text-xl">
                   <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg">
                     <Gift className="w-5 h-5 text-white" />
                   </div>
@@ -675,11 +673,11 @@ export default function AdminDashboard() {
                     <span className="block text-sm text-gray-600 font-normal mt-1">
                       {loyaltyCustomers?.length || 0} registered members
                     </span>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
                   {loyaltyCustomers?.map((customer: LoyaltyCustomer) => (
                     <div key={customer.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-orange-300 transition-all duration-300 group">
                       <div className="space-y-4">
@@ -969,11 +967,102 @@ export default function AdminDashboard() {
                       <p className="text-gray-400 text-sm">Applications will appear here when submitted</p>
                     </div>
                   )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="franchise" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-100">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="p-2 bg-green-500 rounded-lg">
+                      <Building className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-900">Franchise Applications</span>
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
+                        {filteredFranchiseApplications.length} applications • Status: {selectedFranchiseStatus || 'All'}
+                      </span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    {filteredFranchiseApplications.map((app: FranchiseApplication) => (
+                      <div key={app.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-green-300 transition-all duration-300">
+                        <div className="space-y-4">
+                          <div className="flex justify-between items-start">
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-4">
+                                <h3 className="font-semibold text-gray-900 text-xl">{app.firstName} {app.lastName}</h3>
+                                <Badge 
+                                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                    app.status === 'approved' 
+                                      ? 'bg-green-100 text-green-700 border-green-200' 
+                                      : app.status === 'rejected' 
+                                      ? 'bg-red-100 text-red-700 border-red-200' 
+                                      : 'bg-yellow-100 text-yellow-700 border-yellow-200'
+                                  }`}
+                                >
+                                  {app.status === 'pending' ? '⏳ Pending Review' : 
+                                   app.status === 'approved' ? '✅ Approved' : '❌ Rejected'}
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {(!franchiseApplications || franchiseApplications.length === 0) && (
+                      <div className="text-center py-12">
+                        <Building className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                        <p className="text-gray-500 text-lg">No franchise applications yet</p>
+                        <p className="text-gray-400 text-sm">Applications will appear here when submitted</p>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="qr" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-indigo-100">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="p-2 bg-indigo-500 rounded-lg">
+                      <QrCode className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-900">QR Code Management</span>
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
+                        Generate and manage QR codes for loyalty and website access
+                      </span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-xl border border-orange-200">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <Gift className="w-5 h-5 text-orange-600" />
+                        Loyalty Check-in QR Code
+                      </h3>
+                      <QRCodeComponent />
+                    </div>
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <Globe className="w-5 h-5 text-blue-600" />
+                        Website Access QR Code
+                      </h3>
+                      <WebsiteQRCode />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
