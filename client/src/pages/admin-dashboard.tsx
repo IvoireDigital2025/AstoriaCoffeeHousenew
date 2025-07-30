@@ -434,14 +434,6 @@ export default function AdminDashboard() {
 
 
 
-  // Debug loading states
-  console.log('Dashboard loading states:', {
-    isAuthenticated,
-    contactsLoading,
-    messagesLoading,
-    loyaltyCustomersLoading
-  });
-
   if (isAuthenticated && (contactsLoading || messagesLoading || loyaltyCustomersLoading)) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white p-6">
