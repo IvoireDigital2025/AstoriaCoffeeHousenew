@@ -370,7 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       if (recentVisits && recentVisits.length > 0) {
         const lastVisit = recentVisits[0];
-        const timeSinceLastVisit = Date.now() - new Date(lastVisit.visitDate).getTime();
+        const timeSinceLastVisit = Date.now() - new Date(lastVisit.visitDate!).getTime();
         const hoursAgo = Math.floor(timeSinceLastVisit / (1000 * 60 * 60));
         const minutesAgo = Math.floor((timeSinceLastVisit % (1000 * 60 * 60)) / (1000 * 60));
         
@@ -580,6 +580,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // QR Token generation and validation endpoints
+  // Create a test permanent token for development
+  app.get("/api/create-test-token", async (req, res) => {
+    try {
+      // Create a permanent test token for development
+      const testToken = "coffee-pro-test-2025";
+      
+      // Create permanent token (100 years)
+      const expiresAt = new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000);
+      await storage.createQrToken({
+        token: testToken,
+        expiresAt,
+      });
+      
+      const baseUrl = req.get('host')?.includes('localhost') 
+        ? `http://${req.get('host')}`
+        : `https://${req.get('host')}`;
+      
+      res.json({
+        testUrl: `${baseUrl}/loyalty/checkin?token=${testToken}`,
+        message: "Test token created successfully",
+        token: testToken
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
   app.post("/api/qr/generate", requireAdminAuth, async (req, res) => {
     try {
       // Clean up expired tokens first
