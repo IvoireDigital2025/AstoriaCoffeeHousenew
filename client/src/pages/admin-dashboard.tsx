@@ -244,22 +244,15 @@ export default function AdminDashboard() {
     );
   }
 
-  // Show login form if not authenticated
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      setLocation('/admin/login');
+    }
+  }, [isAuthenticated, setLocation]);
+
   if (isAuthenticated === false) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white flex items-center justify-center p-4">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-coffee-dark mb-4">Access Denied</h2>
-          <p className="text-coffee-medium mb-4">Please log in to access the admin dashboard.</p>
-          <button 
-            onClick={() => setLocation('/admin/login')}
-            className="bg-coffee-primary text-white px-6 py-2 rounded-lg hover:bg-coffee-dark transition-colors"
-          >
-            Go to Login
-          </button>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   // Download functions
