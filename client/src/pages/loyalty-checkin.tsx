@@ -75,8 +75,6 @@ export default function LoyaltyCheckin() {
         setTokenValid(false);
         setTokenMessage("QR Code scan required to access check-in. Please scan the QR code at Coffee Pro's front desk.");
         return;
-        setTokenMessage('Direct access allowed');
-        return;
       }
 
       // If token exists in URL, validate it
@@ -85,13 +83,21 @@ export default function LoyaltyCheckin() {
       if (response.valid) {
         setTokenValid(true);
         setTokenMessage('QR code verified successfully!');
+        
+        // Set remaining time based on response
+        if (response.permanent) {
+          setRemainingTime(60); // 60 seconds to complete check-in for permanent tokens
+        } else if (response.remainingTime) {
+          setRemainingTime(response.remainingTime);
+        }
       } else {
-        setTokenValid(true); // Still allow access even with invalid token
-        setTokenMessage('Direct access allowed');
+        setTokenValid(false);
+        setTokenMessage('Invalid QR code. Please try scanning again.');
       }
     } catch (error: any) {
-      setTokenValid(true); // Always allow access since location validation was removed
-      setTokenMessage('Direct access allowed');
+      console.error('Token validation error:', error);
+      setTokenValid(false);
+      setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
     }
   };
 
