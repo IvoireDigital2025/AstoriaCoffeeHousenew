@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import QRCodeComponent from "@/components/QRCode";
 import WebsiteQRCode from "@/components/WebsiteQRCode";
+// @ts-ignore - papaparse types not available
 import Papa from 'papaparse';
 
 interface MarketingContact {
@@ -232,6 +233,13 @@ export default function AdminDashboard() {
     checkAuth();
   }, []);
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      setLocation('/admin/login');
+    }
+  }, [isAuthenticated, setLocation]);
+
   // Show loading while checking authentication
   if (isAuthenticated === null) {
     return (
@@ -243,13 +251,6 @@ export default function AdminDashboard() {
       </div>
     );
   }
-
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      setLocation('/admin/login');
-    }
-  }, [isAuthenticated, setLocation]);
 
   if (isAuthenticated === false) {
     return null;
@@ -524,7 +525,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  {filteredContacts.map((contact) => (
+                  {filteredContacts.map((contact: MarketingContact) => (
                     <div key={contact.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg hover:border-blue-300 transition-all duration-300 group">
                       <div className="flex justify-between items-start">
                         <div className="space-y-3 flex-1">
