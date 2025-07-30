@@ -19,7 +19,7 @@ export default function Loyalty() {
 
   const registrationMutation = useMutation({
     mutationFn: async (data: { name: string; phone: string; email: string }) => {
-      return await apiRequest("/api/loyalty/register", "POST", data);
+      return await apiRequest("POST", "/api/loyalty/register", data);
     },
     onSuccess: () => {
       setIsRegistered(true);
