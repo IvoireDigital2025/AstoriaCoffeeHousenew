@@ -74,6 +74,7 @@ export default function LoyaltyCheckin() {
         // No token means direct access - show access denied message
         setTokenValid(false);
         setTokenMessage("QR Code scan required to access check-in. Please scan the QR code at Coffee Pro's front desk.");
+        return;
         setTokenMessage('Direct access allowed');
         return;
       }
