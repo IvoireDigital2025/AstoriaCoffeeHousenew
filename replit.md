@@ -256,6 +256,7 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ **DIRECT ACCESS LOYALTY**: Removed token validation requirements for direct loyalty check-in access
 - ✓ **LOYALTY API WORKING**: Confirmed loyalty check-in API endpoint functions correctly with customer creation and point tracking
 - ✓ **LOYALTY REGISTRATION FIX**: Fixed apiRequest parameter order in loyalty registration form (POST method first, then URL)
+- ✓ **INSTAGRAM LINK UPDATE**: Updated Instagram links in contact page and footer to point to https://www.instagram.com/coffeepronyc/
 
 
 ## User Preferences

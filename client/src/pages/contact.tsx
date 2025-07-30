@@ -98,7 +98,7 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/coffeeprocorp/tagged/?hl=en", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/coffeepronyc/", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: FaTiktok, href: "#", label: "TikTok" },
   ];
