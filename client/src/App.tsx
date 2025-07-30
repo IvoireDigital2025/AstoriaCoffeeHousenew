@@ -17,6 +17,7 @@ import Community from "@/pages/community";
 import MoodSelectorPage from "@/pages/mood-selector";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminLogin from "@/pages/admin-login";
+import StaffAccess from "@/pages/staff-access";
 import Loyalty from "@/pages/loyalty";
 import LoyaltyCheckin from "@/pages/loyalty-checkin";
 import Franchise from "@/pages/franchise";
@@ -39,6 +40,7 @@ function Router() {
           <Route path="/loyalty" component={Loyalty} />
           <Route path="/loyalty/checkin" component={LoyaltyCheckin} />
           <Route path="/franchise" component={Franchise} />
+          <Route path="/staff" component={StaffAccess} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/contacts" component={AdminDashboard} />

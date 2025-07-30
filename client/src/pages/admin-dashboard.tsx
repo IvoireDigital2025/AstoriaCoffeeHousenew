@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import QRCodeComponent from "@/components/QRCode";
 import WebsiteQRCode from "@/components/WebsiteQRCode";
+import StaffQRGenerator from "@/components/staff-qr-generator";
 // @ts-ignore - papaparse types not available
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -548,7 +549,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
           <Tabs defaultValue="contacts" className="w-full">
             <div className="border-b border-gray-200">
-              <TabsList className="grid w-full grid-cols-5 bg-transparent rounded-none h-auto p-0">
+              <TabsList className="grid w-full grid-cols-6 bg-transparent rounded-none h-auto p-0">
                 <TabsTrigger 
                   value="contacts" 
                   className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
@@ -583,6 +584,13 @@ export default function AdminDashboard() {
                 >
                   <QrCode className="w-4 h-4 mr-2" />
                   QR Codes
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="staff" 
+                  className="data-[state=active]:bg-amber-50 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-600 border-b-2 border-transparent transition-all duration-200 rounded-none py-4 px-6 font-medium"
+                >
+                  <Star className="w-4 h-4 mr-2" />
+                  Staff Access
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -1206,6 +1214,28 @@ export default function AdminDashboard() {
                       <WebsiteQRCode />
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Staff Access Tab */}
+            <TabsContent value="staff" className="space-y-0">
+              <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
+                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-100">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="p-2 bg-amber-500 rounded-lg">
+                      <Star className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-900">Staff Access Management</span>
+                      <span className="block text-sm text-gray-600 font-normal mt-1">
+                        Generate secure access codes and QR codes for staff members
+                      </span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <StaffQRGenerator domain={window.location.hostname + (window.location.port ? ':' + window.location.port : '')} />
                 </CardContent>
               </Card>
             </TabsContent>
