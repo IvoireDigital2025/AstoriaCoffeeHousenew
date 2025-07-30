@@ -72,6 +72,7 @@ export interface IStorage {
   createLoyaltyCustomer(customer: InsertLoyaltyCustomer): Promise<LoyaltyCustomer>;
   updateLoyaltyCustomer(id: number, updates: Partial<LoyaltyCustomer>): Promise<LoyaltyCustomer | undefined>;
   getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]>;
+  getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]>;
   
   createLoyaltyVisit(visit: InsertLoyaltyVisit): Promise<LoyaltyVisit>;
   getLoyaltyVisitsByCustomer(customerId: number): Promise<LoyaltyVisit[]>;
@@ -487,6 +488,17 @@ export class MemStorage implements IStorage {
     return Array.from(this.loyaltyVisits.values()).sort((a, b) => 
       b.visitDate!.getTime() - a.visitDate!.getTime()
     );
+  }
+
+  async getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]> {
+    const cutoffTime = new Date(Date.now() - (hoursAgo * 60 * 60 * 1000));
+    return Array.from(this.loyaltyVisits.values())
+      .filter(visit => 
+        visit.customerId === customerId && 
+        visit.visitDate && 
+        visit.visitDate > cutoffTime
+      )
+      .sort((a, b) => b.visitDate!.getTime() - a.visitDate!.getTime());
   }
 
   async createLoyaltyReward(insertReward: InsertLoyaltyReward): Promise<LoyaltyReward> {

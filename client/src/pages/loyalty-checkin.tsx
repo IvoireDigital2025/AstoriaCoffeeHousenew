@@ -180,11 +180,20 @@ export default function LoyaltyCheckin() {
       setFormData({ name: "", phone: "", email: "" });
     },
     onError: (error: any) => {
-      toast({
-        title: "Check-in Failed",
-        description: error.message || "Please try again",
-        variant: "destructive",
-      });
+      // Handle recent check-in error (429 status)
+      if (error.status === 429) {
+        toast({
+          title: "Already Checked In!",
+          description: error.message || "You've already checked in recently. Please wait before your next visit.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Check-in Failed",
+          description: error.message || "Please try again",
+          variant: "destructive",
+        });
+      }
     },
   });
 

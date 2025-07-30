@@ -360,6 +360,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
         customer = await storage.createLoyaltyCustomer({ name, phone, email });
       }
 
+      // Check for recent check-ins (prevent multiple check-ins within 4 hours)
+      const recentVisits = await storage.getRecentLoyaltyVisits(customer.id, 4); // 4 hours
+      
+      if (recentVisits && recentVisits.length > 0) {
+        const lastVisit = recentVisits[0];
+        const timeSinceLastVisit = Date.now() - new Date(lastVisit.visitDate).getTime();
+        const hoursAgo = Math.floor(timeSinceLastVisit / (1000 * 60 * 60));
+        const minutesAgo = Math.floor((timeSinceLastVisit % (1000 * 60 * 60)) / (1000 * 60));
+        
+        return res.status(429).json({ 
+          message: `You've already checked in recently! Please wait before your next visit.`,
+          lastCheckIn: lastVisit.visitDate,
+          canCheckInAgain: "in a few hours",
+          timeSinceLastVisit: hoursAgo > 0 ? `${hoursAgo} hours ago` : `${minutesAgo} minutes ago`
+        });
+      }
+
       // Use customer's local time for visit record if provided
       const visitTime = localTime ? new Date(localTime) : new Date();
       
