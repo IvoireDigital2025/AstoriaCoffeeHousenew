@@ -280,8 +280,6 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ **DUPLICATE PREVENTION WORKING**: System properly blocks multiple check-ins within 2-hour window
 - ✓ **LOCATION REQUIREMENT REMOVED**: QR code can be scanned from anywhere, no GPS validation required
 - ✓ **SIMPLIFIED ACCESS CONTROL**: Only requirement is scanning QR code to get secure token for check-in
-- ✓ **TOKEN REQUIREMENT REMOVED**: Direct access to loyalty check-in page without QR code scanning
-- ✓ **OPEN ACCESS**: Customers can visit loyalty check-in page directly from any device
 
 
 ## User Preferences
