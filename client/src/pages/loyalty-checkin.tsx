@@ -74,7 +74,6 @@ export default function LoyaltyCheckin() {
         // If no token in URL, allow direct access (static QR code from store)
         setTokenValid(true);
         setTokenMessage('QR code verified successfully!');
-        setRemainingTime(0); // No countdown for static QR code access
         return;
       }
 
@@ -84,27 +83,9 @@ export default function LoyaltyCheckin() {
       if (response.valid) {
         setTokenValid(true);
         setTokenMessage('QR code verified successfully!');
-        
-        if (response.permanent) {
-          setRemainingTime(0); // No countdown for permanent tokens
-        } else {
-          setRemainingTime(response.remainingTime);
-          
-          // Start countdown timer only for non-permanent tokens
-          const timer = setInterval(() => {
-            setRemainingTime(prev => {
-              if (prev <= 1) {
-                clearInterval(timer);
-                setTokenValid(false);
-                setTokenMessage('Time expired. Please scan a new QR code.');
-                return 0;
-              }
-              return prev - 1;
-            });
-          }, 1000);
-          
-          return () => clearInterval(timer);
-        }
+      } else {
+        setTokenValid(false);
+        setTokenMessage('Invalid or expired QR code.');
       }
     } catch (error: any) {
       setTokenValid(false);
