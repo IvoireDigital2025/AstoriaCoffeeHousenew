@@ -160,14 +160,15 @@ export default function LoyaltyCheckin() {
   };
 
   const checkinMutation = useMutation({
-    mutationFn: async (data: typeof formData) => {
+    mutationFn: async (data: typeof formData): Promise<CheckinResponse> => {
       const now = new Date();
       const checkinData = {
         ...data,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         localTime: now.toISOString(),
       };
-      return await apiRequest("POST", "/api/loyalty/checkin", checkinData);
+      const response = await apiRequest("POST", "/api/loyalty/checkin", checkinData);
+      return response as CheckinResponse;
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);
@@ -190,21 +191,11 @@ export default function LoyaltyCheckin() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check token validity first
-    if (!tokenValid) {
+    // Check if time has expired
+    if (timeExpired) {
       toast({
-        title: "Invalid Access",
-        description: "Please scan the QR code at Coffee Pro to check in.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Check location
-    if (locationStatus !== 'valid') {
-      toast({
-        title: "Location Check Required",
-        description: "You must be at Coffee Pro to check in. Please enable location services and be within the store.",
+        title: "Session Expired",
+        description: "Please scan the QR code again to check in.",
         variant: "destructive",
       });
       return;
