@@ -29,7 +29,7 @@ export default function LoyaltyCheckin() {
   });
   const [checkinResult, setCheckinResult] = useState<CheckinResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [locationStatus, setLocationStatus] = useState<'checking' | 'valid' | 'invalid' | 'denied'>('checking');
+  const [locationStatus, setLocationStatus] = useState<'checking' | 'valid' | 'invalid' | 'denied'>('valid');
   const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>(null);
   const [tokenValid, setTokenValid] = useState<boolean | null>(null);
   const [tokenMessage, setTokenMessage] = useState<string>('');
@@ -45,7 +45,6 @@ export default function LoyaltyCheckin() {
 
   useEffect(() => {
     validateTokenFromUrl();
-    checkLocationPermission();
   }, []);
 
   const validateTokenFromUrl = async () => {
@@ -167,8 +166,6 @@ export default function LoyaltyCheckin() {
       const now = new Date();
       const checkinData = {
         ...data,
-        latitude: userLocation?.latitude,
-        longitude: userLocation?.longitude,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         localTime: now.toISOString(),
       };
@@ -352,43 +349,7 @@ export default function LoyaltyCheckin() {
               </div>
             )}
             
-            {/* Location Status Indicator */}
-            <div className="mt-4 p-3 rounded-lg border">
-              {locationStatus === 'checking' && (
-                <div className="flex items-center justify-center space-x-2 text-blue-600">
-                  <MapPin className="w-4 h-4 animate-pulse" />
-                  <span className="text-sm">Checking location...</span>
-                </div>
-              )}
-              {locationStatus === 'valid' && (
-                <div className="flex items-center justify-center space-x-2 text-green-600">
-                  <CheckCircle className="w-4 h-4" />
-                  <span className="text-sm">Location verified - You're at Coffee Pro!</span>
-                </div>
-              )}
-              {locationStatus === 'invalid' && (
-                <div className="flex items-center justify-center space-x-2 text-red-600">
-                  <AlertCircle className="w-4 h-4" />
-                  <span className="text-sm">Please visit Coffee Pro to check in</span>
-                </div>
-              )}
-              {locationStatus === 'denied' && (
-                <div className="flex flex-col items-center justify-center space-y-2">
-                  <div className="flex items-center space-x-2 text-orange-600">
-                    <AlertCircle className="w-4 h-4" />
-                    <span className="text-sm">Enable location services to check in</span>
-                  </div>
-                  <Button 
-                    onClick={checkLocationPermission} 
-                    variant="outline" 
-                    size="sm"
-                    className="text-xs"
-                  >
-                    Try Again
-                  </Button>
-                </div>
-              )}
-            </div>
+
             
             {/* How It Works */}
             <div className="bg-amber-50 rounded-lg p-4 mt-4 text-left">
@@ -460,12 +421,11 @@ export default function LoyaltyCheckin() {
                 <Button 
                   type="submit" 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 py-3 text-lg font-semibold"
-                  disabled={checkinMutation.isPending || locationStatus !== 'valid' || !tokenValid}
+                  disabled={checkinMutation.isPending || !tokenValid}
                 >
                   <Coffee className="w-5 h-5 mr-2" />
                   {checkinMutation.isPending ? "Checking in..." : 
-                   !tokenValid ? "Invalid Access" :
-                   locationStatus === 'valid' ? "Check In" : "Location Required"}
+                   !tokenValid ? "Invalid Access" : "Check In"}
                 </Button>
               </form>
           </CardContent>

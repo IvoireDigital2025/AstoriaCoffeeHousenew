@@ -346,31 +346,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // QR Code check-in endpoint (for customers)
   app.post("/api/loyalty/checkin", async (req, res) => {
     try {
-      const { name, phone, email, latitude, longitude, timezone, localTime } = req.body;
+      const { name, phone, email, timezone, localTime } = req.body;
       
       if (!name || !phone || !email) {
         return res.status(400).json({ message: "Name, phone, and email are required" });
-      }
-
-      // Location validation
-      if (!latitude || !longitude) {
-        return res.status(400).json({ message: "Location data is required for check-in" });
-      }
-
-      // Coffee Pro store location: 23-33 Astoria Blvd, Astoria, NY 11102
-      const STORE_LOCATION = {
-        latitude: 40.7709,
-        longitude: -73.9207,
-        radius: 100 // meters
-      };
-
-      // Calculate distance between user and store
-      const distance = calculateDistance(latitude, longitude, STORE_LOCATION.latitude, STORE_LOCATION.longitude);
-      
-      if (distance > STORE_LOCATION.radius) {
-        return res.status(403).json({ 
-          message: `You must be within ${STORE_LOCATION.radius}m of Coffee Pro to check in. You are ${Math.round(distance)}m away.` 
-        });
       }
 
       // Check if customer exists by phone (primary identifier)
