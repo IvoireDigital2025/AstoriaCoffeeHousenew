@@ -334,6 +334,48 @@ export default function AdminDashboard() {
   const totalContacts = contacts?.length || 0;
   const subscribedContacts = contacts?.filter((c: MarketingContact) => c.subscribed).length || 0;
 
+  const downloadFranchiseApplications = () => {
+    if (!franchiseApplications || franchiseApplications.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No franchise applications available to download",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const csvData = franchiseApplications.map((app: FranchiseApplication) => ({
+      'First Name': app.firstName,
+      'Last Name': app.lastName,
+      'Email': app.email,
+      'Phone': app.phone,
+      'Business Experience': app.businessExperience,
+      'Investment Capacity': app.investmentCapacity,
+      'Preferred Location': app.preferredLocation,
+      'Timeline to Open': app.timelineToOpen,
+      'Additional Information': app.additionalInfo || 'N/A',
+      'Status': app.status,
+      'Application Date': format(new Date(app.createdAt), 'MMM dd, yyyy HH:mm'),
+      'Last Updated': format(new Date(app.updatedAt), 'MMM dd, yyyy HH:mm')
+    }));
+
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `franchise-applications-${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "Download Complete",
+      description: `Downloaded ${franchiseApplications.length} franchise applications`,
+    });
+  };
+
 
 
   if (contactsLoading || messagesLoading || loyaltyCustomersLoading) {
@@ -985,17 +1027,28 @@ export default function AdminDashboard() {
             <TabsContent value="franchise" className="space-y-0">
               <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
                 <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-100">
-                  <CardTitle className="flex items-center gap-3 text-xl">
-                    <div className="p-2 bg-green-500 rounded-lg">
-                      <Building className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <span className="text-gray-900">Franchise Applications</span>
-                      <span className="block text-sm text-gray-600 font-normal mt-1">
-                        {filteredFranchiseApplications.length} applications • Status: {selectedFranchiseStatus || 'All'}
-                      </span>
-                    </div>
-                  </CardTitle>
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="flex items-center gap-3 text-xl">
+                      <div className="p-2 bg-green-500 rounded-lg">
+                        <Building className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <span className="text-gray-900">Franchise Applications</span>
+                        <span className="block text-sm text-gray-600 font-normal mt-1">
+                          {filteredFranchiseApplications.length} applications • Status: {selectedFranchiseStatus || 'All'}
+                        </span>
+                      </div>
+                    </CardTitle>
+                    <Button
+                      onClick={downloadFranchiseApplications}
+                      disabled={!franchiseApplications?.length}
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Download CSV
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-4">
