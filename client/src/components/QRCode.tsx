@@ -115,7 +115,7 @@ export default function QRCodeComponent({ size = 200, className = "", mode = 'dy
             <span className="font-bold text-green-600">Permanent QR Code</span> - Display this code in your store
           </div>
           <p className="text-xs text-coffee-medium">
-            Customers can scan this code anytime to check in and earn loyalty points
+            Customers scan this code to access the loyalty check-in page
           </p>
           
           <Button 
