@@ -941,12 +941,12 @@ export default function AdminDashboard() {
                     <h3 className="font-semibold text-gray-900 mb-2">QR Code Usage Tips</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
                       <div className="space-y-2">
-                        <p><strong>✓ Print Quality:</strong> Use high resolution for clear scanning</p>
-                        <p><strong>✓ Size:</strong> Minimum 2x2 inches for optimal scanning</p>
+                        <div><strong>✓ Print Quality:</strong> Use high resolution for clear scanning</div>
+                        <div><strong>✓ Size:</strong> Minimum 2x2 inches for optimal scanning</div>
                       </div>
                       <div className="space-y-2">
-                        <p><strong>✓ Placement:</strong> Eye-level, well-lit locations work best</p>
-                        <p><strong>✓ Testing:</strong> Test scanning from different angles regularly</p>
+                        <div><strong>✓ Placement:</strong> Eye-level, well-lit locations work best</div>
+                        <div><strong>✓ Testing:</strong> Test scanning from different angles regularly</div>
                       </div>
                     </div>
                   </div>
