@@ -46,23 +46,23 @@ export default function LoyaltyCheckin() {
 
   useEffect(() => {
     validateTokenFromUrl();
-    startCheckinTimer();
   }, []);
 
-  const startCheckinTimer = () => {
-    const timer = setInterval(() => {
-      setRemainingTime((prev) => {
-        if (prev <= 1) {
-          setTimeExpired(true);
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  useEffect(() => {
+    if (tokenValid) {
+      const timer = setInterval(() => {
+        setRemainingTime((prev) => {
+          if (prev <= 1) {
+            setTimeExpired(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
 
-    return () => clearInterval(timer);
-  };
+      return () => clearInterval(timer);
+    }
+  }, [tokenValid]);
 
   const validateTokenFromUrl = async () => {
     try {
