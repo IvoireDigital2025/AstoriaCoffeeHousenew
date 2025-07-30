@@ -83,120 +83,148 @@ export default function Loyalty() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-coffee-cream to-white">
-      {/* Hero Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mx-auto mb-8">
-            <Coffee className="w-20 h-20 text-coffee-primary mx-auto mb-4" />
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-coffee-dark mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-coffee-cream via-white to-blue-50">
+      {/* Modern Hero Section */}
+      <section className="relative py-20 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-transparent to-blue-100 opacity-60"></div>
+        <div className="relative max-w-4xl mx-auto text-center">
+          <div className="mx-auto mb-12">
+            <div className="relative inline-block">
+              <Coffee className="w-24 h-24 text-coffee-primary mx-auto mb-6 drop-shadow-lg" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-orange-400 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+            </div>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-coffee-primary via-orange-600 to-blue-600 bg-clip-text text-transparent mb-6 leading-tight">
               Join Coffee Pro Loyalty
             </h1>
-            <p className="text-base sm:text-xl text-coffee-medium mb-8">
-              Earn rewards with every visit to our Astoria location
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Unlock exclusive rewards and special perks with every visit to our charming Astoria location
             </p>
           </div>
 
-          {/* Benefits Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Gift className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Easy Rewards</h3>
-                <p className="text-coffee-medium">Get 1 point per visit, earn a free coffee at 5 points</p>
+          {/* Modern Benefits Cards */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="group bg-white/80 backdrop-blur-md border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-orange-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardContent className="relative p-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Gift className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-coffee-dark mb-3">Easy Rewards</h3>
+                <p className="text-gray-600 leading-relaxed">Get 1 point per visit, earn a free coffee at 5 points</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Star className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Exclusive Perks</h3>
-                <p className="text-coffee-medium">Special offers and early access to new menu items</p>
+            <Card className="group bg-white/80 backdrop-blur-md border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardContent className="relative p-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-coffee-dark mb-3">Exclusive Perks</h3>
+                <p className="text-gray-600 leading-relaxed">Special offers and early access to new menu items</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/90 backdrop-blur-sm border border-coffee-accent/20 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <Trophy className="w-12 h-12 text-coffee-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-coffee-dark mb-2">Access to Weekly Promotions</h3>
-                <p className="text-coffee-medium">Exclusive weekly deals and special offers for members</p>
+            <Card className="group bg-white/80 backdrop-blur-md border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-purple-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardContent className="relative p-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Trophy className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-coffee-dark mb-3">Weekly Promotions</h3>
+                <p className="text-gray-600 leading-relaxed">Exclusive weekly deals and special offers for members</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Registration Form */}
-      <section className="py-16 px-6">
-        <div className="max-w-md mx-auto">
-          <Card className="shadow-lg">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold text-coffee-dark">Sign Up Today</CardTitle>
-              <p className="text-coffee-medium">Join thousands of satisfied customers</p>
+      {/* Modern Registration Form */}
+      <section className="py-20 px-6">
+        <div className="max-w-lg mx-auto">
+          <Card className="bg-white/90 backdrop-blur-md border-0 shadow-2xl rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-transparent to-blue-50 opacity-30"></div>
+            <CardHeader className="relative text-center py-10 bg-gradient-to-r from-coffee-primary/10 to-blue-600/10">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-400 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                <User className="w-10 h-10 text-white" />
+              </div>
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-coffee-primary to-blue-600 bg-clip-text text-transparent mb-2">
+                Sign Up Today
+              </CardTitle>
+              <p className="text-gray-600 text-lg">Join thousands of satisfied customers</p>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="name" className="text-coffee-dark">Full Name</Label>
+            <CardContent className="relative p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-lg font-semibold text-gray-700">Full Name</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       id="name"
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                       placeholder="Enter your full name"
-                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="pl-12 h-14 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 rounded-xl transition-all duration-300"
                       required
                     />
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="phone" className="text-coffee-dark">Phone Number</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-lg font-semibold text-gray-700">Phone Number</Label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       placeholder="(555) 123-4567"
-                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="pl-12 h-14 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-400 rounded-xl transition-all duration-300"
                       required
                     />
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="email" className="text-coffee-dark">Email Address</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-lg font-semibold text-gray-700">Email Address</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coffee-medium w-4 h-4" />
+                    <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       placeholder="your.email@example.com"
-                      className="pl-10 focus:border-coffee-primary focus:ring-coffee-primary"
+                      className="pl-12 h-14 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-purple-400 rounded-xl transition-all duration-300"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="bg-coffee-cream/30 rounded-lg p-4 text-center">
-                  <p className="text-sm text-coffee-medium">
-                    <strong>Next Steps:</strong> Visit our Astoria location and scan the QR code at checkout to start earning points!
+                <div className="bg-gradient-to-r from-orange-50 to-blue-50 rounded-xl p-6 text-center border border-orange-100">
+                  <p className="text-gray-700 leading-relaxed">
+                    <strong className="text-coffee-primary">Next Steps:</strong> Visit our Astoria location and scan the QR code at checkout to start earning points!
                   </p>
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
+                  className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   disabled={registrationMutation.isPending}
                 >
-                  <Gift className="w-4 h-4 mr-2" />
-                  {registrationMutation.isPending ? "Joining..." : "Join Loyalty Program"}
+                  {registrationMutation.isPending ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                      Creating Your Account...
+                    </>
+                  ) : (
+                    <>
+                      <Gift className="w-5 h-5 mr-3" />
+                      Join Loyalty Program
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
