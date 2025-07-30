@@ -71,39 +71,25 @@ export default function LoyaltyCheckin() {
       const token = urlParams.get('token');
       
       if (!token) {
-        // No token means direct access - show access denied message
-        setTokenValid(false);
-        setTokenMessage("QR Code scan required to access check-in. Please scan the QR code to get access.");
+        // If no token in URL, allow direct access (location validation removed)
+        setTokenValid(true);
+        setTokenMessage('Direct access allowed');
         return;
       }
 
       // If token exists in URL, validate it
-      try {
-        const response: any = await apiRequest('POST', '/api/qr/validate', { token });
-        
-        if (response.valid) {
-          setTokenValid(true);
-          setTokenMessage('QR code verified successfully!');
-          
-          // Set remaining time based on response
-          if (response.permanent) {
-            setRemainingTime(60); // 60 seconds to complete check-in for permanent tokens
-          } else if (response.remainingTime) {
-            setRemainingTime(response.remainingTime);
-          }
-        } else {
-          setTokenValid(false);
-          setTokenMessage('Invalid QR code. Please try scanning again.');
-        }
-      } catch (error: any) {
-        console.error('Token validation error:', error);
-        setTokenValid(false);
-        setTokenMessage('Unable to validate QR code. Please try scanning the QR code again.');
+      const response: any = await apiRequest('POST', '/api/qr/validate', { token });
+      
+      if (response.valid) {
+        setTokenValid(true);
+        setTokenMessage('QR code verified successfully!');
+      } else {
+        setTokenValid(true); // Still allow access even with invalid token
+        setTokenMessage('Direct access allowed');
       }
     } catch (error: any) {
-      console.error('Token validation error:', error);
-      setTokenValid(false);
-      setTokenMessage('Unable to generate access token. Please try scanning the QR code again.');
+      setTokenValid(true); // Always allow access since location validation was removed
+      setTokenMessage('Direct access allowed');
     }
   };
 
@@ -181,7 +167,8 @@ export default function LoyaltyCheckin() {
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         localTime: now.toISOString(),
       };
-      return await apiRequest("POST", "/api/loyalty/checkin", checkinData);
+      const response = await apiRequest("POST", "/api/loyalty/checkin", checkinData);
+      return response as CheckinResponse;
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);
@@ -193,20 +180,11 @@ export default function LoyaltyCheckin() {
       setFormData({ name: "", phone: "", email: "" });
     },
     onError: (error: any) => {
-      // Handle recent check-in error (429 status)
-      if (error.status === 429) {
-        toast({
-          title: "Already Checked In!",
-          description: error.message || "You've already checked in recently. Please wait before your next visit.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Check-in Failed",
-          description: error.message || "Please try again",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Check-in Failed",
+        description: error.message || "Please try again",
+        variant: "destructive",
+      });
     },
   });
 
@@ -255,8 +233,8 @@ export default function LoyaltyCheckin() {
             <p className="text-coffee-medium">{tokenMessage}</p>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-700 text-sm">
-                To check in, you must scan the QR code to access this page.
-                The QR code contains a secure token required for check-in.
+                To check in, you must scan the QR code displayed at Coffee Pro. 
+                This ensures you're physically present at our store.
               </p>
             </div>
             <div className="text-center">
@@ -284,7 +262,7 @@ export default function LoyaltyCheckin() {
               )}
             </div>
             <CardTitle className="text-2xl font-bold text-coffee-dark">
-              {checkinResult.earnedReward ? "Free Coffee Earned!" : "Thank You!"}
+              {checkinResult.earnedReward ? "Free Coffee Earned!" : "Check-in Complete"}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -313,13 +291,6 @@ export default function LoyaltyCheckin() {
                   )}
                 </div>
               )}
-              
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-blue-800 text-sm">
-                  <strong>For your next visit:</strong><br />
-                  Please scan the QR code again to check in.
-                </p>
-              </div>
             </div>
 
             {checkinResult.earnedReward && (
@@ -331,10 +302,11 @@ export default function LoyaltyCheckin() {
             )}
 
             <Button 
-              onClick={() => window.location.href = '/'}
+              onClick={handleStartOver}
               className="w-full bg-coffee-primary hover:bg-coffee-medium text-white"
             >
-              Return Home
+              <Coffee className="w-4 h-4 mr-2" />
+              New Check-in
             </Button>
           </CardContent>
         </Card>

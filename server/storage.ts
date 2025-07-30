@@ -31,7 +31,7 @@ import {
   type InsertQrToken
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, asc, desc, and, gt } from "drizzle-orm";
+import { eq, asc, desc } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -72,7 +72,6 @@ export interface IStorage {
   createLoyaltyCustomer(customer: InsertLoyaltyCustomer): Promise<LoyaltyCustomer>;
   updateLoyaltyCustomer(id: number, updates: Partial<LoyaltyCustomer>): Promise<LoyaltyCustomer | undefined>;
   getAllLoyaltyCustomers(): Promise<LoyaltyCustomer[]>;
-  getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]>;
   
   createLoyaltyVisit(visit: InsertLoyaltyVisit): Promise<LoyaltyVisit>;
   getLoyaltyVisitsByCustomer(customerId: number): Promise<LoyaltyVisit[]>;
@@ -490,17 +489,6 @@ export class MemStorage implements IStorage {
     );
   }
 
-  async getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]> {
-    const cutoffTime = new Date(Date.now() - (hoursAgo * 60 * 60 * 1000));
-    return Array.from(this.loyaltyVisits.values())
-      .filter(visit => 
-        visit.customerId === customerId && 
-        visit.visitDate && 
-        visit.visitDate > cutoffTime
-      )
-      .sort((a, b) => b.visitDate!.getTime() - a.visitDate!.getTime());
-  }
-
   async createLoyaltyReward(insertReward: InsertLoyaltyReward): Promise<LoyaltyReward> {
     const id = this.currentLoyaltyRewardId++;
     const reward: LoyaltyReward = {
@@ -779,20 +767,6 @@ export class DatabaseStorage implements IStorage {
     return await db
       .select()
       .from(loyaltyVisits)
-      .orderBy(desc(loyaltyVisits.visitDate));
-  }
-
-  async getRecentLoyaltyVisits(customerId: number, hoursAgo: number): Promise<LoyaltyVisit[]> {
-    const cutoffTime = new Date(Date.now() - (hoursAgo * 60 * 60 * 1000));
-    return await db
-      .select()
-      .from(loyaltyVisits)
-      .where(
-        and(
-          eq(loyaltyVisits.customerId, customerId),
-          gt(loyaltyVisits.visitDate, cutoffTime)
-        )
-      )
       .orderBy(desc(loyaltyVisits.visitDate));
   }
 

@@ -360,28 +360,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         customer = await storage.createLoyaltyCustomer({ name, phone, email });
       }
 
-      // Check for recent check-ins (prevent multiple check-ins within 2 hours)
-      // Get all visits for this customer and filter recent ones
-      const allVisits = await storage.getLoyaltyVisitsByCustomer(customer.id);
-      const cutoffTime = new Date(Date.now() - (2 * 60 * 60 * 1000)); // 2 hours ago
-      const recentVisits = allVisits.filter(visit => 
-        visit.visitDate && new Date(visit.visitDate) > cutoffTime
-      );
-      
-      if (recentVisits && recentVisits.length > 0) {
-        const lastVisit = recentVisits[0];
-        const timeSinceLastVisit = Date.now() - new Date(lastVisit.visitDate!).getTime();
-        const hoursAgo = Math.floor(timeSinceLastVisit / (1000 * 60 * 60));
-        const minutesAgo = Math.floor((timeSinceLastVisit % (1000 * 60 * 60)) / (1000 * 60));
-        
-        return res.status(429).json({ 
-          message: `You've already checked in recently! Thank you for visiting Coffee Pro. Please come back later for your next check-in.`,
-          lastCheckIn: lastVisit.visitDate,
-          canCheckInAgain: "in a couple hours",
-          timeSinceLastVisit: hoursAgo > 0 ? `${hoursAgo} hours ago` : `${minutesAgo} minutes ago`
-        });
-      }
-
       // Use customer's local time for visit record if provided
       const visitTime = localTime ? new Date(localTime) : new Date();
       
@@ -580,47 +558,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // QR Token generation and validation endpoints
-  // Initialize QR system with a working token for testing
-  app.get("/api/init-qr-system", async (req, res) => {
-    try {
-      // Create a permanent token that matches admin dashboard format
-      const permanentToken = "a1b2c3d4e5f6789012345678901234567890abcdef1234567890123456789012";
-      
-      // Check if token already exists
-      const existing = await storage.getQrToken(permanentToken);
-      if (existing) {
-        const baseUrl = req.get('host')?.includes('localhost') 
-          ? `http://${req.get('host')}`
-          : `https://${req.get('host')}`;
-        
-        return res.json({
-          testUrl: `${baseUrl}/loyalty/checkin?token=${permanentToken}`,
-          message: "QR system already initialized",
-          token: permanentToken
-        });
-      }
-      
-      // Create permanent token (100 years from now)
-      const expiresAt = new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000);
-      await storage.createQrToken({
-        token: permanentToken,
-        expiresAt,
-      });
-      
-      const baseUrl = req.get('host')?.includes('localhost') 
-        ? `http://${req.get('host')}`
-        : `https://${req.get('host')}`;
-      
-      res.json({
-        testUrl: `${baseUrl}/loyalty/checkin?token=${permanentToken}`,
-        message: "QR system initialized with permanent token",
-        token: permanentToken
-      });
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-
   app.post("/api/qr/generate", requireAdminAuth, async (req, res) => {
     try {
       // Clean up expired tokens first
