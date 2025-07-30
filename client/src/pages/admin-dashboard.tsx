@@ -334,6 +334,43 @@ export default function AdminDashboard() {
   const totalContacts = contacts?.length || 0;
   const subscribedContacts = contacts?.filter((c: MarketingContact) => c.subscribed).length || 0;
 
+  const downloadMarketingContacts = () => {
+    if (!contacts || contacts.length === 0) {
+      toast({
+        title: "No Data",
+        description: "No marketing contacts available to download",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const csvData = contacts.map((contact: MarketingContact) => ({
+      'ID': contact.id,
+      'Name': contact.name || 'N/A',
+      'Email': contact.email,
+      'Phone': contact.phone || 'N/A',
+      'Source': contact.source,
+      'Subscribed': contact.subscribed ? 'Yes' : 'No',
+      'Date Added': format(new Date(contact.createdAt), 'MMM dd, yyyy HH:mm')
+    }));
+
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `marketing-contacts-${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "Download Complete",
+      description: `Downloaded ${contacts.length} marketing contacts`,
+    });
+  };
+
   const downloadFranchiseApplications = () => {
     if (!franchiseApplications || franchiseApplications.length === 0) {
       toast({
@@ -536,7 +573,6 @@ export default function AdminDashboard() {
               <Card className="border-0 shadow-sm bg-white rounded-none rounded-b-xl">
                 <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div>
                     <CardTitle className="flex items-center gap-3 text-xl">
                       <div className="p-2 bg-blue-500 rounded-lg">
                         <Mail className="w-5 h-5 text-white" />
@@ -548,8 +584,16 @@ export default function AdminDashboard() {
                         </span>
                       </div>
                     </CardTitle>
-                  </div>
                   <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <Button
+                      onClick={downloadMarketingContacts}
+                      disabled={!contacts?.length}
+                      size="sm"
+                      className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                    >
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Download CSV
+                    </Button>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
