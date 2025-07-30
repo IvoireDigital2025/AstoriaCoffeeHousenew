@@ -509,11 +509,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { status } = req.body;
-      const application = await storage.updateFranchiseApplicationStatus(parseInt(id), status);
-      if (!application) {
-        return res.status(404).json({ message: "Application not found" });
+      
+      // If rejecting, delete the application instead of updating status
+      if (status === 'rejected') {
+        await storage.deleteFranchiseApplication(parseInt(id));
+        res.json({ message: "Application rejected and removed", deleted: true });
+      } else {
+        const application = await storage.updateFranchiseApplicationStatus(parseInt(id), status);
+        if (!application) {
+          return res.status(404).json({ message: "Application not found" });
+        }
+        res.json(application);
       }
-      res.json(application);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

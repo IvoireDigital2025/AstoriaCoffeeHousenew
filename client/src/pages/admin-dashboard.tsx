@@ -146,17 +146,31 @@ export default function AdminDashboard() {
     enabled: isAuthenticated === true
   });
 
+  // Filter franchise applications (rejected applications are automatically deleted)
+  const filteredFranchiseApplications = franchiseApplications?.filter((app: FranchiseApplication) => {
+    if (!selectedFranchiseStatus || selectedFranchiseStatus === 'all') return true;
+    return app.status === selectedFranchiseStatus;
+  }) || [];
+
   const updateFranchiseStatus = useMutation({
     mutationFn: async ({ id, status }: { id: number; status: string }) => {
       await apiRequest('PATCH', `/api/admin/franchise/applications/${id}/status`, { status });
     },
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/franchise/applications'] });
-      toast({
-        title: "Status Updated",
-        description: "Franchise application status has been updated successfully.",
-        variant: "default",
-      });
+      if (variables.status === 'rejected') {
+        toast({
+          title: "Application Rejected",
+          description: "Franchise application has been rejected and removed from the system.",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Status Updated",
+          description: "Franchise application status has been updated successfully.",
+          variant: "default",
+        });
+      }
     },
     onError: (error) => {
       toast({
@@ -320,11 +334,7 @@ export default function AdminDashboard() {
   const totalContacts = contacts?.length || 0;
   const subscribedContacts = contacts?.filter((c: MarketingContact) => c.subscribed).length || 0;
 
-  // Filter franchise applications based on selected status
-  const filteredFranchiseApplications = franchiseApplications?.filter((app: FranchiseApplication) => {
-    if (selectedFranchiseStatus === null) return true;
-    return app.status === selectedFranchiseStatus;
-  }) || [];
+
 
   if (contactsLoading || messagesLoading || loyaltyCustomersLoading) {
     return (
@@ -942,10 +952,10 @@ export default function AdminDashboard() {
                             size="sm"
                             variant="outline"
                             onClick={() => updateFranchiseStatus.mutate({ id: app.id, status: 'rejected' })}
-                            disabled={app.status === 'rejected' || updateFranchiseStatus.isPending}
+                            disabled={updateFranchiseStatus.isPending}
                             className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 disabled:border-gray-300 disabled:text-gray-400 transition-all duration-200"
                           >
-                            {updateFranchiseStatus.isPending ? '...' : '❌ Reject'}
+                            {updateFranchiseStatus.isPending ? '...' : '🗑️ Reject & Remove'}
                           </Button>
                           <Button
                             size="sm"
