@@ -15,6 +15,7 @@ import QRCodeComponent from "@/components/QRCode";
 import WebsiteQRCode from "@/components/WebsiteQRCode";
 // @ts-ignore - papaparse types not available
 import Papa from 'papaparse';
+import * as XLSX from 'xlsx';
 
 interface MarketingContact {
   id: number;
@@ -334,7 +335,7 @@ export default function AdminDashboard() {
   const totalContacts = contacts?.length || 0;
   const subscribedContacts = contacts?.filter((c: MarketingContact) => c.subscribed).length || 0;
 
-  const downloadMarketingContacts = () => {
+  const downloadMarketingContacts = (downloadFormat: 'csv' | 'excel') => {
     if (!contacts || contacts.length === 0) {
       toast({
         title: "No Data",
@@ -344,7 +345,7 @@ export default function AdminDashboard() {
       return;
     }
 
-    const csvData = contacts.map((contact: MarketingContact) => ({
+    const data = contacts.map((contact: MarketingContact) => ({
       'ID': contact.id,
       'Name': contact.name || 'N/A',
       'Email': contact.email,
@@ -354,24 +355,33 @@ export default function AdminDashboard() {
       'Date Added': format(new Date(contact.createdAt), 'MMM dd, yyyy HH:mm')
     }));
 
-    const csv = Papa.unparse(csvData);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `marketing-contacts-${format(new Date(), 'yyyy-MM-dd')}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const dateStr = format(new Date(), 'yyyy-MM-dd');
+    
+    if (downloadFormat === 'csv') {
+      const csv = Papa.unparse(data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `marketing-contacts-${dateStr}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Marketing Contacts');
+      XLSX.writeFile(workbook, `marketing-contacts-${dateStr}.xlsx`);
+    }
 
     toast({
       title: "Download Complete",
-      description: `Downloaded ${contacts.length} marketing contacts`,
+      description: `Downloaded ${contacts.length} marketing contacts as ${downloadFormat.toUpperCase()}`,
     });
   };
 
-  const downloadFranchiseApplications = () => {
+  const downloadFranchiseApplications = (downloadFormat: 'csv' | 'excel') => {
     if (!franchiseApplications || franchiseApplications.length === 0) {
       toast({
         title: "No Data",
@@ -381,7 +391,7 @@ export default function AdminDashboard() {
       return;
     }
 
-    const csvData = franchiseApplications.map((app: FranchiseApplication) => ({
+    const data = franchiseApplications.map((app: FranchiseApplication) => ({
       'First Name': app.firstName,
       'Last Name': app.lastName,
       'Email': app.email,
@@ -396,20 +406,29 @@ export default function AdminDashboard() {
       'Last Updated': format(new Date(app.updatedAt), 'MMM dd, yyyy HH:mm')
     }));
 
-    const csv = Papa.unparse(csvData);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `franchise-applications-${format(new Date(), 'yyyy-MM-dd')}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const dateStr = format(new Date(), 'yyyy-MM-dd');
+
+    if (downloadFormat === 'csv') {
+      const csv = Papa.unparse(data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `franchise-applications-${dateStr}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Franchise Applications');
+      XLSX.writeFile(workbook, `franchise-applications-${dateStr}.xlsx`);
+    }
 
     toast({
       title: "Download Complete",
-      description: `Downloaded ${franchiseApplications.length} franchise applications`,
+      description: `Downloaded ${franchiseApplications.length} franchise applications as ${downloadFormat.toUpperCase()}`,
     });
   };
 
@@ -585,15 +604,26 @@ export default function AdminDashboard() {
                       </div>
                     </CardTitle>
                   <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                    <Button
-                      onClick={downloadMarketingContacts}
-                      disabled={!contacts?.length}
-                      size="sm"
-                      className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 transition-all duration-200"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
-                      Download CSV
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => downloadMarketingContacts('csv')}
+                        disabled={!contacts?.length}
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                      >
+                        <FileSpreadsheet className="w-4 h-4 mr-2" />
+                        CSV
+                      </Button>
+                      <Button
+                        onClick={() => downloadMarketingContacts('excel')}
+                        disabled={!contacts?.length}
+                        size="sm"
+                        className="bg-green-600 hover:bg-green-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                      >
+                        <FileSpreadsheet className="w-4 h-4 mr-2" />
+                        Excel
+                      </Button>
+                    </div>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
@@ -1083,15 +1113,26 @@ export default function AdminDashboard() {
                         </span>
                       </div>
                     </CardTitle>
-                    <Button
-                      onClick={downloadFranchiseApplications}
-                      disabled={!franchiseApplications?.length}
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white disabled:bg-gray-300 transition-all duration-200"
-                    >
-                      <FileSpreadsheet className="w-4 h-4 mr-2" />
-                      Download CSV
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => downloadFranchiseApplications('csv')}
+                        disabled={!franchiseApplications?.length}
+                        size="sm"
+                        className="bg-green-600 hover:bg-green-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                      >
+                        <FileSpreadsheet className="w-4 h-4 mr-2" />
+                        CSV
+                      </Button>
+                      <Button
+                        onClick={() => downloadFranchiseApplications('excel')}
+                        disabled={!franchiseApplications?.length}
+                        size="sm"
+                        className="bg-orange-600 hover:bg-orange-700 text-white disabled:bg-gray-300 transition-all duration-200"
+                      >
+                        <FileSpreadsheet className="w-4 h-4 mr-2" />
+                        Excel
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6">
