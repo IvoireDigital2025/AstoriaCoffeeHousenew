@@ -33,7 +33,8 @@ export default function LoyaltyCheckin() {
   const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>(null);
   const [tokenValid, setTokenValid] = useState<boolean | null>(null);
   const [tokenMessage, setTokenMessage] = useState<string>('');
-  const [remainingTime, setRemainingTime] = useState<number>(0);
+  const [remainingTime, setRemainingTime] = useState<number>(60);
+  const [timeExpired, setTimeExpired] = useState<boolean>(false);
   const { toast } = useToast();
 
   // Coffee Pro store location: 23-33 Astoria Blvd, Astoria, NY 11102
@@ -45,7 +46,23 @@ export default function LoyaltyCheckin() {
 
   useEffect(() => {
     validateTokenFromUrl();
+    startCheckinTimer();
   }, []);
+
+  const startCheckinTimer = () => {
+    const timer = setInterval(() => {
+      setRemainingTime((prev) => {
+        if (prev <= 1) {
+          setTimeExpired(true);
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  };
 
   const validateTokenFromUrl = async () => {
     try {
@@ -337,13 +354,25 @@ export default function LoyaltyCheckin() {
             <CardTitle className="text-2xl font-bold text-coffee-dark">Coffee Pro Loyalty Check-in</CardTitle>
             <p className="text-coffee-medium">Earn 1 point per visit • 5 points = 1 FREE Coffee</p>
             
-            {/* QR Token Time Remaining */}
-            {tokenValid && (
-              <div className="mt-4 p-3 rounded-lg border-2 border-green-200 bg-green-50">
-                <div className="flex items-center justify-center space-x-2 text-green-700">
+            {/* Check-in Timer */}
+            {tokenValid && !timeExpired && (
+              <div className="mt-4 p-3 rounded-lg border-2 border-blue-200 bg-blue-50">
+                <div className="flex items-center justify-center space-x-2 text-blue-700">
                   <Clock className="w-4 h-4" />
                   <span className="text-sm font-medium">
-                    Time remaining: {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
+                    Time to check in: {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
+            )}
+            
+            {/* Time Expired Message */}
+            {timeExpired && (
+              <div className="mt-4 p-3 rounded-lg border-2 border-red-200 bg-red-50">
+                <div className="flex items-center justify-center space-x-2 text-red-700">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="text-sm font-medium">
+                    Check-in time expired. Please scan the QR code again.
                   </span>
                 </div>
               </div>
@@ -421,11 +450,12 @@ export default function LoyaltyCheckin() {
                 <Button 
                   type="submit" 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 py-3 text-lg font-semibold"
-                  disabled={checkinMutation.isPending || !tokenValid}
+                  disabled={checkinMutation.isPending || !tokenValid || timeExpired}
                 >
                   <Coffee className="w-5 h-5 mr-2" />
                   {checkinMutation.isPending ? "Checking in..." : 
-                   !tokenValid ? "Invalid Access" : "Check In"}
+                   !tokenValid ? "Invalid Access" :
+                   timeExpired ? "Time Expired - Scan Again" : "Check In"}
                 </Button>
               </form>
           </CardContent>

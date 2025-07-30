@@ -244,6 +244,8 @@ A comprehensive digital platform celebrating Egyptian coffee culture through inn
 - ✓ **LOCATION VALIDATION REMOVED**: Completely removed location requirements and GPS validation from loyalty check-in system
 - ✓ **CHECK-IN SIMPLIFIED**: Customers can now check in from anywhere without location restrictions
 - ✓ **ENHANCED CHECK-IN BUTTON**: Made "Check In" button more prominent with blue styling and larger size
+- ✓ **60-SECOND CHECK-IN TIMER**: Added 60-second countdown timer for customers to complete check-in after accessing page
+- ✓ **TIME EXPIRATION HANDLING**: Check-in form becomes disabled after 60 seconds with clear expiration message
 
 
 ## User Preferences
