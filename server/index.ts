@@ -8,7 +8,7 @@ import connectPgSimple from "connect-pg-simple";
 
 const app = express();
 
-// Always trust proxy in production for Render
+// Always trust proxy in production (Render needs this!)
 if (process.env.NODE_ENV === "production") {
   app.set('trust proxy', 1);
 }
@@ -30,32 +30,31 @@ app.use((req, res, next) => {
 // Serve attached assets
 app.use("/attached_assets", express.static("attached_assets"));
 
-// --- FIXED SESSION CONFIG ---
+// Session store config
 const pgSession = connectPgSimple(session);
-
 app.use(
   session({
     store: new pgSession({
       pool: pool,
-      tableName: "session",         // make sure your session table matches this!
+      tableName: "session",         // MUST match your DB table!
       createTableIfMissing: false,
     }),
-    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key",
+    secret: process.env.SESSION_SECRET || "coffee-pro-secret-key-render-2025",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: "none",             // always "none" for cross-origin cookies on Render
-      secure: true,                 // always true for HTTPS on Render
+      sameSite: "none",             // ALWAYS "none" for cross-origin on Render
+      secure: true,                 // ALWAYS true for HTTPS
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000   // 24 hours
-      // do NOT set "domain"
+      // domain: undefined           // (do not set domain)
     },
     name: "coffee-pro-session",
-    proxy: true                     // this is required for Render secure cookies
+    proxy: true                     // REQUIRED for secure cookies behind proxy!
   })
 );
 
-// Logging middleware (leave as is)
+// API log middleware (leave as is)
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
