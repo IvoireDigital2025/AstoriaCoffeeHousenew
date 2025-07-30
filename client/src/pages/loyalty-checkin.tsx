@@ -73,7 +73,7 @@ export default function LoyaltyCheckin() {
       if (!token) {
         // No token means direct access - show access denied message
         setTokenValid(false);
-        setTokenMessage("QR Code scan required to access check-in. Please scan the QR code at Coffee Pro's front desk.");
+        setTokenMessage("QR Code scan required to access check-in. Please scan the QR code to get access.");
         return;
       }
 
@@ -250,8 +250,8 @@ export default function LoyaltyCheckin() {
             <p className="text-coffee-medium">{tokenMessage}</p>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-700 text-sm">
-                To check in, you must scan the QR code displayed at Coffee Pro. 
-                This ensures you're physically present at our store.
+                To check in, you must scan the QR code to access this page.
+                The QR code contains a secure token required for check-in.
               </p>
             </div>
             <div className="text-center">
@@ -312,7 +312,7 @@ export default function LoyaltyCheckin() {
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-blue-800 text-sm">
                   <strong>For your next visit:</strong><br />
-                  Please scan the QR code at our front desk to check in again.
+                  Please scan the QR code again to check in.
                 </p>
               </div>
             </div>
