@@ -459,10 +459,10 @@ export default function LoyaltyCheckin() {
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-coffee-primary hover:bg-coffee-medium text-white disabled:bg-gray-400"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 py-3 text-lg font-semibold"
                   disabled={checkinMutation.isPending || locationStatus !== 'valid' || !tokenValid}
                 >
-                  <Coffee className="w-4 h-4 mr-2" />
+                  <Coffee className="w-5 h-5 mr-2" />
                   {checkinMutation.isPending ? "Checking in..." : 
                    !tokenValid ? "Invalid Access" :
                    locationStatus === 'valid' ? "Check In" : "Location Required"}
