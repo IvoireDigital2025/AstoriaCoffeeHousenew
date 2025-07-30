@@ -18,86 +18,75 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen font-inter">
-      {/* Enhanced Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/attached_assets/IMG_2512_1751862851891.jpg')"
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+        <div className="absolute inset-0 bg-black bg-opacity-40" />
         
-        <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4 slide-in-up">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           {/* Logo and Welcome Section */}
-          <div className="mb-12">
+          <div className="mb-8">
             {/* Mobile Layout - Stacked */}
-            <div className="flex flex-col items-center justify-center gap-6 sm:hidden">
-              <div className="glass-card p-4">
-                <img 
-                  src="/attached_assets/01_1749671523922.webp"
-                  alt="Coffee Pro - Coffee & Bakery Logo"
-                  className="h-16 w-auto hero-image"
-                  loading="eager"
-                />
-              </div>
-              <h1 className="text-2xl font-playfair font-bold leading-tight gradient-text">
-                Welcome to Coffee Pro
+            <div className="flex flex-col items-center justify-center gap-4 sm:hidden">
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-16 w-auto hero-image"
+                loading="eager"
+              />
+              <h1 className="text-xl font-playfair font-bold leading-tight">
+                Welcome to
               </h1>
             </div>
             
             {/* Desktop Layout - Side by Side */}
-            <div className="hidden sm:flex items-center justify-center gap-12 md:gap-16">
-              <div className="text-left">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-playfair font-bold leading-tight mb-4">
-                  Welcome to
-                </h1>
-                <div className="h-1 w-24 bg-gradient-primary rounded-full"></div>
-              </div>
-              <div className="glass-card p-6 hover-lift">
-                <img 
-                  src="/attached_assets/01_1749671523922.webp"
-                  alt="Coffee Pro - Coffee & Bakery Logo"
-                  className="h-24 md:h-28 lg:h-32 w-auto hero-image"
-                  loading="eager"
-                />
-              </div>
+            <div className="hidden sm:flex items-center justify-center gap-8 md:gap-12">
+              <h1 className="text-2xl md:text-4xl font-playfair font-bold leading-tight">
+                Welcome to
+              </h1>
+              <img 
+                src="/attached_assets/01_1749671523922.webp"
+                alt="Coffee Pro - Coffee & Bakery Logo"
+                className="h-20 md:h-24 w-auto hero-image"
+                loading="eager"
+              />
             </div>
           </div>
           
-          {/* Enhanced Description */}
-          <div className="mb-10">
-            <div className="glass-card p-8 mb-8 backdrop-blur-md">
-              <p className="text-lg sm:text-xl md:text-2xl mb-6 text-white/90 leading-relaxed font-light">
-                Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
-              </p>
-              <div className="flex items-center justify-center text-base sm:text-lg text-white/80 px-2">
-                <div className="bg-gradient-primary rounded-full p-3 mr-4">
-                  <MapPin className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-center font-medium">23-33 Astoria Blvd, Astoria, NY 11102</span>
-              </div>
+          {/* Description */}
+          <div className="mb-6">
+            <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed px-2">
+              Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
+            </p>
+            <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2 mb-6">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
+              <span className="text-center">23-33 Astoria Blvd, Astoria, NY 11102</span>
             </div>
           </div>
           
-          {/* Enhanced Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg mx-auto">
             <Link href="/menu" className="w-full sm:w-auto">
               <Button 
                 size="lg"
-                className="floating-btn w-full sm:w-auto bg-gradient-secondary text-white border-0 px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl shadow-lg"
+                className="w-full sm:w-auto bg-coffee-secondary text-white hover:bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold"
               >
-                <Coffee className="w-5 h-5 mr-3" />
+                <Coffee className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 View Our Menu
               </Button>
             </Link>
             <Link href="/loyalty" className="w-full sm:w-auto">
               <Button 
                 size="lg"
-                className="floating-btn w-full sm:w-auto bg-gradient-primary text-white border-0 px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl shadow-lg"
+                className="w-full sm:w-auto bg-coffee-secondary text-white hover:bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold"
               >
-                <Star className="w-5 h-5 mr-3" />
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Join Loyalty Program
               </Button>
             </Link>
@@ -105,43 +94,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Enhanced Heritage Showcase Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-coffee-cream to-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-textured opacity-30"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="slide-in-up">
-              <div className="mb-8">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-bold text-coffee-dark mb-6 leading-tight">
-                  Authentic Coffee 
-                  <span className="gradient-text block">Heritage</span>
-                </h2>
-                <div className="h-1 w-32 bg-gradient-primary rounded-full mb-6"></div>
-              </div>
-              
-              <p className="text-lg sm:text-xl text-coffee-medium mb-8 leading-relaxed font-light">
+      {/* Heritage Showcase Section */}
+      <section className="py-12 sm:py-14 bg-coffee-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-coffee-dark mb-6">
+                Authentic Coffee Heritage
+              </h2>
+              <p className="text-base sm:text-xl text-coffee-medium mb-6">
                 Experience the rich traditions of Egyptian coffee culture, 
                 brought to life in the heart of New York City. Every cup tells a story of 
                 authentic brewing techniques and warm hospitality. Complement your coffee 
                 with authentic Middle Eastern treats including Dubai chocolate, Kunafa, and more.
               </p>
-              
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">
-                  <Button className="floating-btn bg-gradient-secondary hover:scale-105 text-white px-8 py-4 rounded-xl shadow-lg border-0">
-                    <Coffee className="w-5 h-5 mr-2" />
+                  <Button className="bg-coffee-secondary hover:bg-blue-600 text-white px-8 py-3">
                     Explore Our Heritage Menu
                   </Button>
                 </Link>
+
                 <Link href="/about">
-                  <Button className="floating-btn glass-card text-coffee-dark hover:bg-gradient-primary hover:text-white px-8 py-4 rounded-xl border-0 backdrop-blur-sm">
-                    <ArrowRight className="w-5 h-5 mr-2" />
+                  <Button variant="outline" className="border-coffee-secondary text-coffee-secondary hover:bg-coffee-secondary hover:text-white px-8 py-3">
                     Learn Our Story
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="relative flex justify-center lg:justify-end">
+            <div className="relative flex justify-center">
               <div className="w-full max-w-md aspect-square overflow-hidden rounded-lg shadow-xl">
                 <img 
                   src={heritageImage} 

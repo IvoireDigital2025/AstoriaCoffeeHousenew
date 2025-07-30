@@ -1,39 +1,9 @@
-/* Beautiful custom fonts and animations */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced CSS Variables and Animations */
+/* Mobile Optimization */
 @layer base {
-  :root {
-    /* Enhanced Coffee Pro Color Palette */
-    --coffee-primary: #d2691e;
-    --coffee-secondary: #4682b4;
-    --coffee-accent: #deb887;
-    --coffee-dark: #2c1810;
-    --coffee-medium: #5d4037;
-    --coffee-light: #8d6e63;
-    --coffee-cream: #f5f5dc;
-    
-    /* Beautiful gradients */
-    --gradient-primary: linear-gradient(135deg, #d2691e 0%, #ff8c42 100%);
-    --gradient-secondary: linear-gradient(135deg, #4682b4 0%, #5dade2 100%);
-    --gradient-accent: linear-gradient(135deg, #deb887 0%, #f4e4bc 100%);
-    --gradient-dark: linear-gradient(135deg, #2c1810 0%, #4a2c2a 100%);
-    
-    /* Glass morphism */
-    --glass-bg: rgba(255, 255, 255, 0.25);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: rgba(31, 38, 135, 0.37);
-    
-    /* Shadows */
-    --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.15);
-    --shadow-medium: 0 16px 40px rgba(31, 38, 135, 0.25);
-    --shadow-strong: 0 24px 48px rgba(31, 38, 135, 0.35);
-  }
-
   html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -42,16 +12,6 @@
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  /* Custom font families */
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
-  }
-  
-  .font-inter {
-    font-family: 'Inter', sans-serif;
   }
   
   /* Improved touch targets for mobile */
@@ -77,6 +37,7 @@
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     loading: lazy;
+    /* Responsive image sizing */
     object-fit: cover;
     object-position: center;
   }
@@ -112,114 +73,29 @@
   .transform {
     transform: translateZ(0);
   }
-}
-
-/* Beautiful UI Components */
-@layer components {
-  /* Glass morphism cards */
-  .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-soft);
-    border-radius: 16px;
+  
+  /* Minimize reflows and repaints */
+  .transition-all {
+    will-change: transform, opacity;
   }
   
-  /* Floating action buttons */
-  .floating-btn {
-    position: relative;
-    overflow: hidden;
-    transform: translateY(0);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Optimize fonts for performance */
+  @font-face {
+    font-display: swap;
   }
   
-  .floating-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-medium);
-  }
-  
-  .floating-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s;
-  }
-  
-  .floating-btn:hover::before {
-    left: 100%;
-  }
-  
-  /* Gradient text */
-  .gradient-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Enhanced hover effects */
-  .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-strong);
-  }
-  
-  /* Beautiful gradient backgrounds */
-  .bg-gradient-primary {
-    background: var(--gradient-primary);
-  }
-  
-  .bg-gradient-secondary {
-    background: var(--gradient-secondary);
-  }
-  
-  .bg-gradient-accent {
-    background: var(--gradient-accent);
-  }
-  
-  /* Pulse animation */
-  .pulse-slow {
-    animation: pulse-slow 3s ease-in-out infinite;
-  }
-  
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-  }
-  
-  /* Slide in animations */
-  .slide-in-up {
-    animation: slideInUp 0.8s ease-out;
-  }
-  
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+  @media (max-width: 768px) {
+    /* Larger touch targets on mobile */
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    
+    /* Better spacing for mobile */
+    .mobile-padding {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-  }
-  
-  /* Enhanced input focus states */
-  .enhanced-input {
-    position: relative;
-    transition: all 0.3s ease;
-  }
-  
-  .enhanced-input:focus {
-    transform: scale(1.02);
-    box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.2);
   }
 }
 
@@ -234,11 +110,11 @@
   --card-foreground: hsl(25, 42%, 11%);
   --border: hsl(48, 15%, 85%);
   --input: hsl(48, 15%, 85%);
-  --primary: hsl(195, 75%, 45%);
+  --primary: hsl(195, 75%, 45%); /* Logo steel blue */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(15, 80%, 60%);
+  --secondary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(195, 80%, 50%);
+  --accent: hsl(195, 80%, 50%); /* Lighter blue accent */
   --accent-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(60, 9%, 98%);
@@ -246,42 +122,198 @@
   --radius: 0.5rem;
   
   /* Coffee Pro logo-inspired colors */
-  --coffee-primary: hsl(15, 80%, 60%);
-  --coffee-secondary: hsl(195, 75%, 45%);
-  --coffee-accent: hsl(15, 85%, 65%);
+  --coffee-primary: hsl(15, 80%, 60%); /* Logo orange/coral */
+  --coffee-secondary: hsl(195, 75%, 45%); /* Logo steel blue */
+  --coffee-accent: hsl(15, 85%, 65%); /* Lighter orange accent */
   --coffee-cream: hsl(48, 38%, 97%);
   --coffee-dark: hsl(25, 42%, 11%);
   --coffee-medium: hsl(25, 52%, 35%);
-  --coffee-blue: hsl(195, 75%, 45%);
+  --coffee-gold: hsl(45, 85%, 55%);
+  --coffee-terracotta: hsl(15, 75%, 45%);
+  --coffee-sage: hsl(120, 25%, 55%);
+  --coffee-blue: hsl(195, 75%, 45%); /* Logo steel blue exact match */
 }
 
 .dark {
   --background: hsl(25, 15%, 4%);
-  --foreground: hsl(48, 30%, 96%);
-  --muted: hsl(25, 8%, 15%);
-  --muted-foreground: hsl(48, 5%, 65%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(25, 15%, 15%);
+  --muted-foreground: hsl(25, 5%, 65%);
   --popover: hsl(25, 15%, 4%);
-  --popover-foreground: hsl(48, 30%, 96%);
+  --popover-foreground: hsl(0, 0%, 98%);
   --card: hsl(25, 15%, 4%);
-  --card-foreground: hsl(48, 30%, 96%);
-  --border: hsl(25, 8%, 18%);
-  --input: hsl(25, 8%, 18%);
-  --primary: hsl(195, 75%, 45%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(25, 15%, 15%);
+  --input: hsl(25, 15%, 15%);
+  --primary: hsl(195, 75%, 45%); /* Logo steel blue */
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(15, 80%, 60%);
+  --secondary: hsl(15, 80%, 60%); /* Logo orange/coral */
   --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(195, 80%, 50%);
+  --accent: hsl(195, 80%, 50%); /* Lighter blue accent */
   --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 62%, 30%);
-  --destructive-foreground: hsl(60, 9%, 98%);
-  --ring: hsl(25, 42%, 11%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(25, 5%, 84%);
 }
 
-* {
-  border-color: hsl(var(--border));
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
 }
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+@layer components {
+  .bg-coffee-primary {
+    background-color: var(--coffee-primary);
+  }
+  
+  .bg-coffee-secondary {
+    background-color: var(--coffee-secondary);
+  }
+  
+  .bg-coffee-accent {
+    background-color: var(--coffee-accent);
+  }
+  
+  .bg-coffee-cream {
+    background-color: var(--coffee-cream);
+  }
+  
+  .bg-coffee-dark {
+    background-color: var(--coffee-dark);
+  }
+  
+  .bg-coffee-medium {
+    background-color: var(--coffee-medium);
+  }
+  
+  .text-coffee-primary {
+    color: var(--coffee-primary);
+  }
+  
+  .text-coffee-secondary {
+    color: var(--coffee-secondary);
+  }
+  
+  .text-coffee-accent {
+    color: var(--coffee-accent);
+  }
+  
+  .text-coffee-cream {
+    color: var(--coffee-cream);
+  }
+  
+  .text-coffee-dark {
+    color: var(--coffee-dark);
+  }
+  
+  .text-coffee-medium {
+    color: var(--coffee-medium);
+  }
+  
+  .border-coffee-primary {
+    border-color: var(--coffee-primary);
+  }
+  
+  .hover\:bg-coffee-medium:hover {
+    background-color: var(--coffee-medium);
+  }
+  
+  .hover\:bg-blue-600:hover {
+    background-color: rgb(37 99 235);
+  }
+  
+  .hover\:text-coffee-primary:hover {
+    color: var(--coffee-primary);
+  }
+  
+  .hover\:text-coffee-accent:hover {
+    color: var(--coffee-accent);
+  }
+}
+
+/* Custom Audio Slider Styling */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #06b6d4, #8b5cf6);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.slider::-webkit-slider-track {
+  height: 4px;
+  cursor: pointer;
+  background: #475569;
+  border-radius: 2px;
+}
+
+.slider::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #06b6d4, #8b5cf6);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.slider::-moz-range-track {
+  height: 4px;
+  cursor: pointer;
+  background: #475569;
+  border-radius: 2px;
+}
+
+/* Animation delays for audio visualizer */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mood selector text optimization */
+.mood-text-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.2;
+}
+
+/* Better text fitting for small spaces */
+.mood-card-text {
+  font-size: clamp(0.6rem, 2vw, 0.75rem);
+  line-height: 1.1;
 }
