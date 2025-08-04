@@ -777,8 +777,17 @@ export default function AdminDashboard() {
                       <div className="space-y-3">
                         <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-4 rounded-lg border border-purple-100">
                           <p className="text-sm font-semibold text-purple-800 mb-2">Subject</p>
-                          <p className="text-gray-700">{message.subject}</p>
+                          <p className="text-gray-700 capitalize">{message.subject}</p>
                         </div>
+                        {message.subject === 'reward' && message.receiptNumber && (
+                          <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-lg border border-orange-200">
+                            <p className="text-sm font-semibold text-orange-800 mb-2 flex items-center gap-2">
+                              <span>Receipt Number</span>
+                              <Badge className="bg-orange-100 text-orange-700 text-xs">Reward Request</Badge>
+                            </p>
+                            <p className="text-orange-700 font-mono bg-white px-3 py-2 rounded border text-sm font-semibold tracking-wide">{message.receiptNumber}</p>
+                          </div>
+                        )}
                         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                           <p className="text-sm font-semibold text-gray-700 mb-2">Message</p>
                           <p className="text-gray-600 leading-relaxed">{message.message}</p>
