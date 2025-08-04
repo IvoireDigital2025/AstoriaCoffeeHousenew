@@ -27,6 +27,7 @@ export const contactMessages = pgTable("contact_messages", {
   email: text("email").notNull(),
   subject: text("subject").notNull(),
   message: text("message").notNull(),
+  receiptNumber: text("receipt_number"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

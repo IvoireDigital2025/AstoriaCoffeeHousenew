@@ -14,7 +14,18 @@ import { insertContactMessageSchema } from "@shared/schema";
 import { z } from "zod";
 import NewsletterSignup from "@/components/newsletter-signup";
 
-const contactFormSchema = insertContactMessageSchema;
+const contactFormSchema = insertContactMessageSchema.extend({
+  receiptNumber: z.string().optional(),
+}).refine((data) => {
+  // If subject is "reward", receipt number is required
+  if (data.subject === "reward" && (!data.receiptNumber || data.receiptNumber.trim() === "")) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Receipt number is required when subject is 'Reward'",
+  path: ["receiptNumber"],
+});
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -22,12 +33,17 @@ export default function Contact() {
     email: "",
     subject: "",
     message: "",
+    receiptNumber: "",
   });
   const { toast } = useToast();
 
   const contactMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      const response = await apiRequest("POST", "/api/contact", data);
+      // Only include receiptNumber if subject is "reward"
+      const submitData = data.subject === "reward" 
+        ? data 
+        : { ...data, receiptNumber: undefined };
+      const response = await apiRequest("POST", "/api/contact", submitData);
       return await response.json();
     },
     onSuccess: () => {
@@ -40,6 +56,7 @@ export default function Contact() {
         email: "",
         subject: "",
         message: "",
+        receiptNumber: "",
       });
     },
     onError: (error: Error) => {
@@ -231,9 +248,31 @@ export default function Contact() {
                         <SelectItem value="feedback">Feedback</SelectItem>
                         <SelectItem value="partnership">Partnership Opportunity</SelectItem>
                         <SelectItem value="employment">Employment Inquiry</SelectItem>
+                        <SelectItem value="reward">Reward</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {/* Conditional Receipt Number Field for Reward Subject */}
+                  {formData.subject === "reward" && (
+                    <div>
+                      <Label htmlFor="receiptNumber" className="text-coffee-dark font-medium text-sm sm:text-base">
+                        Receipt Number <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="receiptNumber"
+                        type="text"
+                        value={formData.receiptNumber}
+                        onChange={(e) => handleInputChange("receiptNumber", e.target.value)}
+                        placeholder="Enter your receipt number"
+                        className="mt-1 h-11 sm:h-12 focus:border-coffee-primary focus:ring-coffee-primary text-base"
+                        required={formData.subject === "reward"}
+                      />
+                      <p className="text-xs text-gray-600 mt-1">
+                        Please provide your receipt number to help us process your reward request
+                      </p>
+                    </div>
+                  )}
                   
                   <div>
                     <Label htmlFor="message" className="text-coffee-dark font-medium">
