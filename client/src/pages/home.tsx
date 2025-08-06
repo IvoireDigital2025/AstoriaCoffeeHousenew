@@ -5,6 +5,7 @@ import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
 import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
+import { addLocalBusinessStructuredData, updatePageKeywords, localKeywords } from "@/utils/localSEO";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -17,6 +18,8 @@ export default function Home() {
   useEffect(() => {
     updatePageTitle(seoData.home.title);
     updateMetaDescription(seoData.home.description);
+    addLocalBusinessStructuredData();
+    updatePageKeywords(localKeywords);
   }, []);
 
   const handleScrollToMenu = () => {
@@ -73,7 +76,7 @@ export default function Home() {
           {/* Description */}
           <div className="mb-6">
             <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed px-2">
-              Queens' most charming coffee shop. Serving premium specialty coffee, fresh pastries, and traditional Egyptian treats in the heart of Astoria.
+              Astoria NYC's most authentic Egyptian coffee shop. Premium specialty coffee, fresh pastries, and traditional treats on Astoria Boulevard, Queens.
             </p>
             <div className="flex items-center justify-center text-base sm:text-lg text-gray-300 px-2 mb-6">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />

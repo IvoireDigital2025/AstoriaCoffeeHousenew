@@ -44,10 +44,10 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-playfair font-bold text-coffee-dark mb-4 sm:mb-6 leading-tight px-2">
-              About Coffee Pro
+              About Coffee Pro - Astoria NYC's Egyptian Coffee Shop
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-coffee-medium max-w-4xl mx-auto leading-relaxed px-4">
-              An oasis of warmth and flavor in the vibrant heart of Astoria Boulevard, bringing Egyptian coffee traditions to New York City.
+              Astoria NYC's premier Egyptian coffee shop on Astoria Boulevard. Authentic Egyptian coffee traditions in the heart of Queens, serving the local Astoria community since 2024.
             </p>
           </div>
         </div>
