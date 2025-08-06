@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Coffee, Bot, Star, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import NewsletterSignup from "@/components/newsletter-signup";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import arabicCoffeeImage from "@assets/arabiccoffee_1024x1024@2x_1749454274939.webp";
 import heritageImage from "@assets/ChatGPT Image Jul 6, 2025, 04_37_42 PM_1751838026092.png";
 import dubaiDessertImage from "@assets/Dubai-Pistachio-Cheese-Bomb-11 (1)_1749666253720.jpg";
@@ -12,6 +14,11 @@ import communityImage from "@assets/IMG_4357_1751842608848.jpg";
 
 
 export default function Home() {
+  useEffect(() => {
+    updatePageTitle(seoData.home.title);
+    updateMetaDescription(seoData.home.description);
+  }, []);
+
   const handleScrollToMenu = () => {
     // Since this is a single-page approach, we'll navigate to menu page
     window.location.href = "/menu";
@@ -39,6 +46,8 @@ export default function Home() {
                 alt="Coffee Pro - Coffee & Bakery Logo"
                 className="h-16 w-auto hero-image"
                 loading="eager"
+                width="64"
+                height="64"
               />
               <h1 className="text-xl font-playfair font-bold leading-tight">
                 Welcome to
@@ -55,6 +64,8 @@ export default function Home() {
                 alt="Coffee Pro - Coffee & Bakery Logo"
                 className="h-20 md:h-24 w-auto hero-image"
                 loading="eager"
+                width="96"
+                height="96"
               />
             </div>
           </div>

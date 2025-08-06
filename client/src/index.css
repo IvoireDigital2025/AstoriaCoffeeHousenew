@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance Critical CSS */
+@font-display: swap;
+
 /* Mobile Optimization */
 @layer base {
   html {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +6,7 @@ import { Coffee, Leaf, UtensilsCrossed, Snowflake, Sandwich, GlassWater, Star } 
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import type { MenuItem } from "@shared/schema";
 
 
@@ -36,6 +37,11 @@ import juiceImg2 from "@assets/IMG_4352_1751831967751.jpg";
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<string>("pastry");
   const { toast } = useToast();
+
+  useEffect(() => {
+    updatePageTitle(seoData.menu.title);
+    updateMetaDescription(seoData.menu.description);
+  }, []);
 
   const { data: menuItems, isLoading } = useQuery<MenuItem[]>({
     queryKey: ["/api/menu", activeCategory],

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +24,11 @@ interface Location {
 }
 
 export default function Locations() {
+  useEffect(() => {
+    updatePageTitle(seoData.locations.title);
+    updateMetaDescription(seoData.locations.description);
+  }, []);
+
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
 
   const locations: Location[] = [

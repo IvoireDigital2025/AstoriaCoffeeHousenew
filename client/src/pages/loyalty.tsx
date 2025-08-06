@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,11 @@ import { Coffee, Gift, User, Phone, Mail, CheckCircle, Star, Trophy } from "luci
 import { apiRequest } from "@/lib/queryClient";
 
 export default function Loyalty() {
+  useEffect(() => {
+    updatePageTitle(seoData.loyalty.title);
+    updateMetaDescription(seoData.loyalty.description);
+  }, []);
+
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",

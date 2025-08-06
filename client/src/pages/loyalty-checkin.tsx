@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,11 @@ interface CheckinResponse {
 }
 
 export default function LoyaltyCheckin() {
+  useEffect(() => {
+    updatePageTitle(seoData['loyalty-checkin'].title);
+    updateMetaDescription(seoData['loyalty-checkin'].description);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -168,7 +174,7 @@ export default function LoyaltyCheckin() {
         localTime: now.toISOString(),
       };
       const response = await apiRequest("POST", "/api/loyalty/checkin", checkinData);
-      return response;
+      return await response.json();
     },
     onSuccess: (data: CheckinResponse) => {
       setCheckinResult(data);

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { updateMetaDescription, updatePageTitle, seoData } from '@/utils/seo';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -15,6 +16,11 @@ import { useToast } from '@/hooks/use-toast';
 import interiorPath from '@assets/IMG_3190_1751760266088.jpg';
 
 export default function FranchisePage() {
+  useEffect(() => {
+    updatePageTitle(seoData.franchise.title);
+    updateMetaDescription(seoData.franchise.description);
+  }, []);
+
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
   

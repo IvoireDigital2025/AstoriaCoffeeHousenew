@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +29,11 @@ const contactFormSchema = insertContactMessageSchema.extend({
 });
 
 export default function Contact() {
+  useEffect(() => {
+    updatePageTitle(seoData.contact.title);
+    updateMetaDescription(seoData.contact.description);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

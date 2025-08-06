@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 import { Badge } from "@/components/ui/badge";
 import { Coffee, Users, Heart, Star, MessageCircle, Play, Instagram } from "lucide-react";
 import NewsletterSignup from "@/components/newsletter-signup";
@@ -17,6 +19,11 @@ import communityPhoto10 from "@assets/IMG_4133_1751590186682.jpg";
 import communityPhoto11 from "@assets/IMG_4134_1751590186682.jpg";
 
 export default function Community() {
+  useEffect(() => {
+    updatePageTitle(seoData.community.title);
+    updateMetaDescription(seoData.community.description);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-coffee-cream via-amber-50 to-coffee-cream">
       {/* Header Section */}

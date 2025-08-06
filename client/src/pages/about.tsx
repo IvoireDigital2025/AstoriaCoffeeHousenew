@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Coffee, Users, Star, MapPin, Clock, Award } from "lucide-react";
+import { updateMetaDescription, updatePageTitle, seoData } from "@/utils/seo";
 
 export default function About() {
+  useEffect(() => {
+    updatePageTitle(seoData.about.title);
+    updateMetaDescription(seoData.about.description);
+  }, []);
+
   const stats = [
     { number: "12", label: "Months Established", icon: Clock },
     { number: "1", label: "Astoria Location", icon: MapPin },
