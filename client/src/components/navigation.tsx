@@ -88,14 +88,24 @@ export default function Navigation() {
                       Franchise Opportunity
                     </Button>
                   </Link>
-                  <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
-                    <Button
-                      className="bg-orange-600 hover:bg-orange-700 text-white font-medium px-3 py-2 text-sm"
-                      size="sm"
-                    >
-                      Order Delivery
-                    </Button>
-                  </a>
+                  <div className="flex gap-2">
+                    <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="bg-orange-600 hover:bg-orange-700 text-white font-medium px-3 py-2 text-sm"
+                        size="sm"
+                      >
+                        DoorDash
+                      </Button>
+                    </a>
+                    <a href="https://www.ubereats.com/store/coffee-pro/CjnTkbjOVLSymuxOdqZvOQ?diningMode=DELIVERY" target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="bg-green-600 hover:bg-green-700 text-white font-medium px-3 py-2 text-sm"
+                        size="sm"
+                      >
+                        Uber Eats
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -180,14 +190,24 @@ export default function Navigation() {
                           Franchise Opportunity
                         </Button>
                       </Link>
-                      <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
-                        <Button
-                          className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 rounded-lg transition-colors"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Order Delivery
-                        </Button>
-                      </a>
+                      <div className="space-y-3">
+                        <a href="https://www.doordash.com/store/coffee-pro-corpo-astoria-30999939/43312348/?srsltid=AfmBOooPARJ1ZQBO14sBiUJJaSPCVTZA9LVIo_mETjO6yppzHrZHcviN" target="_blank" rel="noopener noreferrer">
+                          <Button
+                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 rounded-lg transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            Order on DoorDash
+                          </Button>
+                        </a>
+                        <a href="https://www.ubereats.com/store/coffee-pro/CjnTkbjOVLSymuxOdqZvOQ?diningMode=DELIVERY" target="_blank" rel="noopener noreferrer">
+                          <Button
+                            className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-lg transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            Order on Uber Eats
+                          </Button>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </SheetContent>
